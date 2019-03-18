@@ -15,7 +15,7 @@ export class UserService {
   }*/
 
   login(user){
-    return this.http.post(SERVER_URL+'/user/login',user);
+    return this.http.post(SERVER_URL+'/user/login',user,{responseType: 'text'});
   }
 
   /*activateUser(hash){
@@ -24,10 +24,6 @@ export class UserService {
 
   getLoged(){
     return this.http.get(SERVER_URL + '/user/loged');
-  }
-
-  updateUser(user:any){
-    return this.http.put(SERVER_URL + '/user/update',user);
   }
 
   /*updatePasswordUser(user:any){

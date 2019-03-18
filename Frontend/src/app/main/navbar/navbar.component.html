@@ -1,8 +1,13 @@
 <div class="d-flex flex-column flex-md-row align-items-center p-3 
             px-md-4 mb-3 bg-white border-bottom shadow-sm">
-  <a [routerLink]="'/'" class="my-0 mr-md-auto font-weight-normal" style="color:black;">
+  <a [routerLink]="'/'" class="my-0 font-weight-normal" style="color:black;">
     <h5>Top Secret</h5>
   </a>
+  <ul class="nav left mr-md-auto ml-5">
+    <li class="nav-item">
+        <a class="nav-link navigacija" [routerLink]="'adminPage'">Admin Page</a>
+    </li>
+</ul>
   <nav class="my-2 my-md-0 mr-md-3">
     <a class="p-2 text-dark" [routerLink]="'/login'">Sign in</a>
   </nav>

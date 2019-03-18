@@ -11,6 +11,8 @@ import {FlexLayoutModule} from '@angular/flex-layout';
 import { NavbarComponent } from './navbar/navbar.component';
 import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
+import { AdminPageComponent } from './admin-page/admin-page.component';
+import { CreateCertificateComponent } from './create-certificate/create-certificate.component';
 
 @NgModule({
   declarations:[
@@ -18,6 +20,8 @@ import { LoginComponent } from './login/login.component';
     NavbarComponent,
     HomeComponent,
     LoginComponent,
+    AdminPageComponent,
+    CreateCertificateComponent,
   ],
   imports: [
     CommonModule,

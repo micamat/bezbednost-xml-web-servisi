@@ -21,7 +21,7 @@ export class LoginComponent implements OnInit {
 
   ngOnInit() {
       this.SingIn = this.formBuilder.group({
-        username:['',Validators.required],
+        email:['',Validators.required],
         password:['',Validators.required]
       });
   }
@@ -37,8 +37,8 @@ export class LoginComponent implements OnInit {
     }
     console.log(this.user)
     this._userService.login(this.user).subscribe(
-      data => console.log(this.user)
-              //this.router.navigateByUrl("avio-company/showAvioCompany/" + this.avioCompanyId)
+      data => 
+              this.router.navigateByUrl("")
     );
 
     
