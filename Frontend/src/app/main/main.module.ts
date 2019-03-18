@@ -1,0 +1,34 @@
+import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MainComponent } from './main.component';
+import {MatToolbarModule, MatButtonModule, MatIconModule} from '@angular/material';
+import {RouterModule} from '@angular/router';
+import { MainRoutes } from './main.route';
+import { SharedModule } from '../shared/shared.module';
+import {FlexLayoutModule} from '@angular/flex-layout';
+import { NavbarComponent } from './navbar/navbar.component';
+import { HomeComponent } from './home/home.component';
+import { LoginComponent } from './login/login.component';
+
+@NgModule({
+  declarations:[
+    MainComponent,
+    NavbarComponent,
+    HomeComponent,
+    LoginComponent,
+  ],
+  imports: [
+    CommonModule,
+    RouterModule.forRoot(MainRoutes),
+    SharedModule,
+    NgbModule.forRoot(),
+    FlexLayoutModule,
+    FormsModule,
+    ReactiveFormsModule
+  ],
+  entryComponents:[],
+  exports: [MainComponent]
+})
+export class MainModule { }
