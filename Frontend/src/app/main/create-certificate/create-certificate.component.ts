@@ -21,17 +21,17 @@ export class CreateCertificateComponent implements OnInit {
 
   ngOnInit() {
       this.certForm = this.formBuilder.group({
-        who:['',Validators.required],
+        alias:['',Validators.required],
         selfSigned:['',Validators.required],
         comonName:['',Validators.required],
-        surName:['',Validators.required],
+        surname:['',Validators.required],
         givenName:['',Validators.required],
         organizationName:['',Validators.required],
         organizationUnitName:['',Validators.required],
         countryName:['',Validators.required],
         email:['',Validators.required],
-        from:['',Validators.required],
-        to:['',Validators.required],
+        startDate:['',Validators.required],
+        endDate:['',Validators.required],
       });
   }
 
@@ -39,8 +39,12 @@ export class CreateCertificateComponent implements OnInit {
 
   onSubmit(event:any) {
     this.submitted = true;
-    this.cert = this.certForm.getRawValue()
-
+    this.cert = this.certForm.getRawValue();
+    console.log(this.cert);
+    if(this.cert.selfSigned == true){
+      this.cert.alias = null;
+    }
+    console.log(this.cert);
     this._certificateService.createCertificate(this.cert).subscribe(
       data => 
               console.log("Uspesno sam zavrsio cuvanje sertifikata")
