@@ -23,17 +23,23 @@ public class GenerateCertificateService {
 	
 	public boolean createCertificate(CertificateDTO certificate)
 	{
+		//kreiramo par kljuceva
 		KeyGenerator kg=new KeyGenerator();
 		KeyPair keyPairSubject = kg.generateKeys();
+		//napravimo podatke za onoga ko izdaje sertifikate
 		SubjectData subjectData = generateSubjectData(certificate,keyPairSubject);
 		IssuerData issuerData = null;
-		System.out.println("dasfas" + certificate.getAlias());
+		
+		//e sad ovde u zavisnosti da li je self signed onda ulazi u ovaj if jer ovo alias
+		//ce biti nulll
 		if(certificate.getAlias()==null) {
 			//ovde je selfsigned
+			//ja sam ovde odradio samo za ovo self signed
 			issuerData = generateIssuerData(certificate,keyPairSubject.getPrivate());
 		}
 		else{
 			//ovde iscipati iz baze
+			//ovde treba da se odradi za ovaj sto ga neko potpisuje
 			//issuerData = generateIssuerData(certificate,keyPairSubject.getPrivate());
 		}
 		System.out.println("Kljuce je : " + issuerData.getPrivateKey());
