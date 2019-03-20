@@ -13,5 +13,9 @@ export class CertificateService {
   createCertificate(certificate){
     return this.http.post(SERVER_URL+'/certificate/create',certificate,{responseType: 'text'});
   }
+
+  createKeystore(keystore){
+    return this.http.post(SERVER_URL+'/certificate/createKeystore',keystore,{responseType: 'text'});
+  }
   
 }

@@ -13,6 +13,7 @@ import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
 import { AdminPageComponent } from './admin-page/admin-page.component';
 import { CreateCertificateComponent } from './create-certificate/create-certificate.component';
+import { CreateKeystoreComponent } from './create-keystore/create-keystore.component';
 
 @NgModule({
   declarations:[
@@ -22,6 +23,7 @@ import { CreateCertificateComponent } from './create-certificate/create-certific
     LoginComponent,
     AdminPageComponent,
     CreateCertificateComponent,
+    CreateKeystoreComponent,
   ],
   imports: [
     CommonModule,

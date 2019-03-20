@@ -11,6 +11,9 @@ import javax.persistence.Table;
 @Table(name = "hierarchy")
 public class HierarchyModel {
 
+	public HierarchyModel(){
+	}
+	
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -36,8 +39,10 @@ public class HierarchyModel {
 	@Column(nullable = false)
 	private String email;
 	
+	@Column(nullable = false)
 	private String path;
 	
+	@Column(nullable = false)
 	private Long parentId;
 	
 	public String getComonName() {
