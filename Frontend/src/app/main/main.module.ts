@@ -15,6 +15,7 @@ import { AdminPageComponent } from './admin-page/admin-page.component';
 import { CreateCertificateComponent } from './create-certificate/create-certificate.component';
 import { CreateNodeComponent } from './create-node/create-node.component';
 import { CreateKeystoreComponent } from './create-keystore/create-keystore.component';
+import { ShowCertificatesComponent } from './show-certificates/show-certificates.component';
 
 @NgModule({
   declarations:[
@@ -25,7 +26,8 @@ import { CreateKeystoreComponent } from './create-keystore/create-keystore.compo
     AdminPageComponent,
     CreateCertificateComponent,
     CreateNodeComponent,
-    CreateKeystoreComponent
+    CreateKeystoreComponent,
+    ShowCertificatesComponent
   ],
   imports: [
     CommonModule,
