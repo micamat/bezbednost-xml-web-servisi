@@ -1,16 +1,20 @@
 package project.certificate.keystore;
 
 public class KeystoreDTO {
-	
-	public KeystoreDTO() {
-	}
+
 	
 	private String keystoreName;
 	
 	private String password;
 	
+	private String privateKeyPassword;
+	
 	private String role;
 
+	public KeystoreDTO() {
+		
+	}
+	
 	public String getKeystoreName() {
 		return keystoreName;
 	}
@@ -34,5 +38,14 @@ public class KeystoreDTO {
 	public void setRole(String role) {
 		this.role = role;
 	}
+
+	public String getPrivateKeyPassword() {
+		return privateKeyPassword;
+	}
+
+	public void setPrivateKeyPassword(String privateKeyPassword) {
+		this.privateKeyPassword = privateKeyPassword;
+	}
+	
 	
 }

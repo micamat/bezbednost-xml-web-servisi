@@ -26,6 +26,9 @@ public class Keystore {
 	@Column(name="password", nullable = false)
 	private String password;
 	
+	@Column(name="privateKeyPassword", nullable = false)
+	private String privateKeyPassword;
+	
 	@Column(name="role", nullable = false)
 	private String role;
 	
@@ -60,6 +63,14 @@ public class Keystore {
 
 	public void setRole(String role) {
 		this.role = role;
+	}
+
+	public String getPrivateKeyPassword() {
+		return privateKeyPassword;
+	}
+
+	public void setPrivateKeyPassword(String privateKeyPassword) {
+		this.privateKeyPassword = privateKeyPassword;
 	}
 		
 }

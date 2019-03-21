@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.RestController;
 import project.certificate.dto.CertificateDTO;
 import project.certificate.dto.CertificateDetailDTO;
 import project.certificate.keystore.KeystoreDTO;
+import project.certificate.model.CertificateModel;
+import project.certificate.service.CertificateService;
 import project.certificate.service.GenerateCertificateService;
 
 @RestController
@@ -22,6 +24,9 @@ public class CertificateController {
 
 	@Autowired
 	private GenerateCertificateService certificateService;
+	
+	@Autowired
+	private CertificateService service;
 	
 	
 	@PostMapping("/create")
@@ -46,7 +51,7 @@ public class CertificateController {
 	}
 	
 	@GetMapping(value = "/getAllAdminKeystores")
-	public ResponseEntity<List<KeystoreDTO>> getAll(){
+	public ResponseEntity<List<KeystoreDTO>> getAllKeystores(){
 		if(certificateService.getAllAdminKeystores() == null) {
 			return new ResponseEntity<List<KeystoreDTO>>(HttpStatus.NO_CONTENT);
 		}
@@ -55,9 +60,32 @@ public class CertificateController {
 	
 	@GetMapping(value = "/certificates")
 	public ResponseEntity<List<CertificateDetailDTO>> getCertificates(){
-		if(certificateService.getAllCertificates() == null) {
+		if(certificateService.getAllCertificatesDetails() == null) {
 			return new ResponseEntity<List<CertificateDetailDTO>>(HttpStatus.NO_CONTENT);
 		}
-		return new ResponseEntity<List<CertificateDetailDTO>>(certificateService.getAllCertificates(),HttpStatus.OK);
+		return new ResponseEntity<List<CertificateDetailDTO>>(certificateService.getAllCertificatesDetails(),HttpStatus.OK);
 	}
+	
+	@GetMapping(value = "/getAllCertificate")
+	public ResponseEntity<List<CertificateDTO>> getAllCertificate(){
+		if(certificateService.getAllCertificates() == null) {
+			return new ResponseEntity<List<CertificateDTO>>(HttpStatus.NO_CONTENT);
+		}
+		return new ResponseEntity<List<CertificateDTO>>(certificateService.getAllCertificates(),HttpStatus.OK);
+	}
+
+	@GetMapping(value = "/all")
+	public ResponseEntity<List<CertificateModel>> findAll(){
+		return new ResponseEntity<List<CertificateModel>>(service.findAll(), HttpStatus.OK);
+	}
+	
+	public ResponseEntity<CertificateModel> findById(@RequestBody Long id){
+		return new ResponseEntity<CertificateModel>(service.findById(id), HttpStatus.OK);
+	}
+	
+	@PostMapping
+	public ResponseEntity<CertificateModel> save(@RequestBody CertificateModel cert){
+		return new ResponseEntity<CertificateModel>(service.save(cert), HttpStatus.CREATED);
+	}
+
 }

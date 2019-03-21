@@ -9,6 +9,6 @@ import project.user.model.User;
 public interface KeystoreRepository extends JpaRepository<Keystore, Long> {
 	
 	boolean existsByKeystoreName(String keystoreName);
-	User findByKeystoreName(String keystoreName);
+	Keystore findByKeystoreName(String keystoreName);
 	
 }

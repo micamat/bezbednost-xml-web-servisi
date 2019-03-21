@@ -28,6 +28,8 @@ import project.certificate.keystore.KeyStoreWriter;
 import project.certificate.keystore.Keystore;
 import project.certificate.keystore.KeystoreDTO;
 import project.certificate.keystore.KeystoreRepository;
+import project.certificate.model.CertificateModel;
+import project.certificate.repository.CertificateRepository;
 
 @Service
 public class GenerateCertificateService {
@@ -35,12 +37,39 @@ public class GenerateCertificateService {
 	@Autowired
 	private KeystoreRepository keystoreRepository;
 	
+	@Autowired
+	private CertificateRepository certificateRepository;
+	
+	/*@Autowired
+	private HierarchyService HierarchyService;*/
+	
 	public boolean createCertificate(CertificateDTO certificate)
 	{
 		KeyGenerator kg = new KeyGenerator();
 		KeyPair keyPairSubject = kg.generateKeys();
 		
-		SubjectData subjectData = generateSubjectData(certificate,keyPairSubject);
+		if(keystoreRepository.existsByKeystoreName(certificate.getKeystore()) == false) {
+			return false;
+		}
+		Keystore k = keystoreRepository.findByKeystoreName(certificate.getKeystore());
+		if(!k.getPassword().equals(certificate.getPassword())) {
+			return false;
+		}
+		if(!k.getPrivateKeyPassword().equals(certificate.getPrivatePassword())) {
+			return false;
+		}
+		
+		CertificateModel cm = new CertificateModel();
+		cm.setCa(certificate.getCa());
+		cm.setKeyStore(certificate.getKeystore());
+		cm.setRevoked(false);
+		cm.setAlias("");
+		
+		cm = certificateRepository.save(cm);
+		cm.setAlias(cm.getId().toString());
+		certificateRepository.save(cm);
+		
+		SubjectData subjectData = generateSubjectData(certificate,keyPairSubject,cm.getId().toString());
 		IssuerData issuerData = null;
 
 		if(certificate.getWho() == null) {
@@ -48,32 +77,20 @@ public class GenerateCertificateService {
 			issuerData = generateIssuerData(certificate,keyPairSubject.getPrivate());
 		}
 		else{
-			//ovde iscipati iz baze
+			//ovde iscipati iz baza
+				
 		}
 
 		
 		CertificateGenerator cg = new CertificateGenerator();
 		X509Certificate cert = cg.generateCertificate(subjectData, issuerData);
 		
-		//proveriti dal je dobra sifra keystora....
-		/*List<Keystore> k = new ArrayList<Keystore>();
-		System.out.println("Aj ispisi zivotat ti " + certificate.getKeystore() + certificate.getPassword());
-		k = keystoreRepository.findAll();
-		boolean temp = true;
-		for (Keystore sample : k) {
-				if(sample.getKeystoreName().equals(certificate.getKeystore())) {
-					if(sample.getPassword().equals(certificate.getPassword())) {
-						temp = false;
-					}
-				}
-		}
-		if(temp) {
-			return false;
-		}*/
+		
+		
 		
 		KeyStoreWriter wr = new KeyStoreWriter();
 		wr.loadKeyStore("./keystore/admin/" + certificate.getKeystore(), certificate.getPassword().toCharArray());
-		wr.write(certificate.getToWhom().getOrganizationName(), issuerData.getPrivateKey(), certificate.getPassword().toCharArray(), cert);
+		wr.write(certificate.getToWhom().getOrganizationName(), issuerData.getPrivateKey(), certificate.getPrivatePassword().toCharArray(), cert);
 		wr.saveKeyStore("./keystore/admin/" + certificate.getKeystore(), certificate.getPassword().toCharArray());
 		
 		return true;
@@ -87,6 +104,7 @@ public class GenerateCertificateService {
 		Keystore k = new Keystore();
 		k.setKeystoreName(keystoreDTO.getKeystoreName());
 		k.setPassword(keystoreDTO.getPassword());
+		k.setPrivateKeyPassword(keystoreDTO.getPrivateKeyPassword());
 		k.setRole(keystoreDTO.getRole());
 		keystoreRepository.save(k);
 		
@@ -119,7 +137,7 @@ public class GenerateCertificateService {
 		return kDTO;
 	}
 	
-	public List<CertificateDetailDTO> getAllCertificates() {
+	public List<CertificateDetailDTO> getAllCertificatesDetails() {
 		List<Certificate> certificates = new ArrayList<Certificate>();
 		List<KeystoreDTO> keystoreDTO = getAllAdminKeystores();
 		KeyStoreReader kr = new KeyStoreReader();
@@ -168,7 +186,17 @@ public class GenerateCertificateService {
 		return certificatesDTO;
 	}
 	
-	private SubjectData generateSubjectData(CertificateDTO certificate,KeyPair keyPairSubject) {
+	public List<CertificateDTO> getAllCertificates(){
+		
+		
+		
+		return null;
+	}
+	
+	
+	
+	private SubjectData generateSubjectData(CertificateDTO certificate,KeyPair keyPairSubject,String serial) {
+
 		try {
 			
 			
@@ -178,9 +206,8 @@ public class GenerateCertificateService {
 			Date endDate = iso8601Formater.parse(certificate.getEndDate());
 			
 			//Serijski broj sertifikata
-			String sn= "123456";
+			String sn= serial;
 			
-			System.out.println("Ajde ispisi ovo " + certificate.getToWhom().getComonName());
 			//klasa X500NameBuilder pravi X500Name objekat koji predstavlja podatke o vlasniku
 			X500NameBuilder builder = new X500NameBuilder(BCStyle.INSTANCE);
 		    builder.addRDN(BCStyle.CN, certificate.getToWhom().getComonName());
@@ -218,7 +245,7 @@ public class GenerateCertificateService {
 	    builder.addRDN(BCStyle.C, certificate.getToWhom().getCountryName());
 	    builder.addRDN(BCStyle.E, certificate.getToWhom().getEmail());
 	    
-	    //UID (USER ID) je ID korisnika
+	    //UID (USER ID) je ID korisnika 
 	    builder.addRDN(BCStyle.UID, "123456");
 
 		//Kreiraju se podaci za issuer-a, sto u ovom slucaju ukljucuje:
