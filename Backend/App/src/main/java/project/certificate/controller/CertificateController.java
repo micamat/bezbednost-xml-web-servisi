@@ -57,7 +57,6 @@ public class CertificateController {
 		return new ResponseEntity<List<KeystoreDTO>>(certificateService.getAllAdminKeystores(),HttpStatus.OK);
 	}
 	
-<<<<<<< HEAD
 	@GetMapping(value = "/getAllCertificate")
 	public ResponseEntity<List<CertificateDTO>> getAllCertificate(){
 		if(certificateService.getAllCertificates() == null) {
@@ -65,8 +64,7 @@ public class CertificateController {
 		}
 		return new ResponseEntity<List<CertificateDTO>>(certificateService.getAllCertificates(),HttpStatus.OK);
 	}
-	
-=======
+
 	@GetMapping(value = "/all")
 	public ResponseEntity<List<CertificateModel>> findAll(){
 		return new ResponseEntity<List<CertificateModel>>(service.findAll(), HttpStatus.OK);
@@ -81,5 +79,4 @@ public class CertificateController {
 		return new ResponseEntity<CertificateModel>(service.save(cert), HttpStatus.CREATED);
 	}
 
->>>>>>> 543de450b31f5e473f263213759847b53b01bcc5
 }
