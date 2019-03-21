@@ -1,24 +1,69 @@
 package project.certificate.dto;
 
+import project.hierarchy.HierarchyModel;
+
 public class CertificateDTO {
 
+	private String who;
+	private Boolean selfSigned;
+	private HierarchyModel toWhom;
+	private Boolean ca;
+	private String keystore;
+	private String password;
+	
 	private String startDate;
 	private String endDate;
-	
-	//Podaci o onome kome izdajemo sertifikat
-	private String comonName;
-	private String surname;
-	private String givenName;
-	private String organizationName;
-	private String organizationUnitName;
-	private String countryName;
-	private String email;
-	
-	//Podatak o onome ko potpisuje sertifikat (null ako je selfSigned)
-	private String alias;
 
 	public CertificateDTO() {
 
+	}
+
+	public String getWho() {
+		return who;
+	}
+
+	public void setWho(String who) {
+		this.who = who;
+	}
+
+	public Boolean getSelfSigned() {
+		return selfSigned;
+	}
+
+	public void setSelfSigned(Boolean selfSigned) {
+		this.selfSigned = selfSigned;
+	}
+
+	public HierarchyModel getToWhom() {
+		return toWhom;
+	}
+
+	public void setToWhom(HierarchyModel toWhom) {
+		this.toWhom = toWhom;
+	}
+
+	public Boolean getCa() {
+		return ca;
+	}
+
+	public void setCa(Boolean ca) {
+		this.ca = ca;
+	}
+
+	public String getKeystore() {
+		return keystore;
+	}
+
+	public void setKeystore(String keystore) {
+		this.keystore = keystore;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
 	}
 
 	public String getStartDate() {
@@ -37,70 +82,4 @@ public class CertificateDTO {
 		this.endDate = endDate;
 	}
 
-	public String getComonName() {
-		return comonName;
-	}
-
-	public void setComonName(String comonName) {
-		this.comonName = comonName;
-	}
-
-	public String getSurname() {
-		return surname;
-	}
-
-	public void setSurname(String surname) {
-		this.surname = surname;
-	}
-
-	public String getGivenName() {
-		return givenName;
-	}
-
-	public void setGivenName(String givenName) {
-		this.givenName = givenName;
-	}
-
-	public String getOrganizationName() {
-		return organizationName;
-	}
-
-	public void setOrganizationName(String organizationName) {
-		this.organizationName = organizationName;
-	}
-
-	public String getOrganizationUnitName() {
-		return organizationUnitName;
-	}
-
-	public void setOrganizationUnitName(String organizationUnitName) {
-		this.organizationUnitName = organizationUnitName;
-	}
-
-	public String getCountryName() {
-		return countryName;
-	}
-
-	public void setCountryName(String countryName) {
-		this.countryName = countryName;
-	}
-
-	public String getEmail() {
-		return email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
-	}
-
-	public String getAlias() {
-		return alias;
-	}
-
-	public void setAlias(String alias) {
-		this.alias = alias;
-	}
-
-	
-	
 }

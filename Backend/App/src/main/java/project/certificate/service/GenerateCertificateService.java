@@ -3,9 +3,13 @@ package project.certificate.service;
 import java.security.KeyPair;
 import java.security.PrivateKey;
 import java.security.cert.X509Certificate;
+import java.util.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.util.ArrayList;
+import java.util.List;
+
+import project.certificate.generators.*;
 
 import org.bouncycastle.asn1.x500.X500NameBuilder;
 import org.bouncycastle.asn1.x500.style.BCStyle;
@@ -16,13 +20,10 @@ import project.certificate.data.IssuerData;
 import project.certificate.data.SubjectData;
 import project.certificate.dto.CertificateDTO;
 import project.certificate.generators.CertificateGenerator;
-import project.certificate.generators.KeyGenerator;
 import project.certificate.keystore.KeyStoreWriter;
 import project.certificate.keystore.Keystore;
 import project.certificate.keystore.KeystoreDTO;
 import project.certificate.keystore.KeystoreRepository;
-import project.user.model.User;
-import project.user.repository.UserRepository;
 
 @Service
 public class GenerateCertificateService {
@@ -32,14 +33,14 @@ public class GenerateCertificateService {
 	
 	public boolean createCertificate(CertificateDTO certificate)
 	{
-		KeyGenerator kg=new KeyGenerator();
+		KeyGenerator kg = new KeyGenerator();
 		KeyPair keyPairSubject = kg.generateKeys();
 		
 		SubjectData subjectData = generateSubjectData(certificate,keyPairSubject);
 		IssuerData issuerData = null;
 
-		if(certificate.getAlias()==null) {
-			//
+		if(certificate.getWho() == null) {
+			//za selfsignes
 			issuerData = generateIssuerData(certificate,keyPairSubject.getPrivate());
 		}
 		else{
@@ -50,10 +51,26 @@ public class GenerateCertificateService {
 		CertificateGenerator cg = new CertificateGenerator();
 		X509Certificate cert = cg.generateCertificate(subjectData, issuerData);
 		
+		//proveriti dal je dobra sifra keystora....
+		/*List<Keystore> k = new ArrayList<Keystore>();
+		System.out.println("Aj ispisi zivotat ti " + certificate.getKeystore() + certificate.getPassword());
+		k = keystoreRepository.findAll();
+		boolean temp = true;
+		for (Keystore sample : k) {
+				if(sample.getKeystoreName().equals(certificate.getKeystore())) {
+					if(sample.getPassword().equals(certificate.getPassword())) {
+						temp = false;
+					}
+				}
+		}
+		if(temp) {
+			return false;
+		}*/
+		
 		KeyStoreWriter wr = new KeyStoreWriter();
-		wr.loadKeyStore(null, null);
-		wr.write(cert.getSubjectDN().getName(), issuerData.getPrivateKey(), "maja".toCharArray(), cert);
-		wr.saveKeyStore("keyStore1.jks", "maja".toCharArray());
+		wr.loadKeyStore("./keystore/admin/" + certificate.getKeystore(), certificate.getPassword().toCharArray());
+		wr.write(certificate.getToWhom().getOrganizationName(), issuerData.getPrivateKey(), certificate.getPassword().toCharArray(), cert);
+		wr.saveKeyStore("./keystore/admin/" + certificate.getKeystore(), certificate.getPassword().toCharArray());
 		
 		return true;
 	}
@@ -79,8 +96,23 @@ public class GenerateCertificateService {
 			wr.saveKeyStore("./keystore/distribution/trusted/"+keystoreDTO.getKeystoreName(), keystoreDTO.getPassword().toCharArray());
 		}
 		
-		
 		return true;
+	}
+	
+	public List<KeystoreDTO> getAllAdminKeystores() {
+		
+		List<Keystore> k = new ArrayList<Keystore>();
+		List<KeystoreDTO> kDTO = new ArrayList<KeystoreDTO>();
+		
+		k = keystoreRepository.findAll();
+		for (Keystore sample : k) {
+			if(sample.getRole().equals("Admin store")) {
+				KeystoreDTO kd = new KeystoreDTO();
+				kd.setKeystoreName(sample.getKeystoreName());
+				kDTO.add(kd);
+			}
+		}
+		return kDTO;
 	}
 	
 	private SubjectData generateSubjectData(CertificateDTO certificate,KeyPair keyPairSubject) {
@@ -95,16 +127,16 @@ public class GenerateCertificateService {
 			//Serijski broj sertifikata
 			String sn= "123456";
 			
-			System.out.println("Ajde ispisi ovo " + certificate.getComonName());
+			System.out.println("Ajde ispisi ovo " + certificate.getToWhom().getComonName());
 			//klasa X500NameBuilder pravi X500Name objekat koji predstavlja podatke o vlasniku
 			X500NameBuilder builder = new X500NameBuilder(BCStyle.INSTANCE);
-		    builder.addRDN(BCStyle.CN, certificate.getComonName());
-		    builder.addRDN(BCStyle.SURNAME, certificate.getSurname());
-		    builder.addRDN(BCStyle.GIVENNAME, certificate.getGivenName());
-		    builder.addRDN(BCStyle.O, certificate.getOrganizationName());
-		    builder.addRDN(BCStyle.OU, certificate.getOrganizationUnitName());
-		    builder.addRDN(BCStyle.C, certificate.getCountryName());
-		    builder.addRDN(BCStyle.E, certificate.getEmail());
+		    builder.addRDN(BCStyle.CN, certificate.getToWhom().getComonName());
+		    builder.addRDN(BCStyle.SURNAME, certificate.getToWhom().getSurname());
+		    builder.addRDN(BCStyle.GIVENNAME, certificate.getToWhom().getGivenName());
+		    builder.addRDN(BCStyle.O, certificate.getToWhom().getOrganizationName());
+		    builder.addRDN(BCStyle.OU, certificate.getToWhom().getOrganizationUnitName());
+		    builder.addRDN(BCStyle.C, certificate.getToWhom().getCountryName());
+		    builder.addRDN(BCStyle.E, certificate.getToWhom().getEmail());
 		    
 		    //UID (USER ID) je ID korisnika
 		    builder.addRDN(BCStyle.UID, "123456");
@@ -125,13 +157,13 @@ public class GenerateCertificateService {
 		
 		//klasa X500NameBuilder pravi X500Name objekat koji predstavlja podatke o vlasniku
 		X500NameBuilder builder = new X500NameBuilder(BCStyle.INSTANCE);
-	    builder.addRDN(BCStyle.CN, certificate.getComonName());
-	    builder.addRDN(BCStyle.SURNAME, certificate.getSurname());
-	    builder.addRDN(BCStyle.GIVENNAME, certificate.getGivenName());
-	    builder.addRDN(BCStyle.O, certificate.getOrganizationName());
-	    builder.addRDN(BCStyle.OU, certificate.getOrganizationUnitName());
-	    builder.addRDN(BCStyle.C, certificate.getCountryName());
-	    builder.addRDN(BCStyle.E, certificate.getEmail());
+	    builder.addRDN(BCStyle.CN, certificate.getToWhom().getComonName());
+	    builder.addRDN(BCStyle.SURNAME, certificate.getToWhom().getSurname());
+	    builder.addRDN(BCStyle.GIVENNAME, certificate.getToWhom().getGivenName());
+	    builder.addRDN(BCStyle.O, certificate.getToWhom().getOrganizationName());
+	    builder.addRDN(BCStyle.OU, certificate.getToWhom().getOrganizationUnitName());
+	    builder.addRDN(BCStyle.C, certificate.getToWhom().getCountryName());
+	    builder.addRDN(BCStyle.E, certificate.getToWhom().getEmail());
 	    
 	    //UID (USER ID) je ID korisnika
 	    builder.addRDN(BCStyle.UID, "123456");
