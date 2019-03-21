@@ -4,6 +4,7 @@ import { AdminPageComponent } from './admin-page/admin-page.component';
 import { CreateCertificateComponent } from './create-certificate/create-certificate.component';
 import { CreateNodeComponent } from './create-node/create-node.component';
 import { CreateKeystoreComponent } from './create-keystore/create-keystore.component';
+import { ShowCertificatesComponent } from './show-certificates/show-certificates.component';
 
 export const MainRoutes=[
     {path : '', component: HomeComponent},
@@ -12,4 +13,5 @@ export const MainRoutes=[
     {path: 'adminPage/createCert', component: CreateCertificateComponent},
     {path: 'adminPage/createNode', component: CreateNodeComponent},
     {path: 'adminPage/createKeystore', component: CreateKeystoreComponent},
+    {path: 'certificates', component: ShowCertificatesComponent}
 ]
