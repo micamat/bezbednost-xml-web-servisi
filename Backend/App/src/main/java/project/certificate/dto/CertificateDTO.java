@@ -10,6 +10,7 @@ public class CertificateDTO {
 	private Boolean ca;
 	private String keystore;
 	private String password;
+	private String privatePassword;
 	
 	private String startDate;
 	private String endDate;
@@ -80,6 +81,14 @@ public class CertificateDTO {
 
 	public void setEndDate(String endDate) {
 		this.endDate = endDate;
+	}
+
+	public String getPrivatePassword() {
+		return privatePassword;
+	}
+
+	public void setPrivatePassword(String privatePassword) {
+		this.privatePassword = privatePassword;
 	}
 
 }

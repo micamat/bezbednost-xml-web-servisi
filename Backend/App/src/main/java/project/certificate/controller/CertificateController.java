@@ -56,13 +56,21 @@ public class CertificateController {
 	}
 	
 	@GetMapping(value = "/getAllAdminKeystores")
-	public ResponseEntity<List<KeystoreDTO>> getAll(){
+	public ResponseEntity<List<KeystoreDTO>> getAllKeystores(){
 		if(certificateService.getAllAdminKeystores() == null) {
 			return new ResponseEntity<List<KeystoreDTO>>(HttpStatus.NO_CONTENT);
 		}
 		return new ResponseEntity<List<KeystoreDTO>>(certificateService.getAllAdminKeystores(),HttpStatus.OK);
 	}
 	
+	@GetMapping(value = "/getAllCertificate")
+	public ResponseEntity<List<CertificateDTO>> getAllCertificate(){
+		if(certificateService.getAllCertificates() == null) {
+			return new ResponseEntity<List<CertificateDTO>>(HttpStatus.NO_CONTENT);
+		}
+		return new ResponseEntity<List<CertificateDTO>>(certificateService.getAllCertificates(),HttpStatus.OK);
+	}
+
 	@GetMapping(value = "/all")
 	public ResponseEntity<List<CertificateModel>> findAll(){
 		return new ResponseEntity<List<CertificateModel>>(service.findAll(), HttpStatus.OK);
