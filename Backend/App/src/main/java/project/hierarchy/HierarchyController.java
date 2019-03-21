@@ -18,7 +18,7 @@ public class HierarchyController {
 	HierarchyService service;
 	
 	@RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<HierarchyModel> findById(Long id){
+	public ResponseEntity<HierarchyModel> findById(@RequestBody Long id){
 		return new ResponseEntity<HierarchyModel>(service.findById(id), HttpStatus.OK);
 	}
 	
@@ -33,7 +33,7 @@ public class HierarchyController {
 	}
 	
 	@RequestMapping(value = "/children", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<List<HierarchyModel>> findChildren(Long node){
+	public ResponseEntity<List<HierarchyModel>> findChildren(@RequestBody Long node){
 		return new ResponseEntity<List<HierarchyModel>>(service.findChildren(node), HttpStatus.FOUND);
 	}
 }
