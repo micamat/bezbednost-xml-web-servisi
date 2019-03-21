@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import project.certificate.dto.CertificateDTO;
 import project.certificate.keystore.KeystoreDTO;
+import project.certificate.service.CertificateService;
 import project.certificate.service.GenerateCertificateService;
 
 @RestController
@@ -21,6 +22,9 @@ public class CertificateController {
 
 	@Autowired
 	private GenerateCertificateService certificateService;
+	
+	@Autowired
+	private CertificateService service;
 	
 	
 	@PostMapping("/create")
@@ -43,6 +47,7 @@ public class CertificateController {
 			return new ResponseEntity<String>("User fail to create keystore!",HttpStatus.CONFLICT);
 		}
 	}
+	
 	
 	@GetMapping(value = "/getAllAdminKeystores")
 	public ResponseEntity<List<KeystoreDTO>> getAllKeystores(){
