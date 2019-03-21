@@ -10,9 +10,9 @@ export class UserService {
 
   constructor(private http:HttpClient) { }
 
-  /*register(user){
+  register(user){
     return this.http.post(SERVER_URL + '/user', user );
-  }*/
+  }
 
   login(user){
     return this.http.post(SERVER_URL+'/user/login',user,{responseType: 'text'});

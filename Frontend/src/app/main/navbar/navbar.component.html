@@ -11,8 +11,17 @@
         <a class="nav-link navigacija" [routerLink]="'certificates'">Certificates</a>
     </li>
 </ul>
-  <nav class="my-2 my-md-0 mr-md-3">
-    <a class="p-2 text-dark" [routerLink]="'/login'">Sign in</a>
-  </nav>
-  <a class="btn btn-outline-primary" href="#">Sign up</a>
+<ul class="nav" >
+  <li class="nav-item">
+      <a class="nav-link registracija" [routerLink]="'/register'">Register</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link logovanje" [routerLink]="'/login'">Sign in</a>
+  </li>
+</ul>
+<ul class="nav" >
+  <li class="nav-item">
+    <a class="nav-link logovanje" [routerLink]="'/'"  (click)="logout()">Sign out</a>
+  </li>
+</ul>
 </div>

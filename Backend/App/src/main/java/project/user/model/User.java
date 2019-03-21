@@ -38,7 +38,8 @@ public class User {
 	
 	@Column(name="city", nullable = true)
 	private String city;
-
+	
+	
 	public Long getId() {
 		return id;
 	}
