@@ -31,6 +31,9 @@ public class GenerateCertificateService {
 	@Autowired
 	private KeystoreRepository keystoreRepository;
 	
+	/*@Autowired
+	private HierarchyService HierarchyService;*/
+	
 	public boolean createCertificate(CertificateDTO certificate)
 	{
 		KeyGenerator kg = new KeyGenerator();
@@ -44,7 +47,8 @@ public class GenerateCertificateService {
 			issuerData = generateIssuerData(certificate,keyPairSubject.getPrivate());
 		}
 		else{
-			//ovde iscipati iz baze
+			//ovde iscipati iz baza
+				
 		}
 
 		
@@ -56,7 +60,7 @@ public class GenerateCertificateService {
 		System.out.println("Aj ispisi zivotat ti " + certificate.getKeystore() + certificate.getPassword());
 		k = keystoreRepository.findAll();
 		boolean temp = true;
-		for (Keystore sample : k) {
+		for (Keystore sample : k){
 				if(sample.getKeystoreName().equals(certificate.getKeystore())) {
 					if(sample.getPassword().equals(certificate.getPassword())) {
 						temp = false;
@@ -114,6 +118,15 @@ public class GenerateCertificateService {
 		}
 		return kDTO;
 	}
+	
+	public List<CertificateDTO> getAllCertificates(){
+		
+		
+		
+		return null;
+	}
+	
+	
 	
 	private SubjectData generateSubjectData(CertificateDTO certificate,KeyPair keyPairSubject) {
 		try {
