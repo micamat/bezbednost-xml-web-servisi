@@ -11,7 +11,12 @@ export class ShowCertificatesComponent implements OnInit {
   constructor(private _certificateService : CertificateService){
 
   }
+
+  private bodyText: string;
+
   ngOnInit() {
+    this.bodyText = 'This text can be updated in modal 1';
+
     this._certificateService.getCertificateDetails().subscribe(
       data => {
         this.certificates = data;
@@ -35,7 +40,7 @@ export class ShowCertificatesComponent implements OnInit {
  
   }
 
- 
+  addTrustedCertificates(){
 
+  }
 }
-

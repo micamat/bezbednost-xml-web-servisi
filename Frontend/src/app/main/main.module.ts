@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MainComponent } from './main.component';
-import {MatToolbarModule, MatButtonModule, MatIconModule} from '@angular/material';
+import {MatToolbarModule, MatButtonModule, MatIconModule, MatFormFieldModule, MatInputModule, MatTableModule, MatCardModule} from '@angular/material';
 import {RouterModule} from '@angular/router';
 import { MainRoutes } from './main.route';
 import { SharedModule } from '../shared/shared.module';
@@ -36,7 +36,12 @@ import { ShowCertificatesComponent } from './show-certificates/show-certificates
     NgbModule.forRoot(),
     FlexLayoutModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatInputModule,
+    MatButtonModule, 
+    MatCardModule, 
+    MatTableModule, 
+    MatFormFieldModule
   ],
   entryComponents:[],
   exports: [MainComponent]

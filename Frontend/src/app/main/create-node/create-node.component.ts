@@ -36,9 +36,7 @@ export class CreateNodeComponent implements OnInit {
         data => this.parents = data
       );
   }
-
-
-
+  
   get f() { return this.nodeForm.controls; }
 
   onSubmit(event:any) {
@@ -46,8 +44,10 @@ export class CreateNodeComponent implements OnInit {
     this.node = this.nodeForm.getRawValue();
     console.log(this.node);
     this._nodeService.createNode(this.node).subscribe(
-      data => console.log("Cvor kreiran")
-    );
+      data => {
+        console.log("Cvor kreiran")
+        this.router.navigateByUrl("adminPage");
+      });
   }
 
 }

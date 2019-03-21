@@ -6,11 +6,12 @@
       </tr>
     </thead>
     <tbody>
-      <tr scope="col" *ngFor="let el of certificates">
-        <th scope="row">{{el.commonName}}</th>
+      <tr scope="col" *ngFor="let el of certificates; let i = index">
+        <th scope="row">{{i}}</th>
         <td>{{el.commonName}}</td>
+        
         <td>    
-          <button class="btn btn-info btn-lg" type="button" (click)="showDetails()">Details</button>
+          <button class="btn btn-info btn-lg" type="button" (click)="openModal('custom-modal-2')">Details</button>
           
         </td>
         <td>    
@@ -22,6 +23,9 @@
         <td>    
             <button class="btn btn-lg btn-primary btn-block" type="submit">Withdraw</button>
         </td>
+        <td>    
+          <button class="btn btn-lg btn-primary btn-block" (click)="addTrustedCertificates()" type="submit">Add Trusted Certificates</button>
+      </td>
       </tr>
     </tbody>
   </table>
@@ -51,5 +55,3 @@
 <!--Modal: modalCookie-->
 
 </body>
-
-

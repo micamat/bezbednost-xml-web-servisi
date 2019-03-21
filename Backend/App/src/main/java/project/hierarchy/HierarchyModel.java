@@ -36,10 +36,10 @@ public class HierarchyModel {
 	@Column(nullable = false)
 	private String email;
 	
-	@Column(nullable = false)
+	@Column(nullable = true)
 	private String path;
 	
-	@Column(nullable = false)
+	@Column(nullable = true)
 	private Long parentId;
 	
 	public HierarchyModel() {
