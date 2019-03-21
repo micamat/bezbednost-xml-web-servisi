@@ -15,13 +15,17 @@ public class HierarchyService {
 		return repository.findById(id).get();
 	}
 	
-	public List<HierarchyModel> fidAll(){
+	public List<HierarchyModel> findAll(){
 		return repository.findAll();
 	}
 	
 	public HierarchyModel save(HierarchyModel node) {
+		System.out.println("NODE: " + node);
 		if(node.getParentId() != null) {
-			node.setPath(repository.findById(node.getParentId()).get().getPath().concat("/").concat(node.getId().toString().concat("/")));
+			node.setPath(repository.findById(node.getParentId()).get().getPath().concat("/").concat(node.getComonName()));
+		}
+		else {
+			node.setPath(node.getComonName());
 		}
 		return repository.save(node);
 	}

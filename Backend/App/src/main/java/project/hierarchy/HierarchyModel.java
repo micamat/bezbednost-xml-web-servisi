@@ -40,6 +40,23 @@ public class HierarchyModel {
 	
 	private Long parentId;
 	
+	public HierarchyModel() {
+		super();
+	}
+	
+	public HierarchyModel(String comonName, String surname, String givenName, String organizationName,
+			String organizationUnitName, String countryName, String email, Long parentId) {
+		super();
+		this.comonName = comonName;
+		this.surname = surname;
+		this.givenName = givenName;
+		this.organizationName = organizationName;
+		this.organizationUnitName = organizationUnitName;
+		this.countryName = countryName;
+		this.email = email;
+		this.parentId = parentId;
+	}
+
 	public String getComonName() {
 		return comonName;
 	}
@@ -98,4 +115,13 @@ public class HierarchyModel {
 	public Long getId() {
 		return id;
 	}
+	@Override
+	public String toString() {
+		return "HierarchyModel [id=" + id + ", comonName=" + comonName + ", surname=" + surname + ", givenName="
+				+ givenName + ", organizationName=" + organizationName + ", organizationUnitName="
+				+ organizationUnitName + ", countryName=" + countryName + ", email=" + email + ", path=" + path
+				+ ", parentId=" + parentId + "]";
+	}
+	
+	
 }
