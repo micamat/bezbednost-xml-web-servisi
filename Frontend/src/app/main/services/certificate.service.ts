@@ -26,7 +26,16 @@ export class CertificateService {
     return this.http.get(SERVER_URL+'/nodes/all');
   }
 
+  getAllChildernNodes(node:any){
+    return this.http.post(SERVER_URL+'/nodes/children',node);
+  }
+
+  getAllCertificate(){
+    return this.http.get(SERVER_URL+'/certificate/getAllCertificate');
+  }
+
   getCertificateDetails(){
     return this.http.get(SERVER_URL+'/certificate/certificates');
   }
+
 }
