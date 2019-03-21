@@ -1,5 +1,7 @@
 package project.certificate.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -10,6 +12,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import project.certificate.dto.CertificateDTO;
 import project.certificate.keystore.KeystoreDTO;
+import project.certificate.model.CertificateModel;
+import project.certificate.service.CertificateService;
 import project.certificate.service.GenerateCertificateService;
 
 @RestController
@@ -18,6 +22,9 @@ public class CertificateController {
 
 	@Autowired
 	private GenerateCertificateService certificateService;
+	
+	@Autowired
+	private CertificateService service;
 	
 	
 	@PostMapping("/create")
@@ -39,5 +46,9 @@ public class CertificateController {
 		}else {
 			return new ResponseEntity<String>("User fail to create keystore!",HttpStatus.CONFLICT);
 		}
+	}
+	
+	public ResponseEntity<List<CertificateModel>> findAll(){
+		return new ResponseEntity<List<CertificateModel>>(service.findAll(), HttpStatus.OK);
 	}
 }
