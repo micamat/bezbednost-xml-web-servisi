@@ -79,7 +79,6 @@ public class GenerateCertificateService {
 			wr.saveKeyStore("./keystore/distribution/trusted/"+keystoreDTO.getKeystoreName(), keystoreDTO.getPassword().toCharArray());
 		}
 		
-		
 		return true;
 	}
 	

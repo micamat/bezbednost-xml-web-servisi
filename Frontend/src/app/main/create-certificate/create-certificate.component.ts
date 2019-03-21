@@ -11,8 +11,9 @@ import { Router, ActivatedRoute } from '@angular/router';
 export class CreateCertificateComponent implements OnInit {
 
   certForm:FormGroup;
-  submitted = false;
+  submitted : boolean = false;
   cert: any;
+  next : boolean =  true;
 
   constructor(private _certificateService : CertificateService,
     private formBuilder:FormBuilder,
@@ -21,15 +22,12 @@ export class CreateCertificateComponent implements OnInit {
 
   ngOnInit() {
       this.certForm = this.formBuilder.group({
-        alias:['',Validators.required],
+        who:['',Validators.required],
         selfSigned:['',Validators.required],
-        comonName:['',Validators.required],
-        surname:['',Validators.required],
-        givenName:['',Validators.required],
-        organizationName:['',Validators.required],
-        organizationUnitName:['',Validators.required],
-        countryName:['',Validators.required],
-        email:['',Validators.required],
+        CA:['',Validators.required],
+        toWhom:['',Validators.required],
+        keystore:['',Validators.required],
+        password:['',Validators.required],
         startDate:['',Validators.required],
         endDate:['',Validators.required],
       });
@@ -41,15 +39,37 @@ export class CreateCertificateComponent implements OnInit {
     this.submitted = true;
     this.cert = this.certForm.getRawValue();
     console.log(this.cert);
-    if(this.cert.selfSigned == true){
-      this.cert.alias = null;
+    /*if(this.cert.selfSigned == true){
+      this.cert.who = null;
     }
     console.log(this.cert);
     this._certificateService.createCertificate(this.cert).subscribe(
       data => {
               console.log("Uspesno sam zavrsio cuvanje sertifikata")
               this.router.navigateByUrl("adminPage");
-            });
+            });*/
   }
+
+  nextt(event:any) {
+    this.next = false;
+    this.certForm.controls["who"].disable();
+    this.certForm.controls["selfSigned"].disable();
+  }
+
+  back(event:any) {
+    this.next = true;
+    this.certForm.controls["who"].enable();
+    this.certForm.controls["selfSigned"].enable();
+  }
+
+  /*zabrani(event:boolean){
+    console.log(event);
+    if(event == true){
+      this.certForm.controls["who"].disable();
+    }else{
+      this.certForm.controls["who"].enable();
+    }
+    (change)="zabrani($event.target.value)"
+  }*/
 
 }
