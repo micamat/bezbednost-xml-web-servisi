@@ -25,7 +25,7 @@
                     </div>
                     <div style="text-align:left;" class="col-8 ">
                         <div class="form-check">
-                            <input formControlName="selfSigned" class="form-check-input" type="checkbox" value="" id="defaultCheck1">
+                            <input (change)="onChange($event)" formControlName="selfSigned" class="form-check-input" type="checkbox" value="" id="defaultCheck1">
                             <label class="form-check-label" for="defaultCheck1">
                               Self signed
                             </label>
@@ -49,11 +49,8 @@
                   </div>
                   <div class="col-8">
                       <select formControlName="toWhom" class="form-control">
-                          <option>1</option>
-                          <option>2</option>
-                          <option>3</option>
-                          <option>4</option>
-                          <option>5</option>
+                            <option></option>
+                            <option *ngFor="let organization of organizations">{{organization.organizationName}}</option>
                         </select>
                   </div>
                 </div>
@@ -62,7 +59,7 @@
                     </div>
                     <div style="text-align:left;" class="col-8 ">
                         <div class="form-check">
-                            <input formControlName="CA" class="form-check-input" type="checkbox" value="" id="defaultCheck2">
+                            <input formControlName="ca" class="form-check-input" type="checkbox" value="" id="defaultCheck2">
                             <label class="form-check-label" for="defaultCheck2">
                                 CA
                             </label>
@@ -79,11 +76,8 @@
                       <div class="row">
                           <div class="col-9">
                               <select formControlName="keystore" class="form-control">
-                                <option>1</option>
-                                <option>2</option>
-                                <option>3</option>
-                                <option>4</option>
-                                <option>5</option>
+                                <option></option>
+                                <option *ngFor="let keystore of keystores">{{keystore.keystoreName}}</option>
                               </select></div>
                           <div class="col-3">
                                 <a class="btn btn-outline-primary ml-2" [routerLink]="'../createKeystore'">Create</a>

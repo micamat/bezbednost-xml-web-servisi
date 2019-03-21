@@ -18,4 +18,11 @@ export class CertificateService {
     return this.http.post(SERVER_URL+'/certificate/createKeystore',keystore,{responseType: 'text'});
   }
   
+  getAllAdminKeystores(){
+    return this.http.get(SERVER_URL+'/certificate/getAllAdminKeystores');
+  }
+
+  getAllNodes(){
+    return this.http.get(SERVER_URL+'/nodes/all');
+  }
 }

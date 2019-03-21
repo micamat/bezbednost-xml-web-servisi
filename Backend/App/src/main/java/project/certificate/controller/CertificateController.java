@@ -1,8 +1,11 @@
 package project.certificate.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -39,5 +42,13 @@ public class CertificateController {
 		}else {
 			return new ResponseEntity<String>("User fail to create keystore!",HttpStatus.CONFLICT);
 		}
+	}
+	
+	@GetMapping(value = "/getAllAdminKeystores")
+	public ResponseEntity<List<KeystoreDTO>> getAll(){
+		if(certificateService.getAllAdminKeystores() == null) {
+			return new ResponseEntity<List<KeystoreDTO>>(HttpStatus.NO_CONTENT);
+		}
+		return new ResponseEntity<List<KeystoreDTO>>(certificateService.getAllAdminKeystores(),HttpStatus.OK);
 	}
 }
