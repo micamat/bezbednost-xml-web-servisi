@@ -25,6 +25,7 @@ import project.certificate.keystore.KeystoreDTO;
 import project.certificate.keystore.KeystoreRepository;
 import project.certificate.model.CertificateModel;
 import project.certificate.repository.CertificateRepository;
+import project.certificate.model.*;
 
 @Service
 public class GenerateCertificateService {
@@ -134,7 +135,8 @@ public class GenerateCertificateService {
 	
 	public List<CertificateDTO> getAllCertificates(){
 		
-		
+		List<CertificateModel> k = new ArrayList<CertificateModel>();
+		k = certificateRepository.findAll();
 		
 		return null;
 	}
