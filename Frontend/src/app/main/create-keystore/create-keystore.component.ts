@@ -23,6 +23,7 @@ export class CreateKeystoreComponent implements OnInit {
       this.keystoreForm = this.formBuilder.group({
         keystoreName:['',Validators.required],
         password:['',Validators.required],
+        privateKeyPassword:['',Validators.required],
         role:['',Validators.required],
       });
   }

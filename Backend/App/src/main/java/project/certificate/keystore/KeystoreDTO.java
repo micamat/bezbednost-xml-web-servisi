@@ -7,6 +7,8 @@ public class KeystoreDTO {
 	
 	private String password;
 	
+	private String privateKeyPassword;
+	
 	private String role;
 
 	public KeystoreDTO() {
@@ -36,5 +38,14 @@ public class KeystoreDTO {
 	public void setRole(String role) {
 		this.role = role;
 	}
+
+	public String getPrivateKeyPassword() {
+		return privateKeyPassword;
+	}
+
+	public void setPrivateKeyPassword(String privateKeyPassword) {
+		this.privateKeyPassword = privateKeyPassword;
+	}
+	
 	
 }

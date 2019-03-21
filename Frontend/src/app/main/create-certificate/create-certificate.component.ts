@@ -17,6 +17,7 @@ export class CreateCertificateComponent implements OnInit {
   keystores: any;
   organizations: any;
   temp: any;
+  sertificates: any; 
 
   constructor(private _certificateService : CertificateService,
     private formBuilder:FormBuilder,
@@ -31,6 +32,7 @@ export class CreateCertificateComponent implements OnInit {
         toWhom:['',Validators.required],
         keystore:['',Validators.required],
         password:['',Validators.required],
+        privatePassword:['',Validators.required],
         startDate:['',Validators.required],
         endDate:['',Validators.required],
       });
@@ -38,6 +40,11 @@ export class CreateCertificateComponent implements OnInit {
         data => {
                 this.keystores = data;
       });
+      this._certificateService.getAllAdminKeystores().subscribe(
+        data => {
+                this.sertificates = data;
+      });
+      
       
   }
 

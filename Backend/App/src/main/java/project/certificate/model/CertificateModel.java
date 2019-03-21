@@ -30,9 +30,6 @@ public class CertificateModel {
 	@Column(nullable = false)
 	Boolean ca;
 	
-	@Column(nullable = false)
-	Boolean signed;
-	
 	public String getAlias() {
 		return alias;
 	}
@@ -62,13 +59,6 @@ public class CertificateModel {
 	}
 	public void setCa(Boolean ca) {
 		this.ca = ca;
-	}
-	public Boolean getSigned() {
-		return signed;
-	}
-	public void setSigned(Boolean signed) {
-		this.signed = signed;
-	}
-	
+	}	
 	
 }
