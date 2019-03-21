@@ -10,9 +10,9 @@
                     <label>Who signs:</label>
                   </div>
                   <div class="col-8">
-                      <select  formControlName="who" class="form-control">
+                      <select  formControlName="who" class="form-control" (change)="organizacija($event)">
                         <option></option>
-                        <option *ngFor="let sertificate of sertificates">{{sertificate}}</option>
+                        <option *ngFor="let sertificate of sertificates">{{sertificate.alias}},{{sertificate.organization}},{{sertificate.commonName}}</option>
                       </select>
                   </div>
                 </div>

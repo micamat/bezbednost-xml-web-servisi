@@ -18,6 +18,7 @@ export class CreateCertificateComponent implements OnInit {
   organizations: any;
   temp: any;
   sertificates: any; 
+  node:any;
 
   constructor(private _certificateService : CertificateService,
     private formBuilder:FormBuilder,
@@ -40,7 +41,7 @@ export class CreateCertificateComponent implements OnInit {
         data => {
                 this.keystores = data;
       });
-      this._certificateService.getAllAdminKeystores().subscribe(
+      this._certificateService.getAllCertificate().subscribe(
         data => {
                 this.sertificates = data;
       });
@@ -56,6 +57,14 @@ export class CreateCertificateComponent implements OnInit {
     console.log(this.cert);
     if(this.cert.selfSigned == true){
       this.cert.who = null;
+    }else{
+      let toArray =  this.cert.who.Tos.split(",");
+      this.temp = toArray[0];
+      this.sertificates.forEach(obj => {
+        if(obj.alias == this.temp){
+          this.cert.who = obj;
+        }
+      });
     }
     this.temp = this.cert.toWhom;
     console.log(this.organizations)
@@ -66,11 +75,11 @@ export class CreateCertificateComponent implements OnInit {
     });
 
     console.log(this.cert);
-    this._certificateService.createCertificate(this.cert).subscribe(
+    /*this._certificateService.createCertificate(this.cert).subscribe(
       data => {
               console.log("Uspesno sam zavrsio cuvanje sertifikata")
               this.router.navigateByUrl("adminPage");
-    });
+    });*/
   }
 
   nextt(event:any) {
@@ -99,6 +108,31 @@ export class CreateCertificateComponent implements OnInit {
     });
    
   }
+  organizacija(e){
+    console.log(e.target.value)
+    let toArray =  e.target.value.split(",");
+    this.temp = toArray[1];
+
+    console.log(this.temp)
+    this._certificateService.getAllNodes().subscribe(
+      data => {
+        this.organizations = data;
+        this.organizations.forEach(obj => {
+          if(obj.organizationName == this.temp){
+            this.node = obj;
+          }
+        });
+
+        this._certificateService.getAllChildernNodes(this.node.id).subscribe(
+          data => {
+                  this.organizations = data;
+    
+        }); 
+    });
+    
+   
+  }
+  
   /*zabrani(event:boolean){
     console.log(event);
     

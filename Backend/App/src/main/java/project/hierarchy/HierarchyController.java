@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -32,8 +33,8 @@ public class HierarchyController {
 		return new ResponseEntity<HierarchyModel>(service.save(node), HttpStatus.CREATED);
 	}
 	
-	@RequestMapping(value = "/children", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	@PostMapping("/children")
 	public ResponseEntity<List<HierarchyModel>> findChildren(@RequestBody Long node){
-		return new ResponseEntity<List<HierarchyModel>>(service.findChildren(node), HttpStatus.FOUND);
+		return new ResponseEntity<List<HierarchyModel>>(service.findChildren(node), HttpStatus.OK);
 	}
 }

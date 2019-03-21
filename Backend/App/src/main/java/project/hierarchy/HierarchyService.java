@@ -36,7 +36,8 @@ public class HierarchyService {
 		List<HierarchyModel> ret = new ArrayList<HierarchyModel>();
 		for (HierarchyModel hm : repository.findAll()) {
 			if(hm.getPath().startsWith(node.getPath())) {
-				ret.add(hm);
+				if(!hm.getPath().equals(node.getPath()))
+					ret.add(hm);
 			}
 		}
 		return ret;

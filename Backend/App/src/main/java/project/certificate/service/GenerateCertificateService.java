@@ -4,6 +4,7 @@ import java.security.KeyPair;
 import java.security.KeyStoreException;
 import java.security.PrivateKey;
 import java.security.cert.Certificate;
+import java.security.cert.CertificateEncodingException;
 import java.security.cert.X509Certificate;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -12,14 +13,19 @@ import java.util.Date;
 import java.util.Enumeration;
 import java.util.List;
 
+import org.bouncycastle.asn1.x500.RDN;
+import org.bouncycastle.asn1.x500.X500Name;
 import org.bouncycastle.asn1.x500.X500NameBuilder;
 import org.bouncycastle.asn1.x500.style.BCStyle;
+import org.bouncycastle.asn1.x500.style.IETFUtils;
+import org.bouncycastle.cert.jcajce.JcaX509CertificateHolder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import project.certificate.data.IssuerData;
 import project.certificate.data.SubjectData;
 import project.certificate.dto.CertificateDTO;
+import project.certificate.dto.*;
 import project.certificate.dto.CertificateDetailDTO;
 import project.certificate.generators.CertificateGenerator;
 import project.certificate.generators.KeyGenerator;
@@ -79,7 +85,7 @@ public class GenerateCertificateService {
 		}
 		else{
 			//ovde iscipati iz baza
-				
+			
 		}
 
 		
@@ -91,7 +97,7 @@ public class GenerateCertificateService {
 		
 		KeyStoreWriter wr = new KeyStoreWriter();
 		wr.loadKeyStore("./keystore/admin/" + certificate.getKeystore(), certificate.getPassword().toCharArray());
-		wr.write(certificate.getToWhom().getOrganizationName(), issuerData.getPrivateKey(), certificate.getPrivatePassword().toCharArray(), cert);
+		wr.write(cm.getId().toString(), issuerData.getPrivateKey(), certificate.getPrivatePassword().toCharArray(), cert);
 		wr.saveKeyStore("./keystore/admin/" + certificate.getKeystore(), certificate.getPassword().toCharArray());
 		
 		return true;
@@ -187,12 +193,57 @@ public class GenerateCertificateService {
 		return certificatesDTO;
 	}
 	
-	public List<CertificateDTO> getAllCertificates(){
+	public List<SignedSertificateDTO> getAllCertificates(){
 		
 		List<CertificateModel> k = new ArrayList<CertificateModel>();
 		k = certificateRepository.findAll();
 		
-		return null;
+		List<SignedSertificateDTO> lista = new ArrayList<SignedSertificateDTO>();
+		
+		KeyStoreReader kr = new KeyStoreReader();
+		System.out.println("BLA BLA");
+		for (CertificateModel temp : k) {
+			if(temp.getCa() == true) {
+				Keystore k1 = keystoreRepository.findByKeystoreName(temp.getKeyStore());
+				//System.out.println("adsuhf;sdohgo;us  " + k1.getKeystoreName());
+				//System.out.println("apoijhjopokj  " + k1.getPassword());
+				//System.out.println("apoijhjopokj  " + temp.getAlias());
+				X509Certificate k2 = (X509Certificate)kr.readCertificate("./keystore/admin/"+k1.getKeystoreName(),k1.getPassword(),temp.getAlias());
+				//System.out.println("ISPIS MI " + k2);
+				lista.add(makeCertDTOFromCert(k2,temp.getAlias()));
+			}
+		}
+		
+		return lista;
+	}
+	
+	public SignedSertificateDTO makeCertDTOFromCert(X509Certificate cert,String alias) {
+		
+		SignedSertificateDTO cDTO = new SignedSertificateDTO();
+		
+		
+		try {
+			X500Name subjName = new JcaX509CertificateHolder(cert).getSubject();
+
+			RDN cn = subjName.getRDNs(BCStyle.CN)[0];
+			String cname = IETFUtils.valueToString(cn.getFirst().getValue());
+			cDTO.setCommonName(cname);
+
+			RDN on = subjName.getRDNs(BCStyle.O)[0];
+			String oname = IETFUtils.valueToString(on.getFirst().getValue());
+			cDTO.setOrganization(oname);
+			
+			cDTO.setAlias(alias);
+			
+		} catch (CertificateEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+		return cDTO;
+		
+
 	}
 	
 	

@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import project.certificate.dto.CertificateDTO;
 import project.certificate.dto.CertificateDetailDTO;
+import project.certificate.dto.SignedSertificateDTO;
 import project.certificate.keystore.KeystoreDTO;
 import project.certificate.model.CertificateModel;
 import project.certificate.service.CertificateService;
@@ -67,11 +68,12 @@ public class CertificateController {
 	}
 	
 	@GetMapping(value = "/getAllCertificate")
-	public ResponseEntity<List<CertificateDTO>> getAllCertificate(){
+	public ResponseEntity<List<SignedSertificateDTO>> getAllCertificate(){
+		System.out.println("BLA BLA");
 		if(certificateService.getAllCertificates() == null) {
-			return new ResponseEntity<List<CertificateDTO>>(HttpStatus.NO_CONTENT);
+			return new ResponseEntity<List<SignedSertificateDTO>>(HttpStatus.NO_CONTENT);
 		}
-		return new ResponseEntity<List<CertificateDTO>>(certificateService.getAllCertificates(),HttpStatus.OK);
+		return new ResponseEntity<List<SignedSertificateDTO>>(certificateService.getAllCertificates(),HttpStatus.OK);
 	}
 
 	@GetMapping(value = "/all")
