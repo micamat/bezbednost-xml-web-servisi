@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import {CertificateService} from '../services/certificate.service';
-import {ModalService} from '../services/model.service';
 
 @Component({
   selector: 'app-show-certificates',
@@ -9,7 +8,7 @@ import {ModalService} from '../services/model.service';
 })
 export class ShowCertificatesComponent implements OnInit {
 
-  constructor(private _certificateService : CertificateService, private modalService: ModalService){
+  constructor(private _certificateService : CertificateService){
 
   }
 
@@ -44,16 +43,4 @@ export class ShowCertificatesComponent implements OnInit {
   addTrustedCertificates(){
 
   }
-
-  openModal(id: string) {
-      this.modalService.open(id);
-  }
-
-  closeModal(id: string) {
-      this.modalService.close(id);
-  }
-
- 
-
 }
-

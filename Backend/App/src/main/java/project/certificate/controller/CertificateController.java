@@ -1,6 +1,5 @@
 package project.certificate.controller;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -98,6 +97,11 @@ public class CertificateController {
 	@PutMapping
 	public ResponseEntity revoke(@RequestBody CertificateModel cert) {
 		cert.setRevoked(true);
+		
+		//iz tabele certificate model povuci red sa alisom cert.getAlias()
+		//us pomoc name kestora iz tabele keysotre povuces pasworde
+		
+		
 		HierarchyModel node = nodeService.findByComonName(cert.getAlias());
 		List<HierarchyModel> children = nodeService.findChildren(node.getId());
 		for(HierarchyModel h : children) {
