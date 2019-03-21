@@ -1,9 +1,7 @@
 package project.certificate.keystore;
 
 public class KeystoreDTO {
-	
-	public KeystoreDTO() {
-	}
+
 	
 	private String keystoreName;
 	
@@ -11,6 +9,10 @@ public class KeystoreDTO {
 	
 	private String role;
 
+	public KeystoreDTO() {
+		
+	}
+	
 	public String getKeystoreName() {
 		return keystoreName;
 	}

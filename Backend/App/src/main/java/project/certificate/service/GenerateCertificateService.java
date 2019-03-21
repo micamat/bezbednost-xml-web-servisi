@@ -24,12 +24,16 @@ import project.certificate.keystore.KeyStoreWriter;
 import project.certificate.keystore.Keystore;
 import project.certificate.keystore.KeystoreDTO;
 import project.certificate.keystore.KeystoreRepository;
+import project.certificate.repository.CertificateRepository;
 
 @Service
 public class GenerateCertificateService {
 	
 	@Autowired
 	private KeystoreRepository keystoreRepository;
+	
+	@Autowired
+	private CertificateRepository certificateRepository;
 	
 	/*@Autowired
 	private HierarchyService HierarchyService;*/
@@ -56,9 +60,10 @@ public class GenerateCertificateService {
 		X509Certificate cert = cg.generateCertificate(subjectData, issuerData);
 		
 		//proveriti dal je dobra sifra keystora....
-		/*List<Keystore> k = new ArrayList<Keystore>();
-		System.out.println("Aj ispisi zivotat ti " + certificate.getKeystore() + certificate.getPassword());
-		k = keystoreRepository.findAll();
+		List<Keystore> k = new ArrayList<Keystore>();
+		
+		
+		/*k = keystoreRepository.findAll();
 		boolean temp = true;
 		for (Keystore sample : k){
 				if(sample.getKeystoreName().equals(certificate.getKeystore())) {
@@ -67,9 +72,17 @@ public class GenerateCertificateService {
 					}
 				}
 		}
+		
 		if(temp) {
 			return false;
-		}*/
+		}
+		
+		Keystore k = new Keystore();
+		k.setKeystoreName(keystoreDTO.getKeystoreName());
+		k.setPassword(keystoreDTO.getPassword());
+		k.setRole(keystoreDTO.getRole());
+		keystoreRepository.save(k);
+		*/
 		
 		KeyStoreWriter wr = new KeyStoreWriter();
 		wr.loadKeyStore("./keystore/admin/" + certificate.getKeystore(), certificate.getPassword().toCharArray());
