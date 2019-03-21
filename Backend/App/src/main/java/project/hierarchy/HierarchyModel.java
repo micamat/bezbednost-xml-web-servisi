@@ -10,7 +10,7 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "hierarchy")
 public class HierarchyModel {
-
+	
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -36,8 +36,10 @@ public class HierarchyModel {
 	@Column(nullable = false)
 	private String email;
 	
+	@Column(nullable = false)
 	private String path;
 	
+	@Column(nullable = false)
 	private Long parentId;
 	
 	public HierarchyModel() {

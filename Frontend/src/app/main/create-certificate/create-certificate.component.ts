@@ -46,9 +46,10 @@ export class CreateCertificateComponent implements OnInit {
     }
     console.log(this.cert);
     this._certificateService.createCertificate(this.cert).subscribe(
-      data => 
+      data => {
               console.log("Uspesno sam zavrsio cuvanje sertifikata")
-    );
+              this.router.navigateByUrl("adminPage");
+            });
   }
 
 }
