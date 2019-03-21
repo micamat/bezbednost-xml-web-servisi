@@ -1,9 +1,15 @@
 package project.certificate.service;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.security.KeyPair;
 import java.security.KeyStoreException;
+import java.security.NoSuchAlgorithmException;
 import java.security.PrivateKey;
 import java.security.cert.Certificate;
+import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -131,6 +137,7 @@ public class GenerateCertificateService {
 			if(sample.getRole().equals("Admin store")) {
 				KeystoreDTO kd = new KeystoreDTO();
 				kd.setKeystoreName(sample.getKeystoreName());
+				kd.setPassword(sample.getPassword());
 				kDTO.add(kd);
 			}
 		}
@@ -142,17 +149,39 @@ public class GenerateCertificateService {
 		List<KeystoreDTO> keystoreDTO = getAllAdminKeystores();
 		KeyStoreReader kr = new KeyStoreReader();
 		Enumeration<String> aliases = null;
-		
+		System.out.println(keystoreDTO.size());
+
 		for(int i = 0; i < keystoreDTO.size(); i++) {
+			System.out.println("SD"+keystoreDTO.size());
 			try {
+				String path = "keystore/admin/" + keystoreDTO.get(i).getKeystoreName();
+
+				FileInputStream out = new FileInputStream(path);
+				System.out.println(keystoreDTO.get(i).getPassword());
+				
+				kr.getKeystore().load(out,  keystoreDTO.get(i).getPassword().toCharArray());
+				
 				aliases = kr.getKeystore().aliases();
+				System.out.println("SDA"+aliases.hasMoreElements());
 			} catch (KeyStoreException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (FileNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (NoSuchAlgorithmException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (CertificateException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			if(aliases != null) {
-				while(aliases.nextElement() != null) {
-					certificates.add(kr.readCertificate(keystoreDTO.get(i).getKeystoreName(),keystoreDTO.get(i).getPassword(),aliases.nextElement()));
+				while(aliases.hasMoreElements()) {
+					certificates.add(kr.readCertificate("keystore/admin/"+keystoreDTO.get(i).getKeystoreName(),keystoreDTO.get(i).getPassword(),aliases.nextElement()));
 				}
 			}
 		}
@@ -169,9 +198,12 @@ public class GenerateCertificateService {
 				X509Certificate cert = (X509Certificate) certificates.get(i);
 				certificateDetailDTO.setCommonName(cert.toString());
 				certificatesDTO.add(certificateDetailDTO);
-				/*
-				 * certificateDetailDTO.setCommonNameIssuer(cert.toString());
-				 * certificateDetailDTO.setOrganization(cert.getSubjectDN().toString());
+				cert.getSubjectDN();
+				cert.getIssuerDN();
+				  String[] niz = cert.getSubjectDN().getName().split(",");
+				  certificateDetailDTO.setCommonName(niz[niz.length-1].replace("CN=", ""));
+
+				 /* certificateDetailDTO.setOrganization(cert.getSubjectDN().toString());
 				 * certificateDetailDTO.setOrganizationalUnit(cert.getSubjectDN().toString());
 				 * certificateDetailDTO.setOrganizationalUnitIssuer(cert.getSubjectDN().toString
 				 * ());
