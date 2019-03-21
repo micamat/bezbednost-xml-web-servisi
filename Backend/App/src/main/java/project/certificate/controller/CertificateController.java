@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import project.certificate.dto.CertificateDTO;
+import project.certificate.dto.CertificateDetailDTO;
 import project.certificate.keystore.KeystoreDTO;
 import project.certificate.service.GenerateCertificateService;
 
@@ -50,5 +51,13 @@ public class CertificateController {
 			return new ResponseEntity<List<KeystoreDTO>>(HttpStatus.NO_CONTENT);
 		}
 		return new ResponseEntity<List<KeystoreDTO>>(certificateService.getAllAdminKeystores(),HttpStatus.OK);
+	}
+	
+	@GetMapping(value = "/certificates")
+	public ResponseEntity<List<CertificateDetailDTO>> getCertificates(){
+		if(certificateService.getAllCertificates() == null) {
+			return new ResponseEntity<List<CertificateDetailDTO>>(HttpStatus.NO_CONTENT);
+		}
+		return new ResponseEntity<List<CertificateDetailDTO>>(certificateService.getAllCertificates(),HttpStatus.OK);
 	}
 }

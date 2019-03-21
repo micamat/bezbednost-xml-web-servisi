@@ -1,15 +1,16 @@
 package project.certificate.service;
 
 import java.security.KeyPair;
+import java.security.KeyStoreException;
 import java.security.PrivateKey;
+import java.security.cert.Certificate;
 import java.security.cert.X509Certificate;
-import java.util.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.Enumeration;
 import java.util.List;
-
-import project.certificate.generators.*;
 
 import org.bouncycastle.asn1.x500.X500NameBuilder;
 import org.bouncycastle.asn1.x500.style.BCStyle;
@@ -19,7 +20,10 @@ import org.springframework.stereotype.Service;
 import project.certificate.data.IssuerData;
 import project.certificate.data.SubjectData;
 import project.certificate.dto.CertificateDTO;
+import project.certificate.dto.CertificateDetailDTO;
 import project.certificate.generators.CertificateGenerator;
+import project.certificate.generators.KeyGenerator;
+import project.certificate.keystore.KeyStoreReader;
 import project.certificate.keystore.KeyStoreWriter;
 import project.certificate.keystore.Keystore;
 import project.certificate.keystore.KeystoreDTO;
@@ -113,6 +117,55 @@ public class GenerateCertificateService {
 			}
 		}
 		return kDTO;
+	}
+	
+	public List<CertificateDetailDTO> getAllCertificates() {
+		List<Certificate> certificates = new ArrayList<Certificate>();
+		List<KeystoreDTO> keystoreDTO = getAllAdminKeystores();
+		KeyStoreReader kr = new KeyStoreReader();
+		Enumeration<String> aliases = null;
+		
+		for(int i = 0; i < keystoreDTO.size(); i++) {
+			try {
+				aliases = kr.getKeystore().aliases();
+			} catch (KeyStoreException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			if(aliases != null) {
+				while(aliases.nextElement() != null) {
+					certificates.add(kr.readCertificate(keystoreDTO.get(i).getKeystoreName(),keystoreDTO.get(i).getPassword(),aliases.nextElement()));
+				}
+			}
+		}
+		
+		
+		return CertificatesToCertificatesDTO(certificates);
+	}
+	
+	public List<CertificateDetailDTO> CertificatesToCertificatesDTO(List<Certificate> certificates) {
+		List<CertificateDetailDTO> certificatesDTO = new ArrayList<CertificateDetailDTO>();
+		for(int i = 0; i < certificates.size(); i++) {
+			CertificateDetailDTO certificateDetailDTO = new CertificateDetailDTO();
+			if(certificates.get(i) instanceof X509Certificate) {
+				X509Certificate cert = (X509Certificate) certificates.get(i);
+				certificateDetailDTO.setCommonName(cert.toString());
+				certificatesDTO.add(certificateDetailDTO);
+				/*
+				 * certificateDetailDTO.setCommonNameIssuer(cert.toString());
+				 * certificateDetailDTO.setOrganization(cert.getSubjectDN().toString());
+				 * certificateDetailDTO.setOrganizationalUnit(cert.getSubjectDN().toString());
+				 * certificateDetailDTO.setOrganizationalUnitIssuer(cert.getSubjectDN().toString
+				 * ());
+				 * certificateDetailDTO.setOrganizationIssuer(cert.getSubjectDN().toString());
+				 * certificateDetailDTO.setSerialNumber(cert.getSubjectDN().toString());
+				 * certificateDetailDTO.set(cert.getSubjectDN().toString());
+				 * certificateDetailDTO.setSerialNumber(cert.getSubjectDN().toString());
+				 * certificateDetailDTO.setSerialNumber(cert.getSubjectDN().toString());
+				 */
+			}
+		}
+		return certificatesDTO;
 	}
 	
 	private SubjectData generateSubjectData(CertificateDTO certificate,KeyPair keyPairSubject) {
