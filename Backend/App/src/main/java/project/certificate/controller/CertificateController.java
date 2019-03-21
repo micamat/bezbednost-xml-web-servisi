@@ -1,5 +1,6 @@
 package project.certificate.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -16,6 +18,8 @@ import project.certificate.keystore.KeystoreDTO;
 import project.certificate.model.CertificateModel;
 import project.certificate.service.CertificateService;
 import project.certificate.service.GenerateCertificateService;
+import project.hierarchy.HierarchyModel;
+import project.hierarchy.HierarchyService;
 
 @RestController
 @RequestMapping(value = "/certificate")
@@ -27,6 +31,8 @@ public class CertificateController {
 	@Autowired
 	private CertificateService service;
 	
+	@Autowired
+	private HierarchyService nodeService;
 	
 	@PostMapping("/create")
 	public ResponseEntity<String> create(@RequestBody CertificateDTO certificate)
@@ -62,6 +68,7 @@ public class CertificateController {
 		return new ResponseEntity<List<CertificateModel>>(service.findAll(), HttpStatus.OK);
 	}
 	
+	@GetMapping
 	public ResponseEntity<CertificateModel> findById(@RequestBody Long id){
 		return new ResponseEntity<CertificateModel>(service.findById(id), HttpStatus.OK);
 	}
@@ -71,4 +78,21 @@ public class CertificateController {
 		return new ResponseEntity<CertificateModel>(service.save(cert), HttpStatus.CREATED);
 	}
 
+	@PutMapping
+	public ResponseEntity revoke(@RequestBody CertificateModel cert) {
+		cert.setRevoked(true);
+		HierarchyModel node = nodeService.findByComonName(cert.getAlias());
+		List<HierarchyModel> children = nodeService.findChildren(node.getId());
+		for(HierarchyModel h : children) {
+			for(CertificateModel c : service.findAll()) {
+				if(c.getAlias().equals(h.getComonName())) {
+					c.setRevoked(true);
+					service.save(c);
+				}
+			}
+		}
+		service.save(cert);
+		return ResponseEntity.ok().build();
+	}
+	
 }

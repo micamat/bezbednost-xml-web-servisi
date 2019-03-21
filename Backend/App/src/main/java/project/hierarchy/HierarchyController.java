@@ -36,4 +36,9 @@ public class HierarchyController {
 	public ResponseEntity<List<HierarchyModel>> findChildren(@RequestBody Long node){
 		return new ResponseEntity<List<HierarchyModel>>(service.findChildren(node), HttpStatus.FOUND);
 	}
+	
+	@RequestMapping(method = RequestMethod.GET)
+	public ResponseEntity<HierarchyModel> findByComonName(String comonName){
+		return new ResponseEntity<HierarchyModel>(service.findByComonName(comonName), HttpStatus.OK);
+	}
 }

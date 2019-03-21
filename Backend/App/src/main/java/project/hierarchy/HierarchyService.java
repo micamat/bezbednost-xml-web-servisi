@@ -40,4 +40,8 @@ public class HierarchyService {
 		}
 		return ret;
 	}
+	
+	public HierarchyModel findByComonName(String comonName) {
+		return repository.findByComonName(comonName);
+	}
 }

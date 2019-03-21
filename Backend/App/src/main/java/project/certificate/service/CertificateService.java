@@ -7,11 +7,16 @@ import org.springframework.stereotype.Service;
 
 import project.certificate.model.CertificateModel;
 import project.certificate.repository.CertificateRepository;
+import project.hierarchy.HierarchyRepository;
 
 @Service
 public class CertificateService {
 	@Autowired
 	CertificateRepository repository;
+	
+	@Autowired
+	HierarchyRepository nodeRepo;
+	
 	
 	public List<CertificateModel> findAll(){
 		return repository.findAll();

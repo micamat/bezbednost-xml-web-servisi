@@ -5,5 +5,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface HierarchyRepository extends JpaRepository<HierarchyModel, Long> {
-	
+	HierarchyModel findByComonName(String commonName);
 }
