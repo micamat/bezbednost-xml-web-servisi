@@ -207,19 +207,21 @@ public class GenerateCertificateService {
 				certificatesDTO.add(certificateDetailDTO);
 				cert.getSubjectDN();
 				cert.getIssuerDN();
-				  String[] niz = cert.getSubjectDN().getName().split(",");
-				  certificateDetailDTO.setCommonName(niz[niz.length-1].replace("CN=", ""));
+				  String[] subject = cert.getSubjectDN().getName().split(",");
+				  String[] issuer = cert.getSubjectDN().getName().split(",");
 
-				 /* certificateDetailDTO.setOrganization(cert.getSubjectDN().toString());
-				 * certificateDetailDTO.setOrganizationalUnit(cert.getSubjectDN().toString());
-				 * certificateDetailDTO.setOrganizationalUnitIssuer(cert.getSubjectDN().toString
-				 * ());
-				 * certificateDetailDTO.setOrganizationIssuer(cert.getSubjectDN().toString());
-				 * certificateDetailDTO.setSerialNumber(cert.getSubjectDN().toString());
-				 * certificateDetailDTO.set(cert.getSubjectDN().toString());
-				 * certificateDetailDTO.setSerialNumber(cert.getSubjectDN().toString());
-				 * certificateDetailDTO.setSerialNumber(cert.getSubjectDN().toString());
-				 */
+				  certificateDetailDTO.setCommonName(subject[7].replace("CN=", ""));
+
+				  certificateDetailDTO.setOrganization(subject[4].replace("O=", ""));
+				  certificateDetailDTO.setOrganizationalUnit(subject[3].replace("OU=", ""));
+				  certificateDetailDTO.setOrganizationalUnitIssuer(issuer[3].replace("OU=", ""));
+				  certificateDetailDTO.setOrganizationIssuer(issuer[4].replace("O=", ""));
+				  certificateDetailDTO.setSerialNumber(cert.getSerialNumber().toString());
+				  certificateDetailDTO.setCommonNameIssuer(issuer[7].replace("CN=", ""));
+				  certificateDetailDTO.setValidityExpires(cert.getNotAfter().toString());
+				  certificateDetailDTO.setValidityBegins(cert.getNotBefore().toString());
+				  
+
 			}
 		}
 		return certificatesDTO;

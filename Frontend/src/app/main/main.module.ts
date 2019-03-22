@@ -30,7 +30,7 @@ import { RegisterComponent } from './register/register.component';
     CreateNodeComponent,
     CreateKeystoreComponent,
     ShowCertificatesComponent,
-    RegisterComponent
+    RegisterComponent,
   ],
   imports: [
     CommonModule,

@@ -1,5 +1,6 @@
 <body>
-  <table class="table">
+  <div class="leftContent">
+  <table class="table table-sm">
     <thead>
       <tr>
         <th *ngFor="let head of headElements" scope="col">{{head}} </th>
@@ -11,47 +12,109 @@
         <td>{{el.commonName}}</td>
         
         <td>    
-          <button class="btn btn-info btn-lg" type="button" (click)="openModal('custom-modal-2')">Details</button>
+          <button class="btn btn-info btn-sm" type="button" (click)="showDetails(i)">Details</button>
           
         </td>
         <td>    
-            <button class="btn btn-lg btn-primary btn-block" type="submit">Show hierarchy</button>
+            <button class="btn btn-sm btn-primary btn-block" type="submit">Show hierarchy</button>
         </td>
         <td>    
-            <button class="btn btn-lg btn-primary btn-block" type="submit">Show trusted certificates</button>
+            <button class="btn btn-sm btn-primary btn-block" type="submit">Show trusted certificates</button>
         </td>
         <td>    
-            <button class="btn btn-lg btn-primary btn-block" type="submit">Withdraw</button>
+            <button class="btn btn-sm btn-primary btn-block" type="submit">Withdraw</button>
         </td>
         <td>    
-          <button class="btn btn-lg btn-primary btn-block" (click)="addTrustedCertificates()" type="submit">Add Trusted Certificates</button>
+          <button class="btn btn-sm btn-primary btn-block" (click)="addTrustedCertificates()" type="submit">Add Trusted Certificates</button>
       </td>
       </tr>
     </tbody>
   </table>
-<!-- Button trigger modal-->
-<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalCookie1">Cookies</button>
-
-<!--Modal: modalCookie-->
-<div class="modal fade top" id="modalCookie1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
-  aria-hidden="true" data-backdrop="false">
-  <div class="modal-dialog modal-frame modal-top modal-notify modal-info" role="document">
-    <!--Content-->
-    <div class="modal-content">
-      <!--Body-->
-      <div class="modal-body">
-        <div class="row d-flex justify-content-center align-items-center">
-
-          <p class="pt-3 pr-2">We use cookies to improve your website experience</p>
-
-          <a type="button" class="btn btn-primary">Learn more <i class="fas fa-book ml-1"></i></a>
-          <a type="button" class="btn btn-outline-primary waves-effect" data-dismiss="modal">Ok, thanks</a>
-        </div>
-      </div>
-    </div>
-    <!--/.Content-->
-  </div>
 </div>
-<!--Modal: modalCookie-->
+<div class="middleContent"></div>
+  <div class="rightContent"  >
+    <div id="details" *ngIf="hideDetails">
+    <h1>Certificate Details</h1>
+    <table id="certificateDetailsTable" class="table table-sm">
+          <tbody>
+              <tr>
+                  <td>Issued to:</td>
+                  <td></td>
+                </tr>
+              <tr>
+                   <td>Common name:</td>
+                    <td>{{certificate.commonName}}</td>
+                  </tr>
+                  <tr>
+                      <td>Organization:</td>
+                      <td>{{certificate.organization}}</td>
+                    </tr>
+                    <tr>
+                       <td>Organization unit:</td>
+                        <td>{{certificate.organizationUnit}}</td>
+                      </tr>
+
+                      <tr>
+                           <td>Serial number:</td>
+                          <td>{{certificate.serialNumber}}</td>
+                        </tr>
+                        <tr>
+                           <td>Issued by:</td>
+                            <td></td>
+                          </tr>
+                        <tr>
+                            <td>Common name:</td>
+                            <td>{{certificate.commonNameIssuer}}</td>
+                          </tr>
+                          <tr>
+                              <td>Organization:</td>
+                              <td>{{certificate.organizationIssuer}}</td>
+                            </tr>
+
+                            <tr>
+                                <td>Organization unit:</td>
+                                <td>{{certificate.organizationUnitIssuer}}</td>
+                              </tr>
+                              <tr>
+                                  <td>Validate not before:</td>
+                                  <td>{{certificate.validityBegin}}</td>
+                                </tr>
+                                <tr>
+                                    <td>Validate not after:</td>
+                                    <td>{{certificate.validityExpire}}</td>
+                                  </tr>
+          </tbody>
+    </table>
+  </div>
+  <div id="showTrustedCertificates" *ngIf="showAddTrustedCertificates">
+       <table class="table table-sm">
+      <thead>
+          <tr>
+            <th *ngFor="let el of trustedElements" scope="col">{{el}}</th>
+            
+          </tr>
+        </thead>
+        <tbody>
+          <tr scope="col" *ngFor="let el of certificates; let i = index">
+            
+            <td>{{el.commonName}}</td>
+            
+            <td>    
+              {{el.organization}}
+            </td>
+            <td>
+              <input (change)="onChange($event)" class="form-check-input" type="checkbox" value="" id="el.serialNumber">
+            </td>
+            <td>    
+           </td>
+          </tr>
+        </tbody>
+      </table>
+      <button class="btn btn-sm btn-primary btn-block"  type="submit">Confirm</button>
+     <div>     
+
+     </div> 
+    </div>
+  </div>
 
 </body>
