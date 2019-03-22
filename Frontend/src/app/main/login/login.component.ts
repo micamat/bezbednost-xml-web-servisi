@@ -13,6 +13,7 @@ export class LoginComponent implements OnInit {
   SingIn:FormGroup;
   submitted = false;
   user: any;
+  public isLoged:boolean=false;
 
   constructor(private _userService : UserService,
     private formBuilder:FormBuilder,
@@ -37,11 +38,18 @@ export class LoginComponent implements OnInit {
     }
     console.log(this.user)
     this._userService.login(this.user).subscribe(
-      data => 
+      data =>{
               this.router.navigateByUrl("")
+              this.isLoged=true;
+              console.log(this.isLoged);
+      }
     );
 
-    
+    this._userService.getLoged().subscribe(
+      data=>{
+        console.log(data);
+      }
+    )
 
 
   }
