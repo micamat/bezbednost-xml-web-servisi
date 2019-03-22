@@ -58,7 +58,7 @@ export class CreateCertificateComponent implements OnInit {
     if(this.cert.selfSigned == true){
       this.cert.who = null;
     }else{
-      let toArray =  this.cert.who.Tos.split(",");
+      let toArray =  this.cert.who.split(",");
       this.temp = toArray[0];
       this.sertificates.forEach(obj => {
         if(obj.alias == this.temp){
@@ -75,11 +75,11 @@ export class CreateCertificateComponent implements OnInit {
     });
 
     console.log(this.cert);
-    /*this._certificateService.createCertificate(this.cert).subscribe(
+    this._certificateService.createCertificate(this.cert).subscribe(
       data => {
               console.log("Uspesno sam zavrsio cuvanje sertifikata")
               this.router.navigateByUrl("adminPage");
-    });*/
+    });
   }
 
   nextt(event:any) {

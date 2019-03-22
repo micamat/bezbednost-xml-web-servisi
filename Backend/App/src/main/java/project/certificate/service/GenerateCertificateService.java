@@ -73,7 +73,12 @@ public class GenerateCertificateService {
 		}
 		
 		CertificateModel cm = new CertificateModel();
-		cm.setCa(certificate.getCa());
+		if(certificate.getCa() == null) {
+			cm.setCa(false);
+		}else {
+			cm.setCa(certificate.getCa());
+		}
+		
 		cm.setKeyStore(certificate.getKeystore());
 		cm.setRevoked(false);
 		cm.setAlias("");
@@ -90,16 +95,19 @@ public class GenerateCertificateService {
 			issuerData = generateIssuerData(certificate,keyPairSubject.getPrivate());
 		}
 		else{
-			//ovde iscipati iz baza
+			
+			//not selfsigned
+			CertificateModel c = certificateRepository.findByAlias(certificate.getWho().getAlias());
+			Keystore k1 = keystoreRepository.findByKeystoreName(c.getKeyStore());
+			
+			KeyStoreReader ksr = new KeyStoreReader();
+			issuerData = ksr.readIssuerFromStore("./keystore/admin/" + k1.getKeystoreName(), certificate.getWho().getAlias(), k1.getPassword().toCharArray(), k1.getPrivateKeyPassword().toCharArray());
 			
 		}
 
 		
 		CertificateGenerator cg = new CertificateGenerator();
 		X509Certificate cert = cg.generateCertificate(subjectData, issuerData);
-		
-		
-		
 		
 		KeyStoreWriter wr = new KeyStoreWriter();
 		wr.loadKeyStore("./keystore/admin/" + certificate.getKeystore(), certificate.getPassword().toCharArray());
@@ -207,19 +215,21 @@ public class GenerateCertificateService {
 				certificatesDTO.add(certificateDetailDTO);
 				cert.getSubjectDN();
 				cert.getIssuerDN();
-				  String[] niz = cert.getSubjectDN().getName().split(",");
-				  certificateDetailDTO.setCommonName(niz[niz.length-1].replace("CN=", ""));
+				  String[] subject = cert.getSubjectDN().getName().split(",");
+				  String[] issuer = cert.getSubjectDN().getName().split(",");
 
-				 /* certificateDetailDTO.setOrganization(cert.getSubjectDN().toString());
-				 * certificateDetailDTO.setOrganizationalUnit(cert.getSubjectDN().toString());
-				 * certificateDetailDTO.setOrganizationalUnitIssuer(cert.getSubjectDN().toString
-				 * ());
-				 * certificateDetailDTO.setOrganizationIssuer(cert.getSubjectDN().toString());
-				 * certificateDetailDTO.setSerialNumber(cert.getSubjectDN().toString());
-				 * certificateDetailDTO.set(cert.getSubjectDN().toString());
-				 * certificateDetailDTO.setSerialNumber(cert.getSubjectDN().toString());
-				 * certificateDetailDTO.setSerialNumber(cert.getSubjectDN().toString());
-				 */
+				  certificateDetailDTO.setCommonName(subject[7].replace("CN=", ""));
+
+				  certificateDetailDTO.setOrganization(subject[4].replace("O=", ""));
+				  certificateDetailDTO.setOrganizationalUnit(subject[3].replace("OU=", ""));
+				  certificateDetailDTO.setOrganizationalUnitIssuer(issuer[3].replace("OU=", ""));
+				  certificateDetailDTO.setOrganizationIssuer(issuer[4].replace("O=", ""));
+				  certificateDetailDTO.setSerialNumber(cert.getSerialNumber().toString());
+				  certificateDetailDTO.setCommonNameIssuer(issuer[7].replace("CN=", ""));
+				  certificateDetailDTO.setValidityExpires(cert.getNotAfter().toString());
+				  certificateDetailDTO.setValidityBegins(cert.getNotBefore().toString());
+				  
+
 			}
 		}
 		return certificatesDTO;
