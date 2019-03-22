@@ -4,7 +4,7 @@ import project.hierarchy.HierarchyModel;
 
 public class CertificateDTO {
 
-	private String who;
+	private SignedSertificateDTO who;
 	private Boolean selfSigned;
 	private HierarchyModel toWhom;
 	private Boolean ca;
@@ -19,13 +19,17 @@ public class CertificateDTO {
 
 	}
 
-	public String getWho() {
+	public SignedSertificateDTO getWho() {
 		return who;
 	}
 
-	public void setWho(String who) {
+
+
+	public void setWho(SignedSertificateDTO who) {
 		this.who = who;
 	}
+
+
 
 	public Boolean getSelfSigned() {
 		return selfSigned;
