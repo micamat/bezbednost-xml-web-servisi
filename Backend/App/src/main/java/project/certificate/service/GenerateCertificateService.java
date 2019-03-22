@@ -73,7 +73,12 @@ public class GenerateCertificateService {
 		}
 		
 		CertificateModel cm = new CertificateModel();
-		cm.setCa(certificate.getCa());
+		if(certificate.getCa() == null) {
+			cm.setCa(false);
+		}else {
+			cm.setCa(certificate.getCa());
+		}
+		
 		cm.setKeyStore(certificate.getKeystore());
 		cm.setRevoked(false);
 		cm.setAlias("");
@@ -90,16 +95,19 @@ public class GenerateCertificateService {
 			issuerData = generateIssuerData(certificate,keyPairSubject.getPrivate());
 		}
 		else{
-			//ovde iscipati iz baza
+			
+			//not selfsigned
+			CertificateModel c = certificateRepository.findByAlias(certificate.getWho().getAlias());
+			Keystore k1 = keystoreRepository.findByKeystoreName(c.getKeyStore());
+			
+			KeyStoreReader ksr = new KeyStoreReader();
+			issuerData = ksr.readIssuerFromStore("./keystore/admin/" + k1.getKeystoreName(), certificate.getWho().getAlias(), k1.getPassword().toCharArray(), k1.getPrivateKeyPassword().toCharArray());
 			
 		}
 
 		
 		CertificateGenerator cg = new CertificateGenerator();
 		X509Certificate cert = cg.generateCertificate(subjectData, issuerData);
-		
-		
-		
 		
 		KeyStoreWriter wr = new KeyStoreWriter();
 		wr.loadKeyStore("./keystore/admin/" + certificate.getKeystore(), certificate.getPassword().toCharArray());
