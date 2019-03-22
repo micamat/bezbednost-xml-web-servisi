@@ -251,7 +251,7 @@ public class GenerateCertificateService {
 	
 	public SignedSertificateDTO makeCertDTOFromCert(X509Certificate cert,String alias) {
 		
-		SignedSertificateDTO cDTO = new SignedSertificateDTO();
+		SignedSertificateDTO cDTO = new SignedSertificateDTO();	
 		
 		
 		try {

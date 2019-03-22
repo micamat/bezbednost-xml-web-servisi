@@ -7,5 +7,5 @@ import project.certificate.model.CertificateModel;
 
 @Repository
 public interface CertificateRepository extends JpaRepository<CertificateModel, Long>{
-	
+	public CertificateModel findByAlias(String alias);
 }

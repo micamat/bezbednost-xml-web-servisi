@@ -1,6 +1,10 @@
 package project.certificate.controller;
 
+import java.security.cert.X509Certificate;
+import java.util.ArrayList;
 import java.util.List;
+
+import javax.websocket.server.PathParam;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -15,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 import project.certificate.dto.CertificateDTO;
 import project.certificate.dto.CertificateDetailDTO;
 import project.certificate.dto.SignedSertificateDTO;
+import project.certificate.keystore.KeyStoreReader;
 import project.certificate.keystore.KeystoreDTO;
 import project.certificate.model.CertificateModel;
 import project.certificate.service.CertificateService;
@@ -96,21 +101,35 @@ public class CertificateController {
 		return new ResponseEntity<CertificateModel>(service.save(cert), HttpStatus.CREATED);
 	}
 
-	@PutMapping
-	public ResponseEntity revoke(@RequestBody CertificateModel cert) {
+	@PutMapping(value = "/{comonName}")
+	public ResponseEntity revoke(@PathParam("comonName") String serialNumber) {
+		CertificateModel cert = service.findByAlias(serialNumber);
 		cert.setRevoked(true);
 		
-		//iz tabele certificate model povuci red sa alisom cert.getAlias()
-		//us pomoc name kestora iz tabele keysotre povuces pasworde
+		KeystoreDTO keyStore = null;
+		for(KeystoreDTO k : certificateService.getAllAdminKeystores()) {
+			if(k.getKeystoreName().equals(cert.getKeyStore())) {
+				keyStore = k;
+			}
+		}
+		
+		KeyStoreReader ksr = new KeyStoreReader();
+		X509Certificate cx = (X509Certificate) ksr.readCertificate("./keystore/admin/" + keyStore.getKeystoreName(), keyStore.getPassword(), serialNumber);
+		SignedSertificateDTO cDTO = certificateService.makeCertDTOFromCert(cx, serialNumber);
 		
 		
-		HierarchyModel node = nodeService.findByComonName(cert.getAlias());
+		HierarchyModel node = nodeService.findByComonName(cDTO.getCommonName());
 		List<HierarchyModel> children = nodeService.findChildren(node.getId());
 		for(HierarchyModel h : children) {
 			for(CertificateModel c : service.findAll()) {
-				if(c.getAlias().equals(h.getComonName())) {
-					c.setRevoked(true);
-					service.save(c);
+				for(KeystoreDTO k : certificateService.getAllAdminKeystores()) {
+					if(k.getKeystoreName().equals(c.getKeyStore())) {
+						cx = (X509Certificate) ksr.readCertificate("./keystore/admin/" + k.getKeystoreName(), k.getPassword(), c.getAlias());
+						if(h.getComonName().equals(certificateService.makeCertDTOFromCert(cx, c.getAlias()).getCommonName())) {
+							c.setRevoked(true);
+							service.save(c);
+						}
+					}
 				}
 			}
 		}
