@@ -29,6 +29,11 @@ public class UserController {
 	
 	private UserLoginDTO ulogovani;
 	
+	@PostMapping
+	public ResponseEntity<UserLoginDTO> create(@RequestBody UserLoginDTO userDTO) { 
+		return new ResponseEntity<UserLoginDTO>(userService.save(userDTO), HttpStatus.CREATED);	
+	}
+	
 	@PostMapping("/login")
 	public ResponseEntity<String> login(@RequestBody UserLoginDTO userDTO){
 		if(userService.login(userDTO) != null) {
