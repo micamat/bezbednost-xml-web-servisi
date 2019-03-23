@@ -14,6 +14,7 @@ export class LoginComponent implements OnInit {
   submitted = false;
   user: any;
   public isLoged:boolean=false;
+  us:any;
 
   constructor(private _userService : UserService,
     private formBuilder:FormBuilder,
@@ -37,6 +38,7 @@ export class LoginComponent implements OnInit {
         return;
     }
     console.log(this.user)
+
     this._userService.login(this.user).subscribe(
       data =>{
               this.router.navigateByUrl("")
@@ -45,13 +47,14 @@ export class LoginComponent implements OnInit {
       }
     );
 
+  }
+
+  ulogovani(){
     this._userService.getLoged().subscribe(
-      data=>{
-        console.log(data);
+      data=>{this.us = data;
+        return this.us;
       }
     )
-
-
   }
 
 }

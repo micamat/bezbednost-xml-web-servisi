@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from '../services/user.service';
+import { FormBuilder } from '@angular/forms';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'navbar',
@@ -8,7 +10,12 @@ import { UserService } from '../services/user.service';
 })
 export class NavbarComponent implements OnInit {
 
-  constructor() { }
+  us:any;
+
+  constructor(private _userService : UserService,
+    private formBuilder:FormBuilder,
+    private router:Router,
+    private activatedRoute: ActivatedRoute) { }
 
   ngOnInit() {
   }
@@ -16,5 +23,11 @@ export class NavbarComponent implements OnInit {
   /*logout(){
     localStorage.clear();
   }*/
-
+  ulogovani(){
+    this._userService.getLoged().subscribe(
+      data=>{this.us = data;
+              return this.us;
+      }
+    )
+  }
 }

@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import project.user.model.User;
 import project.user.model.dto.UserLoginDTO;
 import project.user.service.UserService;
 
@@ -27,7 +28,7 @@ public class UserController {
 	@Autowired
 	private UserService userService;
 	
-	private UserLoginDTO ulogovani;
+	private boolean ulogovani  = false;
 	
 	@PostMapping
 	public ResponseEntity<UserLoginDTO> create(@RequestBody UserLoginDTO userDTO) { 
@@ -37,7 +38,7 @@ public class UserController {
 	@PostMapping("/login")
 	public ResponseEntity<String> login(@RequestBody UserLoginDTO userDTO){
 		if(userService.login(userDTO) != null) {
-			ulogovani = userDTO;
+			ulogovani = true;
 			return new ResponseEntity<String>("User is loged!",HttpStatus.CREATED);
 		}else {
 			return new ResponseEntity<String>("User fail to login!",HttpStatus.CONFLICT);
@@ -45,7 +46,7 @@ public class UserController {
 	}
 	
 	@GetMapping("/loged")
-	public UserLoginDTO loged(){
+	public boolean loged() {
 		return ulogovani;
 	}
 	
