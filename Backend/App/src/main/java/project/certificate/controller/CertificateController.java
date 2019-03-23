@@ -1,15 +1,13 @@
 package project.certificate.controller;
 
 import java.security.cert.X509Certificate;
-import java.util.ArrayList;
 import java.util.List;
-
-import javax.websocket.server.PathParam;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -40,10 +38,10 @@ public class CertificateController {
 	@Autowired
 	private HierarchyService nodeService;
 	
-	@PostMapping("/create")
-	public ResponseEntity<String> create(@RequestBody CertificateDTO certificate)
+	@PostMapping("/create/{store}")
+	public ResponseEntity<String> create(@RequestBody CertificateDTO certificate, @PathVariable("store") String trustStore)
 	{
-		if(certificateService.createCertificate(certificate) == true) {
+		if(certificateService.createCertificate(certificate, trustStore) == true) {
 			return new ResponseEntity<String>("User create certificate!",HttpStatus.CREATED);
 		}else {
 			return new ResponseEntity<String>("User fail to create certificate!",HttpStatus.CONFLICT);
@@ -69,6 +67,14 @@ public class CertificateController {
 		return new ResponseEntity<List<KeystoreDTO>>(certificateService.getAllAdminKeystores(),HttpStatus.OK);
 	}
 	
+	@GetMapping(value = "/getAllTransferKeystores")
+	public ResponseEntity<List<KeystoreDTO>> getAllTransferKeystores(){
+		if(certificateService.getAllTransferKeystores() == null) {
+			return new ResponseEntity<List<KeystoreDTO>>(HttpStatus.NO_CONTENT);
+		}
+		return new ResponseEntity<List<KeystoreDTO>>(certificateService.getAllTransferKeystores(),HttpStatus.OK);
+	}
+	
 	@GetMapping(value = "/certificates")
 	public ResponseEntity<List<CertificateDetailDTO>> getCertificates(){
 		if(certificateService.getAllCertificatesDetails() == null) {
@@ -84,6 +90,16 @@ public class CertificateController {
 			return new ResponseEntity<List<SignedSertificateDTO>>(HttpStatus.NO_CONTENT);
 		}
 		return new ResponseEntity<List<SignedSertificateDTO>>(certificateService.getAllCertificates(),HttpStatus.OK);
+	}
+	
+	@PostMapping(value = "/transfer/{alias}/{keystore}")
+	public ResponseEntity<Boolean> transfer(@PathVariable("alias") String alias, @PathVariable("keystore") String keystore){
+		System.out.println(alias + ", " + keystore);
+		if(certificateService.addToTransfer(alias,keystore) == false) {
+			return new ResponseEntity<Boolean>(HttpStatus.NO_CONTENT);
+		}else {
+			return ResponseEntity.ok().build();
+		}
 	}
 
 	@GetMapping(value = "/all")
@@ -102,7 +118,7 @@ public class CertificateController {
 	}
 
 	@PutMapping(value = "/{comonName}")
-	public ResponseEntity revoke(@PathParam("comonName") String serialNumber) {
+	public ResponseEntity<CertificateModel> revoke(@PathVariable("comonName") String serialNumber) {	
 		CertificateModel cert = service.findByAlias(serialNumber);
 		cert.setRevoked(true);
 		
@@ -112,9 +128,9 @@ public class CertificateController {
 				keyStore = k;
 			}
 		}
-		
+			
 		KeyStoreReader ksr = new KeyStoreReader();
-		X509Certificate cx = (X509Certificate) ksr.readCertificate("./keystore/admin/" + keyStore.getKeystoreName(), keyStore.getPassword(), serialNumber);
+		X509Certificate cx = (X509Certificate)ksr.readCertificate("./keystore/admin/" + keyStore.getKeystoreName(), keyStore.getPassword(), serialNumber);
 		SignedSertificateDTO cDTO = certificateService.makeCertDTOFromCert(cx, serialNumber);
 		
 		
@@ -124,8 +140,10 @@ public class CertificateController {
 			for(CertificateModel c : service.findAll()) {
 				for(KeystoreDTO k : certificateService.getAllAdminKeystores()) {
 					if(k.getKeystoreName().equals(c.getKeyStore())) {
-						cx = (X509Certificate) ksr.readCertificate("./keystore/admin/" + k.getKeystoreName(), k.getPassword(), c.getAlias());
-						if(h.getComonName().equals(certificateService.makeCertDTOFromCert(cx, c.getAlias()).getCommonName())) {
+						System.out.println("name: " + k.getKeystoreName() + ", pass: " + k.getPassword() + ", alias: " + c.getAlias());
+						X509Certificate cx1 = (X509Certificate) ksr.readCertificate("./keystore/admin/" + k.getKeystoreName(), k.getPassword(), c.getAlias());
+						SignedSertificateDTO cDTO1 = certificateService.makeCertDTOFromCert(cx1, c.getAlias());
+						if(h.getComonName().equals(cDTO1.getCommonName())) {
 							c.setRevoked(true);
 							service.save(c);
 						}
@@ -134,7 +152,7 @@ public class CertificateController {
 			}
 		}
 		service.save(cert);
-		return ResponseEntity.ok().build();
+		return new ResponseEntity<CertificateModel>(cert, HttpStatus.OK);
 	}
 	
 }

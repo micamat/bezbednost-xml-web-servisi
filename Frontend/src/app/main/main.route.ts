@@ -6,6 +6,7 @@ import { CreateNodeComponent } from './create-node/create-node.component';
 import { CreateKeystoreComponent } from './create-keystore/create-keystore.component';
 import { RegisterComponent } from "./register/register.component";
 import { ShowCertificatesComponent } from './show-certificates/show-certificates.component';
+import { DistributionComponent } from './distribution/distribution.component';
 
 export const MainRoutes=[
     {path : '', component: HomeComponent},
@@ -15,5 +16,6 @@ export const MainRoutes=[
     {path: 'adminPage/createCert', component: CreateCertificateComponent},
     {path: 'adminPage/createNode', component: CreateNodeComponent},
     {path: 'adminPage/createKeystore', component: CreateKeystoreComponent},
-    {path: 'certificates', component: ShowCertificatesComponent}
+    {path: 'certificates', component: ShowCertificatesComponent},
+    {path: 'distribution', component: DistributionComponent}
 ]

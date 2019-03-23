@@ -52,6 +52,12 @@ certificate: any;
    
   }
 
+  revoke(id:any){
+    this._certificateService.revoke(id).subscribe(
+      data => {
+
+    });
+  }
 
   onChange(e){
     if(e.target.checked == true){

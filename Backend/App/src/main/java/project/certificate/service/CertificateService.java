@@ -28,7 +28,6 @@ public class CertificateService {
 	}
 	
 	public CertificateModel save(CertificateModel cert) {
-		cert.setRevoked(false);
 		return repository.save(cert);
 	}
 	
