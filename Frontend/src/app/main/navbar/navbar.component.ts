@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { UserService } from '../services/user.service';
 
 @Component({
   selector: 'navbar',
@@ -11,5 +12,9 @@ export class NavbarComponent implements OnInit {
 
   ngOnInit() {
   }
+
+  /*logout(){
+    localStorage.clear();
+  }*/
 
 }
