@@ -22,7 +22,7 @@
             <button class="btn btn-sm btn-primary btn-block" type="submit">Show trusted certificates</button>
         </td>
         <td>    
-            <button class="btn btn-sm btn-primary btn-block" type="submit">Withdraw</button>
+            <button class="btn btn-sm btn-primary btn-block" type="submit" (click)="revoke(el.serialNumber)">Withdraw</button>
         </td>
         <td>    
           <button class="btn btn-sm btn-primary btn-block" (click)="addTrustedCertificates()" type="submit">Add Trusted Certificates</button>
