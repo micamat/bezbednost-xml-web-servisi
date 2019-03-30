@@ -43,6 +43,10 @@ export class CertificateService {
     return this.http.get(SERVER_URL+'/certificate/getAllCertificate');
   }
 
+  getAllCertificateNotCA(){
+    return this.http.get(SERVER_URL+'/certificate/getAllCertificateNotCA');
+  }
+
   getCertificateDetails(){
     return this.http.get(SERVER_URL+'/certificate/certificates');
   }

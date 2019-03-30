@@ -1,0 +1,268 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema targetNamespace="http://Megatravel.com/Entities" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:mt="http://Megatravel.com/Entities" elementFormDefault="qualified">
+    <xs:complexType name="userType">
+        <xs:sequence>
+            <xs:element name="firstname" type="xs:string"/>
+            <xs:element name="lastname" type="xs:string"/>
+            <xs:element name="username" type="xs:string"/>
+            <xs:element name="email" type="xs:string"/>
+            <xs:element name="password" type="xs:string"/>
+            <xs:element name="id" type="xs:ID"/>
+            <xs:element name="state">
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:enumeration value="active"/>
+                        <xs:enumeration value="blocked"/>
+                        <xs:enumeration value="deleted"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:element name="reservation">
+        <xs:complexType>
+            <xs:all>
+                <xs:element name="datebegin" type="xs:date"/>
+                <xs:element name="dateend" type="xs:date"/>
+                <xs:element name="cancelable" type="xs:boolean"/>
+                <xs:element name="id" type="xs:ID"/>
+                <xs:element name="idUser" type="xs:ID"/>
+                <xs:element name="state">
+                    <xs:simpleType>
+                        <xs:restriction base="xs:string">
+                            <xs:enumeration value="active"/>
+                            <xs:enumeration value="canceled"/>
+                            <xs:enumeration value="done"/>
+                        </xs:restriction>
+                    </xs:simpleType>
+                </xs:element>
+            </xs:all>
+        </xs:complexType>
+        <xs:key name="reservationtKey">
+            <xs:selector xpath=".//reservation"/>
+            <xs:field xpath="id"/>
+        </xs:key>
+        <xs:keyref name="userResForKey" refer="mt:userKey">
+            <xs:selector xpath=".//reservation"/>
+            <xs:field xpath="idUser"/>
+        </xs:keyref>
+    </xs:element>
+
+    <xs:element name="user">
+        <xs:complexType>
+            <xs:complexContent>
+                <xs:extension base="mt:userType">
+                    <xs:sequence>
+                        <xs:element ref="mt:reservation" minOccurs="0" maxOccurs="unbounded"></xs:element>
+                        <xs:element ref="mt:message" minOccurs="0" maxOccurs="unbounded"></xs:element>
+                        <xs:element ref="mt:rating" minOccurs="0" maxOccurs="unbounded"></xs:element>
+                    </xs:sequence>
+                </xs:extension>
+            </xs:complexContent>
+        </xs:complexType>
+        <xs:key name="userKey">
+            <xs:selector xpath=".//user"/>
+            <xs:field xpath="id"/>
+        </xs:key>
+    </xs:element>
+
+
+    <xs:element name="agent">
+        <xs:complexType>
+            <xs:complexContent>
+                <xs:extension base="mt:userType"> 
+                    <xs:sequence>
+                        <xs:element ref="mt:accomodation" minOccurs="0" maxOccurs="unbounded"></xs:element>
+                        <xs:element ref="mt:message" minOccurs="0" maxOccurs="unbounded"></xs:element>
+                    </xs:sequence>
+                </xs:extension>
+            </xs:complexContent>
+        </xs:complexType>
+        <xs:key name="agentKey">
+            <xs:selector xpath=".//agent"/>
+            <xs:field xpath="id"/>
+        </xs:key>
+    </xs:element>
+
+
+    <xs:element name="admin">
+        <xs:complexType>
+            <xs:complexContent>
+                <xs:extension base="mt:userType"> </xs:extension>
+            </xs:complexContent>
+        </xs:complexType>
+        <xs:key name="adminKey">
+            <xs:selector xpath=".//admin"/>
+            <xs:field xpath="id"/>
+        </xs:key>
+    </xs:element>
+
+    <xs:element name="message">
+        <xs:complexType>
+            <xs:all>
+                <xs:element name="id" type="xs:ID"/>
+                <xs:element name="idUser" type="xs:ID"/>
+                <xs:element name="idAgent" type="xs:ID"/>
+                <xs:element name="content" type="xs:string"/>
+            </xs:all>
+        </xs:complexType>
+        <xs:keyref name="userMessageForKey" refer="mt:userKey">
+            <xs:selector xpath=".//message"/>
+            <xs:field xpath="idUser"/>
+        </xs:keyref>
+        <xs:keyref name="agentMessageForKey" refer="mt:agentKey">
+            <xs:selector xpath=".//message"/>
+            <xs:field xpath="idAgent"/>
+        </xs:keyref>
+    </xs:element>
+
+    <xs:element name="accomodation">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="id" type="xs:ID"/>
+                <xs:element name="idLocation" type="xs:ID"/>
+                <xs:element name="idAgent" type="xs:ID"/>
+                <xs:element name="type" type="xs:string"/>
+                <xs:element name="category" type="xs:string"/>
+                <xs:element name="description" type="xs:string"/>
+                <xs:element name="image" type="xs:string"/>
+                <xs:element ref="mt:accomodationUnit" minOccurs="0" maxOccurs="unbounded"></xs:element>
+            </xs:sequence>
+        </xs:complexType>
+        <xs:key name="accomodationKey">
+            <xs:selector xpath=".//accomodation"/>
+            <xs:field xpath="id"/>
+        </xs:key>
+        <xs:keyref name="locationAccomodForKey" refer="mt:locationKey">
+            <xs:selector xpath=".//accomodation"/>
+            <xs:field xpath="idLocation"/>
+        </xs:keyref>
+        <xs:keyref name="agentAccomodForKey" refer="mt:agentKey">
+            <xs:selector xpath=".//accomodation"/>
+            <xs:field xpath="idAgent"/>
+        </xs:keyref>
+    </xs:element>
+
+    <xs:element name="address">
+        <xs:complexType>
+            <xs:all>
+                <xs:element name="id" type="xs:ID"/>
+                <xs:element name="country" type="xs:string"/>
+                <xs:element name="city" type="xs:string"/>
+                <xs:element name="street" type="xs:string"/>
+                <xs:element name="number" type="xs:string"/>
+            </xs:all>
+        </xs:complexType>
+        <xs:key name="addressKey">
+            <xs:selector xpath=".//address"/>
+            <xs:field xpath="id"/>
+        </xs:key>
+    </xs:element>
+
+    <xs:element name="location">
+        <xs:complexType>
+            <xs:all>
+                <xs:element name="id" type="xs:ID"/>
+                <xs:element name="idAddress" type="xs:ID"/>
+                <xs:element name="latitude" type="xs:double"/>
+                <xs:element name="longitude" type="xs:double"/>
+            </xs:all>
+        </xs:complexType>
+        <xs:key name="locationKey">
+            <xs:selector xpath=".//location"/>
+            <xs:field xpath="id"/>
+        </xs:key>
+        <xs:keyref name="addressLocationForKey" refer="mt:addressKey">
+            <xs:selector xpath=".//location"/>
+            <xs:field xpath="idAddress"/>
+        </xs:keyref>
+    </xs:element>
+
+    <xs:element name="accomodationUnit">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="id" type="xs:ID"/>
+                <xs:element name="idAccomodation"/>
+                <xs:element name="name" type="xs:string"/>
+                <xs:element name="personsNumber" type="xs:integer"/>
+                <xs:element ref="mt:extraOption" minOccurs="0" maxOccurs="unbounded"></xs:element>
+                <xs:element ref="mt:price" minOccurs="0" maxOccurs="unbounded"></xs:element>
+                <xs:element ref="mt:rating" minOccurs="0" maxOccurs="unbounded"></xs:element>
+            </xs:sequence>
+        </xs:complexType>
+        <xs:key name="accomodationUnitKey">
+            <xs:selector xpath=".//accomodationUnit"/>
+            <xs:field xpath="id"/>
+        </xs:key>
+        <xs:keyref name="accomodAccomodUnitForKey" refer="mt:accomodationKey">
+            <xs:selector xpath=".//accomodationUnit"/>
+            <xs:field xpath="idAccomodation"/>
+        </xs:keyref>
+    </xs:element>
+
+    <xs:element name="extraOption">
+        <xs:complexType>
+            <xs:all>
+                <xs:element name="id" type="xs:ID"/>
+                <xs:element name="idAccomodUnit" type="xs:ID"/>
+                <xs:element name="dateBegin" type="xs:date"/>
+                <xs:element name="dateEnd" type="xs:date"/>
+                <xs:element name="value" type="xs:double"/>
+            </xs:all>
+        </xs:complexType>
+        <xs:key name="extraOptionKey">
+            <xs:selector xpath=".//extraOption"/>
+            <xs:field xpath="id"/>
+        </xs:key>
+        <xs:keyref name="accomodUnitExtraOptForKey" refer="mt:accomodationUnitKey">
+            <xs:selector xpath=".//extraOption"/>
+            <xs:field xpath="idAccomodUnit"/>
+        </xs:keyref>
+    </xs:element>
+
+    <xs:element name="price">
+        <xs:complexType>
+            <xs:all>
+                <xs:element name="id" type="xs:ID"/>
+                <xs:element name="idAccomodUnit" type="xs:ID"/>
+                <xs:element name="dateBegin" type="xs:date"/>
+                <xs:element name="dateEnd" type="xs:date"/>
+                <xs:element name="value" type="xs:double"/>
+            </xs:all>
+        </xs:complexType>
+        <xs:key name="priceKey">
+            <xs:selector xpath=".//price"/>
+            <xs:field xpath="id"/>
+        </xs:key>
+        <xs:keyref name="accomodUnitPriceForKey" refer="mt:accomodationUnitKey">
+            <xs:selector xpath=".//price"/>
+            <xs:field xpath="idAccomodUnit"/>
+        </xs:keyref>
+    </xs:element>
+
+    <xs:element name="rating">
+        <xs:complexType>
+            <xs:all>
+                <xs:element name="id" type="xs:ID"/>
+                <xs:element name="idAccomodUnit" type="xs:ID"/>
+                <xs:element name="idUser" type="xs:ID"/>
+                <xs:element name="value" type="xs:int"/>
+                <xs:element name="comment" type="xs:string"/>
+                <xs:element name="published" type="xs:boolean"/>
+            </xs:all>
+        </xs:complexType>
+        <xs:key name="ratingKey">
+            <xs:selector xpath=".//rating"/>
+            <xs:field xpath="id"/>
+        </xs:key>
+        <xs:keyref name="accomodUnitRatingForKey" refer="mt:accomodationUnitKey">
+            <xs:selector xpath=".//rating"/>
+            <xs:field xpath="idAccomodUnit"/>
+        </xs:keyref>
+        <xs:keyref name="userRatingForKey" refer="mt:userKey">
+            <xs:selector xpath=".//rating"/>
+            <xs:field xpath="idUser"/>
+        </xs:keyref>
+    </xs:element>
+</xs:schema>
