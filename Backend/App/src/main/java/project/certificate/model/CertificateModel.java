@@ -25,10 +25,14 @@ public class CertificateModel {
 	String keyStore;
 	
 	@Column(nullable = false)
+	String trustStore;
+	
+	@Column(nullable = false)
 	Boolean revoked;
 	
 	@Column(nullable = false)
 	Boolean ca;
+
 	
 	public String getAlias() {
 		return alias;
@@ -59,6 +63,11 @@ public class CertificateModel {
 	}
 	public void setCa(Boolean ca) {
 		this.ca = ca;
-	}	
-	
+	}
+	public String getTrustStore() {
+		return trustStore;
+	}
+	public void setTrustStore(String trustStore) {
+		this.trustStore = trustStore;
+	}
 }

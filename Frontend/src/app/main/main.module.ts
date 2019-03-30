@@ -17,6 +17,7 @@ import { CreateNodeComponent } from './create-node/create-node.component';
 import { CreateKeystoreComponent } from './create-keystore/create-keystore.component';
 import { ShowCertificatesComponent } from './show-certificates/show-certificates.component';
 import { RegisterComponent } from './register/register.component';
+import { DistributionComponent } from './distribution/distribution.component';
 
 
 @NgModule({
@@ -30,7 +31,8 @@ import { RegisterComponent } from './register/register.component';
     CreateNodeComponent,
     CreateKeystoreComponent,
     ShowCertificatesComponent,
-    RegisterComponent
+    RegisterComponent,
+    DistributionComponent,
   ],
   imports: [
     CommonModule,

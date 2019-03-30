@@ -28,7 +28,10 @@ public class CertificateService {
 	}
 	
 	public CertificateModel save(CertificateModel cert) {
-		cert.setRevoked(false);
 		return repository.save(cert);
+	}
+	
+	public CertificateModel findByAlias(String alias) {
+		return repository.findByAlias(alias);
 	}
 }

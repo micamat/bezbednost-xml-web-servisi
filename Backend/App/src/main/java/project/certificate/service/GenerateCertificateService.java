@@ -2,9 +2,9 @@ package project.certificate.service;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.security.KeyPair;
+import project.certificate.keystore.*;
 import java.security.KeyStoreException;
 import java.security.NoSuchAlgorithmException;
 import java.security.PrivateKey;
@@ -26,13 +26,15 @@ import org.bouncycastle.asn1.x500.style.BCStyle;
 import org.bouncycastle.asn1.x500.style.IETFUtils;
 import org.bouncycastle.cert.jcajce.JcaX509CertificateHolder;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import project.certificate.data.IssuerData;
 import project.certificate.data.SubjectData;
 import project.certificate.dto.CertificateDTO;
-import project.certificate.dto.*;
 import project.certificate.dto.CertificateDetailDTO;
+import project.certificate.dto.SignedSertificateDTO;
 import project.certificate.generators.CertificateGenerator;
 import project.certificate.generators.KeyGenerator;
 import project.certificate.keystore.KeyStoreReader;
@@ -42,13 +44,19 @@ import project.certificate.keystore.KeystoreDTO;
 import project.certificate.keystore.KeystoreRepository;
 import project.certificate.model.CertificateModel;
 import project.certificate.repository.CertificateRepository;
-import project.certificate.model.*;
+import project.hierarchy.HierarchyModel;
 
 @Service
 public class GenerateCertificateService {
 	
 	@Autowired
+	private GenerateCertificateService certificateService;
+	
+	@Autowired
 	private KeystoreRepository keystoreRepository;
+	
+	@Autowired
+	private CertificateService service;
 	
 	@Autowired
 	private CertificateRepository certificateRepository;
@@ -56,7 +64,7 @@ public class GenerateCertificateService {
 	/*@Autowired
 	private HierarchyService HierarchyService;*/
 	
-	public boolean createCertificate(CertificateDTO certificate)
+	public boolean createCertificate(CertificateDTO certificate, String trustStoreName)
 	{
 		KeyGenerator kg = new KeyGenerator();
 		KeyPair keyPairSubject = kg.generateKeys();
@@ -82,6 +90,7 @@ public class GenerateCertificateService {
 		cm.setKeyStore(certificate.getKeystore());
 		cm.setRevoked(false);
 		cm.setAlias("");
+		cm.setTrustStore(trustStoreName);
 		
 		cm = certificateRepository.save(cm);
 		cm.setAlias(cm.getId().toString());
@@ -153,6 +162,59 @@ public class GenerateCertificateService {
 				KeystoreDTO kd = new KeystoreDTO();
 				kd.setKeystoreName(sample.getKeystoreName());
 				kd.setPassword(sample.getPassword());
+				kd.setPrivateKeyPassword(sample.getPrivateKeyPassword());
+				kd.setRole(sample.getRole());
+				kDTO.add(kd);
+			}
+		}
+		return kDTO;
+	}
+	
+	public Boolean addToTransfer(String alisa,String keystore){
+		CertificateModel cert = service.findByAlias(alisa);
+		
+		Keystore k1 = keystoreRepository.findByKeystoreName(cert.getKeyStore());
+		
+		KeystoreDTO keyStoreTransfer = null;
+		for(KeystoreDTO k : certificateService.getAllTransferKeystores()) {
+			if(k.getKeystoreName().equals(keystore)) {
+				keyStoreTransfer = k;
+			}
+		}
+		
+		KeystoreDTO keyStoreADmin = null;
+		for(KeystoreDTO k : certificateService.getAllAdminKeystores()) {
+			if(k.getKeystoreName().equals(k1.getKeystoreName())) {
+				keyStoreADmin = k;
+			}
+		}
+		
+		KeyStoreReader k = new KeyStoreReader();
+		Certificate cert1 =  k.readCertificate("keystore/admin/" + keyStoreADmin.getKeystoreName(), k1.getPassword(), alisa);
+		System.out.println("keystorename: " + keyStoreADmin.getKeystoreName() + ", " + "password: " + keyStoreADmin.getPassword().toCharArray() + ", privateKeypassword: " + keyStoreADmin.getPrivateKeyPassword().toCharArray());
+		IssuerData isuer = k.readIssuerFromStore("keystore/admin/" + keyStoreADmin.getKeystoreName(), alisa, keyStoreADmin.getPassword().toCharArray(), keyStoreADmin.getPrivateKeyPassword().toCharArray());
+		
+		KeyStoreWriter ksw = new KeyStoreWriter();
+		ksw.loadKeyStore("./keystore/distribution/transfer/" + keyStoreTransfer.getKeystoreName(), keyStoreTransfer.getPassword().toCharArray());
+		ksw.write(alisa, isuer.getPrivateKey(), keyStoreTransfer.getPrivateKeyPassword().toCharArray(), cert1);
+		ksw.saveKeyStore("./keystore/distribution/transfer/" + keyStoreTransfer.getKeystoreName(), keyStoreTransfer.getPassword().toCharArray());
+		
+		return true;
+	}
+	
+	public List<KeystoreDTO> getAllTransferKeystores() {
+		
+		List<Keystore> k = new ArrayList<Keystore>();
+		List<KeystoreDTO> kDTO = new ArrayList<KeystoreDTO>();
+		
+		k = keystoreRepository.findAll();
+		for (Keystore sample : k) {
+			if(sample.getRole().equals("Transfer store")) {
+				KeystoreDTO kd = new KeystoreDTO();
+				kd.setKeystoreName(sample.getKeystoreName());
+				kd.setPassword(sample.getPassword());
+				kd.setPrivateKeyPassword(sample.getPrivateKeyPassword());
+				kd.setRole(sample.getRole());
 				kDTO.add(kd);
 			}
 		}
@@ -215,19 +277,21 @@ public class GenerateCertificateService {
 				certificatesDTO.add(certificateDetailDTO);
 				cert.getSubjectDN();
 				cert.getIssuerDN();
-				  String[] niz = cert.getSubjectDN().getName().split(",");
-				  certificateDetailDTO.setCommonName(niz[niz.length-1].replace("CN=", ""));
+				  String[] subject = cert.getSubjectDN().getName().split(",");
+				  String[] issuer = cert.getSubjectDN().getName().split(",");
 
-				 /* certificateDetailDTO.setOrganization(cert.getSubjectDN().toString());
-				 * certificateDetailDTO.setOrganizationalUnit(cert.getSubjectDN().toString());
-				 * certificateDetailDTO.setOrganizationalUnitIssuer(cert.getSubjectDN().toString
-				 * ());
-				 * certificateDetailDTO.setOrganizationIssuer(cert.getSubjectDN().toString());
-				 * certificateDetailDTO.setSerialNumber(cert.getSubjectDN().toString());
-				 * certificateDetailDTO.set(cert.getSubjectDN().toString());
-				 * certificateDetailDTO.setSerialNumber(cert.getSubjectDN().toString());
-				 * certificateDetailDTO.setSerialNumber(cert.getSubjectDN().toString());
-				 */
+				  certificateDetailDTO.setCommonName(subject[7].replace("CN=", ""));
+
+				  certificateDetailDTO.setOrganization(subject[4].replace("O=", ""));
+				  certificateDetailDTO.setOrganizationalUnit(subject[3].replace("OU=", ""));
+				  certificateDetailDTO.setOrganizationalUnitIssuer(issuer[3].replace("OU=", ""));
+				  certificateDetailDTO.setOrganizationIssuer(issuer[4].replace("O=", ""));
+				  certificateDetailDTO.setSerialNumber(cert.getSerialNumber().toString());
+				  certificateDetailDTO.setCommonNameIssuer(issuer[7].replace("CN=", ""));
+				  certificateDetailDTO.setValidityExpires(cert.getNotAfter().toString());
+				  certificateDetailDTO.setValidityBegins(cert.getNotBefore().toString());
+				  
+
 			}
 		}
 		return certificatesDTO;
@@ -259,7 +323,7 @@ public class GenerateCertificateService {
 	
 	public SignedSertificateDTO makeCertDTOFromCert(X509Certificate cert,String alias) {
 		
-		SignedSertificateDTO cDTO = new SignedSertificateDTO();
+		SignedSertificateDTO cDTO = new SignedSertificateDTO();	
 		
 		
 		try {

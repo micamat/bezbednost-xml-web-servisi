@@ -10,7 +10,7 @@ import { MatButtonModule, MatCardModule, MatTableModule, MatFormFieldModule } fr
 
 @NgModule({
   declarations: [
-    AppComponent,
+    AppComponent
   ],
   imports: [
     BrowserModule,

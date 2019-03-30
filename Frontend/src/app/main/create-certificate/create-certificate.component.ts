@@ -19,8 +19,13 @@ export class CreateCertificateComponent implements OnInit {
   temp: any;
   sertificates: any; 
   node:any;
+  trustStore:any;
+
+  keystoreForm:FormGroup;
+  keystore: any;
 
   constructor(private _certificateService : CertificateService,
+    private _certificateCertificate : CertificateService,
     private formBuilder:FormBuilder,
     private router:Router,
     private activatedRoute: ActivatedRoute) { }
@@ -36,6 +41,12 @@ export class CreateCertificateComponent implements OnInit {
         privatePassword:['',Validators.required],
         startDate:['',Validators.required],
         endDate:['',Validators.required],
+      });
+      this.keystoreForm = this.formBuilder.group({
+        keystoreName:['',Validators.required],
+        password:['',Validators.required],
+        privateKeyPassword:['',Validators.required],
+        role:['Trusted store']
       });
       this._certificateService.getAllAdminKeystores().subscribe(
         data => {
@@ -54,6 +65,8 @@ export class CreateCertificateComponent implements OnInit {
   onSubmit(event:any) {
     this.submitted = true;
     this.cert = this.certForm.getRawValue();
+    this.keystore = this.keystoreForm.getRawValue();
+    this.trustStore = this.keystoreForm.get('keystoreName').value;
     console.log(this.cert);
     if(this.cert.selfSigned == true){
       this.cert.who = null;
@@ -72,10 +85,17 @@ export class CreateCertificateComponent implements OnInit {
       if(obj.organizationName == this.temp){
         this.cert.toWhom = obj;
       }
+      this.router.navigateByUrl("createTruststore");
     });
 
+    this._certificateCertificate.createKeystore(this.keystore).subscribe(
+      data => {
+              console.log("Uspesno sam zavrsio kreiranje truststora.")
+              this.router.navigateByUrl("adminPage");
+            });
+
     console.log(this.cert);
-    this._certificateService.createCertificate(this.cert).subscribe(
+    this._certificateService.createCertificate(this.cert, this.trustStore).subscribe(
       data => {
               console.log("Uspesno sam zavrsio cuvanje sertifikata")
               this.router.navigateByUrl("adminPage");
