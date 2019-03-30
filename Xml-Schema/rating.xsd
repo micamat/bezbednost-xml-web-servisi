@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:mt="http://Megatravel.com/Entities" elementFormDefault="qualified">
+    <xs:import schemaLocation="megatravel.xsd" namespace="http://Megatravel.com/Entities"/>
+
+    <xs:element name="user">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="mt:user"></xs:element>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="accomodationUnit">
+        <xs:complexType>
+            <xs:all>
+                <xs:element ref="mt:accomodationUnit"></xs:element>
+            </xs:all>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="rating">
+        <xs:complexType>
+            <xs:all>
+                <xs:element ref="mt:rating"></xs:element>
+            </xs:all>
+        </xs:complexType>
+        
+    </xs:element>
+</xs:schema>

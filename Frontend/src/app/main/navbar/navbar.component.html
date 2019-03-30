@@ -4,10 +4,10 @@
     <h5>Top Secret</h5>
   </a>
   <ul class="nav left mr-md-auto ml-5">
-    <li *ngIf="ulogovani()" class="nav-item">
+    <li  class="nav-item">
         <a class="nav-link navigacija" [routerLink]="'adminPage'">Admin Page</a>
     </li>
-    <li *ngIf="ulogovani()" class="nav-item">
+    <li class="nav-item">
         <a class="nav-link navigacija" [routerLink]="'certificates'">Certificates</a>
     </li>
 </ul>
@@ -19,7 +19,7 @@
     <a  class="nav-link logovanje" [routerLink]="'/login'">Sign in</a>
   </li>
 </ul>
-<ul *ngIf="ulogovani()" class="nav" >
+<ul class="nav" >
   <li  class="nav-item">
     <a  class="nav-link logovanje" [routerLink]="'/'"  (click)="logout()">Sign out</a>
   </li>

@@ -49,12 +49,6 @@ export class LoginComponent implements OnInit {
 
   }
 
-  ulogovani(){
-    this._userService.getLoged().subscribe(
-      data=>{this.us = data;
-        return this.us;
-      }
-    )
-  }
+ 
 
 }

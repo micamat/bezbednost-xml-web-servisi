@@ -25,8 +25,9 @@ export class NavbarComponent implements OnInit {
   }*/
   ulogovani(){
     this._userService.getLoged().subscribe(
-      data=>{this.us = data;
-              return this.us;
+      data=>{
+        this.us = data;
+        return this.us;
       }
     )
   }
