@@ -92,6 +92,15 @@ public class CertificateController {
 		return new ResponseEntity<List<SignedSertificateDTO>>(certificateService.getAllCertificates(),HttpStatus.OK);
 	}
 	
+	@GetMapping(value = "/getAllCertificateNotCA")
+	public ResponseEntity<List<SignedSertificateDTO>> getAllCertificateNotCA(){
+		System.out.println("BLA BLA");
+		if(certificateService.getAllCertificatesNotCA() == null) {
+			return new ResponseEntity<List<SignedSertificateDTO>>(HttpStatus.NO_CONTENT);
+		}
+		return new ResponseEntity<List<SignedSertificateDTO>>(certificateService.getAllCertificatesNotCA(),HttpStatus.OK);
+	}
+	
 	@PostMapping(value = "/transfer/{alias}/{keystore}")
 	public ResponseEntity<Boolean> transfer(@PathVariable("alias") String alias, @PathVariable("keystore") String keystore){
 		System.out.println(alias + ", " + keystore);

@@ -18,7 +18,7 @@ export class DistributionComponent implements OnInit {
   keystore:any;
 
   ngOnInit() {
-    this._certificateService.getAllCertificate().subscribe(
+    this._certificateService.getAllCertificateNotCA().subscribe(
       data => {
         this.certificates = data;
     });

@@ -321,6 +321,29 @@ public class GenerateCertificateService {
 		return lista;
 	}
 	
+public List<SignedSertificateDTO> getAllCertificatesNotCA(){
+		
+		List<CertificateModel> k = new ArrayList<CertificateModel>();
+		k = certificateRepository.findAll();
+		
+		List<SignedSertificateDTO> lista = new ArrayList<SignedSertificateDTO>();
+		
+		KeyStoreReader kr = new KeyStoreReader();
+		System.out.println("BLA BLA");
+		for (CertificateModel temp : k) {
+				Keystore k1 = keystoreRepository.findByKeystoreName(temp.getKeyStore());
+				//System.out.println("adsuhf;sdohgo;us  " + k1.getKeystoreName());
+				//System.out.println("apoijhjopokj  " + k1.getPassword());
+				//System.out.println("apoijhjopokj  " + temp.getAlias());
+				X509Certificate k2 = (X509Certificate)kr.readCertificate("./keystore/admin/"+k1.getKeystoreName(),k1.getPassword(),temp.getAlias());
+				//System.out.println("ISPIS MI " + k2);
+				lista.add(makeCertDTOFromCert(k2,temp.getAlias()));
+			
+		}
+		
+		return lista;
+	}
+	
 	public SignedSertificateDTO makeCertDTOFromCert(X509Certificate cert,String alias) {
 		
 		SignedSertificateDTO cDTO = new SignedSertificateDTO();	
