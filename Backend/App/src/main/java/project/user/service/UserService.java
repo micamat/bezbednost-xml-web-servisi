@@ -2,8 +2,18 @@ package project.user.service;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Service;
 
+import project.security.factory.CerberusUser;
+import project.security.json.AuthenticationRequest;
+import project.security.json.AuthenticationResponse;
 import project.user.model.User;
 import project.user.model.dto.UserLoginDTO;
 import project.user.repository.UserRepository;
@@ -14,6 +24,17 @@ public class UserService {
 	@Autowired
 	private UserRepository userRepository;
 	
+	@Value("X-Auth-Token")
+	private String tokenHeader;
+	
+	@Autowired
+	private UserDetailsService userDetailsService;
+	
+	@Autowired
+	private AuthenticationManager authenticationManager;
+	
+	@Autowired
+	private project.security.utils.TokenUtils tokenUtils;
 	
 	//@Autowired
 	//private PasswordEncoder encoder;
@@ -84,6 +105,23 @@ public class UserService {
 		return userDTO;
 	}
 
+	public AuthenticationResponse signin(AuthenticationRequest authenticationRequest) {
+		Authentication authentication = this.authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
+				authenticationRequest.getUsername(), authenticationRequest.getPassword()));
+		SecurityContextHolder.getContext().setAuthentication(authentication);
+		UserDetails userDetails = this.userDetailsService.loadUserByUsername(authenticationRequest.getUsername());
+		String token = this.tokenUtils.generateToken(userDetails);
+		return new AuthenticationResponse(token);
+	}
 
+	public void signout() {
+		SecurityContextHolder.clearContext();
+	}
+
+	public project.security.factory.CerberusUser currentUser() {
+		String username = SecurityContextHolder.getContext().getAuthentication().getName();
+		CerberusUser userDetails = (project.security.factory.CerberusUser) userDetailsService.loadUserByUsername(username);
+		return userDetails;
+	}
 	
 }
