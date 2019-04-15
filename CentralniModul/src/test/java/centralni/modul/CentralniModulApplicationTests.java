@@ -1,4 +1,4 @@
-package centralni.modul.demo;
+package centralni.modul;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

@@ -11,9 +11,6 @@ import agentski.modul.repository.HotelRepository;
 
 @Service
 public class HotelService {
-
-	@Autowired
-	HotelModel hotelModel;
 	
 	@Autowired
 	HotelRepository hotelRepo;

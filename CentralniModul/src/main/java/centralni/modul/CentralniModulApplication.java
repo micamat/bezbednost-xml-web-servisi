@@ -1,13 +1,13 @@
-package agentski.modul.demo;
+package centralni.modul;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class AgentskiModulApplication {
+public class CentralniModulApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(AgentskiModulApplication.class, args);
+		SpringApplication.run(CentralniModulApplication.class, args);
 	}
 
 }

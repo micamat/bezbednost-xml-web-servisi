@@ -8,12 +8,8 @@ import org.springframework.stereotype.Service;
 import centralni.modul.model.UserModel;
 import centralni.modul.repository.UserRepository;
 
-
 @Service
 public class UserService {
-	
-	@Autowired
-	UserModel userModel;
 	
 	@Autowired
 	UserRepository userRepo;
@@ -21,5 +17,4 @@ public class UserService {
 	public List<UserModel> findAll(){
 		return userRepo.findAll();
 	}
-	
 }
