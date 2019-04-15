@@ -23,4 +23,9 @@ public class HotelController {
 	public ResponseEntity<List<HotelModel>> findAll(){
 		return new ResponseEntity<List<HotelModel>>(hotelService.findAll(), HttpStatus.OK);
 	}
+	
+	@GetMapping(value = "/nekistring")
+	public ResponseEntity<String> nekiString(){
+		return new ResponseEntity<String>(hotelService.getNekiString(), HttpStatus.OK);
+	}
 }

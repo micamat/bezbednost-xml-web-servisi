@@ -18,4 +18,9 @@ public class HotelService {
 	public List<HotelModel> findAll(){
 		return hotelRepo.findAll();
 	}
+	
+	public String getNekiString() {
+    	return "Ovo je neki string";
+    }
+	
 }
