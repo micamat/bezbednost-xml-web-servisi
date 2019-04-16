@@ -15,7 +15,7 @@ export class UserService {
   }
 
   login(user){
-    return this.http.post(SERVER_URL+'/user/login',user,{responseType: 'text'});
+    return this.http.post(SERVER_URL+'/user/signin',user,{responseType: 'text'});
   }
 
   /*activateUser(hash){
@@ -23,7 +23,12 @@ export class UserService {
   }*/
 
   getLoged(){
-    return this.http.get(SERVER_URL + '/user/loged');
+    return this.http.get(SERVER_URL + '/user/currentUser');
+  }
+
+  logout() {
+    // remove user from local storage to log user out
+    return this.http.get(SERVER_URL + '/user/logout')
   }
 
   /*updatePasswordUser(user:any){

@@ -28,11 +28,12 @@ public class CerberusUser implements UserDetails {
 		super();
 	}
 
-	public CerberusUser(Long id, String email, String password, String firstName, String lastName,
+	public CerberusUser(Long id, String email, String username, String password, String firstName, String lastName,
 			String city, Collection<? extends GrantedAuthority> authorities) {
 		super();
 		this.id = id;
 		this.email = email;
+		this.username = username;
 		this.password = password;
 		this.firstName = firstName;
 		this.lastName = lastName;
@@ -174,4 +175,6 @@ public class CerberusUser implements UserDetails {
 	public String toString() {
 		return "CerberusUser [username=" + username + ", password=" + password + "]";
 	}
+	
+	
 }

@@ -21,6 +21,7 @@ public class CerberusUserFactory {
 		return new CerberusUser(
 				user.getId(),
 				user.getEmail(),
+				user.getUsername(),
 				user.getPassword(),
 				user.getFirstName(),
 				user.getLastName(),

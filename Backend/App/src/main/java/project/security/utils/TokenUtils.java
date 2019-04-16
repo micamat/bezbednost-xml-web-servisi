@@ -7,12 +7,14 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.stereotype.Component;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import project.security.factory.CerberusUser;
 
+@Component
 public class TokenUtils {
 	private final String AUDIENCE_UNKNOWN   = "unknown";
 	  private final String AUDIENCE_WEB       = "web";
@@ -138,7 +140,7 @@ public class TokenUtils {
 	          return Jwts.builder()
 	                  .setClaims(claims)
 	                  .setExpiration(this.generateExpirationDate())
-	                  .signWith(SignatureAlgorithm.HS512, this.secret)
+	                  .signWith(SignatureAlgorithm.RS256, this.secret)
 	                  .compact();
 	      }
 	  }

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { UserService } from '../services/user.service';
 import { Router, ActivatedRoute } from '@angular/router';
+import { HttpHeaders } from '@angular/common/http';
 
 @Component({
   selector: 'app-login',
@@ -23,7 +24,7 @@ export class LoginComponent implements OnInit {
 
   ngOnInit() {
       this.SingIn = this.formBuilder.group({
-        email:['',Validators.required],
+        username:['',Validators.required],
         password:['',Validators.required]
       });
   }
@@ -43,7 +44,20 @@ export class LoginComponent implements OnInit {
       data =>{
               this.router.navigateByUrl("")
               this.isLoged=true;
-              console.log(this.isLoged);
+              localStorage.setItem('currentUser', JSON.parse(data).token);
+      }
+    );
+
+    this._userService.logout().subscribe(
+      data => {
+        localStorage.removeItem('currentUser');
+      }
+    );
+
+    this._userService.getLoged().subscribe(
+      data => {
+        let headers = new HttpHeaders();
+        headers = headers.append('X-Auth-Token', localStorage.getItem('currentUser'));
       }
     );
 

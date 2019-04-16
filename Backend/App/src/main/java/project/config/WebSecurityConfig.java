@@ -16,7 +16,6 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
-import project.security.service.SecurityService;
 import project.security.utils.AuthenticationTokenFilter;
 import project.security.utils.EntryPointUnauthorizedHandler;
 
@@ -29,9 +28,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 
 	  @Autowired
 	  private UserDetailsService userDetailsService;
-
-	  @Autowired
-	  private SecurityService securityService;
 
 	  @Autowired
 	  public void configureAuthentication(AuthenticationManagerBuilder authenticationManagerBuilder) throws Exception {
@@ -58,11 +54,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 	    return authenticationTokenFilter;
 	  }
 
-	  @Bean
-	  public SecurityService securityService() {
-	    return this.securityService;
-	  }
-
 	  @Override
 	  protected void configure(HttpSecurity httpSecurity) throws Exception {
 	    httpSecurity
@@ -77,8 +68,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 	      .authorizeRequests()
 	      	.antMatchers("/**").permitAll()
 	      	.antMatchers(HttpMethod.GET, "/**").permitAll()
-	      	.antMatchers(HttpMethod.POST, "/users/registered/auth").permitAll()
-	      	.antMatchers(HttpMethod.POST, "/users/registered").permitAll()
+	      	.antMatchers(HttpMethod.POST, "/user/signin").permitAll()
+	      	.antMatchers(HttpMethod.POST, "/user").permitAll()
 	      	.antMatchers(HttpMethod.OPTIONS, "/**").permitAll()
 	        .anyRequest().authenticated();
 	    httpSecurity

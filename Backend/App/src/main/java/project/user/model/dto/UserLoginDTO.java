@@ -5,6 +5,8 @@ public class UserLoginDTO {
 	
 	private Long id;
 	
+	private String username;
+	
 	private String password;
 	
 	private String email;
@@ -78,4 +80,18 @@ public class UserLoginDTO {
 		this.email = email;
 	}
 
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
+	@Override
+	public String toString() {
+		return "UserLoginDTO [id=" + id + ", username=" + username + ", password=" + password + ", email=" + email
+				+ ", firstName=" + firstName + ", lastName=" + lastName + ", telephone=" + telephone + ", city=" + city
+				+ "]";
+	}
 }

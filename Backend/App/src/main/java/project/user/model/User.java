@@ -29,6 +29,9 @@ public class User {
 	@Column(name="last_name", nullable = false)
 	private String lastName;
 	
+	@Column(name="username", nullable = false)
+	private String username;
+	
 	@Column(name="password", nullable = false)
 	private String password;
 	
@@ -103,6 +106,20 @@ public class User {
 
 	public Role getAuthority() { return this.authority; };
 	
-	public void setAuthority(Role authority) { this.authority = authority; };
-	
+	public void setAuthority(Role authority) { this.authority = authority; }
+
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
+	@Override
+	public String toString() {
+		return "User [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", username=" + username
+				+ ", password=" + password + ", email=" + email + ", telephone=" + telephone + ", city=" + city
+				+ ", authority=" + authority + "]";
+	};
 }

@@ -11,9 +11,12 @@ import project.user.model.User;
 public interface UserRepository extends JpaRepository<User, Long> {
 
 	boolean existsByEmail(String email);
+	
+	boolean existsByUsername(String username);
+	
 	User findByEmail(String email);
 
 	Optional<User> findByEmailAndPassword(String email, String password);
-
+	
 	User findByUsername(String username);
 }
