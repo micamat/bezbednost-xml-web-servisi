@@ -11,9 +11,6 @@ import agentski.modul.repository.HotelRepository;
 
 @Service
 public class HotelService {
-
-	@Autowired
-	HotelModel hotelModel;
 	
 	@Autowired
 	HotelRepository hotelRepo;
@@ -21,4 +18,9 @@ public class HotelService {
 	public List<HotelModel> findAll(){
 		return hotelRepo.findAll();
 	}
+	
+	public String getNekiString() {
+    	return "Ovo je neki string";
+    }
+	
 }

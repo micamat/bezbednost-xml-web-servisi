@@ -4,7 +4,6 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.security.KeyPair;
-import project.certificate.keystore.*;
 import java.security.KeyStoreException;
 import java.security.NoSuchAlgorithmException;
 import java.security.PrivateKey;
@@ -26,8 +25,6 @@ import org.bouncycastle.asn1.x500.style.BCStyle;
 import org.bouncycastle.asn1.x500.style.IETFUtils;
 import org.bouncycastle.cert.jcajce.JcaX509CertificateHolder;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import project.certificate.data.IssuerData;
@@ -44,7 +41,6 @@ import project.certificate.keystore.KeystoreDTO;
 import project.certificate.keystore.KeystoreRepository;
 import project.certificate.model.CertificateModel;
 import project.certificate.repository.CertificateRepository;
-import project.hierarchy.HierarchyModel;
 
 @Service
 public class GenerateCertificateService {
