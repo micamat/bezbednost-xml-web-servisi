@@ -25,8 +25,9 @@ public class UserController {
 
 	@GetMapping(value = "/tekst")
     public String getNekiString() {
-    	return restTemplate.getForObject("https://localhost:8444/hotels/nekistring", String.class);
-    }
+    	//return restTemplate.getForObject("https://localhost:8444/hotels/nekistring", String.class);
+		return "BLA BLA BLA";
+	}
 	
 	@GetMapping(value = "/all")
 	public ResponseEntity<List<UserModel>> findAll(){

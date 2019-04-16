@@ -1,8 +1,11 @@
 package project.certificate.service;
 
 import java.io.FileInputStream;
+import org.bouncycastle.openssl.PEMWriter;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.StringWriter;
 import java.security.KeyPair;
 import java.security.KeyStoreException;
 import java.security.NoSuchAlgorithmException;
@@ -14,6 +17,7 @@ import java.security.cert.X509Certificate;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.Date;
 import java.util.Enumeration;
 import java.util.List;
@@ -114,6 +118,8 @@ public class GenerateCertificateService {
 		CertificateGenerator cg = new CertificateGenerator();
 		X509Certificate cert = cg.generateCertificate(subjectData, issuerData);
 		
+		
+		
 		KeyStoreWriter wr = new KeyStoreWriter();
 		wr.loadKeyStore("./keystore/admin/" + certificate.getKeystore(), certificate.getPassword().toCharArray());
 		wr.write(cm.getId().toString(), issuerData.getPrivateKey(), certificate.getPrivatePassword().toCharArray(), cert);
@@ -121,6 +127,8 @@ public class GenerateCertificateService {
 		
 		return true;
 	}
+	
+
 	
 	public boolean createKeystore(KeystoreDTO keystoreDTO){
 		if(keystoreRepository.existsByKeystoreName(keystoreDTO.getKeystoreName())) {
