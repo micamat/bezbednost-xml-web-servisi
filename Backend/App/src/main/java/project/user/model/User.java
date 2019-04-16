@@ -3,6 +3,8 @@ package project.user.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -27,6 +29,9 @@ public class User {
 	@Column(name="last_name", nullable = false)
 	private String lastName;
 	
+	@Column(name="username", nullable = false)
+	private String username;
+	
 	@Column(name="password", nullable = false)
 	private String password;
 	
@@ -39,6 +44,9 @@ public class User {
 	@Column(name="city", nullable = true)
 	private String city;
 	
+	@Enumerated(EnumType.STRING)
+	@Column(nullable = true)
+	private Role authority;
 	
 	public Long getId() {
 		return id;
@@ -96,6 +104,22 @@ public class User {
 		this.city = city;
 	}
 
+	public Role getAuthority() { return this.authority; };
 	
-	
+	public void setAuthority(Role authority) { this.authority = authority; }
+
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
+	@Override
+	public String toString() {
+		return "User [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", username=" + username
+				+ ", password=" + password + ", email=" + email + ", telephone=" + telephone + ", city=" + city
+				+ ", authority=" + authority + "]";
+	};
 }
