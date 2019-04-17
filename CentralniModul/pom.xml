@@ -61,7 +61,28 @@
 	    <dependency>
 		    <groupId>org.hibernate</groupId>
 		    <artifactId>hibernate-entitymanager</artifactId>
-		    <version>5.4.1.Final</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.apache.httpcomponents/httpclient -->
+		<dependency>
+    		<groupId>org.apache.httpcomponents</groupId>
+    		<artifactId>httpclient</artifactId>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot -->
+		<dependency>
+    		<groupId>org.springframework.boot</groupId>
+    		<artifactId>spring-boot</artifactId>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.apache.cxf.services.xkms/cxf-services-xkms-common -->
+		<dependency>
+    		<groupId>org.apache.cxf.services.xkms</groupId>
+    		<artifactId>cxf-services-xkms-common</artifactId>
+    		<version>3.3.1</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.apache.cxf.services.xkms/cxf-services-xkms-client -->
+		<dependency>
+    		<groupId>org.apache.cxf.services.xkms</groupId>
+    		<artifactId>cxf-services-xkms-client</artifactId>
+    		<version>3.3.1</version>
 		</dependency>
 	</dependencies>
 	

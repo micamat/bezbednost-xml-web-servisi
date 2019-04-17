@@ -38,7 +38,4 @@ public class UserController {
 	public ResponseEntity<List<UserModel>> findAll(){
 		return new ResponseEntity<List<UserModel>>(userService.findAll(), HttpStatus.OK);
 	}
-	
-	
-	
 }

@@ -7,14 +7,15 @@ import org.springframework.web.client.RestTemplate;
 
 @SpringBootApplication
 public class CentralniModulApplication {
-
+	
 	public static void main(String[] args) {
 		SpringApplication.run(CentralniModulApplication.class, args);
 	}
 	
 	@Bean
 	public RestTemplate restTemplate() {
-	    return new RestTemplate();
+        return new RestTemplate();
 	}
 
 }
+	
