@@ -29,6 +29,11 @@ public class UserController {
 		return "BLA BLA BLA";
 	}
 	
+	@GetMapping(value = "/tekstDrugi")
+    public String getNekiStringDrugi() {
+    	return restTemplate.getForObject("https://localhost:8444/hotels/nekistring", String.class);
+	}
+	
 	@GetMapping(value = "/all")
 	public ResponseEntity<List<UserModel>> findAll(){
 		return new ResponseEntity<List<UserModel>>(userService.findAll(), HttpStatus.OK);
