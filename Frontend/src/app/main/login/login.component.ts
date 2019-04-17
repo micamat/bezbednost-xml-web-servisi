@@ -3,6 +3,8 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { UserService } from '../services/user.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { HttpHeaders } from '@angular/common/http';
+import { HomeComponent } from '../home/home.component';
+import { NavbarComponent } from '../navbar/navbar.component';
 
 @Component({
   selector: 'app-login',
@@ -24,8 +26,8 @@ export class LoginComponent implements OnInit {
 
   ngOnInit() {
       this.SingIn = this.formBuilder.group({
-        username:['',Validators.required],
-        password:['',Validators.required]
+        username:['',Validators.compose([Validators.required, Validators.pattern('[a-zA-Z 0-9!]+')])],
+        password:['',Validators.compose([Validators.required, Validators.pattern('[a-zA-Z 0-9!]+')])]
       });
   }
 
@@ -36,31 +38,18 @@ export class LoginComponent implements OnInit {
     this.user = this.SingIn.getRawValue()
     // stop here if form is invalid
     if (this.SingIn.invalid) {
+        console.log("USAOOOOOOOOO")
+        console.log(this.SingIn.controls.username.hasError)
+        console.log(this.SingIn.controls.username.get)
         return;
     }
-    console.log(this.user)
-
     this._userService.login(this.user).subscribe(
       data =>{
-              this.router.navigateByUrl("")
               this.isLoged=true;
               localStorage.setItem('currentUser', JSON.parse(data).token);
+              this.router.navigateByUrl('');
       }
     );
-
-    this._userService.logout().subscribe(
-      data => {
-        localStorage.removeItem('currentUser');
-      }
-    );
-
-    this._userService.getLoged().subscribe(
-      data => {
-        let headers = new HttpHeaders();
-        headers = headers.append('X-Auth-Token', localStorage.getItem('currentUser'));
-      }
-    );
-
   }
 
  

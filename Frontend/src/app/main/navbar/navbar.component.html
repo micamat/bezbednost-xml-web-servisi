@@ -11,7 +11,7 @@
         <a class="nav-link navigacija" [routerLink]="'certificates'">Certificates</a>
     </li>
 </ul>
-<ul class="nav" >
+<ul *ngIf="!us" class="nav" >
   <li class="nav-item">
       <a  class="nav-link registracija" [routerLink]="'/register'">Register</a>
   </li>
@@ -19,9 +19,9 @@
     <a  class="nav-link logovanje" [routerLink]="'/login'">Sign in</a>
   </li>
 </ul>
-<ul class="nav" >
+<ul *ngIf="us" class="nav" >
   <li  class="nav-item">
-    <a  class="nav-link logovanje" [routerLink]="'/'"  (click)="logout()">Sign out</a>
+    <a  class="nav-link logovanje" [routerLink]="'/'" (click)="logout()">Sign out</a>
   </li>
 </ul>
 </div>

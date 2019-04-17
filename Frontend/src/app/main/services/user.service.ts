@@ -22,8 +22,8 @@ export class UserService {
     return this.http.patch(SERVER_URL + '/user/activation/' + hash, {});
   }*/
 
-  getLoged(){
-    return this.http.get(SERVER_URL + '/user/currentUser');
+  getLoged(headers:any){
+    return this.http.get(SERVER_URL + '/user/currentUser',{ responseType: 'text', headers });
   }
 
   logout() {
