@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="WARN">
+  <Appenders>
+    <Console name="Console" target="SYSTEM_OUT">
+      <PatternLayout pattern="%d{yyyy-MMM-dd HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>
+    </Console>
+    <RollingFile name="File" fileName="./logs/centralniModul.log"
+        filePattern="./logs/centralniModul-%d{HH MM-dd-yyyy}-%i.log">
+    	<PatternLayout pattern="%d{yyyy-MMM-dd HH:mm:ss} %-5level %logger{36} - %msg%n"/>
+    	<Policies>              
+   			<OnStartupTriggeringPolicy minSize="1"/>
+            <TimeBasedTriggeringPolicy interval="1" modulate="true"/>
+           <SizeBasedTriggeringPolicy size="100 KB" /> 
+        </Policies>
+    </RollingFile>
+<!-- 	<File name="File" fileName="centralniModul.log"> -->
+<!-- 		<PatternLayout pattern="%d{yyyy-MMM-dd HH:mm:ss} %-5level %logger{36} - %msg%n"/> -->
+<!-- 	</File> -->
+	<RollingFile name="CriticalFile" fileName="./logs/centralniModul_critical.log"
+        filePattern="./logs/centralniModul-%d{HH MM-dd-yyyy}-%i_critical.log">
+    	<PatternLayout pattern="%d{yyyy-MMM-dd HH:mm:ss.SSS} %-5level %logger{36} - %msg%n"/>
+    	<Policies>              
+   			<OnStartupTriggeringPolicy minSize="1"/>
+            <TimeBasedTriggeringPolicy interval="1" modulate="true"/>
+           <SizeBasedTriggeringPolicy size="100 KB" /> 
+        </Policies>
+    </RollingFile>
+<!--     <File name="CriticalFile" fileName="centralniModul_critical.log"> -->
+<!--     	<PatternLayout pattern="%d{yyyy-MMM-dd HH:mm:ss.SSS} %-5level %logger{36} - %msg%n"/> -->
+<!--     </File> -->
+  </Appenders>
+  <Loggers>
+	<!-- Logujemo INFO iz paketa org.springframework.boot na konzolu i u obican log -->
+	<Logger name="org.springframework.boot" level="info" additivity="false">
+		<AppenderRef ref="File"/>
+	</Logger>
+	<!-- Logujemo WARN iz paketa org.springframework.boot na konzolu i u oba loga -->
+	<Logger name="org.springframework.boot" level="warn" additivity="false">
+		<AppenderRef ref="Console"/>
+		<AppenderRef ref="File"/>
+		<AppenderRef ref="CriticalFile"/>
+	</Logger>
+	<Logger name="org.springframework.boot" level="debug">
+		<AppenderRef ref="Console"/>
+	</Logger>
+    <Root level="error">
+      <AppenderRef ref="Console"/>
+      <AppenderRef ref="File"/>
+      <AppenderRef ref="CriticalFile"/>
+    </Root>
+  </Loggers>
+</Configuration>
