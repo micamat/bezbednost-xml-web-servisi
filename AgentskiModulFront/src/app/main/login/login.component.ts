@@ -44,7 +44,7 @@ export class LoginComponent implements OnInit {
 
     this._userService.login(this.user).subscribe(
       data =>{
-              this.router.navigateByUrl("")
+              this.router.navigateByUrl('/loggedIn');
               this.isLoged=true;
               console.log(data);
               localStorage.setItem('currentUser', JSON.parse(data).token);

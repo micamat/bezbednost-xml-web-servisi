@@ -5,6 +5,10 @@ import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.logging.log4j.Level;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.MarkerManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -46,6 +50,9 @@ public class UserController {
 
 	@PostMapping(value = "/login")
 	public boolean login(@RequestParam String email, @RequestParam String password, @RequestParam String modul) {
+		Logger logger = LogManager.getLogger();
+
+		
 		String encryptedPassword = getEncryptedPassword(password);
 		
 		List<UserModel> users = userService.findAll();
@@ -55,14 +62,17 @@ public class UserController {
 				
 				if (modul.equals("agentski") && u.getRole().getRolename().equals("agent")) {
 					System.out.println("Logged in: " + u.getEmail() + ", " + u.getRole().getRolename());
+					logger.log(Level.INFO, MarkerManager.getMarker("SECURITY"), "login attempt: [" + email + ", " + modul +"] - SUCCESSFUL");
 					loggedUser = u;
 					return true;
 				} else if (modul.equals("administratorski") && u.getRole().getRolename().equals("admin")) {
 					System.out.println("Logged in: " + u.getEmail() + ", " + u.getRole().getRolename());
+					logger.log(Level.INFO, MarkerManager.getMarker("SECURITY"), "login attempt: [" + email + ", " + modul +"] - SUCCESSFUL");
 					loggedUser = u;
 					return true;
 				} else if (modul.equals("korisnicki") && u.getRole().getRolename().equals("user")) {
 					System.out.println("Logged in: " + u.getEmail() + ", " + u.getRole().getRolename());
+					logger.log(Level.INFO, MarkerManager.getMarker("SECURITY"), "login attempt: [" + email + ", " + modul +"] - SUCCESSFUL");
 					loggedUser = u;
 					return true;
 				}
@@ -70,6 +80,7 @@ public class UserController {
 			}
 		}
 		
+		logger.log(Level.INFO, MarkerManager.getMarker("SECURITY"), "login attempt: [" + email + ", " + modul +"] - FAILED");
 		return false;
 	}
 	

@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, ViewContainerRef, Inject } from '@angular/core';
+import { LoggedInService } from './main/services/loggedIn.service';
 
 @Component({
   selector: 'app-root',
@@ -6,5 +7,12 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'AgentskiModulFront';
+  //title = 'AgentskiModulFront';
+
+
+  //constructor(@Inject(LoggedInService) service, 
+             // @Inject(ViewContainerRef) viewContainerRef) {
+    // service.setRootViewContainerRef(viewContainerRef)
+    // service.addDynamicComponent()
+  //}
 }
