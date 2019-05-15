@@ -25,6 +25,10 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 	@Autowired
 	private CompanyAdminRepository companyAdminRepository;*/
 	
+	public UserDetailsServiceImpl() {
+		
+	}
+	
 	@Override
 	@Transactional(readOnly = true, propagation = Propagation.REQUIRED, isolation = Isolation.READ_COMMITTED)
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {

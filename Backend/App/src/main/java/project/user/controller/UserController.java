@@ -30,7 +30,7 @@ public class UserController {
 	@Autowired
 	private UserService userService;
 	
-	@RequestMapping(method = RequestMethod.POST)
+	@RequestMapping(method = RequestMethod.POST,produces = { "application/xml", "text/xml" },  consumes = { "application/xml", "text/xml" })
 	public ResponseEntity<?> registration(@RequestBody UserLoginDTO user){
 		return ResponseEntity.ok(userService.save(user));
 	}
