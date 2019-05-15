@@ -12,7 +12,6 @@ export class UserService {
   
   login(user){
     let httpParams = new HttpParams().append("email", user.email).append("password", user.password);
-
     console.log(user.email);
     console.log(httpParams);
     return this.http.post(SERVER_URL+'/login/login', {}, {responseType: 'text', params: httpParams});

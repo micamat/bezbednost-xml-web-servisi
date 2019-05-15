@@ -1,5 +1,4 @@
 import { Component, ViewContainerRef, Inject } from '@angular/core';
-import { LoggedInService } from './main/services/loggedIn.service';
 
 @Component({
   selector: 'app-root',
