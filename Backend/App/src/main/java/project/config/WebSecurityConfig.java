@@ -28,10 +28,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 
 	  @Autowired
 	  private UserDetailsService userDetailsService;
-	  
-	  public WebSecurityConfig() {
-		// TODO Auto-generated constructor stub
-	  }
 
 	  @Autowired
 	  public void configureAuthentication(AuthenticationManagerBuilder authenticationManagerBuilder) throws Exception {

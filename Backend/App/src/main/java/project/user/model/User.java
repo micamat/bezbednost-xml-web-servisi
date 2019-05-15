@@ -9,7 +9,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import javax.validation.constraints.Pattern;
 
 @Entity
 @Table(name="user")
@@ -25,30 +24,24 @@ public class User {
 	private Long id;
 	
 	@Column(name="first_name", nullable = false)
-	@Pattern(regexp = "[a-zA-Z ]+")
 	private String firstName;
 	
 	@Column(name="last_name", nullable = false)
-	@Pattern(regexp = "[a-zA-Z ]+")
 	private String lastName;
 	
 	@Column(name="username", nullable = false)
-	@Pattern(regexp = "[a-zA-Z 0-9!]+")
 	private String username;
 	
 	@Column(name="password", nullable = false)
-	@Pattern(regexp = "[a-zA-Z 0-9!]+")
 	private String password;
 	
 	@Column(name="email", nullable = false, unique = true , length = 50)
 	private String email;
 	
 	@Column(name="telephone", nullable = true)
-	@Pattern(regexp = "[a-zA-Z 0-9!]+")
 	private String telephone;
 	
 	@Column(name="city", nullable = true)
-	@Pattern(regexp = "[a-zA-Z ]*")
 	private String city;
 	
 	@Enumerated(EnumType.STRING)

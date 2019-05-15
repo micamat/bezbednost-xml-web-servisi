@@ -1,7 +1,5 @@
 package project.user.model.dto;
 
-import javax.xml.bind.annotation.XmlRootElement;
-
 
 public class UserLoginDTO {
 	
