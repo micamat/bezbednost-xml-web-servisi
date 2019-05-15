@@ -57,7 +57,7 @@ public class LoginController {
 				BufferedReader reader2 = new BufferedReader(new InputStreamReader(url2.openStream()));
 				
 				// Ocekujemo BAD REQUEST 400 ako smo lose ulogovani tj  ako nemamo dozvolu za ovu akciju ("READ_USERS")
-				System.out.println(reader.readLine()); 
+				System.out.println("Odgovor na komandu /user/all: " + reader2.readLine()); 
 			}
 			
 			return resp;

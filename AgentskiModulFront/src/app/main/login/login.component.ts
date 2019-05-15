@@ -44,9 +44,15 @@ export class LoginComponent implements OnInit {
 
     this._userService.login(this.user).subscribe(
       data =>{
-              this.router.navigateByUrl('/loggedIn');
-              this.isLoged=true;
               console.log(data);
+              if (data == 'true'){
+                this.isLoged=true;
+              //window.location.href = 'putanja do komponente';
+              //this.router.navigateByUrl('/loggedIn');
+                window.location.href= "assets/loggedin.html";
+              } else {
+                this.isLoged=false;
+              }
               localStorage.setItem('currentUser', JSON.parse(data).token);
       }
     );
