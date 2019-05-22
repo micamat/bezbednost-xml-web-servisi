@@ -1,3 +1,0 @@
-2019-May-13 20:53:48.712 WARN  org.springframework.boot.autoconfigure.orm.jpa.JpaBaseConfiguration$JpaWebConfiguration$JpaWebMvcConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
-2019-May-13 20:54:10.774 INFO  centralni.modul.controller.UserController - login attempt: [aca@gmail.com, agentski] - FAILED
-2019-May-13 20:54:20.614 INFO  centralni.modul.controller.UserController - login attempt: [jovang@gmail.com, agentski] - SUCCESSFUL

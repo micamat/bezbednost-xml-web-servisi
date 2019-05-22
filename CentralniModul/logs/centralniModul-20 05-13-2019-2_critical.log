@@ -1,5 +1,0 @@
-2019-May-13 22:29:01.360 INFO  centralni.modul.controller.UserController - login attempt: [jovang@gmail.com, agentski] - SUCCESSFUL
-2019-May-13 22:30:00.278 INFO  centralni.modul.controller.UserController - login attempt: [aca@gmail.com, agentski] - FAILED
-2019-May-13 22:31:04.815 INFO  centralni.modul.controller.UserController - login attempt: [mare2, agentski] - FAILED
-2019-May-13 22:31:08.223 INFO  centralni.modul.controller.UserController - login attempt: [mare2, agentski] - FAILED
-2019-May-13 22:31:09.099 INFO  centralni.modul.controller.UserController - login attempt: [mare2, agentski] - FAILED
