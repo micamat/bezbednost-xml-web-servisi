@@ -10,6 +10,7 @@ package agentski.modul.app.model.kategorijasmestaja;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -56,8 +57,8 @@ public class KategorijaSmestaja {
     @XmlID
     @XmlSchemaType(name = "ID")
     @Id
-    @GeneratedValue
-    protected String id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    protected Long id;
    
     @XmlElement(required = true)
     protected String naziv;
@@ -73,7 +74,7 @@ public class KategorijaSmestaja {
      *     {@link String }
      *     
      */
-    public String getId() {
+    public Long getId() {
         return id;
     }
 
@@ -85,7 +86,7 @@ public class KategorijaSmestaja {
      *     {@link String }
      *     
      */
-    public void setId(String value) {
+    public void setId(Long value) {
         this.id = value;
     }
 

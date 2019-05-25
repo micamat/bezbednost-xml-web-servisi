@@ -12,6 +12,7 @@ import java.sql.Date;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.xml.bind.annotation.XmlAccessType;
@@ -66,8 +67,8 @@ public class Cenovnik {
     @XmlID
     @XmlSchemaType(name = "ID")
     @Id
-    @GeneratedValue
-    protected String id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    protected Long id;
   
     @XmlElement(required = true)
     protected String cena;
@@ -96,7 +97,7 @@ public class Cenovnik {
      *     {@link String }
      *     
      */
-    public String getId() {
+    public Long getId() {
         return id;
     }
 
@@ -108,7 +109,7 @@ public class Cenovnik {
      *     {@link String }
      *     
      */
-    public void setId(String value) {
+    public void setId(Long value) {
         this.id = value;
     }
 

@@ -8,10 +8,10 @@
 
 package agentski.modul.app.model.lokacija;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
@@ -24,6 +24,7 @@ import javax.xml.bind.annotation.XmlSchemaType;
 import javax.xml.bind.annotation.XmlType;
 import javax.xml.bind.annotation.adapters.CollapsedStringAdapter;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
+
 import agentski.modul.app.model.kordinate.Koordinate;
 
 
@@ -65,8 +66,8 @@ public class Lokacija {
     @XmlID
     @XmlSchemaType(name = "ID")
     @Id
-    @GeneratedValue
-    protected String id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    protected Long id;
     
     @XmlElement(required = true)
     @Column(name = "drzava")
@@ -96,7 +97,7 @@ public class Lokacija {
      *     {@link String }
      *     
      */
-    public String getId() {
+    public Long getId() {
         return id;
     }
 
@@ -108,7 +109,7 @@ public class Lokacija {
      *     {@link String }
      *     
      */
-    public void setId(String value) {
+    public void setId(Long value) {
         this.id = value;
     }
 

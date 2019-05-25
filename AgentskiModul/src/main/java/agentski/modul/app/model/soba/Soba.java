@@ -13,6 +13,7 @@ import java.util.Set;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
@@ -79,8 +80,8 @@ public class Soba {
     @XmlID
     @XmlSchemaType(name = "ID")
     @Id
-    @GeneratedValue
-    protected String id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    protected Long id;
    
     @XmlElement(required = true)
     protected String naziv;
@@ -115,7 +116,7 @@ public class Soba {
      *     {@link String }
      *     
      */
-    public String getId() {
+    public Long getId() {
         return id;
     }
 
@@ -127,7 +128,7 @@ public class Soba {
      *     {@link String }
      *     
      */
-    public void setId(String value) {
+    public void setId(Long value) {
         this.id = value;
     }
 
