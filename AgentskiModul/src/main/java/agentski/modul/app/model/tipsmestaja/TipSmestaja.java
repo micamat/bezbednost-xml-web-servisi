@@ -67,7 +67,7 @@ public class TipSmestaja {
     
     @XmlElement(required = true)
     protected String opis;
-
+    
     /**
      * Gets the value of the id property.
      * 

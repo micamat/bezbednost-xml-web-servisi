@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import agentski.modul.app.modelDTO.KategorijaSmestajaDTO;
+import agentski.modul.app.modelDTO.SifarnikDTO;
 import agentski.modul.app.service.KategorijaSmestajaService;
 
 @RestController
@@ -24,24 +24,24 @@ public class KategorijaSmestajaController {
 	private KategorijaSmestajaService kategorijaSmestajaService;
 
 	@GetMapping
-	public ResponseEntity<List<KategorijaSmestajaDTO>> getAll(){
+	public ResponseEntity<List<SifarnikDTO>> getAll(){
 		if(kategorijaSmestajaService.getAll() == null) {
-			return new ResponseEntity<List<KategorijaSmestajaDTO>>(HttpStatus.NO_CONTENT);
+			return new ResponseEntity<List<SifarnikDTO>>(HttpStatus.NO_CONTENT);
 		}
-		return new ResponseEntity<List<KategorijaSmestajaDTO>>(kategorijaSmestajaService.getAll(), HttpStatus.OK);
+		return new ResponseEntity<List<SifarnikDTO>>(kategorijaSmestajaService.getAll(), HttpStatus.OK);
 	}
 	
 	@GetMapping(value = "/{id}")
-	public ResponseEntity<KategorijaSmestajaDTO> getById(@PathVariable Long id){
+	public ResponseEntity<SifarnikDTO> getById(@PathVariable Long id){
 		if(kategorijaSmestajaService.getById(id) == null) {
-			return new ResponseEntity<KategorijaSmestajaDTO>(HttpStatus.NO_CONTENT);
+			return new ResponseEntity<SifarnikDTO>(HttpStatus.NO_CONTENT);
 		}
-		return new ResponseEntity<KategorijaSmestajaDTO>(kategorijaSmestajaService.getById(id), HttpStatus.OK);
+		return new ResponseEntity<SifarnikDTO>(kategorijaSmestajaService.getById(id), HttpStatus.OK);
 	}
 	
 	@PostMapping
-	public ResponseEntity<String> add(@RequestBody KategorijaSmestajaDTO kategorijaSmestajaDTO){
-		if(kategorijaSmestajaService.add(kategorijaSmestajaDTO)) {
+	public ResponseEntity<String> add(@RequestBody SifarnikDTO SifarnikDTO){
+		if(kategorijaSmestajaService.add(SifarnikDTO)) {
 			return new ResponseEntity<String>("Kategorija smestaja je uspesno dodat!", HttpStatus.CREATED);
 		}else {
 			return new ResponseEntity<String>("Greska pri dodavanju kategorije smestaja!", HttpStatus.CONFLICT);

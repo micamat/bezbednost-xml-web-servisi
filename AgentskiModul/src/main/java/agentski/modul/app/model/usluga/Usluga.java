@@ -6,7 +6,7 @@
 //
 
 
-package agentski.modul.app.model.usluge;
+package agentski.modul.app.model.usluga;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -60,7 +60,7 @@ import agentski.modul.app.model.soba.Soba;
 })
 @XmlRootElement(name = "usluge")
 @Entity
-public class Usluge {
+public class Usluga {
 
     @XmlElement(required = true)
     @XmlJavaTypeAdapter(CollapsedStringAdapter.class)

@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import agentski.modul.app.model.kategorijasmestaja.KategorijaSmestaja;
-import agentski.modul.app.modelDTO.KategorijaSmestajaDTO;
+import agentski.modul.app.modelDTO.SifarnikDTO;
 import agentski.modul.app.repository.KategorijaSmestajaRepository;
 
 @Service
@@ -16,11 +16,11 @@ public class KategorijaSmestajaService {
 	@Autowired
 	private KategorijaSmestajaRepository kategorijaSmestajaRepository;
 
-	public List<KategorijaSmestajaDTO> getAll(){ 
+	public List<SifarnikDTO> getAll(){ 
 		return kategorijaSmestajaRepository.findAll().stream().map(this::convertToDTO).collect(Collectors.toList());
 	};
 	
-	public KategorijaSmestajaDTO getById(Long id) {
+	public SifarnikDTO getById(Long id) {
 		if(!kategorijaSmestajaRepository.existsById(id)) {
 			return null;
 		}
@@ -29,10 +29,10 @@ public class KategorijaSmestajaService {
 	}
 	
 	
-	public boolean add(KategorijaSmestajaDTO tipSmestajaDTO) {
-		tipSmestajaDTO.setId(null);
-		if(kategorijaSmestajaRepository.findAll().stream().filter(x -> tipSmestajaDTO.getNaziv().equals(x.getNaziv())).map(this::convertToDTO).collect(Collectors.toList()).isEmpty()) {
-			kategorijaSmestajaRepository.save(convertToEntity(tipSmestajaDTO));
+	public boolean add(SifarnikDTO kategorijaSmestajaDTO) {
+		kategorijaSmestajaDTO.setId(null);
+		if(kategorijaSmestajaRepository.findAll().stream().filter(x -> kategorijaSmestajaDTO.getNaziv().equals(x.getNaziv())).map(this::convertToDTO).collect(Collectors.toList()).isEmpty()) {
+			kategorijaSmestajaRepository.save(convertToEntity(kategorijaSmestajaDTO));
 			return true;
 		}
 		return false;
@@ -46,15 +46,15 @@ public class KategorijaSmestajaService {
 		return false;
 	}
 	
-	private KategorijaSmestajaDTO convertToDTO(KategorijaSmestaja kategorijaSmestaja) {
-		KategorijaSmestajaDTO kategorijaSmestajaDTO = new KategorijaSmestajaDTO();
+	private SifarnikDTO convertToDTO(KategorijaSmestaja kategorijaSmestaja) {
+		SifarnikDTO kategorijaSmestajaDTO = new SifarnikDTO();
 		kategorijaSmestajaDTO.setId(kategorijaSmestaja.getId());
 		kategorijaSmestajaDTO.setNaziv(kategorijaSmestaja.getNaziv());
 		kategorijaSmestajaDTO.setOpis(kategorijaSmestaja.getOpis());
 		return kategorijaSmestajaDTO;
 	}
 	
-	private KategorijaSmestaja convertToEntity(KategorijaSmestajaDTO kategorijaSmestajaDTO) {
+	private KategorijaSmestaja convertToEntity(SifarnikDTO kategorijaSmestajaDTO) {
 		KategorijaSmestaja kategorijaSmestaja = new KategorijaSmestaja();
 		kategorijaSmestaja.setNaziv(kategorijaSmestajaDTO.getNaziv());
 		kategorijaSmestaja.setOpis(kategorijaSmestajaDTO.getOpis());

@@ -57,7 +57,7 @@ public class StatusSobe {
     @XmlID
     @XmlSchemaType(name = "ID")
     @Id
-     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     protected Long id;
 
     @XmlElement(required = true)

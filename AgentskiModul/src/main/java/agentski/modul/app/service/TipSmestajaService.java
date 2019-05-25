@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import agentski.modul.app.model.tipsmestaja.TipSmestaja;
-import agentski.modul.app.modelDTO.TipSmestajaDTO;
+import agentski.modul.app.modelDTO.SifarnikDTO;
 import agentski.modul.app.repository.TipSmestajaRepository;
 
 @Service
@@ -16,11 +16,11 @@ public class TipSmestajaService {
 	@Autowired
 	private TipSmestajaRepository tipSmestajaRepository;
 
-	public List<TipSmestajaDTO> getAll(){ 
+	public List<SifarnikDTO> getAll(){ 
 		return tipSmestajaRepository.findAll().stream().map(this::convertToDTO).collect(Collectors.toList());
 	};
 	
-	public TipSmestajaDTO getById(Long id) {
+	public SifarnikDTO getById(Long id) {
 		if(!tipSmestajaRepository.existsById(id)) {
 			return null;
 		}
@@ -29,7 +29,7 @@ public class TipSmestajaService {
 	}
 	
 	
-	public boolean add(TipSmestajaDTO tipSmestajaDTO) {
+	public boolean add(SifarnikDTO tipSmestajaDTO) {
 		tipSmestajaDTO.setId(null);
 		if(tipSmestajaRepository.findAll().stream().filter(x -> tipSmestajaDTO.getNaziv().equals(x.getNaziv())).map(this::convertToDTO).collect(Collectors.toList()).isEmpty()) {
 			tipSmestajaRepository.save(convertToEntity(tipSmestajaDTO));
@@ -46,15 +46,15 @@ public class TipSmestajaService {
 		return false;
 	}
 	
-	private TipSmestajaDTO convertToDTO(TipSmestaja tipSmestaja) {
-		TipSmestajaDTO tipSmestajaDTO = new TipSmestajaDTO();
+	private SifarnikDTO convertToDTO(TipSmestaja tipSmestaja) {
+		SifarnikDTO tipSmestajaDTO = new SifarnikDTO();
 		tipSmestajaDTO.setId(tipSmestaja.getId());
 		tipSmestajaDTO.setNaziv(tipSmestaja.getNaziv());
 		tipSmestajaDTO.setOpis(tipSmestaja.getOpis());
 		return tipSmestajaDTO;
 	}
 	
-	private TipSmestaja convertToEntity(TipSmestajaDTO tipSmestajaDTO) {
+	private TipSmestaja convertToEntity(SifarnikDTO tipSmestajaDTO) {
 		TipSmestaja tipSmestaja = new TipSmestaja();
 		tipSmestaja.setId(tipSmestajaDTO.getId());
 		tipSmestaja.setNaziv(tipSmestajaDTO.getNaziv());

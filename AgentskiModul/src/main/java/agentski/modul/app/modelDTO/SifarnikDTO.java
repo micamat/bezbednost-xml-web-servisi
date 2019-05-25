@@ -1,11 +1,11 @@
 package agentski.modul.app.modelDTO;
 
-public class TipSmestajaDTO {
+public class SifarnikDTO {
 	private Long id;
 	private String naziv;
 	private String opis;
 	
-	public TipSmestajaDTO(){
+	public SifarnikDTO(){
 		
 	}
 

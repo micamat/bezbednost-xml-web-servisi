@@ -6,7 +6,7 @@
 //
 
 
-package agentski.modul.app.model.usluge;
+package agentski.modul.app.model.usluga;
 
 import javax.xml.bind.annotation.XmlRegistry;
 
@@ -37,11 +37,11 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link Usluge }
+     * Create an instance of {@link Usluga }
      * 
      */
-    public Usluge createUsluge() {
-        return new Usluge();
+    public Usluga createUsluge() {
+        return new Usluga();
     }
 
 }

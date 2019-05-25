@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import agentski.modul.app.modelDTO.TipSmestajaDTO;
+import agentski.modul.app.modelDTO.SifarnikDTO;
 import agentski.modul.app.service.TipSmestajaService;
 
 @RestController
@@ -24,24 +24,24 @@ public class TipSmestajaController {
 	private TipSmestajaService tipSmestajaService;
 
 	@GetMapping
-	public ResponseEntity<List<TipSmestajaDTO>> getAll(){
+	public ResponseEntity<List<SifarnikDTO>> getAll(){
 		if(tipSmestajaService.getAll() == null) {
-			return new ResponseEntity<List<TipSmestajaDTO>>(HttpStatus.NO_CONTENT);
+			return new ResponseEntity<List<SifarnikDTO>>(HttpStatus.NO_CONTENT);
 		}
-		return new ResponseEntity<List<TipSmestajaDTO>>(tipSmestajaService.getAll(), HttpStatus.OK);
+		return new ResponseEntity<List<SifarnikDTO>>(tipSmestajaService.getAll(), HttpStatus.OK);
 	}
 	
 	@GetMapping(value = "/{id}")
-	public ResponseEntity<TipSmestajaDTO> getById(@PathVariable Long id){
+	public ResponseEntity<SifarnikDTO> getById(@PathVariable Long id){
 		if(tipSmestajaService.getById(id) == null) {
-			return new ResponseEntity<TipSmestajaDTO>(HttpStatus.NO_CONTENT);
+			return new ResponseEntity<SifarnikDTO>(HttpStatus.NO_CONTENT);
 		}
-		return new ResponseEntity<TipSmestajaDTO>(tipSmestajaService.getById(id), HttpStatus.OK);
+		return new ResponseEntity<SifarnikDTO>(tipSmestajaService.getById(id), HttpStatus.OK);
 	}
 	
 	@PostMapping
-	public ResponseEntity<String> add(@RequestBody TipSmestajaDTO tipSmestajaDTO){
-		if(tipSmestajaService.add(tipSmestajaDTO)) {
+	public ResponseEntity<String> add(@RequestBody SifarnikDTO SifarnikDTO){
+		if(tipSmestajaService.add(SifarnikDTO)) {
 			return new ResponseEntity<String>("Tip smestaja je uspesno dodat!", HttpStatus.CREATED);
 		}else {
 			return new ResponseEntity<String>("Greska pri dodavanju tipa smestaja!", HttpStatus.CONFLICT);

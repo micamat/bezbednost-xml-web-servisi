@@ -32,7 +32,7 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 import agentski.modul.app.model.smestaj.Smestaj;
 import agentski.modul.app.model.tipsobe.TipSobe;
-import agentski.modul.app.model.usluge.Usluge;
+import agentski.modul.app.model.usluga.Usluga;
 
 
 /**
@@ -106,7 +106,7 @@ public class Soba {
             name = "sobne_usluge",
             joinColumns = @JoinColumn(),
             inverseJoinColumns = @JoinColumn())
-    protected Set<Usluge> usluge;
+    protected Set<Usluga> usluge;
 
     /**
      * Gets the value of the id property.
@@ -270,13 +270,13 @@ public class Soba {
      * 
      * <p>
      * Objects of the following type(s) are allowed in the list
-     * {@link Usluge }
+     * {@link Usluga }
      * 
      * 
      */
-    public Set<Usluge> getUsluge() {
+    public Set<Usluga> getUsluge() {
         if (usluge == null) {
-            usluge = new HashSet<Usluge>();
+            usluge = new HashSet<Usluga>();
         }
         return this.usluge;
     }

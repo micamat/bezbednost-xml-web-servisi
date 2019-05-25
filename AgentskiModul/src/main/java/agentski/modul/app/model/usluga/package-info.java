@@ -6,4 +6,4 @@
 //
 
 @javax.xml.bind.annotation.XmlSchema(namespace = "http://model.app.modul.agentski/Usluge", elementFormDefault = javax.xml.bind.annotation.XmlNsForm.QUALIFIED)
-package agentski.modul.app.model.usluge;
+package agentski.modul.app.model.usluga;
