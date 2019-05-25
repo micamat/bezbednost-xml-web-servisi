@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified"
+    xmlns:kord="http://model.app.modul.agentski/Kordinate" targetNamespace="http://model.app.modul.agentski/Lokacija"> 
+    <xs:import schemaLocation="Kordinate.xsd" namespace="http://model.app.modul.agentski/Kordinate"/>
+    <xs:element name="lokacija">
+        <xs:complexType>
+            <xs:all>
+                <xs:element name="id" type="xs:ID"/>
+                <xs:element name="drzava" type="xs:string"/>
+                <xs:element name="grad" type="xs:string"/>
+                <xs:element name="ulica" type="xs:string"/>
+                <xs:element name="broj" type="xs:string"/>
+                <xs:element ref="kord:koordinate"></xs:element>
+            </xs:all>
+        </xs:complexType>
+    </xs:element>
+</xs:schema>
