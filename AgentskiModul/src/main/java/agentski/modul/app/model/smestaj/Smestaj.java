@@ -15,6 +15,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
@@ -95,15 +96,15 @@ public class Smestaj {
     protected String slika;
     
     @XmlElement(namespace = "http://model.app.modul.agentski/Lokacija", required = true)
-    @OneToOne
+    @OneToOne(optional = false)
     protected Lokacija lokacija;
     
     @XmlElement(namespace = "http://model.app.modul.agentski/TipSmestaja", required = true)
-    @ManyToOne
+    @ManyToOne(optional = false)
     protected TipSmestaja tipSmestaja;
     
     @XmlElement(namespace = "http://model.app.modul.agentski/KategorijaSmestaja", required = true)
-    @ManyToOne
+    @ManyToOne(optional = false)
     protected KategorijaSmestaja kategorijaSmestaja;
     
     @XmlElement(namespace = "http://model.app.modul.agentski/Soba", required = true)
