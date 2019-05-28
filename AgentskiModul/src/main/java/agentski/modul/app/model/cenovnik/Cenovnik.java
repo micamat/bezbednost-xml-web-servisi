@@ -10,6 +10,7 @@ package agentski.modul.app.model.cenovnik;
 
 import java.sql.Date;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -71,22 +72,25 @@ public class Cenovnik {
     protected Long id;
   
     @XmlElement(required = true)
+    @Column(nullable = false)
     protected String cena;
     
     @XmlElement(required = true)
     @XmlSchemaType(name = "date")
+    @Column(nullable = false)
     protected Date datumOd;
     
     @XmlElement(required = true)
     @XmlSchemaType(name = "date")
+    @Column(nullable = false)
     protected Date datumDo;
     
     @XmlElement(namespace = "http://model.app.modul.agentski/Smestaj", required = true)
-    @ManyToOne
+    @ManyToOne(optional = false)
     protected Smestaj smestaj;
    
     @XmlElement(namespace = "http://model.app.modul.agentski/TipSobe", required = true)
-    @ManyToOne
+    @ManyToOne(optional = false)
     protected TipSobe tipSobe;
 
     /**

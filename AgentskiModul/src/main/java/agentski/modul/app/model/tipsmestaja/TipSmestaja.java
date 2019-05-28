@@ -8,6 +8,7 @@
 
 package agentski.modul.app.model.tipsmestaja;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -63,6 +64,7 @@ public class TipSmestaja {
     protected Long id;
 
     @XmlElement(required = true)
+    @Column(nullable = false)
     protected String naziv;
     
     @XmlElement(required = true)

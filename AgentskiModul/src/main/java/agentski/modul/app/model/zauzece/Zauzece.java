@@ -10,6 +10,7 @@ package agentski.modul.app.model.zauzece;
 
 import java.sql.Date;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -73,18 +74,20 @@ public class Zauzece {
     
     @XmlElement(required = true)
     @XmlSchemaType(name = "date")
+    @Column(nullable = false)
     protected Date datumOd;
     
     @XmlElement(required = true)
     @XmlSchemaType(name = "date")
+    @Column(nullable = false)
     protected Date datumDo;
     
     @XmlElement(namespace = "http://model.app.modul.agentski/Soba", required = true)
-    @ManyToOne
+    @ManyToOne(optional = false)
     protected Soba soba;
     
     @XmlElement(namespace = "http://model.app.modul.agentski/StatusSobe", required = true)
-    @ManyToOne
+    @ManyToOne(optional = false)
     protected StatusSobe statusSobe;
 
     /**

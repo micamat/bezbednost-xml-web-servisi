@@ -70,19 +70,19 @@ public class Lokacija {
     protected Long id;
     
     @XmlElement(required = true)
-    @Column(name = "drzava")
+    @Column(nullable = false)
     protected String drzava;
     
     @XmlElement(required = true)
-    @Column(name = "grad")
+    @Column(nullable = false)
     protected String grad;
     
     @XmlElement(required = true) 
-    @Column(name = "ulica")
+    @Column(nullable = false)
     protected String ulica;
     
     @XmlElement(required = true)
-    @Column(name = "broj")
+    @Column(nullable = false)
     protected String broj;
     
     @XmlElement(namespace = "http://model.app.modul.agentski/Kordinate", required = true)

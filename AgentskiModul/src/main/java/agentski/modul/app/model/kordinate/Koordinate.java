@@ -64,10 +64,10 @@ public class Koordinate {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     protected Long id;
     
-    @Column(name = "duzina")
+    @Column(nullable = false)
     protected float duzina;
     
-    @Column(name = "Sirina")
+    @Column(nullable = false)
     protected float sirina;
 
     /**
