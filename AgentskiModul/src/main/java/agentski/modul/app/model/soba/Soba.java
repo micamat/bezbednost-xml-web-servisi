@@ -11,6 +11,7 @@ package agentski.modul.app.model.soba;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -84,6 +85,7 @@ public class Soba {
     protected Long id;
    
     @XmlElement(required = true)
+    @Column(nullable = false)
     protected String naziv;
     
     @XmlElement(required = true)
@@ -93,11 +95,11 @@ public class Soba {
     protected String slika;
     
     @XmlElement(namespace = "http://model.app.modul.agentski/TipSobe", required = true)
-    @ManyToOne
+    @ManyToOne(optional = false)
     protected TipSobe tipSobe;
     
     @XmlElement(namespace = "http://model.app.modul.agentski/Smestaj", required = true)
-    @ManyToOne
+    @ManyToOne(optional = false)
     protected Smestaj smestaj;
     
     @XmlElement(namespace = "http://model.app.modul.agentski/Usluge", required = true)
