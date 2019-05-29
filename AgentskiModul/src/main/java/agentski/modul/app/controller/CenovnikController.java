@@ -39,7 +39,7 @@ public class CenovnikController {
 		return new ResponseEntity<CenovnikDTO>(cenovnikService.getById(id), HttpStatus.OK);
 	}
 	
-	@GetMapping(value = "/smestaj/{id}")
+	@GetMapping(value = "/smestaj/{smestajId}")
 	public ResponseEntity<List<CenovnikDTO>> getBySmestaj(@PathVariable Long smestajId){
 		if(cenovnikService.getBySmestaj(smestajId) == null) {
 			return new ResponseEntity<List<CenovnikDTO>>(HttpStatus.NO_CONTENT);

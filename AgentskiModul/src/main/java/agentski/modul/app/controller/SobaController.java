@@ -39,7 +39,7 @@ public class SobaController {
 		return new ResponseEntity<SobaDTO>(sobaService.getById(id), HttpStatus.OK);
 	}
 	
-	@GetMapping(value = "/smestaj/{id}")
+	@GetMapping(value = "/smestaj/{smestajId}")
 	public ResponseEntity<List<SobaDTO>> getBySmestaj(@PathVariable Long smestajId){
 		if(sobaService.getBySmestaj(smestajId) == null) {
 			return new ResponseEntity<List<SobaDTO>>(HttpStatus.NO_CONTENT);
