@@ -42,9 +42,6 @@ public class SmestajService {
 	
 	
 	public boolean add(SmestajDTO smestajDTO) {
-		System.out.println(smestajDTO + "SA" + smestajDTO.getOpis() + smestajDTO.getLokacijaId());
-		
-		System.out.println("ASDASD"+ smestajDTO.getLokacijaId());
 		smestajDTO.setId(null);
 		if(smestajRepository.save(convertToEntity(smestajDTO)) != null) {
 			return true;
