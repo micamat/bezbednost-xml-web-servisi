@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified"
+    targetNamespace="http://model.app.modul.agentski/Rezervacija"
+    xmlns="http://model.app.modul.agentski/Rezervacija">
+    <xs:element name="Rezervacija">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="id" type="xs:ID"/>
+                <xs:element name="datumOd" type="xs:date"/>
+                <xs:element name="datumDo" type="xs:date"/>
+                <xs:element name="brojSoba" type="xs:integer"/>
+                <xs:element name="ukupnaCena" type="xs:float"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+</xs:schema>
