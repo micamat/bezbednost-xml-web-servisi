@@ -39,6 +39,13 @@ public class ZauzeceController {
 		return new ResponseEntity<ZauzeceDTO>(zauzeceService.getById(id), HttpStatus.OK);
 	}
 	
+	@GetMapping(value = "/smestaj/{smestajId}")
+	public ResponseEntity<List<ZauzeceDTO>> getBySmestaj(@PathVariable Long smestajId){
+		if(zauzeceService.getBySmestaj(smestajId) == null) {
+			return new ResponseEntity<List<ZauzeceDTO>>(HttpStatus.NO_CONTENT);
+		}
+		return new ResponseEntity<List<ZauzeceDTO>>(zauzeceService.getBySmestaj(smestajId), HttpStatus.OK);
+	}
 	@PostMapping
 	public ResponseEntity<String> add(@RequestBody ZauzeceDTO zauzeceDTO){
 		if(zauzeceService.add(zauzeceDTO)) {

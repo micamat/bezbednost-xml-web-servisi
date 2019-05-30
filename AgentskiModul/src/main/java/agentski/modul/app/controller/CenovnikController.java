@@ -39,6 +39,14 @@ public class CenovnikController {
 		return new ResponseEntity<CenovnikDTO>(cenovnikService.getById(id), HttpStatus.OK);
 	}
 	
+	@GetMapping(value = "/smestaj/{smestajId}")
+	public ResponseEntity<List<CenovnikDTO>> getBySmestaj(@PathVariable Long smestajId){
+		if(cenovnikService.getBySmestaj(smestajId) == null) {
+			return new ResponseEntity<List<CenovnikDTO>>(HttpStatus.NO_CONTENT);
+		}
+		return new ResponseEntity<List<CenovnikDTO>>(cenovnikService.getBySmestaj(smestajId), HttpStatus.OK);
+	}
+	
 	@PostMapping
 	public ResponseEntity<String> add(@RequestBody CenovnikDTO cenovnikDTO){
 		if(cenovnikService.add(cenovnikDTO)) {

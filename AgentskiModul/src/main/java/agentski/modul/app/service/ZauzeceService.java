@@ -36,6 +36,9 @@ public class ZauzeceService {
 		return convertToDTO(zauzece);
 	}
 	
+	public List<ZauzeceDTO> getBySmestaj(Long smestajId) {
+		return zauzeceRepository.findAll().stream().filter(x -> smestajId.equals(x.getSoba().getSmestaj().getId())).map(this::convertToDTO).collect(Collectors.toList());
+	}
 	
 	public boolean add(ZauzeceDTO zauzeceDTO) {
 		zauzeceDTO.setId(null);

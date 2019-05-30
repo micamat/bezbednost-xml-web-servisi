@@ -35,6 +35,10 @@ public class CenovnikService {
 		return convertToDTO(cenovnik);
 	}
 	
+	public List<CenovnikDTO> getBySmestaj(Long smestajId) {
+		return cenovnikRepository.findAll().stream().filter(x -> smestajId.equals(x.getSmestaj().getId())).map(this::convertToDTO).collect(Collectors.toList());
+	}
+	
 	
 	public boolean add(CenovnikDTO cenovnikDTO) {
 		cenovnikDTO.setId(null);
