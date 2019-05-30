@@ -36,6 +36,10 @@ public class SobaService {
 		return convertToDTO(soba);
 	}
 	
+	public List<SobaDTO> getBySmestaj(Long smestajId) {
+		return sobaRepository.findAll().stream().filter(x -> smestajId.equals(x.getSmestaj().getId())).map(this::convertToDTO).collect(Collectors.toList());
+	}
+	
 	
 	public boolean add(SobaDTO sobaDTO) {
 		sobaDTO.setId(null);
