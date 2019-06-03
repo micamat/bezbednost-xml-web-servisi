@@ -26,7 +26,6 @@ import javax.xml.bind.annotation.XmlSchemaType;
 import javax.xml.bind.annotation.XmlType;
 import javax.xml.bind.annotation.adapters.CollapsedStringAdapter;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
-import javax.xml.datatype.XMLGregorianCalendar;
 
 import agentski.modul.app.model.soba.Soba;
 import agentski.modul.app.model.statussobe.StatusSobe;
@@ -119,7 +118,7 @@ public class Zauzece {
      * 
      * @return
      *     possible object is
-     *     {@link XMLGregorianCalendar }
+     *     {@link Date }
      *     
      */
     public Date getDatumOd() {
@@ -131,7 +130,7 @@ public class Zauzece {
      * 
      * @param value
      *     allowed object is
-     *     {@link XMLGregorianCalendar }
+     *     {@link Date }
      *     
      */
     public void setDatumOd(Date value) {
@@ -143,7 +142,7 @@ public class Zauzece {
      * 
      * @return
      *     possible object is
-     *     {@link XMLGregorianCalendar }
+     *     {@link Date }
      *     
      */
     public Date getDatumDo() {
@@ -155,7 +154,7 @@ public class Zauzece {
      * 
      * @param value
      *     allowed object is
-     *     {@link XMLGregorianCalendar }
+     *     {@link Date }
      *     
      */
     public void setDatumDo(Date value) {

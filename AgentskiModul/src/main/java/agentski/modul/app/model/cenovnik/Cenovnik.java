@@ -25,7 +25,6 @@ import javax.xml.bind.annotation.XmlSchemaType;
 import javax.xml.bind.annotation.XmlType;
 import javax.xml.bind.annotation.adapters.CollapsedStringAdapter;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
-import javax.xml.datatype.XMLGregorianCalendar;
 
 import agentski.modul.app.model.smestaj.Smestaj;
 import agentski.modul.app.model.tipsobe.TipSobe;
@@ -146,7 +145,7 @@ public class Cenovnik {
      * 
      * @return
      *     possible object is
-     *     {@link XMLGregorianCalendar }
+     *     {@link Date }
      *     
      */
     public Date getDatumOd() {
@@ -158,7 +157,7 @@ public class Cenovnik {
      * 
      * @param value
      *     allowed object is
-     *     {@link XMLGregorianCalendar }
+     *     {@link Date }
      *     
      */
     public void setDatumOd(Date value) {
@@ -170,7 +169,7 @@ public class Cenovnik {
      * 
      * @return
      *     possible object is
-     *     {@link XMLGregorianCalendar }
+     *     {@link Date }
      *     
      */
     public Date getDatumDo() {
@@ -182,7 +181,7 @@ public class Cenovnik {
      * 
      * @param value
      *     allowed object is
-     *     {@link XMLGregorianCalendar }
+     *     {@link Date }
      *     
      */
     public void setDatumDo(Date value) {
