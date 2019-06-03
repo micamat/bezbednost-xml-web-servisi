@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" 
+    elementFormDefault="qualified"
+    targetNamespace="http://model.app.modul.agentski/Cenovnik"
+    xmlns:sm="http://model.app.modul.agentski/Smestaj"
+    xmlns:ts="http://model.app.modul.agentski/TipSobe"
+    >
+    <xs:import schemaLocation="Smestaj.xsd" namespace="http://model.app.modul.agentski/Smestaj"/>
+    <xs:import schemaLocation="TipSobe.xsd" namespace="http://model.app.modul.agentski/TipSobe"/>
+    <xs:element name="cenovnik">
+        <xs:complexType>
+            <xs:all>
+                <xs:element name="id" type="xs:ID"/>
+                <xs:element name="cena" type="xs:string"/>
+                <xs:element name="datumOd" type="xs:date"/>
+                <xs:element name="datumDo" type="xs:date"/>
+                <xs:element ref="sm:smestaj"></xs:element>
+                <xs:element ref="ts:tipSobe"></xs:element>
+            </xs:all>
+        </xs:complexType>
+    </xs:element>
+
+</xs:schema>

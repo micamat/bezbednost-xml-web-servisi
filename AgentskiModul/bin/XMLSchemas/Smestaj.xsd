@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" 
+    elementFormDefault="qualified"
+    xmlns:lok="http://model.app.modul.agentski/Lokacija"
+    xmlns:ts="http://model.app.modul.agentski/TipSmestaja"
+    xmlns:ks="http://model.app.modul.agentski/KategorijaSmestaja"
+    xmlns:sb="http://model.app.modul.agentski/Soba"
+    targetNamespace="http://model.app.modul.agentski/Smestaj"
+    >
+    <xs:import schemaLocation="Lokacija.xsd" namespace="http://model.app.modul.agentski/Lokacija"/>
+    <xs:import schemaLocation="TipSmestaja.xsd" namespace="http://model.app.modul.agentski/TipSmestaja"/>
+    <xs:import schemaLocation="Soba.xsd" namespace="http://model.app.modul.agentski/Soba"/>
+    <xs:import schemaLocation="KategorijaSmestaja.xsd" namespace="http://model.app.modul.agentski/KategorijaSmestaja"/>
+    <xs:element name="smestaj">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="id" type="xs:ID"/>
+                <xs:element name="naziv" type="xs:string"/>
+                <xs:element name="opis" type="xs:string"/>
+                <xs:element name="slika" type="xs:string"/>
+                <xs:element ref="lok:lokacija"></xs:element>
+                <xs:element ref="ts:tipSmestaja"></xs:element>
+                <xs:element ref="ks:kategorijaSmestaja"></xs:element>
+                <xs:element ref="sb:soba" maxOccurs="unbounded"></xs:element>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+</xs:schema>
