@@ -1,3 +1,41 @@
-<p>
-  pricelist works!
-</p>
+<table class="table ml-2 mt-2">
+  <thead style="background-color: #0074E1;">
+    <tr>
+      <th scope="col" colspan="5" style="text-align: center; color: white">
+        Pricelist
+        <a class="active" [routerLink]="'/accommodation/add'">
+          <img src="/assets/img/add-32.png" style="float: right;">
+        </a>
+      </th>
+    </tr>
+    <tr style="color: white">
+      <th scope="col">#</th>
+      <th scope="col">Name</th>
+      <th scope="col">Address</th>
+      <th scope="col">Description</th>
+      <th scope="col">Manipulation</th>
+    </tr>
+  </thead>
+  <tbody style="color: #0074E1">
+    <tr>
+      <th scope="row">1</th>
+      <td>Mark</td>
+      <td>Otto</td>
+      <td>@mdo</td>
+      <td>
+        <img class="mr-2" src="/assets/img/edit-9-32.png">
+        <img src="/assets/img/x-mark-4-32.png">
+    </td>
+  </tr>
+  <tr>
+    <th scope="row">2</th>
+    <td>Jacob</td>
+    <td>Thornton</td>
+    <td>@fat</td>
+    <td>
+      <img class="mr-2" src="/assets/img/edit-9-32.png">
+      <img src="/assets/img/x-mark-4-32.png">
+  </td>
+    </tr>
+  </tbody>
+</table>

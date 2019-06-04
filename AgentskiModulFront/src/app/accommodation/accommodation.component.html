@@ -1,5 +1,5 @@
 <table class="table ml-2 mt-2">
-    <thead style="background-color: #007AFE;">
+    <thead style="background-color: #0074E1;">
       <tr>
         <th scope="col" colspan="5" style="text-align: center; color: white">
           Accommodation
@@ -16,28 +16,30 @@
         <th scope="col">Manipulation</th>
       </tr>
     </thead>
-    <tbody>
+    <tbody style="color: #0074E1">
       <tr>
         <th scope="row">1</th>
         <td>Mark</td>
         <td>Otto</td>
         <td>@mdo</td>
-        <td style="background-color: black">
-            <img src="/assets/img/add-32.png" style="float: right;">
-            <img src="/assets/img/add-32.png" style="float: right;">
-        </td>
+        <td>
+            <a class="active" [routerLink]="'/accommodation/add'">
+              <img class="mr-2" src="/assets/img/edit-9-32.png">
+            </a>
+            <a class="active" [routerLink]="'/accommodation/add'">
+              <img src="/assets/img/x-mark-4-32.png">
+            </a>
+          </td>
       </tr>
       <tr>
         <th scope="row">2</th>
         <td>Jacob</td>
         <td>Thornton</td>
         <td>@fat</td>
-      </tr>
-      <tr>
-        <th scope="row">3</th>
-        <td>Larry</td>
-        <td>the Bird</td>
-        <td>@twitter</td>
+        <td>
+          <img class="mr-2" src="/assets/img/edit-9-32.png">
+          <img src="/assets/img/x-mark-4-32.png">
+      </td>
       </tr>
     </tbody>
   </table>
