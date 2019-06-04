@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" 
+    elementFormDefault="qualified"
+    targetNamespace="http://model.app.modul.agentski/Usluge"
+    xmlns:sb="http://model.app.modul.agentski/Soba">
+    <xs:import schemaLocation="Soba.xsd" namespace="http://model.app.modul.agentski/Soba"/>
+    <xs:element name="usluge">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="id" type="xs:ID"/>
+                <xs:element name="naziv" type="xs:string"/>
+                <xs:element name="opis" type="xs:string"/>
+                <xs:element ref="sb:soba" maxOccurs="unbounded"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+</xs:schema>

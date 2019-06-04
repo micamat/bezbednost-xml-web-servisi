@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" 
+    elementFormDefault="qualified"
+    xmlns:ts="http://model.app.modul.agentski/TipSobe"
+    xmlns:sm="http://model.app.modul.agentski/Smestaj"
+    xmlns:usg="http://model.app.modul.agentski/Usluge"
+    targetNamespace="http://model.app.modul.agentski/Soba">
+    <xs:import schemaLocation="TipSobe.xsd" namespace="http://model.app.modul.agentski/TipSobe"/>
+    <xs:import schemaLocation="Smestaj.xsd" namespace="http://model.app.modul.agentski/Smestaj"/>
+    <xs:import schemaLocation="Usluge.xsd" namespace="http://model.app.modul.agentski/Usluge"/>
+    <xs:element name="soba">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="id" type="xs:ID"/>
+                <xs:element name="naziv" type="xs:string"/>
+                <xs:element name="opis" type="xs:string"/>
+                <xs:element name="slika" type="xs:string"/>
+                <xs:element ref="ts:tipSobe"></xs:element>
+                <xs:element ref="sm:smestaj"></xs:element>
+                <xs:element ref="usg:usluge" maxOccurs="unbounded"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+</xs:schema>
