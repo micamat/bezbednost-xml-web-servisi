@@ -8,6 +8,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -15,20 +16,21 @@ import org.springframework.web.bind.annotation.RestController;
 
 import adminski.modul.app.model.TipSmestaja;
 import adminski.modul.app.repository.TipSmestajaRepository;
+import adminski.modul.app.service.SifarnikService;
 
 @RestController
 @RequestMapping(value="sifarnik")
 public class SifarnikController {
 	
 	@Autowired
-	private TipSmestajaRepository tipSmestajaRepository;
+	private SifarnikService sifarnikService;
 	
-	@RequestMapping(value="/tipSmestaja/get")
-	public ResponseEntity<TipSmestaja> getTipSmestaja(@RequestParam String id, HttpSession session){
+	@RequestMapping(value="/tipSmestaja/get/{id}")
+	public ResponseEntity<TipSmestaja> getTipSmestaja(@PathVariable String id, HttpSession session){
 		if (session.getAttribute("loggedIn") == null) {
 			return new ResponseEntity<TipSmestaja>(HttpStatus.FORBIDDEN);
 		} else {
-			TipSmestaja entity = tipSmestajaRepository.findById(Long.getLong(id)).orElse(null);
+			TipSmestaja entity = sifarnikService.getTipSmestajaById(id);
 			
 			return new ResponseEntity<TipSmestaja>(entity, HttpStatus.OK);
 		}
@@ -41,7 +43,7 @@ public class SifarnikController {
 		} else {
 			ArrayList<TipSmestaja> entity = new ArrayList<>();
 			
-			for(TipSmestaja ts : tipSmestajaRepository.findAll()) {
+			for(TipSmestaja ts : sifarnikService.getAllTipSmestaja()) {
 				entity.add(ts);
 			}
 			
@@ -49,17 +51,13 @@ public class SifarnikController {
 		}
 	}
 	
-	@RequestMapping(value="/tipSmestaja/delete")
-	public ResponseEntity<TipSmestaja> deleteTipSmestaja(@RequestParam String id, HttpSession session){
+	@RequestMapping(value="/tipSmestaja/delete/{id}")
+	public ResponseEntity<TipSmestaja> deleteTipSmestaja(@PathVariable String id, HttpSession session){
 		if (session.getAttribute("loggedIn") == null) {
 			return new ResponseEntity<TipSmestaja>(HttpStatus.FORBIDDEN);
 		} else {
-			TipSmestaja entity = tipSmestajaRepository.findById(Long.getLong(id)).orElse(null);
-
-			if (entity != null) {
-				tipSmestajaRepository.deleteById(Long.getLong(id));
-				
-				return new ResponseEntity<TipSmestaja>(entity, HttpStatus.OK);
+			if (sifarnikService.removeTipSmestaja(id)) {
+				return new ResponseEntity<TipSmestaja>(HttpStatus.OK);
 			} else {
 				return new ResponseEntity<TipSmestaja>(HttpStatus.BAD_REQUEST);
 			}
@@ -71,15 +69,8 @@ public class SifarnikController {
 		if (session.getAttribute("loggedIn") == null) {
 			return new ResponseEntity<TipSmestaja>(HttpStatus.FORBIDDEN);
 		} else {
-			TipSmestaja entity = tipSmestajaRepository.findById(Long.getLong(tipSmestaja.getId())).orElse(null);
-			
-			if (entity != null) {
-				entity.setNaziv(tipSmestaja.getNaziv());
-				entity.setOpis(tipSmestaja.getOpis());
-				
-				tipSmestajaRepository.save(entity);
-				
-				return new ResponseEntity<TipSmestaja>(entity, HttpStatus.OK);
+			if (sifarnikService.updateTipSmestaja(tipSmestaja)) {
+				return new ResponseEntity<TipSmestaja>(sifarnikService.getTipSmestajaById(tipSmestaja.getId()), HttpStatus.OK);
 			} else {
 				return new ResponseEntity<TipSmestaja>(HttpStatus.BAD_REQUEST);
 			}
@@ -91,7 +82,7 @@ public class SifarnikController {
 		if (session.getAttribute("loggedIn") == null) {
 			return new ResponseEntity<TipSmestaja>(HttpStatus.FORBIDDEN);
 		} else {
-			tipSmestajaRepository.save(tipSmestaja);
+			sifarnikService.createTipSmestaja(tipSmestaja);
 			
 			return new ResponseEntity<TipSmestaja>(tipSmestaja, HttpStatus.OK);
 		}
