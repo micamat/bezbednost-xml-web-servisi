@@ -8,7 +8,10 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -19,13 +22,13 @@ import adminski.modul.app.repository.TipSmestajaRepository;
 import adminski.modul.app.service.SifarnikService;
 
 @RestController
-@RequestMapping(value="sifarnik")
+@RequestMapping("/sifarnik")
 public class SifarnikController {
 	
 	@Autowired
 	private SifarnikService sifarnikService;
 	
-	@RequestMapping(value="/tipSmestaja/get/{id}")
+	@GetMapping("{id}")
 	public ResponseEntity<TipSmestaja> getTipSmestaja(@PathVariable String id, HttpSession session){
 		if (session.getAttribute("loggedIn") == null) {
 			return new ResponseEntity<TipSmestaja>(HttpStatus.FORBIDDEN);
@@ -36,7 +39,7 @@ public class SifarnikController {
 		}
 	}
 	
-	@RequestMapping(value="/tipSmestaja/getAll")
+	@GetMapping
 	public ResponseEntity<List<TipSmestaja>> getAllTipSmestaja(HttpSession session){
 		if (session.getAttribute("loggedIn") == null) {
 			return new ResponseEntity<List<TipSmestaja>>(HttpStatus.FORBIDDEN);
@@ -51,7 +54,7 @@ public class SifarnikController {
 		}
 	}
 	
-	@RequestMapping(value="/tipSmestaja/delete/{id}")
+	@DeleteMapping("{id}")
 	public ResponseEntity<TipSmestaja> deleteTipSmestaja(@PathVariable String id, HttpSession session){
 		if (session.getAttribute("loggedIn") == null) {
 			return new ResponseEntity<TipSmestaja>(HttpStatus.FORBIDDEN);
@@ -77,7 +80,7 @@ public class SifarnikController {
 		}
 	}
 	
-	@RequestMapping(value="/tipSmestaja/create")
+	@PostMapping
 	public ResponseEntity<TipSmestaja> createTipSmestaja(@RequestBody TipSmestaja tipSmestaja, HttpSession session){
 		if (session.getAttribute("loggedIn") == null) {
 			return new ResponseEntity<TipSmestaja>(HttpStatus.FORBIDDEN);
