@@ -5,6 +5,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -14,13 +15,13 @@ import adminski.modul.app.repository.AdminRepository;
 import adminski.modul.app.model.Admin;
 
 @RestController
-@RequestMapping(value="/login")
+@RequestMapping("/login")
 public class LoginController {
 	
 	@Autowired
 	private AdminRepository adminRepository;
 	
-	@RequestMapping(value="/login", method=RequestMethod.POST)
+	@PostMapping
 	public ResponseEntity<Admin> login(@RequestParam String username, @RequestParam String password, HttpSession session) {
 		
 		Admin uspesno_ulogovan = null;
@@ -42,7 +43,7 @@ public class LoginController {
 		return resp;
 	}
 	
-	@RequestMapping(value="/logout", method=RequestMethod.POST)
+	@PostMapping("logout")
 	public void logout(HttpSession session) {
 		session.removeAttribute("loggedIn");
 		session.invalidate();
