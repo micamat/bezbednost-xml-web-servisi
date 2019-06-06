@@ -11,6 +11,8 @@ import { AccommodationComponent } from './accommodation/accommodation.component'
 import { RoomComponent } from './room/room.component';
 import { OcupationComponent } from './ocupation/ocupation.component';
 import { PricelistComponent } from './pricelist/pricelist.component';
+import { AccommodationAddComponent } from './accommodation-add/accommodation-add.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -22,12 +24,14 @@ import { PricelistComponent } from './pricelist/pricelist.component';
     AccommodationComponent,
     RoomComponent,
     OcupationComponent,
-    PricelistComponent
+    PricelistComponent,
+    AccommodationAddComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    HttpClientModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

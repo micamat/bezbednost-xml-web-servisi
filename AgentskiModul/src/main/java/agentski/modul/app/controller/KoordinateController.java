@@ -19,6 +19,7 @@ import agentski.modul.app.service.KoordinateService;
 @RestController
 @RequestMapping("/koordinate")
 public class KoordinateController {
+	
 	@Autowired
 	private KoordinateService koordinateaService;
 
