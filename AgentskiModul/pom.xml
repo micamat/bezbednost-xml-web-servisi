@@ -88,7 +88,7 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
-			 <!-- <plugin>
+			  <plugin>
 				<groupId>org.apache.cxf</groupId>
 				<artifactId>cxf-codegen-plugin</artifactId>
 				<version>3.3.2</version>
@@ -110,7 +110,7 @@
 						</goals>
 					</execution>
 				</executions>
-			</plugin>  -->
+			</plugin>  
 			
 		</plugins>
 	</build>

@@ -35,7 +35,9 @@
     <xs:element name="CreateStatusSobeRequest">
         <xs:complexType>
             <xs:sequence>
-                <xs:element minOccurs="0" maxOccurs="1" ref="StatusSobeDTO"/>
+                <xs:element name="id" type="xs:long"/>
+                <xs:element name="naziv" type="xs:string"/>
+                <xs:element name="opis" type="xs:string"/>
             </xs:sequence>
         </xs:complexType>
     </xs:element>
@@ -95,7 +97,9 @@
     <xs:element name="CreateUslugaRequest">
         <xs:complexType>
             <xs:sequence>
-                <xs:element minOccurs="0" maxOccurs="1" ref="UslugaDTO"/>
+                <xs:element name="id" type="xs:long"/>
+                <xs:element name="naziv" type="xs:string"/>
+                <xs:element name="opis" type="xs:string"/>
             </xs:sequence>
         </xs:complexType>
     </xs:element>
@@ -160,7 +164,12 @@
     <xs:element name="CreateCenovnikRequest">
         <xs:complexType>
             <xs:sequence>
-                <xs:element minOccurs="0" maxOccurs="1" ref="CenovnikDTO"/>
+                <xs:element name="id" type="xs:long"/>
+                <xs:element name="cena" type="xs:string"/>
+                <xs:element name="datumOd" type="xs:dateTime"/>
+                <xs:element name="datumDo" type="xs:dateTime"/>
+                <xs:element name="idSmestaj" type="xs:long"/>
+                <xs:element name="idTipSobe" type="xs:long"/>
             </xs:sequence>
         </xs:complexType>
     </xs:element>
@@ -223,7 +232,11 @@
     <xs:element name="CreateZauzeceRequest">
         <xs:complexType>
             <xs:sequence>
-                <xs:element minOccurs="0" maxOccurs="1" ref="ZauzeceDTO"/>
+                <xs:element name="id" type="xs:long"/>
+                <xs:element name="datumOd" type="xs:dateTime"/>
+                <xs:element name="datumDo" type="xs:dateTime"/>
+                <xs:element name="idSoba" type="xs:long"/>
+                <xs:element name="idStatusSobe" type="xs:long"/>
             </xs:sequence>
         </xs:complexType>
     </xs:element>
@@ -781,7 +794,13 @@
     <xs:element name="CreateSmestajRequest">
         <xs:complexType>
             <xs:sequence>
-                <xs:element minOccurs="0" maxOccurs="1" ref="SmestajDTO"/>
+                <xs:element name="id" type="xs:long"/>
+                <xs:element name="naziv" type="xs:string"/>
+                <xs:element name="opis" type="xs:string"/>
+                <xs:element name="slika" type="xs:string"/>
+                <xs:element name="idLokacija" type="xs:long"/>
+                <xs:element name="idTipSmestaja" type="xs:long"/>
+                <xs:element name="idKategorijaSmestaja" type="xs:long"/>
             </xs:sequence>
         </xs:complexType>
     </xs:element>
