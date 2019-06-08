@@ -5,11 +5,12 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import ftn.uns.ac.rs.model.CreateSmestajRequest;
+import ftn.uns.ac.rs.model.CreateSmestajResponse;
 import ftn.uns.ac.rs.model.GetAllSmestajRequest;
 import ftn.uns.ac.rs.model.GetAllSmestajResponse;
 import ftn.uns.ac.rs.model.ProducerPort;
 import ftn.uns.ac.rs.model.ProducerPortService;
-import ftn.uns.ac.rs.model.Smestaj;
 import ftn.uns.ac.rs.model.SmestajDTO;
 import ftn.uns.ac.rs.repository.KategorijaSmestajaRepository;
 import ftn.uns.ac.rs.repository.LokacijaRepository;
@@ -35,13 +36,32 @@ public class SmestajService {
 		return smestajRepository.findAll().stream().map(this::convertToDTO).collect(Collectors.toList());
 	};*/
 	
-	public List<SmestajDTO> synchronization(){
+	//TODO: Implementirati poslovnu logiku ..... cuvanja u bazu kao i 
+	public List<SmestajDTO> getAllSync(){
 		ProducerPortService producerPortService = new ProducerPortService();
 		ProducerPort producerPort = producerPortService.getProducerPortSoap11();
 		
 		GetAllSmestajRequest getSmestajRequest = new GetAllSmestajRequest();
 		GetAllSmestajResponse getSmestajResponse = producerPort.getAllSmestaj(getSmestajRequest);
 		return getSmestajResponse.getSmestajDTO();
+	};
+	
+	
+	public int createSync(SmestajDTO smd){
+		ProducerPortService producerPortService = new ProducerPortService();
+		ProducerPort producerPort = producerPortService.getProducerPortSoap11();
+		
+		CreateSmestajRequest getSmestajRequest = new CreateSmestajRequest();
+		getSmestajRequest.setIdKategorijaSmestaja(smd.getIdKategorijaSmestaja());
+		getSmestajRequest.setIdLokacija(smd.getIdLokacija());
+		getSmestajRequest.setIdTipSmestaja(smd.getIdTipSmestaja());
+		getSmestajRequest.setNaziv(smd.getNaziv());
+		getSmestajRequest.setOpis(smd.getOpis());
+		getSmestajRequest.setSlika(smd.getSlika());
+		CreateSmestajResponse getSmestajResponse = producerPort.createSmestaj(getSmestajRequest);
+		System.out.println(getSmestajResponse);
+		System.out.println("USAO U SERVIS");
+		return getSmestajResponse.getId();
 	};
 	
 	/*public SmestajDTO getById(Long id) {

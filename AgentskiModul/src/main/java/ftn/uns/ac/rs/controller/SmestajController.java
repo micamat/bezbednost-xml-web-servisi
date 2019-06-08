@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -27,9 +29,15 @@ public class SmestajController {
 		return new ResponseEntity<List<SmestajDTO>>(smestajService.getAll(), HttpStatus.OK);
 	}*/
 	
-	@GetMapping(value = "synchronize")
-	public ResponseEntity<List<SmestajDTO>> synchronize(){
-		return new ResponseEntity<List<SmestajDTO>>(smestajService.synchronization(), HttpStatus.OK);
+	@GetMapping(value = "getAllSync")
+	public ResponseEntity<List<SmestajDTO>> getAllSync(){
+		return new ResponseEntity<List<SmestajDTO>>(smestajService.getAllSync(), HttpStatus.OK);
+	}
+	
+	@PostMapping(value = "createSync")
+	public ResponseEntity<Integer> createSync(@RequestBody SmestajDTO smestajDTO){
+		
+		return new ResponseEntity<Integer>(smestajService.createSync(smestajDTO), HttpStatus.OK);
 	}
 	
 	/*@GetMapping(value = "/{id}")
@@ -38,8 +46,8 @@ public class SmestajController {
 			return new ResponseEntity<SmestajDTO>(HttpStatus.NO_CONTENT);
 		}
 		return new ResponseEntity<SmestajDTO>(smestajService.getById(id), HttpStatus.OK);
-	}
-	
+	}*/
+	/*
 	@PostMapping
 	public ResponseEntity<String> add(@RequestBody SmestajDTO smestajDTO){
 		if(smestajService.add(smestajDTO)) {
@@ -48,8 +56,8 @@ public class SmestajController {
 			return new ResponseEntity<String>("Greska pri dodavanju smestaja!", HttpStatus.CONFLICT);
 		}
 			
-	}
-	
+	}*/
+	/*
 	@DeleteMapping(value = "/{id}")
 	public ResponseEntity<String> delete(@PathVariable Long id){
 		if(smestajService.delete(id)) {
