@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -67,13 +68,13 @@ public class SifarnikController {
 		}
 	}
 	
-	@RequestMapping(value="/tipSmestaja/update")
-	public ResponseEntity<TipSmestaja> updateTipSmestaja(@RequestBody TipSmestaja tipSmestaja, HttpSession session){
+	@PutMapping("{id}")
+	public ResponseEntity<TipSmestaja> updateTipSmestaja(@PathVariable String id, @RequestBody TipSmestaja tipSmestaja, HttpSession session){
 		if (session.getAttribute("loggedIn") == null) {
 			return new ResponseEntity<TipSmestaja>(HttpStatus.FORBIDDEN);
 		} else {
-			if (sifarnikService.updateTipSmestaja(tipSmestaja)) {
-				return new ResponseEntity<TipSmestaja>(sifarnikService.getTipSmestajaById(tipSmestaja.getId()), HttpStatus.OK);
+			if (sifarnikService.updateTipSmestaja(id,tipSmestaja)) {
+				return new ResponseEntity<TipSmestaja>(sifarnikService.getTipSmestajaById(id), HttpStatus.OK);
 			} else {
 				return new ResponseEntity<TipSmestaja>(HttpStatus.BAD_REQUEST);
 			}

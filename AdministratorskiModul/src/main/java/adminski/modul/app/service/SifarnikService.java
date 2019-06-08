@@ -47,8 +47,8 @@ public class SifarnikService {
 		return true;
 	}
 	
-	public boolean updateTipSmestaja(TipSmestaja tipSmestaja) {
-		TipSmestaja postojeci = getTipSmestajaById(tipSmestaja.getId());
+	public boolean updateTipSmestaja(String id,TipSmestaja tipSmestaja) {
+		TipSmestaja postojeci = getTipSmestajaById(id);
 		
 		if (postojeci == null) {
 			return false;
