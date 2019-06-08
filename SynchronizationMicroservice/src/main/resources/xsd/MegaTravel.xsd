@@ -781,7 +781,13 @@
     <xs:element name="CreateSmestajRequest">
         <xs:complexType>
             <xs:sequence>
-                <xs:element minOccurs="0" maxOccurs="1" ref="SmestajDTO"/>
+                <xs:element name="id" type="xs:long"/>
+                <xs:element name="naziv" type="xs:string"/>
+                <xs:element name="opis" type="xs:string"/>
+                <xs:element name="slika" type="xs:string"/>
+                <xs:element name="idLokacija" type="xs:long"/>
+                <xs:element name="idTipSmestaja" type="xs:long"/>
+                <xs:element name="idKategorijaSmestaja" type="xs:long"/>
             </xs:sequence>
         </xs:complexType>
     </xs:element>
