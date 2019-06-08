@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" 
+    targetNamespace="http://model.app.modul.agentski/Agentski"
+    xmlns="http://model.app.modul.agentski/Agentski">
+    <xs:element name="Koordinate">
+        <xs:complexType>
+            <xs:all>
+                <xs:element name="id" type="xs:long"/>
+                <xs:element name="duzina" type="xs:float"/>
+                <xs:element name="sirina" type="xs:float"/>
+            </xs:all>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="Lokacija">
+        <xs:complexType>
+            <xs:all>
+                <xs:element name="id" type="xs:long"/>
+                <xs:element name="drzava" type="xs:string"/>
+                <xs:element name="grad" type="xs:string"/>
+                <xs:element name="ulica" type="xs:string"/>
+                <xs:element name="broj" type="xs:string"/>
+                <xs:element ref="Koordinate"></xs:element>
+            </xs:all>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="TipSmestaja">
+        <xs:complexType>
+            <xs:all>
+                <xs:element name="id" type="xs:long"/>
+                <xs:element name="naziv" type="xs:string"/>
+                <xs:element name="opis" type="xs:string"/>
+            </xs:all>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="KategorijaSmestaja">
+        <xs:complexType>
+            <xs:all>
+                <xs:element name="id" type="xs:long"/>
+                <xs:element name="naziv" type="xs:string"/>
+                <xs:element name="opis" type="xs:string"/>
+            </xs:all>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="Smestaj">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="id" type="xs:long"/>
+                <xs:element name="naziv" type="xs:string"/>
+                <xs:element name="opis" type="xs:string"/>
+                <xs:element name="slika" type="xs:string"/>
+                <xs:element ref="Lokacija"></xs:element>
+                <xs:element ref="TipSmestaja"></xs:element>
+                <xs:element ref="KategorijaSmestaja"></xs:element>
+                <xs:element ref="Soba" maxOccurs="unbounded"></xs:element>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="StatusSobe">
+        <xs:complexType>
+            <xs:all>
+                <xs:element name="id" type="xs:long"/>
+                <xs:element name="naziv" type="xs:string"/>
+                <xs:element name="opis" type="xs:string"/>
+            </xs:all>
+        </xs:complexType>
+    </xs:element>
+    
+    <xs:element name="Cenovnik">
+        <xs:complexType>
+            <xs:all>
+                <xs:element name="id" type="xs:long"/>
+                <xs:element name="cena" type="xs:string"/>
+                <xs:element name="datumOd" type="xs:date"/>
+                <xs:element name="datumDo" type="xs:date"/>
+                <xs:element ref="Smestaj"></xs:element>
+                <xs:element ref="TipSobe"></xs:element>
+            </xs:all>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="zauzece">
+        <xs:complexType>
+            <xs:all>
+                <xs:element name="id" type="xs:long"/>
+                <xs:element name="datumOd" type="xs:date"/>
+                <xs:element name="datumDo" type="xs:date"/>
+                <xs:element ref="Soba"></xs:element>
+                <xs:element ref="StatusSobe"></xs:element>
+            </xs:all>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="TipSobe">
+        <xs:complexType>
+            <xs:all>
+                <xs:element name="id" type="xs:long"/>
+                <xs:element name="naziv" type="xs:string"/>
+                <xs:element name="opis" type="xs:string"/>
+            </xs:all>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="Soba">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="id" type="xs:long"/>
+                <xs:element name="naziv" type="xs:string"/>
+                <xs:element name="opis" type="xs:string"/>
+                <xs:element name="slika" type="xs:string"/>
+                <xs:element ref="TipSobe"></xs:element>
+                <xs:element ref="Smestaj"></xs:element>
+                <xs:element ref="Usluge" maxOccurs="unbounded"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+        <xs:element name="Usluge">
+            <xs:complexType>
+                <xs:sequence>
+                    <xs:element name="id" type="xs:long"/>
+                    <xs:element name="naziv" type="xs:string"/>
+                    <xs:element name="opis" type="xs:string"/>
+                    <xs:element ref="Soba" maxOccurs="unbounded"/>
+                </xs:sequence>
+            </xs:complexType>
+        </xs:element>
+</xs:schema>

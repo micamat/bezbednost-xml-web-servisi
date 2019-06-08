@@ -9,6 +9,7 @@ import ftn.uns.ac.rs.service.KoordinateService;
 @RestController
 @RequestMapping("/koordinate")
 public class KoordinateController {
+	
 	@Autowired
 	private KoordinateService koordinateaService;
 
