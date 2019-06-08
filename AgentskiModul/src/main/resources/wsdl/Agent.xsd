@@ -232,7 +232,7 @@
     <xs:element name="CreateZauzeceRequest">
         <xs:complexType>
             <xs:sequence>
-                 <xs:element name="id" type="xs:long"/>
+                <xs:element name="id" type="xs:long"/>
                 <xs:element name="datumOd" type="xs:dateTime"/>
                 <xs:element name="datumDo" type="xs:dateTime"/>
                 <xs:element name="idSoba" type="xs:long"/>
@@ -295,9 +295,7 @@
     <xs:element name="CreateTipSobeRequest">
         <xs:complexType>
             <xs:sequence>
-                <xs:element name="id" type="xs:long"/>
-                <xs:element name="naziv" type="xs:string"/>
-                <xs:element name="opis" type="xs:string"/>
+                <xs:element minOccurs="0" maxOccurs="1" ref="TipSobeDTO"/>
             </xs:sequence>
         </xs:complexType>
     </xs:element>
@@ -356,9 +354,7 @@
     <xs:element name="CreateKategorijaSmestajaRequest">
         <xs:complexType>
             <xs:sequence>
-                <xs:element name="id" type="xs:long"/>
-                <xs:element name="naziv" type="xs:string"/>
-                <xs:element name="opis" type="xs:string"/>
+                <xs:element minOccurs="0" maxOccurs="1" ref="KategorijaSmestajaDTO"/>
             </xs:sequence>
         </xs:complexType>
     </xs:element>
@@ -417,9 +413,7 @@
     <xs:element name="CreateTipSmestajaRequest">
         <xs:complexType>
             <xs:sequence>
-                <xs:element name="id" type="xs:long"/>
-                <xs:element name="naziv" type="xs:string"/>
-                <xs:element name="opis" type="xs:string"/>
+                <xs:element minOccurs="0" maxOccurs="1" ref="TipSmestajaDTO"/>
             </xs:sequence>
         </xs:complexType>
     </xs:element>
@@ -483,12 +477,7 @@
     <xs:element name="CreateLokacijaRequest">
         <xs:complexType>
             <xs:sequence>
-                <xs:element name="id" type="xs:long"/>
-                <xs:element name="drzava" type="xs:string"/>
-                <xs:element name="grad" type="xs:string"/>
-                <xs:element name="ulica" type="xs:string"/>
-                <xs:element name="broj" type="xs:string"/>
-                <xs:element name="idKoordinate" type="xs:long"/>
+                <xs:element minOccurs="0" maxOccurs="1" ref="LokacijaDTO"/>
             </xs:sequence>
         </xs:complexType>
     </xs:element>
@@ -547,9 +536,7 @@
     <xs:element name="CreateKoordinateRequest">
         <xs:complexType>
             <xs:sequence>
-                <xs:element name="id" type="xs:long"/>
-                <xs:element name="duzina" type="xs:float"/>
-                <xs:element name="sirina" type="xs:float"/>
+                <xs:element minOccurs="0" maxOccurs="1" ref="KoordinateDTO"/>
             </xs:sequence>
         </xs:complexType>
     </xs:element>
@@ -689,12 +676,7 @@
     <xs:element name="CreateSobaRequest">
         <xs:complexType>
             <xs:sequence>
-                <xs:element name="id" type="xs:long"/>
-                <xs:element name="naziv" type="xs:string"/>
-                <xs:element name="opis" type="xs:string"/>
-                <xs:element name="slika" type="xs:string"/>
-                <xs:element name="idTipSobe" type="xs:long"/>
-                <xs:element name="idSmestaj" type="xs:long"/>
+                <xs:element minOccurs="0" maxOccurs="1" ref="SobaDTO"/>
             </xs:sequence>
         </xs:complexType>
     </xs:element>
