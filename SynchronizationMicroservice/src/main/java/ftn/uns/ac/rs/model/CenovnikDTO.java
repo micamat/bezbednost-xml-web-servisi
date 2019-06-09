@@ -16,7 +16,6 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlSchemaType;
 import javax.xml.bind.annotation.XmlType;
-import javax.xml.datatype.XMLGregorianCalendar;
 
 
 /**
@@ -107,7 +106,7 @@ public class CenovnikDTO {
      * 
      * @return
      *     possible object is
-     *     {@link XMLGregorianCalendar }
+     *     {@link Date }
      *     
      */
     public Date getDatumOd() {
@@ -119,7 +118,7 @@ public class CenovnikDTO {
      * 
      * @param value
      *     allowed object is
-     *     {@link XMLGregorianCalendar }
+     *     {@link Date }
      *     
      */
     public void setDatumOd(Date value) {
@@ -131,7 +130,7 @@ public class CenovnikDTO {
      * 
      * @return
      *     possible object is
-     *     {@link XMLGregorianCalendar }
+     *     {@link Date }
      *     
      */
     public Date getDatumDo() {
@@ -143,7 +142,7 @@ public class CenovnikDTO {
      * 
      * @param value
      *     allowed object is
-     *     {@link XMLGregorianCalendar }
+     *     {@link Date }
      *     
      */
     public void setDatumDo(Date value) {

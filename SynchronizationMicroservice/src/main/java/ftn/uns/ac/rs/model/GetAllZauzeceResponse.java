@@ -75,4 +75,7 @@ public class GetAllZauzeceResponse {
         return this.zauzeceDTO;
     }
 
+	public void setZauzeceDTO(List<ZauzeceDTO> zauzeceDTO) {
+		this.zauzeceDTO = zauzeceDTO;
+	}
 }

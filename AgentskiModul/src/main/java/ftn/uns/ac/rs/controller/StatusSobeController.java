@@ -1,9 +1,19 @@
 package ftn.uns.ac.rs.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import ftn.uns.ac.rs.model.StatusSobeDTO;
 import ftn.uns.ac.rs.service.StatusSobeService;
 
 
@@ -15,6 +25,17 @@ public class StatusSobeController {
 	@Autowired
 	private StatusSobeService statusSobeService;
 
+	@GetMapping(value = "getAllSync")
+	public ResponseEntity<List<StatusSobeDTO>> getAllSync(){
+		return new ResponseEntity<List<StatusSobeDTO>>(statusSobeService.getAllSync(), HttpStatus.OK);
+	}
+	
+	@PostMapping(value = "createSync")
+	public ResponseEntity<Integer> createSync(@RequestBody StatusSobeDTO StatusSobeDTO){
+		
+		return new ResponseEntity<Integer>(statusSobeService.createSync(StatusSobeDTO), HttpStatus.OK);
+	}
+	
 	/*@GetMapping
 	public ResponseEntity<List<SifarnikDTO>> getAll(){
 		if(statusSobeService.getAll() == null) {

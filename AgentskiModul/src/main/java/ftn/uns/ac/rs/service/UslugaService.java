@@ -1,8 +1,17 @@
 package ftn.uns.ac.rs.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import ftn.uns.ac.rs.model.CreateUslugaRequest;
+import ftn.uns.ac.rs.model.CreateUslugaResponse;
+import ftn.uns.ac.rs.model.GetAllUslugaRequest;
+import ftn.uns.ac.rs.model.GetAllUslugaResponse;
+import ftn.uns.ac.rs.model.ProducerPort;
+import ftn.uns.ac.rs.model.ProducerPortService;
+import ftn.uns.ac.rs.model.UslugaDTO;
 import ftn.uns.ac.rs.repository.UslugaRepository;
 
 @Service
@@ -10,6 +19,29 @@ public class UslugaService {
 	@Autowired
 	private UslugaRepository uslugaRepository;
 
+	
+	public List<UslugaDTO> getAllSync(){
+		ProducerPortService producerPortService = new ProducerPortService();
+		ProducerPort producerPort = producerPortService.getProducerPortSoap11();
+		
+		GetAllUslugaRequest getUslugaRequest = new GetAllUslugaRequest();
+		GetAllUslugaResponse getUslugaResponse = producerPort.getAllUsluga(getUslugaRequest);
+		return getUslugaResponse.getUslugaDTO();
+	};
+	
+	
+	public int createSync(UslugaDTO smd){
+		ProducerPortService producerPortService = new ProducerPortService();
+		ProducerPort producerPort = producerPortService.getProducerPortSoap11();
+		
+		CreateUslugaRequest getUslugaRequest = new CreateUslugaRequest();
+		getUslugaRequest.setId(smd.getId());
+		getUslugaRequest.setNaziv(smd.getNaziv());
+		getUslugaRequest.setOpis(smd.getOpis());
+		CreateUslugaResponse getUslugaResponse = producerPort.createUsluga(getUslugaRequest);
+		return getUslugaResponse.getId();
+	};
+	
 	/*public List<SifarnikDTO> getAll(){ 
 		return uslugaRepository.findAll().stream().map(this::convertToDTO).collect(Collectors.toList());
 	};

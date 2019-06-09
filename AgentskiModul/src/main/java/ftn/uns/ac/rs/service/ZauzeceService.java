@@ -6,6 +6,13 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import ftn.uns.ac.rs.model.CreateZauzeceRequest;
+import ftn.uns.ac.rs.model.CreateZauzeceResponse;
+import ftn.uns.ac.rs.model.GetAllZauzeceRequest;
+import ftn.uns.ac.rs.model.GetAllZauzeceResponse;
+import ftn.uns.ac.rs.model.ProducerPort;
+import ftn.uns.ac.rs.model.ProducerPortService;
+import ftn.uns.ac.rs.model.ZauzeceDTO;
 import ftn.uns.ac.rs.model.Zauzece;
 import ftn.uns.ac.rs.model.ZauzeceDTO;
 import ftn.uns.ac.rs.repository.SobaRepository;
@@ -24,6 +31,30 @@ public class ZauzeceService {
 	@Autowired
 	private ZauzeceRepository zauzeceRepository;
 
+	public List<ZauzeceDTO> getAllSync(){
+		ProducerPortService producerPortService = new ProducerPortService();
+		ProducerPort producerPort = producerPortService.getProducerPortSoap11();
+		
+		GetAllZauzeceRequest getZauzeceRequest = new GetAllZauzeceRequest();
+		GetAllZauzeceResponse getZauzeceResponse = producerPort.getAllZauzece(getZauzeceRequest);
+		return getZauzeceResponse.getZauzeceDTO();
+	};
+	
+	
+	public int createSync(ZauzeceDTO smd){
+		ProducerPortService producerPortService = new ProducerPortService();
+		ProducerPort producerPort = producerPortService.getProducerPortSoap11();
+		
+		CreateZauzeceRequest getZauzeceRequest = new CreateZauzeceRequest();
+		getZauzeceRequest.setId(smd.getId());
+		getZauzeceRequest.setDatumDo(smd.getDatumDo());
+		getZauzeceRequest.setDatumOd(smd.getDatumOd());
+		getZauzeceRequest.setIdSoba(smd.getIdSoba());
+		getZauzeceRequest.setIdStatusSobe(smd.getIdStatusSobe());
+		CreateZauzeceResponse getZauzeceResponse = producerPort.createZauzece(getZauzeceRequest);
+		return getZauzeceResponse.getId();
+	};
+	
 	/*public List<ZauzeceDTO> getAll(){ 
 		return zauzeceRepository.findAll().stream().map(this::convertToDTO).collect(Collectors.toList());
 	};
