@@ -232,7 +232,6 @@
     <xs:element name="CreateZauzeceRequest">
         <xs:complexType>
             <xs:sequence>
-<<<<<<< HEAD
                 <xs:element name="id" type="xs:long"/>
                 <xs:element name="datumOd" type="xs:dateTime"/>
                 <xs:element name="datumDo" type="xs:dateTime"/>
@@ -241,40 +240,7 @@
             </xs:sequence>
         </xs:complexType>
     </xs:element>
-    <xs:element name="CreateZauzeceResponse">
-        <xs:complexType>
-            <xs:sequence>
-                <xs:element name="id" type="xs:int"/>
-                <xs:element default="false" name="Successful" type="xs:boolean"/>
-            </xs:sequence>
-        </xs:complexType>
-    </xs:element>
-    <!-- =====================================REZERVACIJA====================================== -->
-    <xs:element name="Rezervacija">
-        <xs:complexType>
-            <xs:sequence>
-                <xs:element name="id" type="xs:long"/>
-                <xs:element name="datumOd" type="xs:dateTime"/>
-                <xs:element name="datumDo" type="xs:dateTime"/>
-                <xs:element name="brojSoba" type="xs:long"/>
-                <xs:element name="ukupnaCena" type="xs:float"/>
-            </xs:sequence>
-        </xs:complexType>
-    </xs:element>
-    <xs:element name="RezervacijaDTO">
-        <xs:complexType>
-            <xs:sequence>
-                <xs:element name="id" type="xs:long"/>
-=======
-                 <xs:element name="id" type="xs:long"/>
->>>>>>> b0ac15129d375dfd78d4b033d27660ecd63f4fab
-                <xs:element name="datumOd" type="xs:dateTime"/>
-                <xs:element name="datumDo" type="xs:dateTime"/>
-                <xs:element name="idSoba" type="xs:long"/>
-                <xs:element name="idStatusSobe" type="xs:long"/>
-            </xs:sequence>
-        </xs:complexType>
-    </xs:element>
+
     <xs:element name="CreateZauzeceResponse">
         <xs:complexType>
             <xs:sequence>
