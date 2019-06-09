@@ -85,35 +85,11 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link KorisnikDTO }
-     * 
-     */
-    public KorisnikDTO createKorisnikDTO() {
-        return new KorisnikDTO();
-    }
-
-    /**
-     * Create an instance of {@link CreateKorisnikRequest }
-     * 
-     */
-    public CreateKorisnikRequest createCreateKorisnikRequest() {
-        return new CreateKorisnikRequest();
-    }
-
-    /**
      * Create an instance of {@link GetByIdZauzeceRequest }
      * 
      */
     public GetByIdZauzeceRequest createGetByIdZauzeceRequest() {
         return new GetByIdZauzeceRequest();
-    }
-
-    /**
-     * Create an instance of {@link CreateKorisnikResponse }
-     * 
-     */
-    public CreateKorisnikResponse createCreateKorisnikResponse() {
-        return new CreateKorisnikResponse();
     }
 
     /**
@@ -141,14 +117,6 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link GetAllKorisnikResponse }
-     * 
-     */
-    public GetAllKorisnikResponse createGetAllKorisnikResponse() {
-        return new GetAllKorisnikResponse();
-    }
-
-    /**
      * Create an instance of {@link Lokacija }
      * 
      */
@@ -162,14 +130,6 @@ public class ObjectFactory {
      */
     public Koordinate createKoordinate() {
         return new Koordinate();
-    }
-
-    /**
-     * Create an instance of {@link GetAllRezervacijaPoSobiRequest }
-     * 
-     */
-    public GetAllRezervacijaPoSobiRequest createGetAllRezervacijaPoSobiRequest() {
-        return new GetAllRezervacijaPoSobiRequest();
     }
 
     /**
@@ -309,35 +269,11 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link GetAllIstorijaRezervacijeRequest }
-     * 
-     */
-    public GetAllIstorijaRezervacijeRequest createGetAllIstorijaRezervacijeRequest() {
-        return new GetAllIstorijaRezervacijeRequest();
-    }
-
-    /**
-     * Create an instance of {@link GetByIdKorisnikResponse }
-     * 
-     */
-    public GetByIdKorisnikResponse createGetByIdKorisnikResponse() {
-        return new GetByIdKorisnikResponse();
-    }
-
-    /**
      * Create an instance of {@link StatusSobe }
      * 
      */
     public StatusSobe createStatusSobe() {
         return new StatusSobe();
-    }
-
-    /**
-     * Create an instance of {@link CreateIstorijaRezervacijeResponse }
-     * 
-     */
-    public CreateIstorijaRezervacijeResponse createCreateIstorijaRezervacijeResponse() {
-        return new CreateIstorijaRezervacijeResponse();
     }
 
     /**
@@ -405,46 +341,6 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link GetByIdRezervacijaRequest }
-     * 
-     */
-    public GetByIdRezervacijaRequest createGetByIdRezervacijaRequest() {
-        return new GetByIdRezervacijaRequest();
-    }
-
-    /**
-     * Create an instance of {@link CreateRezervacijaPoSobiRequest }
-     * 
-     */
-    public CreateRezervacijaPoSobiRequest createCreateRezervacijaPoSobiRequest() {
-        return new CreateRezervacijaPoSobiRequest();
-    }
-
-    /**
-     * Create an instance of {@link RezervacijaPoSobiDTO }
-     * 
-     */
-    public RezervacijaPoSobiDTO createRezervacijaPoSobiDTO() {
-        return new RezervacijaPoSobiDTO();
-    }
-
-    /**
-     * Create an instance of {@link Korisnik }
-     * 
-     */
-    public Korisnik createKorisnik() {
-        return new Korisnik();
-    }
-
-    /**
-     * Create an instance of {@link GetAllRezervacijaRequest }
-     * 
-     */
-    public GetAllRezervacijaRequest createGetAllRezervacijaRequest() {
-        return new GetAllRezervacijaRequest();
-    }
-
-    /**
      * Create an instance of {@link CreateKoordinateResponse }
      * 
      */
@@ -474,22 +370,6 @@ public class ObjectFactory {
      */
     public GetAllUslugaRequest createGetAllUslugaRequest() {
         return new GetAllUslugaRequest();
-    }
-
-    /**
-     * Create an instance of {@link GetAllRezervacijaResponse }
-     * 
-     */
-    public GetAllRezervacijaResponse createGetAllRezervacijaResponse() {
-        return new GetAllRezervacijaResponse();
-    }
-
-    /**
-     * Create an instance of {@link RezervacijaDTO }
-     * 
-     */
-    public RezervacijaDTO createRezervacijaDTO() {
-        return new RezervacijaDTO();
     }
 
     /**
@@ -597,22 +477,6 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link GetByIdRezervacijaResponse }
-     * 
-     */
-    public GetByIdRezervacijaResponse createGetByIdRezervacijaResponse() {
-        return new GetByIdRezervacijaResponse();
-    }
-
-    /**
-     * Create an instance of {@link GetByIdRezervacijaPoSobiResponse }
-     * 
-     */
-    public GetByIdRezervacijaPoSobiResponse createGetByIdRezervacijaPoSobiResponse() {
-        return new GetByIdRezervacijaPoSobiResponse();
-    }
-
-    /**
      * Create an instance of {@link GetByIdCenovnikRequest }
      * 
      */
@@ -629,22 +493,6 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link GetAllRezervacijaPoSobiResponse }
-     * 
-     */
-    public GetAllRezervacijaPoSobiResponse createGetAllRezervacijaPoSobiResponse() {
-        return new GetAllRezervacijaPoSobiResponse();
-    }
-
-    /**
-     * Create an instance of {@link IstorijaRezervacijeDTO }
-     * 
-     */
-    public IstorijaRezervacijeDTO createIstorijaRezervacijeDTO() {
-        return new IstorijaRezervacijeDTO();
-    }
-
-    /**
      * Create an instance of {@link GetAllKoordinateResponse }
      * 
      */
@@ -658,14 +506,6 @@ public class ObjectFactory {
      */
     public GetByIdKoordinateResponse createGetByIdKoordinateResponse() {
         return new GetByIdKoordinateResponse();
-    }
-
-    /**
-     * Create an instance of {@link CreateRezervacijaRequest }
-     * 
-     */
-    public CreateRezervacijaRequest createCreateRezervacijaRequest() {
-        return new CreateRezervacijaRequest();
     }
 
     /**
@@ -709,14 +549,6 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link Rezervacija }
-     * 
-     */
-    public Rezervacija createRezervacija() {
-        return new Rezervacija();
-    }
-
-    /**
      * Create an instance of {@link GetAllLokacijaResponse }
      * 
      */
@@ -741,43 +573,11 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link GetByIdIstorijaRezervacijeRequest }
-     * 
-     */
-    public GetByIdIstorijaRezervacijeRequest createGetByIdIstorijaRezervacijeRequest() {
-        return new GetByIdIstorijaRezervacijeRequest();
-    }
-
-    /**
      * Create an instance of {@link CreateSmestajRequest }
      * 
      */
     public CreateSmestajRequest createCreateSmestajRequest() {
         return new CreateSmestajRequest();
-    }
-
-    /**
-     * Create an instance of {@link RezervacijaPoSobi }
-     * 
-     */
-    public RezervacijaPoSobi createRezervacijaPoSobi() {
-        return new RezervacijaPoSobi();
-    }
-
-    /**
-     * Create an instance of {@link IstorijaRezervacije }
-     * 
-     */
-    public IstorijaRezervacije createIstorijaRezervacije() {
-        return new IstorijaRezervacije();
-    }
-
-    /**
-     * Create an instance of {@link GetAllIstorijaRezervacijeResponse }
-     * 
-     */
-    public GetAllIstorijaRezervacijeResponse createGetAllIstorijaRezervacijeResponse() {
-        return new GetAllIstorijaRezervacijeResponse();
     }
 
     /**
@@ -805,27 +605,11 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link CreateIstorijaRezervacijeRequest }
-     * 
-     */
-    public CreateIstorijaRezervacijeRequest createCreateIstorijaRezervacijeRequest() {
-        return new CreateIstorijaRezervacijeRequest();
-    }
-
-    /**
      * Create an instance of {@link GetByIdTipSmestajaResponse }
      * 
      */
     public GetByIdTipSmestajaResponse createGetByIdTipSmestajaResponse() {
         return new GetByIdTipSmestajaResponse();
-    }
-
-    /**
-     * Create an instance of {@link GetByIdRezervacijaPoSobiRequest }
-     * 
-     */
-    public GetByIdRezervacijaPoSobiRequest createGetByIdRezervacijaPoSobiRequest() {
-        return new GetByIdRezervacijaPoSobiRequest();
     }
 
     /**
@@ -842,22 +626,6 @@ public class ObjectFactory {
      */
     public GetAllKategorijaSmestajaRequest createGetAllKategorijaSmestajaRequest() {
         return new GetAllKategorijaSmestajaRequest();
-    }
-
-    /**
-     * Create an instance of {@link GetByIdIstorijaRezervacijeResponse }
-     * 
-     */
-    public GetByIdIstorijaRezervacijeResponse createGetByIdIstorijaRezervacijeResponse() {
-        return new GetByIdIstorijaRezervacijeResponse();
-    }
-
-    /**
-     * Create an instance of {@link CreateRezervacijaResponse }
-     * 
-     */
-    public CreateRezervacijaResponse createCreateRezervacijaResponse() {
-        return new CreateRezervacijaResponse();
     }
 
     /**
@@ -893,27 +661,11 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link CreateRezervacijaPoSobiResponse }
-     * 
-     */
-    public CreateRezervacijaPoSobiResponse createCreateRezervacijaPoSobiResponse() {
-        return new CreateRezervacijaPoSobiResponse();
-    }
-
-    /**
      * Create an instance of {@link GetByIdSobaRequest }
      * 
      */
     public GetByIdSobaRequest createGetByIdSobaRequest() {
         return new GetByIdSobaRequest();
-    }
-
-    /**
-     * Create an instance of {@link GetAllKorisnikRequest }
-     * 
-     */
-    public GetAllKorisnikRequest createGetAllKorisnikRequest() {
-        return new GetAllKorisnikRequest();
     }
 
     /**
@@ -946,14 +698,6 @@ public class ObjectFactory {
      */
     public GetByIdCenovnikResponse createGetByIdCenovnikResponse() {
         return new GetByIdCenovnikResponse();
-    }
-
-    /**
-     * Create an instance of {@link GetByIdKorisnikRequest }
-     * 
-     */
-    public GetByIdKorisnikRequest createGetByIdKorisnikRequest() {
-        return new GetByIdKorisnikRequest();
     }
 
     /**
