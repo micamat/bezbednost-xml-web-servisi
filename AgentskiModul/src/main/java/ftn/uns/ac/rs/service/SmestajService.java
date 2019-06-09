@@ -52,6 +52,7 @@ public class SmestajService {
 		ProducerPort producerPort = producerPortService.getProducerPortSoap11();
 		
 		CreateSmestajRequest getSmestajRequest = new CreateSmestajRequest();
+		getSmestajRequest.setId(smd.getId());
 		getSmestajRequest.setIdKategorijaSmestaja(smd.getIdKategorijaSmestaja());
 		getSmestajRequest.setIdLokacija(smd.getIdLokacija());
 		getSmestajRequest.setIdTipSmestaja(smd.getIdTipSmestaja());
@@ -59,8 +60,6 @@ public class SmestajService {
 		getSmestajRequest.setOpis(smd.getOpis());
 		getSmestajRequest.setSlika(smd.getSlika());
 		CreateSmestajResponse getSmestajResponse = producerPort.createSmestaj(getSmestajRequest);
-		System.out.println(getSmestajResponse);
-		System.out.println("USAO U SERVIS");
 		return getSmestajResponse.getId();
 	};
 	

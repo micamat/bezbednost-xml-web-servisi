@@ -277,4 +277,10 @@ public class Smestaj {
         return this.soba;
     }
 
+	@Override
+	public String toString() {
+		return "Smestaj [id=" + id + ", naziv=" + naziv + ", opis=" + opis + ", slika=" + slika + ", lokacija="
+				+ lokacija + ", tipSmestaja=" + tipSmestaja + ", kategorijaSmestaja=" + kategorijaSmestaja + ", soba="
+				+ soba + "]";
+	}
 }

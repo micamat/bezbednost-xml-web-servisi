@@ -47,11 +47,12 @@ public class SmestajServiceEndpoint {
 		sdto.setOpis(input.getOpis());
 		sdto.setSlika(input.getSlika());
 		int id = smestajService.create(sdto);
-		if(id == -1)
+		if(id == -1) {
 			response.setSuccessful(false);
+		}
 		else {
 			response.setId(id);
-			response.setSuccessful(false);
+			response.setSuccessful(true);
 		}
 		return response;
 	}
