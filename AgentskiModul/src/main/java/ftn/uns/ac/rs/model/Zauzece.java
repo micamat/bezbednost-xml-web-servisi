@@ -33,7 +33,7 @@ import javax.xml.bind.annotation.XmlType;
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;all>
- *         &lt;element name="id" type="{http://www.w3.org/2001/XMLSchema}long"/>
+ *         &lt;element name="id" type="{http://www.w3.org/2001/XMLSchema}Long"/>
  *         &lt;element name="datumOd" type="{http://www.w3.org/2001/XMLSchema}dateTime"/>
  *         &lt;element name="datumDo" type="{http://www.w3.org/2001/XMLSchema}dateTime"/>
  *         &lt;element ref="{http://app.microservice.search/Model}Soba"/>
@@ -56,7 +56,7 @@ public class Zauzece {
 
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    protected long id;
+    protected Long id;
     @XmlElement(required = true)
     @XmlSchemaType(name = "dateTime")
     protected Date datumOd;
@@ -74,7 +74,7 @@ public class Zauzece {
      * Gets the value of the id property.
      * 
      */
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
@@ -82,7 +82,7 @@ public class Zauzece {
      * Sets the value of the id property.
      * 
      */
-    public void setId(long value) {
+    public void setId(Long value) {
         this.id = value;
     }
 

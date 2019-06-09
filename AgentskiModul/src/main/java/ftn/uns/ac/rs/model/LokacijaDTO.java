@@ -39,7 +39,7 @@ import javax.xml.bind.annotation.XmlType;
 @XmlRootElement(name = "LokacijaDTO")
 public class LokacijaDTO {
 
-    protected long id;
+    protected Long id;
     @XmlElement(required = true)
     protected String drzava;
     @XmlElement(required = true)
@@ -54,7 +54,7 @@ public class LokacijaDTO {
      * Gets the value of the id property.
      * 
      */
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
@@ -62,7 +62,7 @@ public class LokacijaDTO {
      * Sets the value of the id property.
      * 
      */
-    public void setId(long value) {
+    public void setId(Long value) {
         this.id = value;
     }
 

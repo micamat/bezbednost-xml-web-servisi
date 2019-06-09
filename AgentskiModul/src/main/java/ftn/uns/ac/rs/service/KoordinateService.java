@@ -1,6 +1,7 @@
 package ftn.uns.ac.rs.service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -9,6 +10,7 @@ import ftn.uns.ac.rs.model.CreateKoordinateRequest;
 import ftn.uns.ac.rs.model.CreateKoordinateResponse;
 import ftn.uns.ac.rs.model.GetAllKoordinateRequest;
 import ftn.uns.ac.rs.model.GetAllKoordinateResponse;
+import ftn.uns.ac.rs.model.Koordinate;
 import ftn.uns.ac.rs.model.KoordinateDTO;
 import ftn.uns.ac.rs.model.ProducerPort;
 import ftn.uns.ac.rs.model.ProducerPortService;
@@ -20,9 +22,9 @@ public class KoordinateService {
 	@Autowired
 	private KoordinateRepository koordinateRepository;
 
-	/*public List<KoordinateDTO> getAll(){ 
+	public List<KoordinateDTO> getAll(){ 
 		return koordinateRepository.findAll().stream().map(this::convertToDTO).collect(Collectors.toList());
-	};*/
+	};
 	
 	//TODO: Implementirati poslovnu logiku ..... cuvanja u bazu kao i 
 			public List<KoordinateDTO> getAllSync(){
@@ -49,7 +51,7 @@ public class KoordinateService {
 			};
 		
 	
-	/*
+	
 	public KoordinateDTO getById(Long id) {
 		if(!koordinateRepository.existsById(id)) {
 			return null;
@@ -89,5 +91,5 @@ public class KoordinateService {
 		koordinate.setSirina(koordinateDTO.getSirina());
 		koordinate.setDuzina(koordinateDTO.getDuzina());
 		return koordinate;
-	}*/
+	}
 }

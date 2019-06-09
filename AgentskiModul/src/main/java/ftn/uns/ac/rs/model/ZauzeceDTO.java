@@ -41,7 +41,7 @@ import javax.xml.bind.annotation.XmlType;
 @XmlRootElement(name = "ZauzeceDTO")
 public class ZauzeceDTO {
 
-    protected long id;
+    protected Long id;
     @XmlElement(required = true)
     @XmlSchemaType(name = "dateTime")
     protected Date datumOd;
@@ -55,7 +55,7 @@ public class ZauzeceDTO {
      * Gets the value of the id property.
      * 
      */
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
@@ -63,7 +63,7 @@ public class ZauzeceDTO {
      * Sets the value of the id property.
      * 
      */
-    public void setId(long value) {
+    public void setId(Long value) {
         this.id = value;
     }
 

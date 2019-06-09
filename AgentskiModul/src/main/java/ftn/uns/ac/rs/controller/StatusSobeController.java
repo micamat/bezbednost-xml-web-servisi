@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import ftn.uns.ac.rs.model.StatusSobeDTO;
+import ftn.uns.ac.rs.model.SifarnikDTO;
 import ftn.uns.ac.rs.service.StatusSobeService;
 
 
@@ -26,17 +26,17 @@ public class StatusSobeController {
 	private StatusSobeService statusSobeService;
 
 	@GetMapping(value = "getAllSync")
-	public ResponseEntity<List<StatusSobeDTO>> getAllSync(){
-		return new ResponseEntity<List<StatusSobeDTO>>(statusSobeService.getAllSync(), HttpStatus.OK);
+	public ResponseEntity<List<SifarnikDTO>> getAllSync(){
+		return new ResponseEntity<List<SifarnikDTO>>(statusSobeService.getAllSync(), HttpStatus.OK);
 	}
 	
 	@PostMapping(value = "createSync")
-	public ResponseEntity<Integer> createSync(@RequestBody StatusSobeDTO StatusSobeDTO){
+	public ResponseEntity<Integer> createSync(@RequestBody SifarnikDTO StatusSobeDTO){
 		
 		return new ResponseEntity<Integer>(statusSobeService.createSync(StatusSobeDTO), HttpStatus.OK);
 	}
 	
-	/*@GetMapping
+	@GetMapping
 	public ResponseEntity<List<SifarnikDTO>> getAll(){
 		if(statusSobeService.getAll() == null) {
 			return new ResponseEntity<List<SifarnikDTO>>(HttpStatus.NO_CONTENT);
@@ -69,6 +69,6 @@ public class StatusSobeController {
 		}else {
 			return new ResponseEntity<String>("Status sobe nije pronadjen!", HttpStatus.NOT_FOUND);
 		}
-	}*/
+	}
 
 }

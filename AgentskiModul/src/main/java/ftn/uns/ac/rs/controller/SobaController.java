@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import ftn.uns.ac.rs.model.CenovnikDTO;
 import ftn.uns.ac.rs.model.SobaDTO;
 import ftn.uns.ac.rs.service.SobaService;
 
@@ -24,13 +23,13 @@ public class SobaController {
 	@Autowired
 	private SobaService sobaService;
 
-	/*@GetMapping
+	@GetMapping
 	public ResponseEntity<List<SobaDTO>> getAll(){
 		if(sobaService.getAll() == null) {
 			return new ResponseEntity<List<SobaDTO>>(HttpStatus.NO_CONTENT);
 		}
 		return new ResponseEntity<List<SobaDTO>>(sobaService.getAll(), HttpStatus.OK);
-	}*/
+	}
 	
 	@GetMapping(value = "getAllSync")
 	public ResponseEntity<List<SobaDTO>> getAllSync(){
@@ -43,7 +42,7 @@ public class SobaController {
 	}
 	
 	
-	/*
+	
 	@GetMapping(value = "/{id}")
 	public ResponseEntity<SobaDTO> getById(@PathVariable Long id){
 		if(sobaService.getById(id) == null) {
@@ -77,6 +76,6 @@ public class SobaController {
 		}else {
 			return new ResponseEntity<String>("Soba nije pronadjena!", HttpStatus.NOT_FOUND);
 		}
-	}*/
+	}
 
 }

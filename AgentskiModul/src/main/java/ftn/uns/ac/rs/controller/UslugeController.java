@@ -5,7 +5,9 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -35,24 +37,24 @@ public class UslugeController {
 		return new ResponseEntity<Integer>(uslugaService.createSync(UslugaDTO), HttpStatus.OK);
 	}
 	
-	/*@GetMapping
-	public ResponseEntity<List<SifarnikDTO>> getAll(){
+	@GetMapping
+	public ResponseEntity<List<UslugaDTO>> getAll(){
 		if(uslugaService.getAll() == null) {
-			return new ResponseEntity<List<SifarnikDTO>>(HttpStatus.NO_CONTENT);
+			return new ResponseEntity<List<UslugaDTO>>(HttpStatus.NO_CONTENT);
 		}
-		return new ResponseEntity<List<SifarnikDTO>>(uslugaService.getAll(), HttpStatus.OK);
+		return new ResponseEntity<List<UslugaDTO>>(uslugaService.getAll(), HttpStatus.OK);
 	}
 	
 	@GetMapping(value = "/{id}")
-	public ResponseEntity<SifarnikDTO> getById(@PathVariable Long id){
+	public ResponseEntity<UslugaDTO> getById(@PathVariable Long id){
 		if(uslugaService.getById(id) == null) {
-			return new ResponseEntity<SifarnikDTO>(HttpStatus.NO_CONTENT);
+			return new ResponseEntity<UslugaDTO>(HttpStatus.NO_CONTENT);
 		}
-		return new ResponseEntity<SifarnikDTO>(uslugaService.getById(id), HttpStatus.OK);
+		return new ResponseEntity<UslugaDTO>(uslugaService.getById(id), HttpStatus.OK);
 	}
 	
 	@PostMapping
-	public ResponseEntity<String> add(@RequestBody SifarnikDTO SifarnikDTO){
+	public ResponseEntity<String> add(@RequestBody UslugaDTO SifarnikDTO){
 		if(uslugaService.add(SifarnikDTO)) {
 			return new ResponseEntity<String>("Usluga je uspesno dodata!", HttpStatus.CREATED);
 		}else {
@@ -68,6 +70,6 @@ public class UslugeController {
 		}else {
 			return new ResponseEntity<String>("Usluga nije pronadjena!", HttpStatus.NOT_FOUND);
 		}
-	}*/
+	}
 
 }

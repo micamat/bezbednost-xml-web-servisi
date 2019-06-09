@@ -5,14 +5,15 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import ftn.uns.ac.rs.model.CenovnikDTO;
-import ftn.uns.ac.rs.model.SmestajDTO;
 import ftn.uns.ac.rs.service.CenovnikService;
 
 @RestController
@@ -22,13 +23,13 @@ public class CenovnikController {
 	@Autowired
 	private CenovnikService cenovnikService;
 
-	/*@GetMapping
+	@GetMapping
 	public ResponseEntity<List<CenovnikDTO>> getAll(){
 		if(cenovnikService.getAll() == null) {
 			return new ResponseEntity<List<CenovnikDTO>>(HttpStatus.NO_CONTENT);
 		}
 		return new ResponseEntity<List<CenovnikDTO>>(cenovnikService.getAll(), HttpStatus.OK);
-	}*/
+	}
 	
 	@GetMapping(value = "getAllSync")
 	public ResponseEntity<List<CenovnikDTO>> getAllSync(){
@@ -40,7 +41,6 @@ public class CenovnikController {
 		
 		return new ResponseEntity<Integer>(cenovnikService.createSync(cenovnikDTO), HttpStatus.OK);
 	}
-	/*
 	
 	@GetMapping(value = "/{id}")
 	public ResponseEntity<CenovnikDTO> getById(@PathVariable Long id){
@@ -75,6 +75,6 @@ public class CenovnikController {
 		}else {
 			return new ResponseEntity<String>("Cenovnik nije pronadjen!", HttpStatus.NOT_FOUND);
 		}
-	}*/
+	}
 
 }

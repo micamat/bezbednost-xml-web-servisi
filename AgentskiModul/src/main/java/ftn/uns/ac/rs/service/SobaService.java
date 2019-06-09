@@ -1,6 +1,7 @@
 package ftn.uns.ac.rs.service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -11,6 +12,7 @@ import ftn.uns.ac.rs.model.GetAllSobaRequest;
 import ftn.uns.ac.rs.model.GetAllSobaResponse;
 import ftn.uns.ac.rs.model.ProducerPort;
 import ftn.uns.ac.rs.model.ProducerPortService;
+import ftn.uns.ac.rs.model.Soba;
 import ftn.uns.ac.rs.model.SobaDTO;
 import ftn.uns.ac.rs.repository.SmestajRepository;
 import ftn.uns.ac.rs.repository.SobaRepository;
@@ -28,9 +30,9 @@ public class SobaService {
 	@Autowired
 	private TipSobeRepository tipSobeRepository;
 
-	/*public List<SobaDTO> getAll(){ 
+	public List<SobaDTO> getAll(){ 
 		return sobaRepository.findAll().stream().map(this::convertToDTO).collect(Collectors.toList());
-	};*/
+	};
 	
 	//TODO: Implementirati poslovnu logiku ..... cuvanja u bazu kao i 
 		public List<SobaDTO> getAllSync(){
@@ -60,7 +62,7 @@ public class SobaService {
 		};
 	
 	
-	/*
+	
 	public SobaDTO getById(Long id) {
 		if(!sobaRepository.existsById(id)) {
 			return null;
@@ -96,8 +98,8 @@ public class SobaService {
 		sobaDTO.setNaziv(soba.getNaziv());
 		sobaDTO.setOpis(soba.getOpis());
 		sobaDTO.setSlika(soba.getSlika());
-		sobaDTO.setTipSobeId(soba.getTipSobe().getId());
-		sobaDTO.setSmestajId(soba.getSmestaj().getId());
+		sobaDTO.setIdTipSobe(soba.getTipSobe().getId());
+		sobaDTO.setIdSmestaj(soba.getSmestaj().getId());
 		return sobaDTO;
 	}
 	
@@ -107,8 +109,8 @@ public class SobaService {
 		soba.setNaziv(sobaDTO.getNaziv());
 		soba.setOpis(sobaDTO.getOpis());
 		soba.setSlika(sobaDTO.getSlika());
-		soba.setTipSobe(tipSobeRepository.findById(sobaDTO.getTipSobeId()).orElse(null));
-		soba.setSmestaj(smestajRepository.findById(sobaDTO.getSmestajId()).orElse(null));
+		soba.setTipSobe(tipSobeRepository.findById(sobaDTO.getIdTipSobe()).orElse(null));
+		soba.setSmestaj(smestajRepository.findById(sobaDTO.getIdSmestaj()).orElse(null));
 		return soba;
-	}*/
+	}
 }

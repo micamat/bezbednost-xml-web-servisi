@@ -35,7 +35,7 @@ import javax.xml.bind.annotation.XmlType;
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
- *         &lt;element name="id" type="{http://www.w3.org/2001/XMLSchema}long"/>
+ *         &lt;element name="id" type="{http://www.w3.org/2001/XMLSchema}Long"/>
  *         &lt;element name="naziv" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *         &lt;element name="opis" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *         &lt;element name="slika" type="{http://www.w3.org/2001/XMLSchema}string"/>
@@ -68,7 +68,7 @@ public class Smestaj {
 
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    protected long id;
+    protected Long id;
     @XmlElement(required = true)
     protected String naziv;
     @XmlElement(required = true)
@@ -92,7 +92,7 @@ public class Smestaj {
      * Gets the value of the id property.
      * 
      */
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
@@ -100,7 +100,7 @@ public class Smestaj {
      * Sets the value of the id property.
      * 
      */
-    public void setId(long value) {
+    public void setId(Long value) {
         this.id = value;
     }
 

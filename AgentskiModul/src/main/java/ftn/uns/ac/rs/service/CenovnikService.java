@@ -1,10 +1,12 @@
 package ftn.uns.ac.rs.service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import ftn.uns.ac.rs.model.Cenovnik;
 import ftn.uns.ac.rs.model.CenovnikDTO;
 import ftn.uns.ac.rs.model.CreateCenovnikRequest;
 import ftn.uns.ac.rs.model.CreateCenovnikResponse;
@@ -27,9 +29,9 @@ public class CenovnikService {
 	@Autowired
 	private CenovnikRepository cenovnikRepository;
 
-	/*public List<CenovnikDTO> getAll(){ 
+	public List<CenovnikDTO> getAll(){ 
 		return cenovnikRepository.findAll().stream().map(this::convertToDTO).collect(Collectors.toList());
-	};*/
+	};
 	
 	//TODO: Implementirati poslovnu logiku ..... cuvanja u bazu kao i 
 	public List<CenovnikDTO> getAllSync(){
@@ -57,7 +59,7 @@ public class CenovnikService {
 		CreateCenovnikResponse createCenovnikResponse = producerPort.createCenovnik(createCenovnikRequest);
 		return createCenovnikResponse.getId();
 	};
-	/*
+	
 	public CenovnikDTO getById(Long id) {
 		if(!cenovnikRepository.existsById(id)) {
 			return null;
@@ -92,8 +94,8 @@ public class CenovnikService {
 		cenovnikDTO.setId(cenovnik.getId());
 		cenovnikDTO.setDatumOd(cenovnik.getDatumOd());
 		cenovnikDTO.setDatumOd(cenovnik.getDatumDo());
-		cenovnikDTO.setTipSobeId(cenovnik.getTipSobe().getId());
-		cenovnikDTO.setSmestajId(cenovnik.getSmestaj().getId());
+		cenovnikDTO.setIdTipSobe(cenovnik.getTipSobe().getId());
+		cenovnikDTO.setIdSmestaj(cenovnik.getSmestaj().getId());
 		return cenovnikDTO;
 	}
 	
@@ -102,8 +104,8 @@ public class CenovnikService {
 		cenovnik.setId(cenovnikDTO.getId());
 		cenovnik.setDatumOd(cenovnikDTO.getDatumOd());
 		cenovnik.setDatumOd(cenovnikDTO.getDatumDo());
-		cenovnik.setTipSobe(tipSobeRepository.findById(cenovnikDTO.getTipSobeId()).orElse(null));
-		cenovnik.setSmestaj(smestajRepository.findById(cenovnikDTO.getSmestajId()).orElse(null));
+		cenovnik.setTipSobe(tipSobeRepository.findById(cenovnikDTO.getIdTipSobe()).orElse(null));
+		cenovnik.setSmestaj(smestajRepository.findById(cenovnikDTO.getIdSmestaj()).orElse(null));
 		return cenovnik;
-	}*/
+	}
 }

@@ -1,6 +1,7 @@
 package ftn.uns.ac.rs.service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -9,9 +10,10 @@ import ftn.uns.ac.rs.model.CreateKategorijaSmestajaRequest;
 import ftn.uns.ac.rs.model.CreateKategorijaSmestajaResponse;
 import ftn.uns.ac.rs.model.GetAllKategorijaSmestajaRequest;
 import ftn.uns.ac.rs.model.GetAllKategorijaSmestajaResponse;
-import ftn.uns.ac.rs.model.KategorijaSmestajaDTO;
+import ftn.uns.ac.rs.model.KategorijaSmestaja;
 import ftn.uns.ac.rs.model.ProducerPort;
 import ftn.uns.ac.rs.model.ProducerPortService;
+import ftn.uns.ac.rs.model.SifarnikDTO;
 import ftn.uns.ac.rs.repository.KategorijaSmestajaRepository;
 
 @Service
@@ -20,12 +22,12 @@ public class KategorijaSmestajaService {
 	@Autowired
 	private KategorijaSmestajaRepository kategorijaSmestajaRepository;
 
-	/*public List<SifarnikDTO> getAll(){ 
+	public List<SifarnikDTO> getAll(){ 
 		return kategorijaSmestajaRepository.findAll().stream().map(this::convertToDTO).collect(Collectors.toList());
-	};*/
+	};
 	
 	//TODO: Implementirati poslovnu logiku ..... cuvanja u bazu kao i 
-	public List<KategorijaSmestajaDTO> getAllSync(){
+	public List<SifarnikDTO> getAllSync(){
 		ProducerPortService producerPortService = new ProducerPortService();
 		ProducerPort producerPort = producerPortService.getProducerPortSoap11();
 		
@@ -35,7 +37,7 @@ public class KategorijaSmestajaService {
 	};
 	
 	
-	public int createSync(KategorijaSmestajaDTO cmd){
+	public int createSync(SifarnikDTO cmd){
 		ProducerPortService producerPortService = new ProducerPortService();
 		ProducerPort producerPort = producerPortService.getProducerPortSoap11();
 		
@@ -47,7 +49,7 @@ public class KategorijaSmestajaService {
 		CreateKategorijaSmestajaResponse kategorijaSmestajaResponse = producerPort.createKategorijaSmestaja(createKategorijaSmestajaRequest);
 		return kategorijaSmestajaResponse.getId();
 	};
-	/*
+	
 	public SifarnikDTO getById(Long id) {
 		if(!kategorijaSmestajaRepository.existsById(id)) {
 			return null;
@@ -87,5 +89,5 @@ public class KategorijaSmestajaService {
 		kategorijaSmestaja.setNaziv(kategorijaSmestajaDTO.getNaziv());
 		kategorijaSmestaja.setOpis(kategorijaSmestajaDTO.getOpis());
 		return kategorijaSmestaja;
-	}*/
+	}
 }
