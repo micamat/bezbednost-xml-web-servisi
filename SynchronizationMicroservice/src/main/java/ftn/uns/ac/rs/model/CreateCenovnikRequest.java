@@ -8,6 +8,8 @@
 
 package ftn.uns.ac.rs.model;
 
+import java.util.Date;
+
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
@@ -58,10 +60,10 @@ public class CreateCenovnikRequest {
     protected String cena;
     @XmlElement(required = true)
     @XmlSchemaType(name = "dateTime")
-    protected XMLGregorianCalendar datumOd;
+    protected Date datumOd;
     @XmlElement(required = true)
     @XmlSchemaType(name = "dateTime")
-    protected XMLGregorianCalendar datumDo;
+    protected Date datumDo;
     protected long idSmestaj;
     protected long idTipSobe;
 
@@ -113,7 +115,7 @@ public class CreateCenovnikRequest {
      *     {@link XMLGregorianCalendar }
      *     
      */
-    public XMLGregorianCalendar getDatumOd() {
+    public Date getDatumOd() {
         return datumOd;
     }
 
@@ -125,7 +127,7 @@ public class CreateCenovnikRequest {
      *     {@link XMLGregorianCalendar }
      *     
      */
-    public void setDatumOd(XMLGregorianCalendar value) {
+    public void setDatumOd(Date value) {
         this.datumOd = value;
     }
 
@@ -137,7 +139,7 @@ public class CreateCenovnikRequest {
      *     {@link XMLGregorianCalendar }
      *     
      */
-    public XMLGregorianCalendar getDatumDo() {
+    public Date getDatumDo() {
         return datumDo;
     }
 
@@ -149,7 +151,7 @@ public class CreateCenovnikRequest {
      *     {@link XMLGregorianCalendar }
      *     
      */
-    public void setDatumDo(XMLGregorianCalendar value) {
+    public void setDatumDo(Date value) {
         this.datumDo = value;
     }
 

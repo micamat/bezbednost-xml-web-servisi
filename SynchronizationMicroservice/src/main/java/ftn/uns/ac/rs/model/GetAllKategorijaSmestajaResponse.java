@@ -75,4 +75,9 @@ public class GetAllKategorijaSmestajaResponse {
         return this.kategorijaSmestajaDTO;
     }
 
+	public void setKategorijaSmestajaDTO(List<KategorijaSmestajaDTO> kategorijaSmestajaDTO) {
+		this.kategorijaSmestajaDTO = kategorijaSmestajaDTO;
+	}
+
+    
 }

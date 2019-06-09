@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import ftn.uns.ac.rs.model.CenovnikDTO;
 import ftn.uns.ac.rs.model.SobaDTO;
 import ftn.uns.ac.rs.service.SobaService;
 
@@ -29,8 +30,20 @@ public class SobaController {
 			return new ResponseEntity<List<SobaDTO>>(HttpStatus.NO_CONTENT);
 		}
 		return new ResponseEntity<List<SobaDTO>>(sobaService.getAll(), HttpStatus.OK);
+	}*/
+	
+	@GetMapping(value = "getAllSync")
+	public ResponseEntity<List<SobaDTO>> getAllSync(){
+		return new ResponseEntity<List<SobaDTO>>(sobaService.getAllSync(), HttpStatus.OK);
 	}
 	
+	@PostMapping(value = "createSync")
+	public ResponseEntity<Integer> createSync(@RequestBody SobaDTO sobaDTO){
+		return new ResponseEntity<Integer>(sobaService.createSync(sobaDTO), HttpStatus.OK);
+	}
+	
+	
+	/*
 	@GetMapping(value = "/{id}")
 	public ResponseEntity<SobaDTO> getById(@PathVariable Long id){
 		if(sobaService.getById(id) == null) {
