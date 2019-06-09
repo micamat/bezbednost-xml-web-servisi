@@ -1,8 +1,17 @@
 package ftn.uns.ac.rs.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import ftn.uns.ac.rs.model.CreateTipSobeRequest;
+import ftn.uns.ac.rs.model.CreateTipSobeResponse;
+import ftn.uns.ac.rs.model.GetAllTipSobeRequest;
+import ftn.uns.ac.rs.model.GetAllTipSobeResponse;
+import ftn.uns.ac.rs.model.ProducerPort;
+import ftn.uns.ac.rs.model.ProducerPortService;
+import ftn.uns.ac.rs.model.TipSobeDTO;
 import ftn.uns.ac.rs.repository.TipSobeRepository;
 
 @Service
@@ -10,6 +19,28 @@ public class TipSobeService {
 	@Autowired
 	private TipSobeRepository tipSobeRepository;
 
+	public List<TipSobeDTO> getAllSync(){
+		ProducerPortService producerPortService = new ProducerPortService();
+		ProducerPort producerPort = producerPortService.getProducerPortSoap11();
+		
+		GetAllTipSobeRequest getTipSobeRequest = new GetAllTipSobeRequest();
+		GetAllTipSobeResponse getTipSobeResponse = producerPort.getAllTipSobe(getTipSobeRequest);
+		return getTipSobeResponse.getTipSobeDTO();
+	};
+	
+	
+	public int createSync(TipSobeDTO smd){
+		ProducerPortService producerPortService = new ProducerPortService();
+		ProducerPort producerPort = producerPortService.getProducerPortSoap11();
+		
+		CreateTipSobeRequest getTipSobeRequest = new CreateTipSobeRequest();
+		getTipSobeRequest.setId(smd.getId());
+		getTipSobeRequest.setNaziv(smd.getNaziv());
+		getTipSobeRequest.setOpis(smd.getOpis());
+		CreateTipSobeResponse getTipSobeResponse = producerPort.createTipSobe(getTipSobeRequest);
+		return getTipSobeResponse.getId();
+	};
+	
 	/*public List<SifarnikDTO> getAll(){ 
 		return tipSobeRepository.findAll().stream().map(this::convertToDTO).collect(Collectors.toList());
 	};

@@ -75,4 +75,8 @@ public class GetAllUslugaResponse {
         return this.uslugaDTO;
     }
 
+	public void setUslugaDTO(List<UslugaDTO> uslugaDTO) {
+		this.uslugaDTO = uslugaDTO;
+	}
+
 }

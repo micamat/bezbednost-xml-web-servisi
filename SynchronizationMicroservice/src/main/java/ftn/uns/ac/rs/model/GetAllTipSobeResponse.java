@@ -75,4 +75,7 @@ public class GetAllTipSobeResponse {
         return this.tipSobeDTO;
     }
 
+	public void setTipSobeDTO(List<TipSobeDTO> tipSobeDTO) {
+		this.tipSobeDTO = tipSobeDTO;
+	}
 }

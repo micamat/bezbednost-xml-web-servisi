@@ -27,6 +27,7 @@ public class SmestajService {
 	
 	@Autowired
 	private TipSmestajaRepository tipSmestajaRepository;
+	
 	public List<SmestajDTO> getAll(){
 		List<SmestajDTO> dtos = new ArrayList<>();
 		for(Smestaj s : smestajRepo.findAll()) {
@@ -37,16 +38,12 @@ public class SmestajService {
 	
 	public int create(SmestajDTO p){
 		Smestaj sm = smestajToEntity(p);
-		System.out.println("********** PRE SAVE-a: " + sm.toString());
 		int id = -1;
 		Smestaj s = smestajRepo.save(sm);
-		System.out.println("********** POSLE SAVE-a: " + s);
 		if(s == null) {
-			System.out.println("************USO U PRVI*************");
 			return id;
 		}
 		else {
-			System.out.println("************USO U DRUGI*************");
 			return (int)s.getId();
 		}
 	}
@@ -70,7 +67,6 @@ public class SmestajService {
 		sm.setSlika(smestaj.getSlika());
 		sm.setKategorijaSmestaja(kategorijaSmestajaRepository.findById(smestaj.getIdKategorijaSmestaja()).get());
 		sm.setLokacija(lokacijaRepository.findById(smestaj.getIdLokacija()).get());
-		System.out.println("*******USO U KONVERZIJU**********");
 		sm.setTipSmestaja(tipSmestajaRepository.findById(smestaj.getIdTipSmestaja()).get());
 		return sm;
 	}

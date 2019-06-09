@@ -75,4 +75,7 @@ public class GetAllStatusSobeResponse {
         return this.statusSobeDTO;
     }
 
+	public void setStatusSobeDTO(List<StatusSobeDTO> statusSobeDTO) {
+		this.statusSobeDTO = statusSobeDTO;
+	}
 }
