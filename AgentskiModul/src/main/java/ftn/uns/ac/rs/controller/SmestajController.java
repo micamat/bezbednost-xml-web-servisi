@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import ftn.uns.ac.rs.model.SmestajDTO;
+import ftn.uns.ac.rs.model.getSmestajDTO;
 import ftn.uns.ac.rs.service.SmestajService;
 
 @RestController
@@ -24,11 +25,11 @@ public class SmestajController {
 	private SmestajService smestajService;
 
 	@GetMapping
-	public ResponseEntity<List<SmestajDTO>> getAll(){
+	public ResponseEntity<List<getSmestajDTO>> getAll(){
 		if(smestajService.getAll() == null) {
-			return new ResponseEntity<List<SmestajDTO>>(HttpStatus.NO_CONTENT);
+			return new ResponseEntity<List<getSmestajDTO>>(HttpStatus.NO_CONTENT);
 		}
-		return new ResponseEntity<List<SmestajDTO>>(smestajService.getAll(), HttpStatus.OK);
+		return new ResponseEntity<List<getSmestajDTO>>(smestajService.getAll(), HttpStatus.OK);
 	}
 	
 	@GetMapping(value = "getAllSync")
@@ -53,7 +54,7 @@ public class SmestajController {
 	@PostMapping
 	public ResponseEntity<String> add(@RequestBody SmestajDTO smestajDTO){
 		if(smestajService.add(smestajDTO)) {
-			return new ResponseEntity<String>("Smestaj je uspesno dodat!", HttpStatus.CREATED);
+			return new ResponseEntity<String>("Smestaj je uspesno dodat!", HttpStatus.OK);
 		}else {
 			return new ResponseEntity<String>("Greska pri dodavanju smestaja!", HttpStatus.CONFLICT);
 		}

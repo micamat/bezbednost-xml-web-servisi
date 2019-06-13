@@ -63,10 +63,10 @@ public class Lokacija {
     protected String ulica;
     @XmlElement(required = true)
     protected String broj;
-    @XmlElement(name = "Koordinate", required = true)
+    /*@XmlElement(name = "Koordinate", required = true)
     @OneToOne
     protected Koordinate koordinate;
-
+*/
     /**
      * Gets the value of the id property.
      * 
@@ -179,14 +179,14 @@ public class Lokacija {
         this.broj = value;
     }
 
-    /**
+    /*
      * Gets the value of the koordinate property.
      * 
      * @return
      *     possible object is
      *     {@link Koordinate }
      *     
-     */
+     
     public Koordinate getKoordinate() {
         return koordinate;
     }
@@ -198,9 +198,9 @@ public class Lokacija {
      *     allowed object is
      *     {@link Koordinate }
      *     
-     */
+     
     public void setKoordinate(Koordinate value) {
         this.koordinate = value;
     }
-
+*/
 }

@@ -19,4 +19,16 @@ export class AccommodationService {
     return this.http.get(SERVER_URL + '/tip-smestaja');
   }
 
+  addAccommmodation(accommodation : any){
+    return this.http.post(SERVER_URL + '/smestaj',accommodation,{responseType: 'text'});
+  }
+
+  getAllAccommodation(){
+    return this.http.get(SERVER_URL + "/smestaj");
+  }
+
+  deleteAccommodation(id:any){
+    return this.http.delete(SERVER_URL + "/smestaj/" + id,{responseType: 'text'});
+  }
+
 }

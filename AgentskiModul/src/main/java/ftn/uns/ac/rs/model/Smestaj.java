@@ -73,8 +73,8 @@ public class Smestaj {
     protected String naziv;
     @XmlElement(required = true)
     protected String opis;
-    @XmlElement(required = true)
-    protected String slika;
+    /*@XmlElement(required = true)
+    protected String slika;*/
     @XmlElement(name = "Lokacija", required = true)
     @OneToOne
     protected Lokacija lokacija;
@@ -152,14 +152,14 @@ public class Smestaj {
         this.opis = value;
     }
 
-    /**
+    /*
      * Gets the value of the slika property.
      * 
      * @return
      *     possible object is
      *     {@link String }
      *     
-     */
+     
     public String getSlika() {
         return slika;
     }
@@ -171,11 +171,11 @@ public class Smestaj {
      *     allowed object is
      *     {@link String }
      *     
-     */
+     
     public void setSlika(String value) {
         this.slika = value;
     }
-
+*/
     /**
      * Gets the value of the lokacija property.
      * 
@@ -199,7 +199,7 @@ public class Smestaj {
     public void setLokacija(Lokacija value) {
         this.lokacija = value;
     }
-
+	
     /**
      * Gets the value of the tipSmestaja property.
      * 

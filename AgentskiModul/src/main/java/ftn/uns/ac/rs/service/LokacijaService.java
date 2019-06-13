@@ -51,7 +51,7 @@ public class LokacijaService {
 		createLokacijaRequest.setDrzava(cmd.getDrzava());
 		createLokacijaRequest.setGrad(cmd.getGrad());
 		createLokacijaRequest.setUlica(cmd.getUlica());
-		createLokacijaRequest.setIdKoordinate(cmd.getIdKoordinate());
+		//createLokacijaRequest.setIdKoordinate(cmd.getIdKoordinate());
 		CreateLokacijaResponse createLokacijaResponse = producerPort.createLokacija(createLokacijaRequest);
 		return createLokacijaResponse.getId();
 	};
@@ -75,6 +75,15 @@ public class LokacijaService {
 		return false;
 	}
 	
+	public Lokacija add(Lokacija lokacija) {
+		lokacija.setId(null);
+		Lokacija l = lokacijaRepository.save(lokacija);
+		if(l != null) {
+			return l;
+		}
+		return null;
+	}
+	
 	public boolean delete(Long id) {
 		if(lokacijaRepository.existsById(id)) {
 			lokacijaRepository.deleteById(id);
@@ -90,7 +99,7 @@ public class LokacijaService {
 		lokacijaDTO.setGrad(lokacija.getGrad());
 		lokacijaDTO.setUlica(lokacija.getUlica());
 		lokacijaDTO.setBroj(lokacija.getBroj());
-		lokacijaDTO.setIdKoordinate(lokacija.getKoordinate().getId());
+		//lokacijaDTO.setIdKoordinate(lokacija.getKoordinate().getId());
 		return lokacijaDTO;
 	}
 	
@@ -101,7 +110,7 @@ public class LokacijaService {
 		lokacija.setGrad(lokacijaDTO.getGrad());
 		lokacija.setUlica(lokacijaDTO.getUlica());
 		lokacija.setBroj(lokacijaDTO.getBroj());
-		lokacija.setKoordinate(koordinateRepository.findById(lokacijaDTO.getIdKoordinate()).orElse(null));
+		//lokacija.setKoordinate(koordinateRepository.findById(lokacijaDTO.getIdKoordinate()).orElse(null));
 		return lokacija;
 	}
 }

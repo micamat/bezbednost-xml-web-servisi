@@ -18,6 +18,7 @@ export class AccommodationAddComponent implements OnInit {
   categoryL:any;
   typeL : any;
   temp:any;
+  accommodation:any;
 
   constructor(private _accommodationService : AccommodationService,
     private formBuilder:FormBuilder,
@@ -26,14 +27,14 @@ export class AccommodationAddComponent implements OnInit {
 
   ngOnInit() {
       this.accommodationAdd = this.formBuilder.group({
-        name:['',Validators.compose([Validators.required, Validators.pattern('[a-zA-Z 0-9!]+')])],
-        category:['',Validators.compose([Validators.required, Validators.pattern('[a-zA-Z 0-9!]+')])],
-        description:['',Validators.compose([Validators.required, Validators.pattern('[a-zA-Z 0-9!]+')])],
-        type:['',Validators.compose([Validators.required, Validators.pattern('[a-zA-Z 0-9!]+')])],  
-        country:['',Validators.compose([Validators.required, Validators.pattern('[a-zA-Z 0-9!]+')])],
-        town:['',Validators.compose([Validators.required, Validators.pattern('[a-zA-Z 0-9!]+')])],
-        street:['',Validators.compose([Validators.required, Validators.pattern('[a-zA-Z 0-9!]+')])],
-        number:['',Validators.compose([Validators.required, Validators.pattern('[a-zA-Z 0-9!]+')])],  
+        naziv:['',Validators.compose([Validators.required, Validators.pattern('[a-zA-Z 0-9!]+')])],
+        idKategorijaSmestaja:['',Validators.compose([Validators.required, Validators.pattern('[a-z.A-Z 0-9!]+')])],
+        opis:['',Validators.compose([Validators.required, Validators.pattern('[a-zA-Z 0-9!]+')])],
+        idTipSmestaja:['',Validators.compose([Validators.required, Validators.pattern('[a-z.A-Z 0-9!]+')])],  
+        drzava:['',Validators.compose([Validators.required, Validators.pattern('[a-zA-Z 0-9!]+')])],
+        grad:['',Validators.compose([Validators.required, Validators.pattern('[a-zA-Z 0-9!]+')])],
+        ulica:['',Validators.compose([Validators.required, Validators.pattern('[a-zA-Z 0-9!]+')])],
+        broj:['',Validators.compose([Validators.required, Validators.pattern('[a-zA-Z 0-9!]+')])],  
       
       
       });
@@ -55,7 +56,15 @@ export class AccommodationAddComponent implements OnInit {
   onSubmit(event:any) {
     this.submitted = true;
     this.temp = this.accommodationAdd.getRawValue();
+    this.accommodation = this.temp;
+    this.accommodation.idKategorijaSmestaja = this.temp.idKategorijaSmestaja.split(".",1)[0];
+    this.accommodation.idTipSmestaja = this.temp.idTipSmestaja.split(".",1)[0];
     console.log(this.temp);
+
+    this._accommodationService.addAccommmodation(this.accommodation).subscribe(
+      data => {
+              this.router.navigateByUrl("accommodation");
+    });
   }
 
 }
