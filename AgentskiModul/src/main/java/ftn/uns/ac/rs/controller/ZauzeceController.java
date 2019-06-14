@@ -23,7 +23,18 @@ public class ZauzeceController {
 	@Autowired
 	private ZauzeceService zauzeceService;
 
-	/*@GetMapping
+	@GetMapping(value = "getAllSync")
+	public ResponseEntity<List<ZauzeceDTO>> getAllSync(){
+		return new ResponseEntity<List<ZauzeceDTO>>(zauzeceService.getAllSync(), HttpStatus.OK);
+	}
+	
+	@PostMapping(value = "createSync")
+	public ResponseEntity<Integer> createSync(@RequestBody ZauzeceDTO ZauzeceDTO){
+		
+		return new ResponseEntity<Integer>(zauzeceService.createSync(ZauzeceDTO), HttpStatus.OK);
+	}
+	
+	@GetMapping
 	public ResponseEntity<List<ZauzeceDTO>> getAll(){
 		if(zauzeceService.getAll() == null) {
 			return new ResponseEntity<List<ZauzeceDTO>>(HttpStatus.NO_CONTENT);
@@ -63,6 +74,6 @@ public class ZauzeceController {
 		}else {
 			return new ResponseEntity<String>("Zauzece nije pronadjeno!", HttpStatus.NOT_FOUND);
 		}
-	}*/
+	}
 
 }

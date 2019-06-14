@@ -1,13 +1,14 @@
 
 package ftn.uns.ac.rs.model;
 
+import java.util.Date;
+
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlSchemaType;
 import javax.xml.bind.annotation.XmlType;
-import javax.xml.datatype.XMLGregorianCalendar;
 
 
 /**
@@ -40,13 +41,13 @@ import javax.xml.datatype.XMLGregorianCalendar;
 @XmlRootElement(name = "ZauzeceDTO")
 public class ZauzeceDTO {
 
-    protected long id;
+    protected Long id;
     @XmlElement(required = true)
     @XmlSchemaType(name = "dateTime")
-    protected XMLGregorianCalendar datumOd;
+    protected Date datumOd;
     @XmlElement(required = true)
     @XmlSchemaType(name = "dateTime")
-    protected XMLGregorianCalendar datumDo;
+    protected Date datumDo;
     protected long idSoba;
     protected long idStatusSobe;
 
@@ -54,7 +55,7 @@ public class ZauzeceDTO {
      * Gets the value of the id property.
      * 
      */
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
@@ -62,7 +63,7 @@ public class ZauzeceDTO {
      * Sets the value of the id property.
      * 
      */
-    public void setId(long value) {
+    public void setId(Long value) {
         this.id = value;
     }
 
@@ -71,10 +72,10 @@ public class ZauzeceDTO {
      * 
      * @return
      *     possible object is
-     *     {@link XMLGregorianCalendar }
+     *     {@link Date }
      *     
      */
-    public XMLGregorianCalendar getDatumOd() {
+    public Date getDatumOd() {
         return datumOd;
     }
 
@@ -83,10 +84,10 @@ public class ZauzeceDTO {
      * 
      * @param value
      *     allowed object is
-     *     {@link XMLGregorianCalendar }
+     *     {@link Date }
      *     
      */
-    public void setDatumOd(XMLGregorianCalendar value) {
+    public void setDatumOd(Date value) {
         this.datumOd = value;
     }
 
@@ -95,10 +96,10 @@ public class ZauzeceDTO {
      * 
      * @return
      *     possible object is
-     *     {@link XMLGregorianCalendar }
+     *     {@link Date }
      *     
      */
-    public XMLGregorianCalendar getDatumDo() {
+    public Date getDatumDo() {
         return datumDo;
     }
 
@@ -107,10 +108,10 @@ public class ZauzeceDTO {
      * 
      * @param value
      *     allowed object is
-     *     {@link XMLGregorianCalendar }
+     *     {@link Date }
      *     
      */
-    public void setDatumDo(XMLGregorianCalendar value) {
+    public void setDatumDo(Date value) {
         this.datumDo = value;
     }
 

@@ -37,13 +37,6 @@ public class ObjectFactory {
         return new StatusSobe();
     }
 
-    /**
-     * Create an instance of {@link StatusSobeDTO }
-     * 
-     */
-    public StatusSobeDTO createStatusSobeDTO() {
-        return new StatusSobeDTO();
-    }
 
     /**
      * Create an instance of {@link GetAllStatusSobeRequest }
@@ -325,204 +318,13 @@ public class ObjectFactory {
         return new CreateZauzeceResponse();
     }
 
+    
     /**
-     * Create an instance of {@link Rezervacija }
+     * Create an instance of {@link SifarnikDTO }
      * 
      */
-    public Rezervacija createRezervacija() {
-        return new Rezervacija();
-    }
-
-    /**
-     * Create an instance of {@link RezervacijaDTO }
-     * 
-     */
-    public RezervacijaDTO createRezervacijaDTO() {
-        return new RezervacijaDTO();
-    }
-
-    /**
-     * Create an instance of {@link GetAllRezervacijaRequest }
-     * 
-     */
-    public GetAllRezervacijaRequest createGetAllRezervacijaRequest() {
-        return new GetAllRezervacijaRequest();
-    }
-
-    /**
-     * Create an instance of {@link GetAllRezervacijaResponse }
-     * 
-     */
-    public GetAllRezervacijaResponse createGetAllRezervacijaResponse() {
-        return new GetAllRezervacijaResponse();
-    }
-
-    /**
-     * Create an instance of {@link GetByIdRezervacijaRequest }
-     * 
-     */
-    public GetByIdRezervacijaRequest createGetByIdRezervacijaRequest() {
-        return new GetByIdRezervacijaRequest();
-    }
-
-    /**
-     * Create an instance of {@link GetByIdRezervacijaResponse }
-     * 
-     */
-    public GetByIdRezervacijaResponse createGetByIdRezervacijaResponse() {
-        return new GetByIdRezervacijaResponse();
-    }
-
-    /**
-     * Create an instance of {@link CreateRezervacijaRequest }
-     * 
-     */
-    public CreateRezervacijaRequest createCreateRezervacijaRequest() {
-        return new CreateRezervacijaRequest();
-    }
-
-    /**
-     * Create an instance of {@link CreateRezervacijaResponse }
-     * 
-     */
-    public CreateRezervacijaResponse createCreateRezervacijaResponse() {
-        return new CreateRezervacijaResponse();
-    }
-
-    /**
-     * Create an instance of {@link IstorijaRezervacije }
-     * 
-     */
-    public IstorijaRezervacije createIstorijaRezervacije() {
-        return new IstorijaRezervacije();
-    }
-
-    /**
-     * Create an instance of {@link IstorijaRezervacijeDTO }
-     * 
-     */
-    public IstorijaRezervacijeDTO createIstorijaRezervacijeDTO() {
-        return new IstorijaRezervacijeDTO();
-    }
-
-    /**
-     * Create an instance of {@link GetAllIstorijaRezervacijeRequest }
-     * 
-     */
-    public GetAllIstorijaRezervacijeRequest createGetAllIstorijaRezervacijeRequest() {
-        return new GetAllIstorijaRezervacijeRequest();
-    }
-
-    /**
-     * Create an instance of {@link GetAllIstorijaRezervacijeResponse }
-     * 
-     */
-    public GetAllIstorijaRezervacijeResponse createGetAllIstorijaRezervacijeResponse() {
-        return new GetAllIstorijaRezervacijeResponse();
-    }
-
-    /**
-     * Create an instance of {@link GetByIdIstorijaRezervacijeRequest }
-     * 
-     */
-    public GetByIdIstorijaRezervacijeRequest createGetByIdIstorijaRezervacijeRequest() {
-        return new GetByIdIstorijaRezervacijeRequest();
-    }
-
-    /**
-     * Create an instance of {@link GetByIdIstorijaRezervacijeResponse }
-     * 
-     */
-    public GetByIdIstorijaRezervacijeResponse createGetByIdIstorijaRezervacijeResponse() {
-        return new GetByIdIstorijaRezervacijeResponse();
-    }
-
-    /**
-     * Create an instance of {@link CreateIstorijaRezervacijeRequest }
-     * 
-     */
-    public CreateIstorijaRezervacijeRequest createCreateIstorijaRezervacijeRequest() {
-        return new CreateIstorijaRezervacijeRequest();
-    }
-
-    /**
-     * Create an instance of {@link CreateIstorijaRezervacijeResponse }
-     * 
-     */
-    public CreateIstorijaRezervacijeResponse createCreateIstorijaRezervacijeResponse() {
-        return new CreateIstorijaRezervacijeResponse();
-    }
-
-    /**
-     * Create an instance of {@link Korisnik }
-     * 
-     */
-    public Korisnik createKorisnik() {
-        return new Korisnik();
-    }
-
-    /**
-     * Create an instance of {@link KorisnikDTO }
-     * 
-     */
-    public KorisnikDTO createKorisnikDTO() {
-        return new KorisnikDTO();
-    }
-
-    /**
-     * Create an instance of {@link GetAllKorisnikRequest }
-     * 
-     */
-    public GetAllKorisnikRequest createGetAllKorisnikRequest() {
-        return new GetAllKorisnikRequest();
-    }
-
-    /**
-     * Create an instance of {@link GetAllKorisnikResponse }
-     * 
-     */
-    public GetAllKorisnikResponse createGetAllKorisnikResponse() {
-        return new GetAllKorisnikResponse();
-    }
-
-    /**
-     * Create an instance of {@link GetByIdKorisnikRequest }
-     * 
-     */
-    public GetByIdKorisnikRequest createGetByIdKorisnikRequest() {
-        return new GetByIdKorisnikRequest();
-    }
-
-    /**
-     * Create an instance of {@link GetByIdKorisnikResponse }
-     * 
-     */
-    public GetByIdKorisnikResponse createGetByIdKorisnikResponse() {
-        return new GetByIdKorisnikResponse();
-    }
-
-    /**
-     * Create an instance of {@link CreateKorisnikRequest }
-     * 
-     */
-    public CreateKorisnikRequest createCreateKorisnikRequest() {
-        return new CreateKorisnikRequest();
-    }
-
-    /**
-     * Create an instance of {@link CreateKorisnikResponse }
-     * 
-     */
-    public CreateKorisnikResponse createCreateKorisnikResponse() {
-        return new CreateKorisnikResponse();
-    }
-
-    /**
-     * Create an instance of {@link TipSobeDTO }
-     * 
-     */
-    public TipSobeDTO createTipSobeDTO() {
-        return new TipSobeDTO();
+    public SifarnikDTO createTipSobeDTO() {
+        return new SifarnikDTO();
     }
 
     /**
@@ -573,13 +375,6 @@ public class ObjectFactory {
         return new CreateTipSobeResponse();
     }
 
-    /**
-     * Create an instance of {@link KategorijaSmestajaDTO }
-     * 
-     */
-    public KategorijaSmestajaDTO createKategorijaSmestajaDTO() {
-        return new KategorijaSmestajaDTO();
-    }
 
     /**
      * Create an instance of {@link GetAllKategorijaSmestajaRequest }
@@ -629,13 +424,6 @@ public class ObjectFactory {
         return new CreateKategorijaSmestajaResponse();
     }
 
-    /**
-     * Create an instance of {@link TipSmestajaDTO }
-     * 
-     */
-    public TipSmestajaDTO createTipSmestajaDTO() {
-        return new TipSmestajaDTO();
-    }
 
     /**
      * Create an instance of {@link GetAllTipSmestajaRequest }
@@ -908,69 +696,4 @@ public class ObjectFactory {
     public CreateSobaResponse createCreateSobaResponse() {
         return new CreateSobaResponse();
     }
-
-    /**
-     * Create an instance of {@link RezervacijaPoSobi }
-     * 
-     */
-    public RezervacijaPoSobi createRezervacijaPoSobi() {
-        return new RezervacijaPoSobi();
-    }
-
-    /**
-     * Create an instance of {@link RezervacijaPoSobiDTO }
-     * 
-     */
-    public RezervacijaPoSobiDTO createRezervacijaPoSobiDTO() {
-        return new RezervacijaPoSobiDTO();
-    }
-
-    /**
-     * Create an instance of {@link GetAllRezervacijaPoSobiRequest }
-     * 
-     */
-    public GetAllRezervacijaPoSobiRequest createGetAllRezervacijaPoSobiRequest() {
-        return new GetAllRezervacijaPoSobiRequest();
-    }
-
-    /**
-     * Create an instance of {@link GetAllRezervacijaPoSobiResponse }
-     * 
-     */
-    public GetAllRezervacijaPoSobiResponse createGetAllRezervacijaPoSobiResponse() {
-        return new GetAllRezervacijaPoSobiResponse();
-    }
-
-    /**
-     * Create an instance of {@link GetByIdRezervacijaPoSobiRequest }
-     * 
-     */
-    public GetByIdRezervacijaPoSobiRequest createGetByIdRezervacijaPoSobiRequest() {
-        return new GetByIdRezervacijaPoSobiRequest();
-    }
-
-    /**
-     * Create an instance of {@link GetByIdRezervacijaPoSobiResponse }
-     * 
-     */
-    public GetByIdRezervacijaPoSobiResponse createGetByIdRezervacijaPoSobiResponse() {
-        return new GetByIdRezervacijaPoSobiResponse();
-    }
-
-    /**
-     * Create an instance of {@link CreateRezervacijaPoSobiRequest }
-     * 
-     */
-    public CreateRezervacijaPoSobiRequest createCreateRezervacijaPoSobiRequest() {
-        return new CreateRezervacijaPoSobiRequest();
-    }
-
-    /**
-     * Create an instance of {@link CreateRezervacijaPoSobiResponse }
-     * 
-     */
-    public CreateRezervacijaPoSobiResponse createCreateRezervacijaPoSobiResponse() {
-        return new CreateRezervacijaPoSobiResponse();
-    }
-
 }

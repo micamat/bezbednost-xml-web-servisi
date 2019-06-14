@@ -75,4 +75,9 @@ public class GetAllSobaResponse {
         return this.sobaDTO;
     }
 
+	public void setSobaDTO(List<SobaDTO> sobaDTO) {
+		this.sobaDTO = sobaDTO;
+	}
+
+    
 }

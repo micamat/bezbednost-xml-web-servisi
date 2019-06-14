@@ -1,9 +1,19 @@
 package ftn.uns.ac.rs.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import ftn.uns.ac.rs.model.SifarnikDTO;
 import ftn.uns.ac.rs.service.TipSmestajaService;
 
 @RestController
@@ -13,7 +23,18 @@ public class TipSmestajaController {
 	@Autowired
 	private TipSmestajaService tipSmestajaService;
 
-	/*@GetMapping
+	@GetMapping(value = "getAllSync")
+	public ResponseEntity<List<SifarnikDTO>> getAllSync(){
+		return new ResponseEntity<List<SifarnikDTO>>(tipSmestajaService.getAllSync(), HttpStatus.OK);
+	}
+	
+	@PostMapping(value = "createSync")
+	public ResponseEntity<Integer> createSync(@RequestBody SifarnikDTO TipSmestajaDTO){
+		
+		return new ResponseEntity<Integer>(tipSmestajaService.createSync(TipSmestajaDTO), HttpStatus.OK);
+	}
+	
+	@GetMapping
 	public ResponseEntity<List<SifarnikDTO>> getAll(){
 		if(tipSmestajaService.getAll() == null) {
 			return new ResponseEntity<List<SifarnikDTO>>(HttpStatus.NO_CONTENT);
@@ -46,6 +67,6 @@ public class TipSmestajaController {
 		}else {
 			return new ResponseEntity<String>("Tip smestaja nije pronadjen!", HttpStatus.NOT_FOUND);
 		}
-	}*/
+	}
 
 }

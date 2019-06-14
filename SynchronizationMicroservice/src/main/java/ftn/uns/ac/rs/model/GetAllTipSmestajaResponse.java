@@ -75,4 +75,7 @@ public class GetAllTipSmestajaResponse {
         return this.tipSmestajaDTO;
     }
 
+	public void setTipSmestajaDTO(List<TipSmestajaDTO> tipSmestajaDTO) {
+		this.tipSmestajaDTO = tipSmestajaDTO;
+	}
 }

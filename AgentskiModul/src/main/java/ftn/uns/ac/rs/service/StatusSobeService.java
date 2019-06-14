@@ -1,8 +1,19 @@
 package ftn.uns.ac.rs.service;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import ftn.uns.ac.rs.model.CreateStatusSobeRequest;
+import ftn.uns.ac.rs.model.CreateStatusSobeResponse;
+import ftn.uns.ac.rs.model.GetAllStatusSobeRequest;
+import ftn.uns.ac.rs.model.GetAllStatusSobeResponse;
+import ftn.uns.ac.rs.model.ProducerPort;
+import ftn.uns.ac.rs.model.ProducerPortService;
+import ftn.uns.ac.rs.model.SifarnikDTO;
+import ftn.uns.ac.rs.model.StatusSobe;
 import ftn.uns.ac.rs.repository.StatusSobeRepository;
 
 @Service
@@ -10,7 +21,29 @@ public class StatusSobeService {
 	@Autowired
 	private StatusSobeRepository statusSobeRepository;
 
-	/*public List<SifarnikDTO> getAll(){ 
+	public List<SifarnikDTO> getAllSync(){
+		ProducerPortService producerPortService = new ProducerPortService();
+		ProducerPort producerPort = producerPortService.getProducerPortSoap11();
+		
+		GetAllStatusSobeRequest getStatusSobeRequest = new GetAllStatusSobeRequest();
+		GetAllStatusSobeResponse getStatusSobeResponse = producerPort.getAllStatusSobe(getStatusSobeRequest);
+		return getStatusSobeResponse.getStatusSobeDTO();
+	};
+	
+	
+	public int createSync(SifarnikDTO smd){
+		ProducerPortService producerPortService = new ProducerPortService();
+		ProducerPort producerPort = producerPortService.getProducerPortSoap11();
+		
+		CreateStatusSobeRequest getStatusSobeRequest = new CreateStatusSobeRequest();
+		getStatusSobeRequest.setId(smd.getId());
+		getStatusSobeRequest.setNaziv(smd.getNaziv());
+		getStatusSobeRequest.setOpis(smd.getOpis());
+		CreateStatusSobeResponse getStatusSobeResponse = producerPort.createStatusSobe(getStatusSobeRequest);
+		return getStatusSobeResponse.getId();
+	};
+	
+	public List<SifarnikDTO> getAll(){ 
 		return statusSobeRepository.findAll().stream().map(this::convertToDTO).collect(Collectors.toList());
 	};
 	
@@ -54,5 +87,5 @@ public class StatusSobeService {
 		statusSobe.setNaziv(statusSobeDTO.getNaziv());
 		statusSobe.setOpis(statusSobeDTO.getOpis());
 		return statusSobe;
-	}*/
+	}
 }

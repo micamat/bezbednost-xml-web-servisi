@@ -1,13 +1,14 @@
 
 package ftn.uns.ac.rs.model;
 
+import java.util.Date;
+
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlSchemaType;
 import javax.xml.bind.annotation.XmlType;
-import javax.xml.datatype.XMLGregorianCalendar;
 
 
 /**
@@ -41,15 +42,15 @@ import javax.xml.datatype.XMLGregorianCalendar;
 @XmlRootElement(name = "CenovnikDTO")
 public class CenovnikDTO {
 
-    protected long id;
+    protected Long id;
     @XmlElement(required = true)
     protected String cena;
     @XmlElement(required = true)
     @XmlSchemaType(name = "dateTime")
-    protected XMLGregorianCalendar datumOd;
+    protected Date datumOd;
     @XmlElement(required = true)
     @XmlSchemaType(name = "dateTime")
-    protected XMLGregorianCalendar datumDo;
+    protected Date datumDo;
     protected long idSmestaj;
     protected long idTipSobe;
 
@@ -57,7 +58,7 @@ public class CenovnikDTO {
      * Gets the value of the id property.
      * 
      */
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
@@ -65,7 +66,7 @@ public class CenovnikDTO {
      * Sets the value of the id property.
      * 
      */
-    public void setId(long value) {
+    public void setId(Long value) {
         this.id = value;
     }
 
@@ -98,10 +99,10 @@ public class CenovnikDTO {
      * 
      * @return
      *     possible object is
-     *     {@link XMLGregorianCalendar }
+     *     {@link Date }
      *     
      */
-    public XMLGregorianCalendar getDatumOd() {
+    public Date getDatumOd() {
         return datumOd;
     }
 
@@ -110,10 +111,10 @@ public class CenovnikDTO {
      * 
      * @param value
      *     allowed object is
-     *     {@link XMLGregorianCalendar }
+     *     {@link Date }
      *     
      */
-    public void setDatumOd(XMLGregorianCalendar value) {
+    public void setDatumOd(Date value) {
         this.datumOd = value;
     }
 
@@ -122,10 +123,10 @@ public class CenovnikDTO {
      * 
      * @return
      *     possible object is
-     *     {@link XMLGregorianCalendar }
+     *     {@link Date }
      *     
      */
-    public XMLGregorianCalendar getDatumDo() {
+    public Date getDatumDo() {
         return datumDo;
     }
 
@@ -134,10 +135,10 @@ public class CenovnikDTO {
      * 
      * @param value
      *     allowed object is
-     *     {@link XMLGregorianCalendar }
+     *     {@link Date }
      *     
      */
-    public void setDatumDo(XMLGregorianCalendar value) {
+    public void setDatumDo(Date value) {
         this.datumDo = value;
     }
 

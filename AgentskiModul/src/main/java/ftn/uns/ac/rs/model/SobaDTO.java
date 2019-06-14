@@ -44,7 +44,7 @@ import javax.xml.bind.annotation.XmlType;
 @XmlRootElement(name = "SobaDTO")
 public class SobaDTO {
 
-    protected long id;
+    protected Long id;
     @XmlElement(required = true)
     protected String naziv;
     @XmlElement(required = true)
@@ -58,7 +58,7 @@ public class SobaDTO {
      * Gets the value of the id property.
      * 
      */
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
@@ -66,7 +66,7 @@ public class SobaDTO {
      * Sets the value of the id property.
      * 
      */
-    public void setId(long value) {
+    public void setId(Long value) {
         this.id = value;
     }
 

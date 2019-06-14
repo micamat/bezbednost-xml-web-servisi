@@ -1,8 +1,19 @@
 package ftn.uns.ac.rs.service;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import ftn.uns.ac.rs.model.CreateTipSmestajaRequest;
+import ftn.uns.ac.rs.model.CreateTipSmestajaResponse;
+import ftn.uns.ac.rs.model.GetAllTipSmestajaRequest;
+import ftn.uns.ac.rs.model.GetAllTipSmestajaResponse;
+import ftn.uns.ac.rs.model.ProducerPort;
+import ftn.uns.ac.rs.model.ProducerPortService;
+import ftn.uns.ac.rs.model.SifarnikDTO;
+import ftn.uns.ac.rs.model.TipSmestaja;
 import ftn.uns.ac.rs.repository.TipSmestajaRepository;
 
 @Service
@@ -11,7 +22,29 @@ public class TipSmestajaService {
 	@Autowired
 	private TipSmestajaRepository tipSmestajaRepository;
 
-	/*public List<SifarnikDTO> getAll(){ 
+	public List<SifarnikDTO> getAllSync(){
+		ProducerPortService producerPortService = new ProducerPortService();
+		ProducerPort producerPort = producerPortService.getProducerPortSoap11();
+		
+		GetAllTipSmestajaRequest getTipSmestajaRequest = new GetAllTipSmestajaRequest();
+		GetAllTipSmestajaResponse getTipSmestajaResponse = producerPort.getAllTipSmestaja(getTipSmestajaRequest);
+		return getTipSmestajaResponse.getTipSmestajaDTO();
+	};
+	
+	
+	public int createSync(SifarnikDTO smd){
+		ProducerPortService producerPortService = new ProducerPortService();
+		ProducerPort producerPort = producerPortService.getProducerPortSoap11();
+		
+		CreateTipSmestajaRequest getTipSmestajaRequest = new CreateTipSmestajaRequest();
+		getTipSmestajaRequest.setId(smd.getId());
+		getTipSmestajaRequest.setNaziv(smd.getNaziv());
+		getTipSmestajaRequest.setOpis(smd.getOpis());
+		CreateTipSmestajaResponse getTipSmestajaResponse = producerPort.createTipSmestaja(getTipSmestajaRequest);
+		return getTipSmestajaResponse.getId();
+	};
+	
+	public List<SifarnikDTO> getAll(){ 
 		return tipSmestajaRepository.findAll().stream().map(this::convertToDTO).collect(Collectors.toList());
 	};
 	
@@ -55,5 +88,5 @@ public class TipSmestajaService {
 		tipSmestaja.setNaziv(tipSmestajaDTO.getNaziv());
 		tipSmestaja.setOpis(tipSmestajaDTO.getOpis());
 		return tipSmestaja;
-	}*/
+	}
 }

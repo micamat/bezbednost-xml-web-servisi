@@ -75,4 +75,7 @@ public class GetAllKoordinateResponse {
         return this.koordinateDTO;
     }
 
+	public void setKoordinateDTO(List<KoordinateDTO> koordinateDTO) {
+		this.koordinateDTO = koordinateDTO;
+	}
 }

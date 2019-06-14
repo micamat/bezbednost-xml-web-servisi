@@ -3,6 +3,7 @@ package ftn.uns.ac.rs.model;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
@@ -37,7 +38,7 @@ import javax.xml.bind.annotation.XmlType;
 public class GetAllKategorijaSmestajaResponse {
 
     @XmlElement(name = "KategorijaSmestajaDTO")
-    protected List<KategorijaSmestajaDTO> kategorijaSmestajaDTO;
+    protected List<SifarnikDTO> kategorijaSmestajaDTO;
 
     /**
      * Gets the value of the kategorijaSmestajaDTO property.
@@ -61,9 +62,9 @@ public class GetAllKategorijaSmestajaResponse {
      * 
      * 
      */
-    public List<KategorijaSmestajaDTO> getKategorijaSmestajaDTO() {
+    public List<SifarnikDTO> getKategorijaSmestajaDTO() {
         if (kategorijaSmestajaDTO == null) {
-            kategorijaSmestajaDTO = new ArrayList<KategorijaSmestajaDTO>();
+            kategorijaSmestajaDTO = new ArrayList<SifarnikDTO>();
         }
         return this.kategorijaSmestajaDTO;
     }

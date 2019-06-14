@@ -35,7 +35,7 @@ import javax.xml.bind.annotation.XmlType;
 @XmlRootElement(name = "KoordinateDTO")
 public class KoordinateDTO {
 
-    protected long id;
+    protected Long id;
     protected float duzina;
     protected float sirina;
 
@@ -43,7 +43,7 @@ public class KoordinateDTO {
      * Gets the value of the id property.
      * 
      */
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
@@ -51,7 +51,7 @@ public class KoordinateDTO {
      * Sets the value of the id property.
      * 
      */
-    public void setId(long value) {
+    public void setId(Long value) {
         this.id = value;
     }
 
