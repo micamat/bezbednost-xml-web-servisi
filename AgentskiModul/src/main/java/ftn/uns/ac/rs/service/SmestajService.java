@@ -82,12 +82,21 @@ public class SmestajService {
 		return getSmestajResponse.getId();
 	};
 	
-	public SmestajDTO getById(Long id) {
-		if(!smestajRepository.existsById(id)) {
-			return null;
-		}
-		Smestaj smestaj = smestajRepository.findById(id).orElse(null);
-		return convertToDTO(smestaj);
+	public getSmestajDTO getById(Long id) {
+		Smestaj s = smestajRepository.findById(id).get();
+		
+		getSmestajDTO dto = new getSmestajDTO();
+		dto.setId(s.getId());
+		dto.setNaziv(s.getNaziv());
+		dto.setOpis(s.getOpis());
+		dto.setKategorijaSmestaja(s.getKategorijaSmestaja().getNaziv());
+		dto.setTipSmestaja(s.getTipSmestaja().getNaziv());
+		dto.setDrzava(s.getLokacija().getDrzava());
+		dto.setGrad(s.getLokacija().getGrad());
+		dto.setUlica(s.getLokacija().getUlica());
+		dto.setBroj(s.getLokacija().getBroj());
+		
+		return dto;
 	}
 	
 	

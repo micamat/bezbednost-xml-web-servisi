@@ -31,4 +31,8 @@ export class AccommodationService {
     return this.http.delete(SERVER_URL + "/smestaj/" + id,{responseType: 'text'});
   }
 
+  getAccommodation(id:any){
+    return this.http.get(SERVER_URL + "/smestaj/" + id);
+  }
+
 }

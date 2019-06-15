@@ -27,7 +27,7 @@
         <td>{{item.kategorijaSmestaja}}</td>
         <td>{{item.tipSmestaja}}</td>
         <td>
-            <a id={{item.id}} class="active" [routerLink]="'/accommodation/add'">
+            <a class="active" [routerLink]="['/accommodation/change', item.id]">
               <img class="mr-2" src="/assets/img/edit-9-32.png">
             </a>
             <a class="active" (click)="delete(item.id)" [routerLink]="'/accommodation'">

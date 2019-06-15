@@ -18,7 +18,6 @@ export class AccommodationComponent implements OnInit {
     private activatedRoute: ActivatedRoute) { }
 
   ngOnInit() {
-
     this._accommodationService.getAllAccommodation().subscribe(
       data => {
         this.accommodations = data;

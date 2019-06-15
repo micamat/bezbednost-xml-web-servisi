@@ -44,11 +44,11 @@ public class SmestajController {
 	}
 	
 	@GetMapping(value = "/{id}")
-	public ResponseEntity<SmestajDTO> getById(@PathVariable Long id){
+	public ResponseEntity<getSmestajDTO> getById(@PathVariable Long id){
 		if(smestajService.getById(id) == null) {
-			return new ResponseEntity<SmestajDTO>(HttpStatus.NO_CONTENT);
+			return new ResponseEntity<getSmestajDTO>(HttpStatus.NO_CONTENT);
 		}
-		return new ResponseEntity<SmestajDTO>(smestajService.getById(id), HttpStatus.OK);
+		return new ResponseEntity<getSmestajDTO>(smestajService.getById(id), HttpStatus.OK);
 	}
 	
 	@PostMapping
