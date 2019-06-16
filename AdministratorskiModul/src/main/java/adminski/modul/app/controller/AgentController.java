@@ -5,7 +5,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import adminski.modul.app.service.AgentService;
-import adminski.modul.app.service.KategorijaSmestajaService;
 
 @RestController
 @RequestMapping("/")
