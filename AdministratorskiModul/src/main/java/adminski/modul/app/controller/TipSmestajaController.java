@@ -30,7 +30,7 @@ public class TipSmestajaController {
 	private TipSmestajaService tipSmestajaService;
 	
 	@GetMapping("{id}")
-	public ResponseEntity<TipSmestaja> getTipSmestaja(@PathVariable String id, HttpSession session){
+	public ResponseEntity<TipSmestaja> getTipSmestaja(@PathVariable Long id, HttpSession session){
 		if (session.getAttribute("loggedIn") == null) {
 			return new ResponseEntity<TipSmestaja>(HttpStatus.FORBIDDEN);
 		} else {
@@ -56,7 +56,7 @@ public class TipSmestajaController {
 	}
 	
 	@DeleteMapping("{id}")
-	public ResponseEntity<TipSmestaja> deleteTipSmestaja(@PathVariable String id, HttpSession session){
+	public ResponseEntity<TipSmestaja> deleteTipSmestaja(@PathVariable Long id, HttpSession session){
 		if (session.getAttribute("loggedIn") == null) {
 			return new ResponseEntity<TipSmestaja>(HttpStatus.FORBIDDEN);
 		} else {
@@ -69,7 +69,7 @@ public class TipSmestajaController {
 	}
 	
 	@PutMapping("{id}")
-	public ResponseEntity<TipSmestaja> updateTipSmestaja(@PathVariable String id, @RequestBody TipSmestaja tipSmestaja, HttpSession session){
+	public ResponseEntity<TipSmestaja> updateTipSmestaja(@PathVariable Long id, @RequestBody TipSmestaja tipSmestaja, HttpSession session){
 		if (session.getAttribute("loggedIn") == null) {
 			return new ResponseEntity<TipSmestaja>(HttpStatus.FORBIDDEN);
 		} else {

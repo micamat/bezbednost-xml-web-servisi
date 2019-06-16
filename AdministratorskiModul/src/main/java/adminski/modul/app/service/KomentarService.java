@@ -18,11 +18,11 @@ public class KomentarService {
 		return komentarRepository.findAll();
 	}
 	
-	public Komentar getCommentById(String id) {
-		return komentarRepository.findById(Long.getLong(id)).orElse(null);
+	public Komentar getCommentById(Long id) {
+		return komentarRepository.findById(id).orElse(null);
 	}
 	
-	public boolean removeComment(String id) {
+	public boolean removeComment(Long id) {
 		Komentar komentar = getCommentById(id);
 		
 		if (komentar != null) {
@@ -39,7 +39,7 @@ public class KomentarService {
 		return true;
 	}
 	
-	public boolean updateComment(String id,Komentar komentar) {
+	public boolean updateComment(Long id,Komentar komentar) {
 		Komentar postojeci = getCommentById(id);
 		
 		if (postojeci == null) {

@@ -29,13 +29,17 @@ public class KomentarController {
 	
 
 	@GetMapping("{id}")
-	public ResponseEntity<Komentar> getComment(@PathVariable String id, HttpSession session){
+	public ResponseEntity<Komentar> getComment(@PathVariable Long id, HttpSession session){
 		if (session.getAttribute("loggedIn") == null) {
 			return new ResponseEntity<Komentar>(HttpStatus.FORBIDDEN);
 		} else {
 			Komentar komentar = komentarService.getCommentById(id);
 			
-			return new ResponseEntity<Komentar>(komentar, HttpStatus.OK);
+			if (komentar != null) {
+				return new ResponseEntity<Komentar>(komentar, HttpStatus.OK);
+			} else {
+				return new ResponseEntity<Komentar>(HttpStatus.BAD_REQUEST);
+			}
 		}
 	}
 	
@@ -55,7 +59,7 @@ public class KomentarController {
 	}
 	
 	@DeleteMapping("{id}")
-	public ResponseEntity<Void> deleteComment(@PathVariable String id, HttpSession session){
+	public ResponseEntity<Void> deleteComment(@PathVariable Long id, HttpSession session){
 		if (session.getAttribute("loggedIn") == null) {
 			return new ResponseEntity<Void>(HttpStatus.FORBIDDEN);
 		} else {
@@ -68,7 +72,7 @@ public class KomentarController {
 	}
 	
 	@PutMapping("{id}")
-	public ResponseEntity<Komentar> updateKomentar(@PathVariable String id, @RequestBody Komentar komentar, HttpSession session){
+	public ResponseEntity<Komentar> updateKomentar(@PathVariable Long id, @RequestBody Komentar komentar, HttpSession session){
 		if (session.getAttribute("loggedIn") == null) {
 			return new ResponseEntity<Komentar>(HttpStatus.FORBIDDEN);
 		} else {
@@ -81,7 +85,7 @@ public class KomentarController {
 	}
 	
 	@PostMapping
-	public ResponseEntity<Komentar> createTipSmestaja(@RequestBody Komentar komentar, HttpSession session){
+	public ResponseEntity<Komentar> createKomentar(@RequestBody Komentar komentar, HttpSession session){
 		if (session.getAttribute("loggedIn") == null) {
 			return new ResponseEntity<Komentar>(HttpStatus.FORBIDDEN);
 		} else {

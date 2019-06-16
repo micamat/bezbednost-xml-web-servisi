@@ -18,11 +18,11 @@ public class TipUslugeService {
 		return tipUslugeRepository.findAll();
 	}
 	
-	public TipUsluge getTypeServiceById(String id) {
-		return tipUslugeRepository.findById(Long.getLong(id)).orElse(null);
+	public TipUsluge getTypeServiceById(Long id) {
+		return tipUslugeRepository.findById(id).orElse(null);
 	}
 	
-	public boolean removeTypeService(String id) {
+	public boolean removeTypeService(Long id) {
 		TipUsluge tipUsluge = getTypeServiceById(id);
 		
 		if (tipUsluge != null) {
@@ -39,7 +39,7 @@ public class TipUslugeService {
 		return true;
 	}
 	
-	public boolean updateTypeService(String id,TipUsluge tipUsluge) {
+	public boolean updateTypeService(Long id,TipUsluge tipUsluge) {
 		TipUsluge postojeca = getTypeServiceById(id);
 		
 		if (postojeca == null) {

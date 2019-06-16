@@ -28,7 +28,7 @@ public class KategorijaSmestajaController {
 	private KategorijaSmestajaService kategorijaSmestajaService;
 	
 	@GetMapping("{id}")
-	public ResponseEntity<KategorijaSmestaja> getKategorijaSmestaja(@PathVariable String id, HttpSession session){
+	public ResponseEntity<KategorijaSmestaja> getKategorijaSmestaja(@PathVariable Long id, HttpSession session){
 		if (session.getAttribute("loggedIn") == null) {
 			return new ResponseEntity<KategorijaSmestaja>(HttpStatus.FORBIDDEN);
 		} else {
@@ -54,7 +54,7 @@ public class KategorijaSmestajaController {
 	}
 	
 	@DeleteMapping("{id}")
-	public ResponseEntity<Void> deleteTipSmestaja(@PathVariable String id, HttpSession session){
+	public ResponseEntity<Void> deleteTipSmestaja(@PathVariable Long id, HttpSession session){
 		if (session.getAttribute("loggedIn") == null) {
 			return new ResponseEntity<Void>(HttpStatus.FORBIDDEN);
 		} else {
@@ -67,7 +67,7 @@ public class KategorijaSmestajaController {
 	}
 	
 	@PutMapping("{id}")
-	public ResponseEntity<KategorijaSmestaja> updateKategorijaSmestaja(@PathVariable String id, @RequestBody KategorijaSmestaja kategorijaSmestaja, HttpSession session){
+	public ResponseEntity<KategorijaSmestaja> updateKategorijaSmestaja(@PathVariable Long id, @RequestBody KategorijaSmestaja kategorijaSmestaja, HttpSession session){
 		if (session.getAttribute("loggedIn") == null) {
 			return new ResponseEntity<KategorijaSmestaja>(HttpStatus.FORBIDDEN);
 		} else {

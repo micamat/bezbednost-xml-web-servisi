@@ -18,11 +18,11 @@ public class KategorijaSmestajaService {
 		return kategorijaSmestajaRepository.findAll();
 	}
 	
-	public KategorijaSmestaja getCategoryAccommodationById(String id) {
-		return kategorijaSmestajaRepository.findById(Long.getLong(id)).orElse(null);
+	public KategorijaSmestaja getCategoryAccommodationById(Long id) {
+		return kategorijaSmestajaRepository.findById(id).orElse(null);
 	}
 	
-	public boolean removeCategoryAccommodation(String id) {
+	public boolean removeCategoryAccommodation(Long id) {
 		KategorijaSmestaja kategorija = getCategoryAccommodationById(id);
 		
 		if (kategorija != null) {
@@ -39,7 +39,7 @@ public class KategorijaSmestajaService {
 		return true;
 	}
 	
-	public boolean updateCategoryAccommodation(String id,KategorijaSmestaja kategorija) {
+	public boolean updateCategoryAccommodation(Long id,KategorijaSmestaja kategorija) {
 		KategorijaSmestaja postojeca = getCategoryAccommodationById(id);
 		
 		if (postojeca == null) {

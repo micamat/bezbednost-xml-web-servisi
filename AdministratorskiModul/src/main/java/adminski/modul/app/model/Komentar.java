@@ -9,6 +9,12 @@
 package adminski.modul.app.model;
 
 import java.math.BigInteger;
+import java.util.Date;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
@@ -50,21 +56,25 @@ import javax.xml.datatype.XMLGregorianCalendar;
 
 })
 @XmlRootElement(name = "komentar", namespace = "http://model.app.modul.adminski/Komentar")
+@Entity
 public class Komentar {
 
     @XmlElement(namespace = "http://model.app.modul.adminski/Komentar", required = true)
     @XmlJavaTypeAdapter(CollapsedStringAdapter.class)
     @XmlID
     @XmlSchemaType(name = "ID")
-    protected String id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    protected Long id;
     @XmlElement(namespace = "http://model.app.modul.adminski/Komentar", required = true)
     protected String naslov;
     @XmlElement(namespace = "http://model.app.modul.adminski/Komentar", required = true)
     protected String tekst;
     @XmlElement(namespace = "http://model.app.modul.adminski/Komentar", required = true)
     @XmlSchemaType(name = "date")
-    protected XMLGregorianCalendar datum;
+    protected Date datum;
     @XmlElement(required = true)
+    @javax.persistence.ManyToOne(targetEntity=Korisnik.class)
     protected Korisnik korisnik;
     @XmlElement(name = "id_sobe", namespace = "http://model.app.modul.adminski/Komentar", required = true)
     protected BigInteger idSobe;
@@ -77,7 +87,7 @@ public class Komentar {
      *     {@link String }
      *     
      */
-    public String getId() {
+    public Long getId() {
         return id;
     }
 
@@ -89,7 +99,7 @@ public class Komentar {
      *     {@link String }
      *     
      */
-    public void setId(String value) {
+    public void setId(Long value) {
         this.id = value;
     }
 
@@ -149,7 +159,7 @@ public class Komentar {
      *     {@link XMLGregorianCalendar }
      *     
      */
-    public XMLGregorianCalendar getDatum() {
+    public Date getDatum() {
         return datum;
     }
 
@@ -161,7 +171,7 @@ public class Komentar {
      *     {@link XMLGregorianCalendar }
      *     
      */
-    public void setDatum(XMLGregorianCalendar value) {
+    public void setDatum(Date value) {
         this.datum = value;
     }
 

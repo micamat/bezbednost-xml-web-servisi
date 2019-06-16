@@ -26,11 +26,11 @@ public class TipSmestajaService {
 		return tipSmestajaRepository.findAll();
 	}
 	
-	public TipSmestaja getTipSmestajaById(String id) {
-		return tipSmestajaRepository.findById(Long.getLong(id)).orElse(null);
+	public TipSmestaja getTipSmestajaById(Long id) {
+		return tipSmestajaRepository.findById(id).orElse(null);
 	}
 	
-	public boolean removeTipSmestaja(String id) {
+	public boolean removeTipSmestaja(Long id) {
 		TipSmestaja ts = getTipSmestajaById(id);
 		
 		if (ts != null) {
@@ -47,7 +47,7 @@ public class TipSmestajaService {
 		return true;
 	}
 	
-	public boolean updateTipSmestaja(String id,TipSmestaja tipSmestaja) {
+	public boolean updateTipSmestaja(Long id,TipSmestaja tipSmestaja) {
 		TipSmestaja postojeci = getTipSmestajaById(id);
 		
 		if (postojeci == null) {
