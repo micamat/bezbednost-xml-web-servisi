@@ -11,7 +11,7 @@ import adminski.modul.app.repository.TipUslugeRepository;
 import adminski.modul.app.model.TipSmestaja;
 
 @Service
-public class SifarnikService {
+public class TipSmestajaService {
 
 	@Autowired
 	private TipSmestajaRepository tipSmestajaRepository;

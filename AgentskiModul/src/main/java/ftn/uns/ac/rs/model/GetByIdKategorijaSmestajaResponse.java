@@ -35,17 +35,17 @@ import javax.xml.bind.annotation.XmlType;
 public class GetByIdKategorijaSmestajaResponse {
 
     @XmlElement(name = "TipSobeDTO")
-    protected TipSobeDTO tipSobeDTO;
+    protected SifarnikDTO tipSobeDTO;
 
     /**
      * Gets the value of the tipSobeDTO property.
      * 
      * @return
      *     possible object is
-     *     {@link TipSobeDTO }
+     *     {@link SifarnikDTO }
      *     
      */
-    public TipSobeDTO getTipSobeDTO() {
+    public SifarnikDTO getTipSobeDTO() {
         return tipSobeDTO;
     }
 
@@ -54,10 +54,10 @@ public class GetByIdKategorijaSmestajaResponse {
      * 
      * @param value
      *     allowed object is
-     *     {@link TipSobeDTO }
+     *     {@link SifarnikDTO }
      *     
      */
-    public void setTipSobeDTO(TipSobeDTO value) {
+    public void setTipSobeDTO(SifarnikDTO value) {
         this.tipSobeDTO = value;
     }
 

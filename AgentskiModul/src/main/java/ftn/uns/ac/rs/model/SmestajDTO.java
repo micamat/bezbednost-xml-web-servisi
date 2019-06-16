@@ -38,7 +38,7 @@ import javax.xml.bind.annotation.XmlType;
     "id",
     "naziv",
     "opis",
-    "slika",
+    //"slika",
     "idLokacija",
     "idTipSmestaja",
     "idKategorijaSmestaja"
@@ -46,14 +46,23 @@ import javax.xml.bind.annotation.XmlType;
 @XmlRootElement(name = "SmestajDTO")
 public class SmestajDTO {
 
-    protected long id;
+    protected Long id;
     @XmlElement(required = true)
     protected String naziv;
     @XmlElement(required = true)
     protected String opis;
+    //@XmlElement(required = true)
+    //protected String slika;
+    //protected long idLokacija;
     @XmlElement(required = true)
-    protected String slika;
-    protected long idLokacija;
+    protected String drzava;
+    @XmlElement(required = true)
+    protected String grad;
+    @XmlElement(required = true)
+    protected String ulica;
+    @XmlElement(required = true)
+    protected String broj;
+    
     protected long idTipSmestaja;
     protected long idKategorijaSmestaja;
 
@@ -61,7 +70,7 @@ public class SmestajDTO {
      * Gets the value of the id property.
      * 
      */
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
@@ -69,7 +78,7 @@ public class SmestajDTO {
      * Sets the value of the id property.
      * 
      */
-    public void setId(long value) {
+    public void setId(Long value) {
         this.id = value;
     }
 
@@ -121,14 +130,14 @@ public class SmestajDTO {
         this.opis = value;
     }
 
-    /**
+    /*
      * Gets the value of the slika property.
      * 
      * @return
      *     possible object is
      *     {@link String }
      *     
-     */
+    
     public String getSlika() {
         return slika;
     }
@@ -140,27 +149,27 @@ public class SmestajDTO {
      *     allowed object is
      *     {@link String }
      *     
-     */
+     
     public void setSlika(String value) {
         this.slika = value;
     }
-
+*/
     /**
      * Gets the value of the idLokacija property.
      * 
      */
-    public long getIdLokacija() {
-        return idLokacija;
-    }
+    //public long getIdLokacija() {
+    //    return idLokacija;
+    //}
 
     /**
      * Sets the value of the idLokacija property.
      * 
-     */
-    public void setIdLokacija(long value) {
-        this.idLokacija = value;
-    }
-
+     */ 
+    //public void setIdLokacija(long value) {
+    //    this.idLokacija = value;
+    //}
+	
     /**
      * Gets the value of the idTipSmestaja property.
      * 
@@ -192,5 +201,39 @@ public class SmestajDTO {
     public void setIdKategorijaSmestaja(long value) {
         this.idKategorijaSmestaja = value;
     }
+
+	public String getDrzava() {
+		return drzava;
+	}
+
+	public void setDrzava(String drzava) {
+		this.drzava = drzava;
+	}
+
+	public String getGrad() {
+		return grad;
+	}
+
+	public void setGrad(String grad) {
+		this.grad = grad;
+	}
+
+	public String getUlica() {
+		return ulica;
+	}
+
+	public void setUlica(String ulica) {
+		this.ulica = ulica;
+	}
+
+	public String getBroj() {
+		return broj;
+	}
+
+	public void setBroj(String broj) {
+		this.broj = broj;
+	}
+    
+    
 
 }

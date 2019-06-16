@@ -1,6 +1,7 @@
 package ftn.uns.ac.rs.service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -11,7 +12,8 @@ import ftn.uns.ac.rs.model.GetAllTipSobeRequest;
 import ftn.uns.ac.rs.model.GetAllTipSobeResponse;
 import ftn.uns.ac.rs.model.ProducerPort;
 import ftn.uns.ac.rs.model.ProducerPortService;
-import ftn.uns.ac.rs.model.TipSobeDTO;
+import ftn.uns.ac.rs.model.SifarnikDTO;
+import ftn.uns.ac.rs.model.TipSobe;
 import ftn.uns.ac.rs.repository.TipSobeRepository;
 
 @Service
@@ -19,7 +21,7 @@ public class TipSobeService {
 	@Autowired
 	private TipSobeRepository tipSobeRepository;
 
-	public List<TipSobeDTO> getAllSync(){
+	public List<SifarnikDTO> getAllSync(){
 		ProducerPortService producerPortService = new ProducerPortService();
 		ProducerPort producerPort = producerPortService.getProducerPortSoap11();
 		
@@ -29,7 +31,7 @@ public class TipSobeService {
 	};
 	
 	
-	public int createSync(TipSobeDTO smd){
+	public int createSync(SifarnikDTO smd){
 		ProducerPortService producerPortService = new ProducerPortService();
 		ProducerPort producerPort = producerPortService.getProducerPortSoap11();
 		
@@ -41,7 +43,7 @@ public class TipSobeService {
 		return getTipSobeResponse.getId();
 	};
 	
-	/*public List<SifarnikDTO> getAll(){ 
+	public List<SifarnikDTO> getAll(){ 
 		return tipSobeRepository.findAll().stream().map(this::convertToDTO).collect(Collectors.toList());
 	};
 	
@@ -85,5 +87,5 @@ public class TipSobeService {
 		tipSobe.setNaziv(tipSobeDTO.getNaziv());
 		tipSobe.setOpis(tipSobeDTO.getOpis());
 		return tipSobe;
-	}*/
+	}
 }

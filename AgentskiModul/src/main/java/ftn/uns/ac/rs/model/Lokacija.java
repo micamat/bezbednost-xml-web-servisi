@@ -30,7 +30,7 @@ import javax.xml.bind.annotation.XmlType;
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;all>
- *         &lt;element name="id" type="{http://www.w3.org/2001/XMLSchema}long"/>
+ *         &lt;element name="id" type="{http://www.w3.org/2001/XMLSchema}Long"/>
  *         &lt;element name="drzava" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *         &lt;element name="grad" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *         &lt;element name="ulica" type="{http://www.w3.org/2001/XMLSchema}string"/>
@@ -54,7 +54,7 @@ public class Lokacija {
 
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    protected long id;
+    protected Long id;
     @XmlElement(required = true)
     protected String drzava;
     @XmlElement(required = true)
@@ -63,15 +63,15 @@ public class Lokacija {
     protected String ulica;
     @XmlElement(required = true)
     protected String broj;
-    @XmlElement(name = "Koordinate", required = true)
+    /*@XmlElement(name = "Koordinate", required = true)
     @OneToOne
     protected Koordinate koordinate;
-
+*/
     /**
      * Gets the value of the id property.
      * 
      */
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
@@ -79,7 +79,7 @@ public class Lokacija {
      * Sets the value of the id property.
      * 
      */
-    public void setId(long value) {
+    public void setId(Long value) {
         this.id = value;
     }
 
@@ -179,14 +179,14 @@ public class Lokacija {
         this.broj = value;
     }
 
-    /**
+    /*
      * Gets the value of the koordinate property.
      * 
      * @return
      *     possible object is
      *     {@link Koordinate }
      *     
-     */
+     
     public Koordinate getKoordinate() {
         return koordinate;
     }
@@ -198,9 +198,9 @@ public class Lokacija {
      *     allowed object is
      *     {@link Koordinate }
      *     
-     */
+     
     public void setKoordinate(Koordinate value) {
         this.koordinate = value;
     }
-
+*/
 }

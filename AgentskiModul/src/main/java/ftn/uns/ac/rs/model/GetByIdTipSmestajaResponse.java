@@ -35,7 +35,7 @@ import javax.xml.bind.annotation.XmlType;
 public class GetByIdTipSmestajaResponse {
 
     @XmlElement(name = "TipSmestajaDTO")
-    protected TipSmestajaDTO tipSmestajaDTO;
+    protected SifarnikDTO tipSmestajaDTO;
 
     /**
      * Gets the value of the tipSmestajaDTO property.
@@ -45,7 +45,7 @@ public class GetByIdTipSmestajaResponse {
      *     {@link TipSmestajaDTO }
      *     
      */
-    public TipSmestajaDTO getTipSmestajaDTO() {
+    public SifarnikDTO getTipSmestajaDTO() {
         return tipSmestajaDTO;
     }
 
@@ -57,7 +57,7 @@ public class GetByIdTipSmestajaResponse {
      *     {@link TipSmestajaDTO }
      *     
      */
-    public void setTipSmestajaDTO(TipSmestajaDTO value) {
+    public void setTipSmestajaDTO(SifarnikDTO value) {
         this.tipSmestajaDTO = value;
     }
 

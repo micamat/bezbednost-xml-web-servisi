@@ -20,21 +20,21 @@ import org.springframework.web.bind.annotation.RestController;
 
 import adminski.modul.app.model.TipSmestaja;
 import adminski.modul.app.repository.TipSmestajaRepository;
-import adminski.modul.app.service.SifarnikService;
+import adminski.modul.app.service.TipSmestajaService;
 
 @RestController
-@RequestMapping("/sifarnik")
-public class SifarnikController {
+@RequestMapping("/tipSmestaja")
+public class TipSmestajaController {
 	
 	@Autowired
-	private SifarnikService sifarnikService;
+	private TipSmestajaService tipSmestajaService;
 	
 	@GetMapping("{id}")
 	public ResponseEntity<TipSmestaja> getTipSmestaja(@PathVariable String id, HttpSession session){
 		if (session.getAttribute("loggedIn") == null) {
 			return new ResponseEntity<TipSmestaja>(HttpStatus.FORBIDDEN);
 		} else {
-			TipSmestaja entity = sifarnikService.getTipSmestajaById(id);
+			TipSmestaja entity = tipSmestajaService.getTipSmestajaById(id);
 			
 			return new ResponseEntity<TipSmestaja>(entity, HttpStatus.OK);
 		}
@@ -47,7 +47,7 @@ public class SifarnikController {
 		} else {
 			ArrayList<TipSmestaja> entity = new ArrayList<>();
 			
-			for(TipSmestaja ts : sifarnikService.getAllTipSmestaja()) {
+			for(TipSmestaja ts : tipSmestajaService.getAllTipSmestaja()) {
 				entity.add(ts);
 			}
 			
@@ -60,7 +60,7 @@ public class SifarnikController {
 		if (session.getAttribute("loggedIn") == null) {
 			return new ResponseEntity<TipSmestaja>(HttpStatus.FORBIDDEN);
 		} else {
-			if (sifarnikService.removeTipSmestaja(id)) {
+			if (tipSmestajaService.removeTipSmestaja(id)) {
 				return new ResponseEntity<TipSmestaja>(HttpStatus.OK);
 			} else {
 				return new ResponseEntity<TipSmestaja>(HttpStatus.BAD_REQUEST);
@@ -73,8 +73,8 @@ public class SifarnikController {
 		if (session.getAttribute("loggedIn") == null) {
 			return new ResponseEntity<TipSmestaja>(HttpStatus.FORBIDDEN);
 		} else {
-			if (sifarnikService.updateTipSmestaja(id,tipSmestaja)) {
-				return new ResponseEntity<TipSmestaja>(sifarnikService.getTipSmestajaById(id), HttpStatus.OK);
+			if (tipSmestajaService.updateTipSmestaja(id,tipSmestaja)) {
+				return new ResponseEntity<TipSmestaja>(tipSmestajaService.getTipSmestajaById(id), HttpStatus.OK);
 			} else {
 				return new ResponseEntity<TipSmestaja>(HttpStatus.BAD_REQUEST);
 			}
@@ -86,7 +86,7 @@ public class SifarnikController {
 		if (session.getAttribute("loggedIn") == null) {
 			return new ResponseEntity<TipSmestaja>(HttpStatus.FORBIDDEN);
 		} else {
-			sifarnikService.createTipSmestaja(tipSmestaja);
+			tipSmestajaService.createTipSmestaja(tipSmestaja);
 			
 			return new ResponseEntity<TipSmestaja>(tipSmestaja, HttpStatus.OK);
 		}

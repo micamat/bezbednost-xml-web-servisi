@@ -42,7 +42,7 @@ import javax.xml.bind.annotation.XmlType;
 @XmlRootElement(name = "CenovnikDTO")
 public class CenovnikDTO {
 
-    protected long id;
+    protected Long id;
     @XmlElement(required = true)
     protected String cena;
     @XmlElement(required = true)
@@ -58,7 +58,7 @@ public class CenovnikDTO {
      * Gets the value of the id property.
      * 
      */
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
@@ -66,7 +66,7 @@ public class CenovnikDTO {
      * Sets the value of the id property.
      * 
      */
-    public void setId(long value) {
+    public void setId(Long value) {
         this.id = value;
     }
 

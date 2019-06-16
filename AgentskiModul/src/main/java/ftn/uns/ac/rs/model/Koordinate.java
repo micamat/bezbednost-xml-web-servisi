@@ -28,7 +28,7 @@ import javax.xml.bind.annotation.XmlType;
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;all>
- *         &lt;element name="id" type="{http://www.w3.org/2001/XMLSchema}long"/>
+ *         &lt;element name="id" type="{http://www.w3.org/2001/XMLSchema}Long"/>
  *         &lt;element name="duzina" type="{http://www.w3.org/2001/XMLSchema}float"/>
  *         &lt;element name="sirina" type="{http://www.w3.org/2001/XMLSchema}float"/>
  *       &lt;/all>
@@ -49,7 +49,7 @@ public class Koordinate {
 
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    protected long id;
+    protected Long id;
     protected float duzina;
     protected float sirina;
 
@@ -57,7 +57,7 @@ public class Koordinate {
      * Gets the value of the id property.
      * 
      */
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
@@ -65,7 +65,7 @@ public class Koordinate {
      * Sets the value of the id property.
      * 
      */
-    public void setId(long value) {
+    public void setId(Long value) {
         this.id = value;
     }
 

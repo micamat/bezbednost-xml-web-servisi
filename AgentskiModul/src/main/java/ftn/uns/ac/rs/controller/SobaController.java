@@ -23,13 +23,25 @@ public class SobaController {
 	@Autowired
 	private SobaService sobaService;
 
-	/*@GetMapping
+	@GetMapping
 	public ResponseEntity<List<SobaDTO>> getAll(){
 		if(sobaService.getAll() == null) {
 			return new ResponseEntity<List<SobaDTO>>(HttpStatus.NO_CONTENT);
 		}
 		return new ResponseEntity<List<SobaDTO>>(sobaService.getAll(), HttpStatus.OK);
 	}
+	
+	@GetMapping(value = "getAllSync")
+	public ResponseEntity<List<SobaDTO>> getAllSync(){
+		return new ResponseEntity<List<SobaDTO>>(sobaService.getAllSync(), HttpStatus.OK);
+	}
+	
+	@PostMapping(value = "createSync")
+	public ResponseEntity<Integer> createSync(@RequestBody SobaDTO sobaDTO){
+		return new ResponseEntity<Integer>(sobaService.createSync(sobaDTO), HttpStatus.OK);
+	}
+	
+	
 	
 	@GetMapping(value = "/{id}")
 	public ResponseEntity<SobaDTO> getById(@PathVariable Long id){
@@ -64,6 +76,6 @@ public class SobaController {
 		}else {
 			return new ResponseEntity<String>("Soba nije pronadjena!", HttpStatus.NOT_FOUND);
 		}
-	}*/
+	}
 
 }

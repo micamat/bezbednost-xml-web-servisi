@@ -74,5 +74,9 @@ public class GetAllCenovnikResponse {
         }
         return this.cenovnikDTO;
     }
+    
+    public void setCenovnikDTO(List<CenovnikDTO> cenovnikDTO) {
+		this.cenovnikDTO = cenovnikDTO;
+	}
 
 }

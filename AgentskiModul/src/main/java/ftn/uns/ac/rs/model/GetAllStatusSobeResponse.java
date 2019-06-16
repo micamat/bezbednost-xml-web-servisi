@@ -3,6 +3,7 @@ package ftn.uns.ac.rs.model;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
@@ -37,7 +38,7 @@ import javax.xml.bind.annotation.XmlType;
 public class GetAllStatusSobeResponse {
 
     @XmlElement(name = "StatusSobeDTO")
-    protected List<StatusSobeDTO> statusSobeDTO;
+    protected List<SifarnikDTO> statusSobeDTO;
 
     /**
      * Gets the value of the statusSobeDTO property.
@@ -61,9 +62,9 @@ public class GetAllStatusSobeResponse {
      * 
      * 
      */
-    public List<StatusSobeDTO> getStatusSobeDTO() {
+    public List<SifarnikDTO> getStatusSobeDTO() {
         if (statusSobeDTO == null) {
-            statusSobeDTO = new ArrayList<StatusSobeDTO>();
+            statusSobeDTO = new ArrayList<SifarnikDTO>();
         }
         return this.statusSobeDTO;
     }

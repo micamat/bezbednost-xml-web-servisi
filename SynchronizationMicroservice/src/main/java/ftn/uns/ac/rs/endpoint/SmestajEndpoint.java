@@ -19,7 +19,7 @@ import ftn.uns.ac.rs.repository.SmestajRepository;
 import ftn.uns.ac.rs.service.SmestajService;
 
 @Endpoint
-public class SmestajServiceEndpoint {
+public class SmestajEndpoint {
 	final String NAMESPACE = "http://rs.ac.uns.ftn/Model";
 	
 	@Autowired

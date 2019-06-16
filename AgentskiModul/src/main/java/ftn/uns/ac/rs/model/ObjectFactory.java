@@ -37,13 +37,6 @@ public class ObjectFactory {
         return new StatusSobe();
     }
 
-    /**
-     * Create an instance of {@link StatusSobeDTO }
-     * 
-     */
-    public StatusSobeDTO createStatusSobeDTO() {
-        return new StatusSobeDTO();
-    }
 
     /**
      * Create an instance of {@link GetAllStatusSobeRequest }
@@ -327,11 +320,11 @@ public class ObjectFactory {
 
     
     /**
-     * Create an instance of {@link TipSobeDTO }
+     * Create an instance of {@link SifarnikDTO }
      * 
      */
-    public TipSobeDTO createTipSobeDTO() {
-        return new TipSobeDTO();
+    public SifarnikDTO createTipSobeDTO() {
+        return new SifarnikDTO();
     }
 
     /**
@@ -382,13 +375,6 @@ public class ObjectFactory {
         return new CreateTipSobeResponse();
     }
 
-    /**
-     * Create an instance of {@link KategorijaSmestajaDTO }
-     * 
-     */
-    public KategorijaSmestajaDTO createKategorijaSmestajaDTO() {
-        return new KategorijaSmestajaDTO();
-    }
 
     /**
      * Create an instance of {@link GetAllKategorijaSmestajaRequest }
@@ -438,13 +424,6 @@ public class ObjectFactory {
         return new CreateKategorijaSmestajaResponse();
     }
 
-    /**
-     * Create an instance of {@link TipSmestajaDTO }
-     * 
-     */
-    public TipSmestajaDTO createTipSmestajaDTO() {
-        return new TipSmestajaDTO();
-    }
 
     /**
      * Create an instance of {@link GetAllTipSmestajaRequest }

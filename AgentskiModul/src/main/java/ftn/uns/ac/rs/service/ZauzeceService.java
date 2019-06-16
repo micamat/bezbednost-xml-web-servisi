@@ -12,7 +12,6 @@ import ftn.uns.ac.rs.model.GetAllZauzeceRequest;
 import ftn.uns.ac.rs.model.GetAllZauzeceResponse;
 import ftn.uns.ac.rs.model.ProducerPort;
 import ftn.uns.ac.rs.model.ProducerPortService;
-import ftn.uns.ac.rs.model.ZauzeceDTO;
 import ftn.uns.ac.rs.model.Zauzece;
 import ftn.uns.ac.rs.model.ZauzeceDTO;
 import ftn.uns.ac.rs.repository.SobaRepository;
@@ -55,7 +54,7 @@ public class ZauzeceService {
 		return getZauzeceResponse.getId();
 	};
 	
-	/*public List<ZauzeceDTO> getAll(){ 
+	public List<ZauzeceDTO> getAll(){ 
 		return zauzeceRepository.findAll().stream().map(this::convertToDTO).collect(Collectors.toList());
 	};
 	
@@ -92,8 +91,8 @@ public class ZauzeceService {
 		zauzeceDTO.setId(zauzece.getId());
 		zauzeceDTO.setDatumOd(zauzece.getDatumOd());
 		zauzeceDTO.setDatumOd(zauzece.getDatumDo());
-		zauzeceDTO.setSobaId(zauzece.getSoba().getId());
-		zauzeceDTO.setStatusSobeId(zauzece.getStatusSobe().getId());
+		zauzeceDTO.setIdSoba(zauzece.getSoba().getId());
+		zauzeceDTO.setIdStatusSobe(zauzece.getStatusSobe().getId());
 		return zauzeceDTO;
 	}
 	
@@ -102,8 +101,8 @@ public class ZauzeceService {
 		zauzece.setId(zauzeceDTO.getId());
 		zauzece.setDatumOd(zauzeceDTO.getDatumOd());
 		zauzece.setDatumOd(zauzeceDTO.getDatumDo());
-		zauzece.setSoba(sobaRepository.findById(zauzeceDTO.getSobaId()).orElse(null));
-		zauzece.setStatusSobe(statusSobeRepository.findById(zauzeceDTO.getStatusSobeId()).orElse(null));
+		zauzece.setSoba(sobaRepository.findById(zauzeceDTO.getIdSoba()).orElse(null));
+		zauzece.setStatusSobe(statusSobeRepository.findById(zauzeceDTO.getIdStatusSobe()).orElse(null));
 		return zauzece;
-	}*/
+	}
 }

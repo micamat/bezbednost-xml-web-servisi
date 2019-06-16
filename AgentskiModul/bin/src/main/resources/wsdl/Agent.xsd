@@ -1,0 +1,691 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified"
+    targetNamespace="http://rs.ac.uns.ftn/Model"
+    xmlns="http://rs.ac.uns.ftn/Model">
+    <!-- ===================================================================================== -->
+    <xs:element name="StatusSobe">
+        <xs:complexType>
+            <xs:all>
+                <xs:element name="id" type="xs:long"/>
+                <xs:element name="naziv" type="xs:string"/>
+                <xs:element name="opis" type="xs:string"/>
+            </xs:all>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="StatusSobeDTO">
+        <xs:complexType>
+            <xs:all>
+                <xs:element name="id" type="xs:long"/>
+                <xs:element name="naziv" type="xs:string"/>
+                <xs:element name="opis" type="xs:string"/>
+            </xs:all>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="GetAllStatusSobeRequest">
+        <xs:complexType>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="GetAllStatusSobeResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element minOccurs="0" maxOccurs="unbounded" ref="StatusSobeDTO"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="CreateStatusSobeRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="id" type="xs:long"/>
+                <xs:element name="naziv" type="xs:string"/>
+                <xs:element name="opis" type="xs:string"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="CreateStatusSobeResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="id" type="xs:int"/>
+                <xs:element default="false" name="Successful" type="xs:boolean"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <!-- ===================================================================================== -->
+    <xs:element name="Usluga">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="id" type="xs:long"/>
+                <xs:element name="naziv" type="xs:string"/>
+                <xs:element name="opis" type="xs:string"/>
+                <xs:element ref="Soba" maxOccurs="unbounded"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="UslugaDTO">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="id" type="xs:long"/>
+                <xs:element name="naziv" type="xs:string"/>
+                <xs:element name="opis" type="xs:string"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="GetAllUslugaRequest">
+        <xs:complexType>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="GetAllUslugaResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element minOccurs="0" maxOccurs="unbounded" ref="UslugaDTO"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="GetByIdUslugaRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="id" type="xs:long"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="GetByIdUslugaResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element minOccurs="0" maxOccurs="1" ref="UslugaDTO"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="CreateUslugaRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="id" type="xs:long"/>
+                <xs:element name="naziv" type="xs:string"/>
+                <xs:element name="opis" type="xs:string"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="CreateUslugaResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="id" type="xs:int"/>
+                <xs:element default="false" name="Successful" type="xs:boolean"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <!-- ===================================CENOVNIK========================================== -->
+    <xs:element name="Cenovnik">
+        <xs:complexType>
+            <xs:all>
+                <xs:element name="id" type="xs:long"/>
+                <xs:element name="cena" type="xs:string"/>
+                <xs:element name="datumOd" type="xs:dateTime"/>
+                <xs:element name="datumDo" type="xs:dateTime"/>
+                <xs:element ref="Smestaj"/>
+                <xs:element ref="TipSobe"/>
+            </xs:all>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="CenovnikDTO">
+        <xs:complexType>
+            <xs:all>
+                <xs:element name="id" type="xs:long"/>
+                <xs:element name="cena" type="xs:string"/>
+                <xs:element name="datumOd" type="xs:dateTime"/>
+                <xs:element name="datumDo" type="xs:dateTime"/>
+                <xs:element name="idSmestaj" type="xs:long"/>
+                <xs:element name="idTipSobe" type="xs:long"/>
+            </xs:all>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="GetAllCenovnikRequest">
+        <xs:complexType>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="GetAllCenovnikResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element minOccurs="0" maxOccurs="unbounded" ref="CenovnikDTO"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="GetByIdCenovnikRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="id" type="xs:long"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="GetByIdCenovnikResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element minOccurs="0" maxOccurs="1" ref="CenovnikDTO"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="CreateCenovnikRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="id" type="xs:long"/>
+                <xs:element name="cena" type="xs:string"/>
+                <xs:element name="datumOd" type="xs:dateTime"/>
+                <xs:element name="datumDo" type="xs:dateTime"/>
+                <xs:element name="idSmestaj" type="xs:long"/>
+                <xs:element name="idTipSobe" type="xs:long"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="CreateCenovnikResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="id" type="xs:int"/>
+                <xs:element default="false" name="Successful" type="xs:boolean"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <!-- =====================================ZAUZECE======================================= -->
+    <xs:element name="Zauzece">
+        <xs:complexType>
+            <xs:all>
+                <xs:element name="id" type="xs:long"/>
+                <xs:element name="datumOd" type="xs:dateTime"/>
+                <xs:element name="datumDo" type="xs:dateTime"/>
+                <xs:element ref="Soba"/>
+                <xs:element ref="StatusSobe"/>
+            </xs:all>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="ZauzeceDTO">
+        <xs:complexType>
+            <xs:all>
+                <xs:element name="id" type="xs:long"/>
+                <xs:element name="datumOd" type="xs:dateTime"/>
+                <xs:element name="datumDo" type="xs:dateTime"/>
+                <xs:element name="idSoba" type="xs:long"/>
+                <xs:element name="idStatusSobe" type="xs:long"/>
+            </xs:all>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="GetAllZauzeceRequest">
+        <xs:complexType>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="GetAllZauzeceResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element minOccurs="0" maxOccurs="unbounded" ref="ZauzeceDTO"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="GetByIdZauzeceRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="id" type="xs:long"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="GetByIdZauzeceResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element minOccurs="0" maxOccurs="1" ref="ZauzeceDTO"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="CreateZauzeceRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="id" type="xs:long"/>
+                <xs:element name="datumOd" type="xs:dateTime"/>
+                <xs:element name="datumDo" type="xs:dateTime"/>
+                <xs:element name="idSoba" type="xs:long"/>
+                <xs:element name="idStatusSobe" type="xs:long"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="CreateZauzeceResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="id" type="xs:int"/>
+                <xs:element default="false" name="Successful" type="xs:boolean"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <!-- =======================================TIP SOBE========================================= -->
+    <xs:element name="TipSobe">
+        <xs:complexType>
+            <xs:all>
+                <xs:element name="id" type="xs:long"/>
+                <xs:element name="naziv" type="xs:string"/>
+                <xs:element name="opis" type="xs:string"/>
+            </xs:all>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="TipSobeDTO">
+        <xs:complexType>
+            <xs:all>
+                <xs:element name="id" type="xs:long"/>
+                <xs:element name="naziv" type="xs:string"/>
+                <xs:element name="opis" type="xs:string"/>
+            </xs:all>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="GetAllTipSobeRequest">
+        <xs:complexType>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="GetAllTipSobeResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element minOccurs="0" maxOccurs="unbounded" ref="TipSobeDTO"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="GetByIdTipSobeRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="id" type="xs:long"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="GetByIdTipSobeResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element minOccurs="0" maxOccurs="1" ref="TipSobeDTO"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="CreateTipSobeRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element minOccurs="0" maxOccurs="1" ref="TipSobeDTO"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="CreateTipSobeResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="id" type="xs:int"/>
+                <xs:element default="false" name="Successful" type="xs:boolean"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <!-- ======================================KATEGORIJA SMESTAJA================================= -->
+    <xs:element name="KategorijaSmestaja">
+        <xs:complexType>
+            <xs:all>
+                <xs:element name="id" type="xs:long"/>
+                <xs:element name="naziv" type="xs:string"/>
+                <xs:element name="opis" type="xs:string"/>
+            </xs:all>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="KategorijaSmestajaDTO">
+        <xs:complexType>
+            <xs:all>
+                <xs:element name="id" type="xs:long"/>
+                <xs:element name="naziv" type="xs:string"/>
+                <xs:element name="opis" type="xs:string"/>
+            </xs:all>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="GetAllKategorijaSmestajaRequest">
+        <xs:complexType>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="GetAllKategorijaSmestajaResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element minOccurs="0" maxOccurs="unbounded" ref="KategorijaSmestajaDTO"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="GetByIdKategorijaSmestajaRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="id" type="xs:long"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="GetByIdKategorijaSmestajaResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element minOccurs="0" maxOccurs="1" ref="TipSobeDTO"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="CreateKategorijaSmestajaRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element minOccurs="0" maxOccurs="1" ref="KategorijaSmestajaDTO"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="CreateKategorijaSmestajaResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="id" type="xs:int"/>
+                <xs:element default="false" name="Successful" type="xs:boolean"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <!-- ==================================TIP SMESTAJA========================================== -->
+    <xs:element name="TipSmestaja">
+        <xs:complexType>
+            <xs:all>
+                <xs:element name="id" type="xs:long"/>
+                <xs:element name="naziv" type="xs:string"/>
+                <xs:element name="opis" type="xs:string"/>
+            </xs:all>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="TipSmestajaDTO">
+        <xs:complexType>
+            <xs:all>
+                <xs:element name="id" type="xs:long"/>
+                <xs:element name="naziv" type="xs:string"/>
+                <xs:element name="opis" type="xs:string"/>
+            </xs:all>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="GetAllTipSmestajaRequest">
+        <xs:complexType>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="GetAllTipSmestajaResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element minOccurs="0" maxOccurs="unbounded" ref="TipSmestajaDTO"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="GetByIdTipSmestajaRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="id" type="xs:long"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="GetByIdTipSmestajaResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element minOccurs="0" maxOccurs="1" ref="TipSmestajaDTO"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="CreateTipSmestajaRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element minOccurs="0" maxOccurs="1" ref="TipSmestajaDTO"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="CreateTipSmestajaResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="id" type="xs:int"/>
+                <xs:element default="false" name="Successful" type="xs:boolean"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <!-- ==========================================LOKACIJA======================================= -->
+    <xs:element name="Lokacija">
+        <xs:complexType>
+            <xs:all>
+                <xs:element name="id" type="xs:long"/>
+                <xs:element name="drzava" type="xs:string"/>
+                <xs:element name="grad" type="xs:string"/>
+                <xs:element name="ulica" type="xs:string"/>
+                <xs:element name="broj" type="xs:string"/>
+                <xs:element ref="Koordinate"/>
+            </xs:all>
+        </xs:complexType>
+    </xs:element><xs:element name="LokacijaDTO">
+        <xs:complexType>
+            <xs:all>
+                <xs:element name="id" type="xs:long"/>
+                <xs:element name="drzava" type="xs:string"/>
+                <xs:element name="grad" type="xs:string"/>
+                <xs:element name="ulica" type="xs:string"/>
+                <xs:element name="broj" type="xs:string"/>
+                <xs:element name="idKoordinate" type="xs:long"/>
+            </xs:all>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="GetAllLokacijaRequest">
+        <xs:complexType>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="GetAllLokacijaResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element minOccurs="0" maxOccurs="unbounded" ref="LokacijaDTO"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="GetByIdLokacijaRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="id" type="xs:long"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="GetByIdLokacijaResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element minOccurs="0" maxOccurs="1" ref="LokacijaDTO"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="CreateLokacijaRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element minOccurs="0" maxOccurs="1" ref="LokacijaDTO"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="CreateLokacijaResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="id" type="xs:int"/>
+                <xs:element default="false" name="Successful" type="xs:boolean"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <!-- =================================KOORDINATE============================================== -->
+    <xs:element name="Koordinate">
+        <xs:complexType>
+            <xs:all>
+                <xs:element name="id" type="xs:long"/>
+                <xs:element name="duzina" type="xs:float"/>
+                <xs:element name="sirina" type="xs:float"/>
+            </xs:all>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="KoordinateDTO">
+        <xs:complexType>
+            <xs:all>
+                <xs:element name="id" type="xs:long"/>
+                <xs:element name="duzina" type="xs:float"/>
+                <xs:element name="sirina" type="xs:float"/>
+            </xs:all>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="GetAllKoordinateRequest">
+        <xs:complexType>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="GetAllKoordinateResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element minOccurs="0" maxOccurs="unbounded" ref="KoordinateDTO"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="GetByIdKoordinateRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="id" type="xs:long"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="GetByIdKoordinateResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element minOccurs="0" maxOccurs="1" ref="KoordinateDTO"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="CreateKoordinateRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element minOccurs="0" maxOccurs="1" ref="KoordinateDTO"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="CreateKoordinateResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="id" type="xs:int"/>
+                <xs:element default="false" name="Successful" type="xs:boolean"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <!-- =========================================SMESTAJ========================================= -->
+    <xs:element name="Smestaj">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="id" type="xs:long"/>
+                <xs:element name="naziv" type="xs:string"/>
+                <xs:element name="opis" type="xs:string"/>
+                <xs:element name="slika" type="xs:string"/>
+                <xs:element ref="Lokacija"/>
+                <xs:element ref="TipSmestaja"/>
+                <xs:element ref="KategorijaSmestaja"/>
+                <xs:element ref="Soba" minOccurs="0" maxOccurs="unbounded"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="SmestajDTO">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="id" type="xs:long"/>
+                <xs:element name="naziv" type="xs:string"/>
+                <xs:element name="opis" type="xs:string"/>
+                <xs:element name="slika" type="xs:string"/>
+                <xs:element name="idLokacija" type="xs:long"/>
+                <xs:element name="idTipSmestaja" type="xs:long"/>
+                <xs:element name="idKategorijaSmestaja" type="xs:long"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="GetAllSmestajRequest">
+        <xs:complexType>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="GetAllSmestajResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element minOccurs="0" maxOccurs="unbounded" ref="SmestajDTO"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="GetByIdSmestajRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="id" type="xs:long"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="GetByIdSmestajResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element minOccurs="0" maxOccurs="1" ref="SmestajDTO"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="CreateSmestajRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="id" type="xs:long"/>
+                <xs:element name="naziv" type="xs:string"/>
+                <xs:element name="opis" type="xs:string"/>
+                <xs:element name="slika" type="xs:string"/>
+                <xs:element name="idLokacija" type="xs:long"/>
+                <xs:element name="idTipSmestaja" type="xs:long"/>
+                <xs:element name="idKategorijaSmestaja" type="xs:long"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="CreateSmestajResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="id" type="xs:int"/>
+                <xs:element default="false" name="Successful" type="xs:boolean"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <!-- ===========================================SOBA========================================= -->
+    <xs:element name="Soba">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="id" type="xs:long"/>
+                <xs:element name="naziv" type="xs:string"/>
+                <xs:element name="opis" type="xs:string"/>
+                <xs:element name="slika" type="xs:string"/>
+                <xs:element ref="TipSobe"/>
+                <xs:element ref="Smestaj"/>
+                <xs:element ref="Usluga" maxOccurs="unbounded"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="SobaDTO">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="id" type="xs:long"/>
+                <xs:element name="naziv" type="xs:string"/>
+                <xs:element name="opis" type="xs:string"/>
+                <xs:element name="slika" type="xs:string"/>
+                <xs:element name="idTipSobe" type="xs:long"/>
+                <xs:element name="idSmestaj" type="xs:long"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="GetAllSobaRequest">
+        <xs:complexType>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="GetAllSobaResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element minOccurs="0" maxOccurs="unbounded" ref="SobaDTO"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="GetByIdSobaRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="id" type="xs:long"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="GetByIdSobaResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element minOccurs="0" maxOccurs="1" ref="SobaDTO"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="CreateSobaRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element minOccurs="0" maxOccurs="1" ref="SobaDTO"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="CreateSobaResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="id" type="xs:int"/>
+                <xs:element default="false" name="Successful" type="xs:boolean"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+</xs:schema>

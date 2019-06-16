@@ -75,4 +75,10 @@ public class GetAllLokacijaResponse {
         return this.lokacijaDTO;
     }
 
+	public void setLokacijaDTO(List<LokacijaDTO> lokacijaDTO) {
+		this.lokacijaDTO = lokacijaDTO;
+	}
+    
+    
+
 }

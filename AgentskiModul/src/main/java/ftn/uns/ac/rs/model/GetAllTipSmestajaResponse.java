@@ -3,6 +3,7 @@ package ftn.uns.ac.rs.model;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
@@ -37,7 +38,7 @@ import javax.xml.bind.annotation.XmlType;
 public class GetAllTipSmestajaResponse {
 
     @XmlElement(name = "TipSmestajaDTO")
-    protected List<TipSmestajaDTO> tipSmestajaDTO;
+    protected List<SifarnikDTO> tipSmestajaDTO;
 
     /**
      * Gets the value of the tipSmestajaDTO property.
@@ -61,9 +62,9 @@ public class GetAllTipSmestajaResponse {
      * 
      * 
      */
-    public List<TipSmestajaDTO> getTipSmestajaDTO() {
+    public List<SifarnikDTO> getTipSmestajaDTO() {
         if (tipSmestajaDTO == null) {
-            tipSmestajaDTO = new ArrayList<TipSmestajaDTO>();
+            tipSmestajaDTO = new ArrayList<SifarnikDTO>();
         }
         return this.tipSmestajaDTO;
     }

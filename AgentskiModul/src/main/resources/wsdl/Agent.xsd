@@ -12,15 +12,6 @@
             </xs:all>
         </xs:complexType>
     </xs:element>
-    <xs:element name="StatusSobeDTO">
-        <xs:complexType>
-            <xs:all>
-                <xs:element name="id" type="xs:long"/>
-                <xs:element name="naziv" type="xs:string"/>
-                <xs:element name="opis" type="xs:string"/>
-            </xs:all>
-        </xs:complexType>
-    </xs:element>
     <xs:element name="GetAllStatusSobeRequest">
         <xs:complexType>
         </xs:complexType>
@@ -28,7 +19,7 @@
     <xs:element name="GetAllStatusSobeResponse">
         <xs:complexType>
             <xs:sequence>
-                <xs:element minOccurs="0" maxOccurs="unbounded" ref="StatusSobeDTO"/>
+                <xs:element minOccurs="0" maxOccurs="unbounded" ref="SifarnikDTO"/>
             </xs:sequence>
         </xs:complexType>
     </xs:element>
@@ -258,15 +249,6 @@
             </xs:all>
         </xs:complexType>
     </xs:element>
-    <xs:element name="TipSobeDTO">
-        <xs:complexType>
-            <xs:all>
-                <xs:element name="id" type="xs:long"/>
-                <xs:element name="naziv" type="xs:string"/>
-                <xs:element name="opis" type="xs:string"/>
-            </xs:all>
-        </xs:complexType>
-    </xs:element>
     <xs:element name="GetAllTipSobeRequest">
         <xs:complexType>
         </xs:complexType>
@@ -274,7 +256,7 @@
     <xs:element name="GetAllTipSobeResponse">
         <xs:complexType>
             <xs:sequence>
-                <xs:element minOccurs="0" maxOccurs="unbounded" ref="TipSobeDTO"/>
+                <xs:element minOccurs="0" maxOccurs="unbounded" ref="SifarnikDTO"/>
             </xs:sequence>
         </xs:complexType>
     </xs:element>
@@ -288,14 +270,14 @@
     <xs:element name="GetByIdTipSobeResponse">
         <xs:complexType>
             <xs:sequence>
-                <xs:element minOccurs="0" maxOccurs="1" ref="TipSobeDTO"/>
+                <xs:element minOccurs="0" maxOccurs="1" ref="SifarnikDTO"/>
             </xs:sequence>
         </xs:complexType>
     </xs:element>
     <xs:element name="CreateTipSobeRequest">
         <xs:complexType>
             <xs:sequence>
-                <xs:element minOccurs="0" maxOccurs="1" ref="TipSobeDTO"/>
+                <xs:element minOccurs="0" maxOccurs="1" ref="SifarnikDTO"/>
             </xs:sequence>
         </xs:complexType>
     </xs:element>
@@ -317,7 +299,7 @@
             </xs:all>
         </xs:complexType>
     </xs:element>
-    <xs:element name="KategorijaSmestajaDTO">
+    <xs:element name="SifarnikDTO">
         <xs:complexType>
             <xs:all>
                 <xs:element name="id" type="xs:long"/>
@@ -333,7 +315,7 @@
     <xs:element name="GetAllKategorijaSmestajaResponse">
         <xs:complexType>
             <xs:sequence>
-                <xs:element minOccurs="0" maxOccurs="unbounded" ref="KategorijaSmestajaDTO"/>
+                <xs:element minOccurs="0" maxOccurs="unbounded" ref="SifarnikDTO"/>
             </xs:sequence>
         </xs:complexType>
     </xs:element>
@@ -347,14 +329,14 @@
     <xs:element name="GetByIdKategorijaSmestajaResponse">
         <xs:complexType>
             <xs:sequence>
-                <xs:element minOccurs="0" maxOccurs="1" ref="TipSobeDTO"/>
+                <xs:element minOccurs="0" maxOccurs="1" ref="SifarnikDTO"/>
             </xs:sequence>
         </xs:complexType>
     </xs:element>
     <xs:element name="CreateKategorijaSmestajaRequest">
         <xs:complexType>
             <xs:sequence>
-                <xs:element minOccurs="0" maxOccurs="1" ref="KategorijaSmestajaDTO"/>
+                <xs:element minOccurs="0" maxOccurs="1" ref="SifarnikDTO"/>
             </xs:sequence>
         </xs:complexType>
     </xs:element>
