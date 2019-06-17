@@ -62,7 +62,19 @@ public class CreateZauzeceRequest {
     protected long idSoba;
     protected long idStatusSobe;
 
-    /**
+    public CreateZauzeceRequest() {
+    	
+    }
+    public CreateZauzeceRequest(Zauzece zauzece) {
+		super();
+		this.id = zauzece.id;
+		this.datumOd = zauzece.datumOd;
+		this.datumDo = zauzece.datumDo;
+		this.idSoba = zauzece.getSoba().getId();
+		this.idStatusSobe = zauzece.getStatusSobe().getId();
+	}
+
+	/**
      * Gets the value of the id property.
      * 
      */

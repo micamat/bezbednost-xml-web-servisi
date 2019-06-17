@@ -6,8 +6,6 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import ftn.uns.ac.rs.model.CreateKategorijaSmestajaRequest;
-import ftn.uns.ac.rs.model.CreateKategorijaSmestajaResponse;
 import ftn.uns.ac.rs.model.GetAllKategorijaSmestajaRequest;
 import ftn.uns.ac.rs.model.GetAllKategorijaSmestajaResponse;
 import ftn.uns.ac.rs.model.KategorijaSmestaja;
@@ -31,23 +29,25 @@ public class KategorijaSmestajaService {
 		ProducerPortService producerPortService = new ProducerPortService();
 		ProducerPort producerPort = producerPortService.getProducerPortSoap11();
 		
-		GetAllKategorijaSmestajaRequest getAllKoordinateRequest = new GetAllKategorijaSmestajaRequest();
-		GetAllKategorijaSmestajaResponse getAllKoordinateResponse = producerPort.getAllKategorijaSmestaja(getAllKoordinateRequest);
-		return getAllKoordinateResponse.getKategorijaSmestajaDTO();
-	};
-	
-	
-	public int createSync(SifarnikDTO cmd){
-		ProducerPortService producerPortService = new ProducerPortService();
-		ProducerPort producerPort = producerPortService.getProducerPortSoap11();
+		GetAllKategorijaSmestajaRequest getAllKategorijaSmestajaRequest = new GetAllKategorijaSmestajaRequest();
+		GetAllKategorijaSmestajaResponse getAllKategorijaSmestajaResponse = producerPort.getAllKategorijaSmestaja(getAllKategorijaSmestajaRequest);
 		
-		CreateKategorijaSmestajaRequest createKategorijaSmestajaRequest = new CreateKategorijaSmestajaRequest();
-		createKategorijaSmestajaRequest.setId(cmd.getId());
-		createKategorijaSmestajaRequest.setNaziv(cmd.getNaziv());
-		createKategorijaSmestajaRequest.setOpis(cmd.getOpis());
-		
-		CreateKategorijaSmestajaResponse kategorijaSmestajaResponse = producerPort.createKategorijaSmestaja(createKategorijaSmestajaRequest);
-		return kategorijaSmestajaResponse.getId();
+		for (SifarnikDTO kategorijaSmestajaDTO : getAllKategorijaSmestajaResponse.getKategorijaSmestajaDTO()) {
+			kategorijaSmestajaRepository.save(convertToEntity(kategorijaSmestajaDTO));
+		}
+		for (KategorijaSmestaja kategorijaSmestaja : kategorijaSmestajaRepository.findAll()) {
+			boolean exists = false;
+			for (SifarnikDTO kategorijaSmestajaDTO : getAllKategorijaSmestajaResponse.getKategorijaSmestajaDTO()) {
+				if (kategorijaSmestaja.getId().equals(kategorijaSmestajaDTO.getId())){
+					exists = true;
+					break;
+				}
+			}
+			if (!exists) {
+				kategorijaSmestajaRepository.deleteById(kategorijaSmestaja.getId());
+			}
+		}
+		return getAllKategorijaSmestajaResponse.getKategorijaSmestajaDTO();
 	};
 	
 	public SifarnikDTO getById(Long id) {
@@ -56,24 +56,6 @@ public class KategorijaSmestajaService {
 		}
 		KategorijaSmestaja kategorijaSmestaja = kategorijaSmestajaRepository.findById(id).orElse(null);
 		return convertToDTO(kategorijaSmestaja);
-	}
-	
-	
-	public boolean add(SifarnikDTO kategorijaSmestajaDTO) {
-		kategorijaSmestajaDTO.setId(null);
-		if(kategorijaSmestajaRepository.findAll().stream().filter(x -> kategorijaSmestajaDTO.getNaziv().equals(x.getNaziv())).map(this::convertToDTO).collect(Collectors.toList()).isEmpty()) {
-			kategorijaSmestajaRepository.save(convertToEntity(kategorijaSmestajaDTO));
-			return true;
-		}
-		return false;
-	}
-	
-	public boolean delete(Long id) {
-		if(kategorijaSmestajaRepository.existsById(id)) {
-			kategorijaSmestajaRepository.deleteById(id);
-			return true;
-		}
-		return false;
 	}
 	
 	private SifarnikDTO convertToDTO(KategorijaSmestaja kategorijaSmestaja) {
@@ -86,8 +68,10 @@ public class KategorijaSmestajaService {
 	
 	private KategorijaSmestaja convertToEntity(SifarnikDTO kategorijaSmestajaDTO) {
 		KategorijaSmestaja kategorijaSmestaja = new KategorijaSmestaja();
+		kategorijaSmestaja.setId(kategorijaSmestajaDTO.getId());
 		kategorijaSmestaja.setNaziv(kategorijaSmestajaDTO.getNaziv());
 		kategorijaSmestaja.setOpis(kategorijaSmestajaDTO.getOpis());
 		return kategorijaSmestaja;
 	}
+
 }

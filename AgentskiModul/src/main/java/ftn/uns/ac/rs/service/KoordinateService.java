@@ -8,8 +8,6 @@ import org.springframework.stereotype.Service;
 
 import ftn.uns.ac.rs.model.CreateKoordinateRequest;
 import ftn.uns.ac.rs.model.CreateKoordinateResponse;
-import ftn.uns.ac.rs.model.GetAllKoordinateRequest;
-import ftn.uns.ac.rs.model.GetAllKoordinateResponse;
 import ftn.uns.ac.rs.model.Koordinate;
 import ftn.uns.ac.rs.model.KoordinateDTO;
 import ftn.uns.ac.rs.model.ProducerPort;
@@ -26,30 +24,20 @@ public class KoordinateService {
 		return koordinateRepository.findAll().stream().map(this::convertToDTO).collect(Collectors.toList());
 	};
 	
-	//TODO: Implementirati poslovnu logiku ..... cuvanja u bazu kao i 
-			public List<KoordinateDTO> getAllSync(){
-				ProducerPortService producerPortService = new ProducerPortService();
-				ProducerPort producerPort = producerPortService.getProducerPortSoap11();
-				
-				GetAllKoordinateRequest getAllKoordinateRequest = new GetAllKoordinateRequest();
-				GetAllKoordinateResponse getAllKoordinateResponse = producerPort.getAllKoordinate(getAllKoordinateRequest);
-				return getAllKoordinateResponse.getKoordinateDTO();
-			};
 			
-			
-			public int createSync(KoordinateDTO cmd){
-				ProducerPortService producerPortService = new ProducerPortService();
-				ProducerPort producerPort = producerPortService.getProducerPortSoap11();
-				
-				CreateKoordinateRequest createKoordinateRequest = new CreateKoordinateRequest();
-				createKoordinateRequest.setId(cmd.getId());
-				createKoordinateRequest.setDuzina(cmd.getDuzina());
-				createKoordinateRequest.setSirina(cmd.getSirina());
-				
-				CreateKoordinateResponse createKoordinateResponse = producerPort.createKoordinate(createKoordinateRequest);
-				return createKoordinateResponse.getId();
-			};
+	public int createSync(KoordinateDTO cmd){
+		ProducerPortService producerPortService = new ProducerPortService();
+		ProducerPort producerPort = producerPortService.getProducerPortSoap11();
 		
+		CreateKoordinateRequest createKoordinateRequest = new CreateKoordinateRequest();
+		createKoordinateRequest.setId(cmd.getId());
+		createKoordinateRequest.setDuzina(cmd.getDuzina());
+		createKoordinateRequest.setSirina(cmd.getSirina());
+		
+		CreateKoordinateResponse createKoordinateResponse = producerPort.createKoordinate(createKoordinateRequest);
+		return createKoordinateResponse.getId();
+	};
+
 	
 	
 	public KoordinateDTO getById(Long id) {
@@ -63,7 +51,9 @@ public class KoordinateService {
 	
 	public boolean add(KoordinateDTO koordinateDTO) {
 		koordinateDTO.setId(null);
-		if(koordinateRepository.save(convertToEntity(koordinateDTO)) != null){
+		Koordinate koordinate = koordinateRepository.save(convertToEntity(koordinateDTO));
+		if(koordinate != null){
+			createSync(convertToDTO(koordinate));
 			return true;
 		}
 		return false;

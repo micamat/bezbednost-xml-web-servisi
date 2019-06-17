@@ -8,8 +8,6 @@ import org.springframework.stereotype.Service;
 
 import ftn.uns.ac.rs.model.CreateZauzeceRequest;
 import ftn.uns.ac.rs.model.CreateZauzeceResponse;
-import ftn.uns.ac.rs.model.GetAllZauzeceRequest;
-import ftn.uns.ac.rs.model.GetAllZauzeceResponse;
 import ftn.uns.ac.rs.model.ProducerPort;
 import ftn.uns.ac.rs.model.ProducerPortService;
 import ftn.uns.ac.rs.model.Zauzece;
@@ -29,27 +27,12 @@ public class ZauzeceService {
 
 	@Autowired
 	private ZauzeceRepository zauzeceRepository;
-
-	public List<ZauzeceDTO> getAllSync(){
+	
+	public int createSync(Zauzece zauzece){
 		ProducerPortService producerPortService = new ProducerPortService();
 		ProducerPort producerPort = producerPortService.getProducerPortSoap11();
 		
-		GetAllZauzeceRequest getZauzeceRequest = new GetAllZauzeceRequest();
-		GetAllZauzeceResponse getZauzeceResponse = producerPort.getAllZauzece(getZauzeceRequest);
-		return getZauzeceResponse.getZauzeceDTO();
-	};
-	
-	
-	public int createSync(ZauzeceDTO smd){
-		ProducerPortService producerPortService = new ProducerPortService();
-		ProducerPort producerPort = producerPortService.getProducerPortSoap11();
-		
-		CreateZauzeceRequest getZauzeceRequest = new CreateZauzeceRequest();
-		getZauzeceRequest.setId(smd.getId());
-		getZauzeceRequest.setDatumDo(smd.getDatumDo());
-		getZauzeceRequest.setDatumOd(smd.getDatumOd());
-		getZauzeceRequest.setIdSoba(smd.getIdSoba());
-		getZauzeceRequest.setIdStatusSobe(smd.getIdStatusSobe());
+		CreateZauzeceRequest getZauzeceRequest = new CreateZauzeceRequest(zauzece);
 		CreateZauzeceResponse getZauzeceResponse = producerPort.createZauzece(getZauzeceRequest);
 		return getZauzeceResponse.getId();
 	};
@@ -70,9 +53,11 @@ public class ZauzeceService {
 		return zauzeceRepository.findAll().stream().filter(x -> smestajId.equals(x.getSoba().getSmestaj().getId())).map(this::convertToDTO).collect(Collectors.toList());
 	}
 	
-	public boolean add(ZauzeceDTO zauzeceDTO) {
-		zauzeceDTO.setId(null);
-		if(zauzeceRepository.save(convertToEntity(zauzeceDTO)) != null) {
+	public boolean add(Zauzece zauzece) {
+		zauzece.setId(null);
+		zauzece = zauzeceRepository.save(zauzece);
+		if(zauzece != null) {
+			createSync(zauzece);
 			return true;
 		}
 		return false;

@@ -31,11 +31,6 @@ public class SobaController {
 		return new ResponseEntity<List<SobaDTO>>(sobaService.getAll(), HttpStatus.OK);
 	}
 	
-	@GetMapping(value = "getAllSync")
-	public ResponseEntity<List<SobaDTO>> getAllSync(){
-		return new ResponseEntity<List<SobaDTO>>(sobaService.getAllSync(), HttpStatus.OK);
-	}
-	
 	@PostMapping(value = "createSync")
 	public ResponseEntity<Integer> createSync(@RequestBody SobaDTO sobaDTO){
 		return new ResponseEntity<Integer>(sobaService.createSync(sobaDTO), HttpStatus.OK);

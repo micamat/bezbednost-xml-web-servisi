@@ -38,7 +38,7 @@ import javax.xml.bind.annotation.XmlType;
 public class GetAllUslugaResponse {
 
     @XmlElement(name = "UslugaDTO")
-    protected List<UslugaDTO> uslugaDTO;
+    protected List<SifarnikDTO> uslugaDTO;
 
     /**
      * Gets the value of the uslugaDTO property.
@@ -62,9 +62,9 @@ public class GetAllUslugaResponse {
      * 
      * 
      */
-    public List<UslugaDTO> getUslugaDTO() {
+    public List<SifarnikDTO> getUslugaDTO() {
         if (uslugaDTO == null) {
-            uslugaDTO = new ArrayList<UslugaDTO>();
+            uslugaDTO = new ArrayList<SifarnikDTO>();
         }
         return this.uslugaDTO;
     }

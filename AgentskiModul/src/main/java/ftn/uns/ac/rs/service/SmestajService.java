@@ -2,15 +2,12 @@ package ftn.uns.ac.rs.service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import ftn.uns.ac.rs.model.CreateSmestajRequest;
 import ftn.uns.ac.rs.model.CreateSmestajResponse;
-import ftn.uns.ac.rs.model.GetAllSmestajRequest;
-import ftn.uns.ac.rs.model.GetAllSmestajResponse;
 import ftn.uns.ac.rs.model.Lokacija;
 import ftn.uns.ac.rs.model.ProducerPort;
 import ftn.uns.ac.rs.model.ProducerPortService;
@@ -55,17 +52,6 @@ public class SmestajService {
 		}
 		return sl;
 	};
-	
-	//TODO: Implementirati poslovnu logiku ..... cuvanja u bazu kao i 
-	public List<SmestajDTO> getAllSync(){
-		ProducerPortService producerPortService = new ProducerPortService();
-		ProducerPort producerPort = producerPortService.getProducerPortSoap11();
-		
-		GetAllSmestajRequest getSmestajRequest = new GetAllSmestajRequest();
-		GetAllSmestajResponse getSmestajResponse = producerPort.getAllSmestaj(getSmestajRequest);
-		return getSmestajResponse.getSmestajDTO();
-	};
-	
 	
 	public int createSync(SmestajDTO smd){
 		ProducerPortService producerPortService = new ProducerPortService();
@@ -117,7 +103,9 @@ public class SmestajService {
 		s.setLokacija(l);
 		s.setNaziv(smestajDTO.getNaziv());
 		s.setOpis(smestajDTO.getOpis());
-		if(smestajRepository.save(s) != null) {
+		s = smestajRepository.save(s);
+		if(s != null) {
+			createSync(convertToDTO(s));
 			return true;
 		}
 		return false;

@@ -32,11 +32,6 @@ public class SmestajController {
 		return new ResponseEntity<List<getSmestajDTO>>(smestajService.getAll(), HttpStatus.OK);
 	}
 	
-	@GetMapping(value = "getAllSync")
-	public ResponseEntity<List<SmestajDTO>> getAllSync(){
-		return new ResponseEntity<List<SmestajDTO>>(smestajService.getAllSync(), HttpStatus.OK);
-	}
-	
 	@PostMapping(value = "createSync")
 	public ResponseEntity<Integer> createSync(@RequestBody SmestajDTO smestajDTO){
 		

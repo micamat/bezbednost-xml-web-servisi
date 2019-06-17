@@ -31,11 +31,6 @@ public class KoordinateController {
 		return new ResponseEntity<List<KoordinateDTO>>(koordinateaService.getAll(), HttpStatus.OK);
 	}
 	
-	@GetMapping(value = "getAllSync")
-	public ResponseEntity<List<KoordinateDTO>> getAllSync(){
-		return new ResponseEntity<List<KoordinateDTO>>(koordinateaService.getAllSync(), HttpStatus.OK);
-	}
-	
 	@PostMapping(value = "createSync")
 	public ResponseEntity<Integer> createSync(@RequestBody KoordinateDTO koordinateDTO){
 		
