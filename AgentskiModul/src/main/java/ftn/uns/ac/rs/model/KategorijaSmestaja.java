@@ -9,8 +9,6 @@
 package ftn.uns.ac.rs.model;
 
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -49,7 +47,6 @@ import javax.xml.bind.annotation.XmlType;
 public class KategorijaSmestaja {
 
 	@Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     protected Long id;
     @XmlElement(required = true)
     protected String naziv;

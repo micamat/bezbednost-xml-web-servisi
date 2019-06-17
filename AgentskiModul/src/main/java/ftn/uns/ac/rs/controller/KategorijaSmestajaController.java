@@ -36,13 +36,6 @@ public class KategorijaSmestajaController {
 		return new ResponseEntity<List<SifarnikDTO>>(kategorijaSmestajaService.getAllSync(), HttpStatus.OK);
 	}
 	
-	@PostMapping(value = "createSync")
-	public ResponseEntity<Integer> createSync(@RequestBody SifarnikDTO kategorijaSmestajaDTO){
-		
-		return new ResponseEntity<Integer>(kategorijaSmestajaService.createSync(kategorijaSmestajaDTO), HttpStatus.OK);
-	}
-	
-	
 	@GetMapping(value = "/{id}")
 	public ResponseEntity<SifarnikDTO> getById(@PathVariable Long id){
 		if(kategorijaSmestajaService.getById(id) == null) {
@@ -50,25 +43,5 @@ public class KategorijaSmestajaController {
 		}
 		return new ResponseEntity<SifarnikDTO>(kategorijaSmestajaService.getById(id), HttpStatus.OK);
 	}
-	
-	@PostMapping
-	public ResponseEntity<String> add(@RequestBody SifarnikDTO SifarnikDTO){
-		if(kategorijaSmestajaService.add(SifarnikDTO)) {
-			return new ResponseEntity<String>("Kategorija smestaja je uspesno dodat!", HttpStatus.CREATED);
-		}else {
-			return new ResponseEntity<String>("Greska pri dodavanju kategorije smestaja!", HttpStatus.CONFLICT);
-		}
-			
-	}
-	
-	@DeleteMapping(value = "/{id}")
-	public ResponseEntity<String> delete(@PathVariable Long id){
-		if(kategorijaSmestajaService.delete(id)) {
-			return new ResponseEntity<String>("Kategorija smestaja je uspesno obrisan!", HttpStatus.OK);
-		}else {
-			return new ResponseEntity<String>("Kategorija smestaja nije pronadjen!", HttpStatus.NOT_FOUND);
-		}
-	}
-
 
 }

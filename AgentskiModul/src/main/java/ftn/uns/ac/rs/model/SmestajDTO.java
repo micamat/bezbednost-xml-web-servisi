@@ -39,6 +39,10 @@ import javax.xml.bind.annotation.XmlType;
     "naziv",
     "opis",
     //"slika",
+    "drzava",
+    "grad",
+    "ulica",
+    "broj",
     "idLokacija",
     "idTipSmestaja",
     "idKategorijaSmestaja"

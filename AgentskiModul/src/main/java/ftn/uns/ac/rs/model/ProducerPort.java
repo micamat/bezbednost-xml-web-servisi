@@ -34,22 +34,6 @@ public interface ProducerPort {
         CreateCenovnikRequest createCenovnikRequest
     );
 
-    @WebMethod(operationName = "GetByIdSmestaj")
-    @WebResult(name = "GetByIdSmestajResponse", targetNamespace = "http://rs.ac.uns.ftn/Model", partName = "GetByIdSmestajResponse")
-    public GetByIdSmestajResponse getByIdSmestaj(
-
-        @WebParam(partName = "GetByIdSmestajRequest", name = "GetByIdSmestajRequest", targetNamespace = "http://rs.ac.uns.ftn/Model")
-        GetByIdSmestajRequest getByIdSmestajRequest
-    );
-
-    @WebMethod(operationName = "CreateTipSobe")
-    @WebResult(name = "CreateTipSobeResponse", targetNamespace = "http://rs.ac.uns.ftn/Model", partName = "CreateTipSobeResponse")
-    public CreateTipSobeResponse createTipSobe(
-
-        @WebParam(partName = "CreateTipSobeRequest", name = "CreateTipSobeRequest", targetNamespace = "http://rs.ac.uns.ftn/Model")
-        CreateTipSobeRequest createTipSobeRequest
-    );
-
     @WebMethod(operationName = "GetAllLokacija")
     @WebResult(name = "GetAllLokacijaResponse", targetNamespace = "http://rs.ac.uns.ftn/Model", partName = "GetAllLokacijaResponse")
     public GetAllLokacijaResponse getAllLokacija(
@@ -58,28 +42,12 @@ public interface ProducerPort {
         GetAllLokacijaRequest getAllLokacijaRequest
     );
 
-    @WebMethod(operationName = "GetByIdZauzece")
-    @WebResult(name = "GetByIdZauzeceResponse", targetNamespace = "http://rs.ac.uns.ftn/Model", partName = "GetByIdZauzeceResponse")
-    public GetByIdZauzeceResponse getByIdZauzece(
-
-        @WebParam(partName = "GetByIdZauzeceRequest", name = "GetByIdZauzeceRequest", targetNamespace = "http://rs.ac.uns.ftn/Model")
-        GetByIdZauzeceRequest getByIdZauzeceRequest
-    );
-
     @WebMethod(operationName = "GetAllCenovnik")
     @WebResult(name = "GetAllCenovnikResponse", targetNamespace = "http://rs.ac.uns.ftn/Model", partName = "GetAllCenovnikResponse")
     public GetAllCenovnikResponse getAllCenovnik(
 
         @WebParam(partName = "GetAllCenovnikRequest", name = "GetAllCenovnikRequest", targetNamespace = "http://rs.ac.uns.ftn/Model")
         GetAllCenovnikRequest getAllCenovnikRequest
-    );
-
-    @WebMethod(operationName = "GetByIdUsluga")
-    @WebResult(name = "GetByIdUslugaResponse", targetNamespace = "http://rs.ac.uns.ftn/Model", partName = "GetByIdUslugaResponse")
-    public GetByIdUslugaResponse getByIdUsluga(
-
-        @WebParam(partName = "GetByIdUslugaRequest", name = "GetByIdUslugaRequest", targetNamespace = "http://rs.ac.uns.ftn/Model")
-        GetByIdUslugaRequest getByIdUslugaRequest
     );
 
     @WebMethod(operationName = "GetAllKategorijaSmestaja")
@@ -106,14 +74,6 @@ public interface ProducerPort {
         CreateLokacijaRequest createLokacijaRequest
     );
 
-    @WebMethod(operationName = "GetByIdKategorijaSmestaja")
-    @WebResult(name = "GetByIdKategorijaSmestajaResponse", targetNamespace = "http://rs.ac.uns.ftn/Model", partName = "GetByIdKategorijaSmestajaResponse")
-    public GetByIdKategorijaSmestajaResponse getByIdKategorijaSmestaja(
-
-        @WebParam(partName = "GetByIdKategorijaSmestajaRequest", name = "GetByIdKategorijaSmestajaRequest", targetNamespace = "http://rs.ac.uns.ftn/Model")
-        GetByIdKategorijaSmestajaRequest getByIdKategorijaSmestajaRequest
-    );
-
     @WebMethod(operationName = "GetAllZauzece")
     @WebResult(name = "GetAllZauzeceResponse", targetNamespace = "http://rs.ac.uns.ftn/Model", partName = "GetAllZauzeceResponse")
     public GetAllZauzeceResponse getAllZauzece(
@@ -121,23 +81,6 @@ public interface ProducerPort {
         @WebParam(partName = "GetAllZauzeceRequest", name = "GetAllZauzeceRequest", targetNamespace = "http://rs.ac.uns.ftn/Model")
         GetAllZauzeceRequest getAllZauzeceRequest
     );
-
-    @WebMethod(operationName = "GetByIdCenovnik")
-    @WebResult(name = "GetByIdCenovnikResponse", targetNamespace = "http://rs.ac.uns.ftn/Model", partName = "GetByIdCenovnikResponse")
-    public GetByIdCenovnikResponse getByIdCenovnik(
-
-        @WebParam(partName = "GetByIdCenovnikRequest", name = "GetByIdCenovnikRequest", targetNamespace = "http://rs.ac.uns.ftn/Model")
-        GetByIdCenovnikRequest getByIdCenovnikRequest
-    );
-
-    @WebMethod(operationName = "GetByIdTipSmestaja")
-    @WebResult(name = "GetByIdTipSmestajaResponse", targetNamespace = "http://rs.ac.uns.ftn/Model", partName = "GetByIdTipSmestajaResponse")
-    public GetByIdTipSmestajaResponse getByIdTipSmestaja(
-
-        @WebParam(partName = "GetByIdTipSmestajaRequest", name = "GetByIdTipSmestajaRequest", targetNamespace = "http://rs.ac.uns.ftn/Model")
-        GetByIdTipSmestajaRequest getByIdTipSmestajaRequest
-    );
-
 
     @WebMethod(operationName = "GetAllTipSobe")
     @WebResult(name = "GetAllTipSobeResponse", targetNamespace = "http://rs.ac.uns.ftn/Model", partName = "GetAllTipSobeResponse")
@@ -163,60 +106,12 @@ public interface ProducerPort {
         CreateZauzeceRequest createZauzeceRequest
     );
 
-    @WebMethod(operationName = "GetByIdKoordinate")
-    @WebResult(name = "GetByIdKoordinateResponse", targetNamespace = "http://rs.ac.uns.ftn/Model", partName = "GetByIdKoordinateResponse")
-    public GetByIdKoordinateResponse getByIdKoordinate(
-
-        @WebParam(partName = "GetByIdKoordinateRequest", name = "GetByIdKoordinateRequest", targetNamespace = "http://rs.ac.uns.ftn/Model")
-        GetByIdKoordinateRequest getByIdKoordinateRequest
-    );
-
-    @WebMethod(operationName = "CreateUsluga")
-    @WebResult(name = "CreateUslugaResponse", targetNamespace = "http://rs.ac.uns.ftn/Model", partName = "CreateUslugaResponse")
-    public CreateUslugaResponse createUsluga(
-
-        @WebParam(partName = "CreateUslugaRequest", name = "CreateUslugaRequest", targetNamespace = "http://rs.ac.uns.ftn/Model")
-        CreateUslugaRequest createUslugaRequest
-    );
-
-    @WebMethod(operationName = "GetByIdLokacija")
-    @WebResult(name = "GetByIdLokacijaResponse", targetNamespace = "http://rs.ac.uns.ftn/Model", partName = "GetByIdLokacijaResponse")
-    public GetByIdLokacijaResponse getByIdLokacija(
-
-        @WebParam(partName = "GetByIdLokacijaRequest", name = "GetByIdLokacijaRequest", targetNamespace = "http://rs.ac.uns.ftn/Model")
-        GetByIdLokacijaRequest getByIdLokacijaRequest
-    );
-
-    @WebMethod(operationName = "CreateTipSmestaja")
-    @WebResult(name = "CreateTipSmestajaResponse", targetNamespace = "http://rs.ac.uns.ftn/Model", partName = "CreateTipSmestajaResponse")
-    public CreateTipSmestajaResponse createTipSmestaja(
-
-        @WebParam(partName = "CreateTipSmestajaRequest", name = "CreateTipSmestajaRequest", targetNamespace = "http://rs.ac.uns.ftn/Model")
-        CreateTipSmestajaRequest createTipSmestajaRequest
-    );
-    
-    @WebMethod(operationName = "CreateKategorijaSmestaja")
-    @WebResult(name = "CreateKategorijaSmestajaResponse", targetNamespace = "http://rs.ac.uns.ftn/Model", partName = "CreateKategorijaSmestajaResponse")
-    public CreateKategorijaSmestajaResponse createKategorijaSmestaja(
-
-        @WebParam(partName = "CreateKategorijaSmestajaRequest", name = "CreateKategorijaSmestajaRequest", targetNamespace = "http://rs.ac.uns.ftn/Model")
-        CreateKategorijaSmestajaRequest createKategorijaSmestajaRequest
-    );
-
     @WebMethod(operationName = "CreateSmestaj")
     @WebResult(name = "CreateSmestajResponse", targetNamespace = "http://rs.ac.uns.ftn/Model", partName = "CreateSmestajResponse")
     public CreateSmestajResponse createSmestaj(
 
         @WebParam(partName = "CreateSmestajRequest", name = "CreateSmestajRequest", targetNamespace = "http://rs.ac.uns.ftn/Model")
         CreateSmestajRequest createSmestajRequest
-    );
-
-    @WebMethod(operationName = "GetByIdSoba")
-    @WebResult(name = "GetByIdSobaResponse", targetNamespace = "http://rs.ac.uns.ftn/Model", partName = "GetByIdSobaResponse")
-    public GetByIdSobaResponse getByIdSoba(
-
-        @WebParam(partName = "GetByIdSobaRequest", name = "GetByIdSobaRequest", targetNamespace = "http://rs.ac.uns.ftn/Model")
-        GetByIdSobaRequest getByIdSobaRequest
     );
 
     @WebMethod(operationName = "GetAllTipSmestaja")
@@ -265,13 +160,5 @@ public interface ProducerPort {
 
         @WebParam(partName = "GetAllUslugaRequest", name = "GetAllUslugaRequest", targetNamespace = "http://rs.ac.uns.ftn/Model")
         GetAllUslugaRequest getAllUslugaRequest
-    );
-
-    @WebMethod(operationName = "GetByIdTipSobe")
-    @WebResult(name = "GetByIdTipSobeResponse", targetNamespace = "http://rs.ac.uns.ftn/Model", partName = "GetByIdTipSobeResponse")
-    public GetByIdTipSobeResponse getByIdTipSobe(
-
-        @WebParam(partName = "GetByIdTipSobeRequest", name = "GetByIdTipSobeRequest", targetNamespace = "http://rs.ac.uns.ftn/Model")
-        GetByIdTipSobeRequest getByIdTipSobeRequest
     );
 }

@@ -10,8 +10,6 @@ import ftn.uns.ac.rs.model.Cenovnik;
 import ftn.uns.ac.rs.model.CenovnikDTO;
 import ftn.uns.ac.rs.model.CreateCenovnikRequest;
 import ftn.uns.ac.rs.model.CreateCenovnikResponse;
-import ftn.uns.ac.rs.model.GetAllCenovnikRequest;
-import ftn.uns.ac.rs.model.GetAllCenovnikResponse;
 import ftn.uns.ac.rs.model.ProducerPort;
 import ftn.uns.ac.rs.model.ProducerPortService;
 import ftn.uns.ac.rs.repository.CenovnikRepository;
@@ -33,16 +31,6 @@ public class CenovnikService {
 		return cenovnikRepository.findAll().stream().map(this::convertToDTO).collect(Collectors.toList());
 	};
 	
-	//TODO: Implementirati poslovnu logiku ..... cuvanja u bazu kao i 
-	public List<CenovnikDTO> getAllSync(){
-		ProducerPortService producerPortService = new ProducerPortService();
-		ProducerPort producerPort = producerPortService.getProducerPortSoap11();
-		
-		GetAllCenovnikRequest getCenovnikRequest = new GetAllCenovnikRequest();
-		GetAllCenovnikResponse getAllCenovnikResponse = producerPort.getAllCenovnik(getCenovnikRequest);
-		return getAllCenovnikResponse.getCenovnikDTO();
-	};
-	
 	
 	public int createSync(CenovnikDTO cmd){
 		ProducerPortService producerPortService = new ProducerPortService();
@@ -57,6 +45,7 @@ public class CenovnikService {
 		createCenovnikRequest.setIdTipSobe(cmd.getIdTipSobe());
 		
 		CreateCenovnikResponse createCenovnikResponse = producerPort.createCenovnik(createCenovnikRequest);
+		System.out.println(createCenovnikResponse.getId()+"ASDSDSDASDASD");
 		return createCenovnikResponse.getId();
 	};
 	
@@ -75,7 +64,9 @@ public class CenovnikService {
 	
 	public boolean add(CenovnikDTO cenovnikDTO) {
 		cenovnikDTO.setId(null);
-		if(cenovnikRepository.save(convertToEntity(cenovnikDTO)) != null) {
+		Cenovnik cenovnik = cenovnikRepository.save(convertToEntity(cenovnikDTO));
+		if(cenovnik != null) {
+			createSync(convertToDTO(cenovnik));
 			return true;
 		}
 		return false;
@@ -102,8 +93,9 @@ public class CenovnikService {
 	private Cenovnik convertToEntity(CenovnikDTO cenovnikDTO) {
 		Cenovnik cenovnik = new Cenovnik();
 		cenovnik.setId(cenovnikDTO.getId());
+		cenovnik.setCena(cenovnikDTO.getCena());
 		cenovnik.setDatumOd(cenovnikDTO.getDatumOd());
-		cenovnik.setDatumOd(cenovnikDTO.getDatumDo());
+		cenovnik.setDatumDo(cenovnikDTO.getDatumDo());
 		cenovnik.setTipSobe(tipSobeRepository.findById(cenovnikDTO.getIdTipSobe()).orElse(null));
 		cenovnik.setSmestaj(smestajRepository.findById(cenovnikDTO.getIdSmestaj()).orElse(null));
 		return cenovnik;

@@ -49,7 +49,6 @@ import javax.xml.bind.annotation.XmlType;
 public class TipSmestaja {
 
 	@Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     protected Long id;
     @XmlElement(required = true)
     protected String naziv;

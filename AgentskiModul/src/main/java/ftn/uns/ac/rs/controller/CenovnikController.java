@@ -31,17 +31,6 @@ public class CenovnikController {
 		return new ResponseEntity<List<CenovnikDTO>>(cenovnikService.getAll(), HttpStatus.OK);
 	}
 	
-	@GetMapping(value = "getAllSync")
-	public ResponseEntity<List<CenovnikDTO>> getAllSync(){
-		return new ResponseEntity<List<CenovnikDTO>>(cenovnikService.getAllSync(), HttpStatus.OK);
-	}
-	
-	@PostMapping(value = "createSync")
-	public ResponseEntity<Integer> createSync(@RequestBody CenovnikDTO cenovnikDTO){
-		
-		return new ResponseEntity<Integer>(cenovnikService.createSync(cenovnikDTO), HttpStatus.OK);
-	}
-	
 	@GetMapping(value = "/{id}")
 	public ResponseEntity<CenovnikDTO> getById(@PathVariable Long id){
 		if(cenovnikService.getById(id) == null) {

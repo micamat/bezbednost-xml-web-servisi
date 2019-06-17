@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import ftn.uns.ac.rs.model.Zauzece;
 import ftn.uns.ac.rs.model.ZauzeceDTO;
 import ftn.uns.ac.rs.service.ZauzeceService;
 
@@ -22,16 +23,11 @@ public class ZauzeceController {
 
 	@Autowired
 	private ZauzeceService zauzeceService;
-
-	@GetMapping(value = "getAllSync")
-	public ResponseEntity<List<ZauzeceDTO>> getAllSync(){
-		return new ResponseEntity<List<ZauzeceDTO>>(zauzeceService.getAllSync(), HttpStatus.OK);
-	}
 	
 	@PostMapping(value = "createSync")
-	public ResponseEntity<Integer> createSync(@RequestBody ZauzeceDTO ZauzeceDTO){
+	public ResponseEntity<Integer> createSync(@RequestBody Zauzece Zauzece){
 		
-		return new ResponseEntity<Integer>(zauzeceService.createSync(ZauzeceDTO), HttpStatus.OK);
+		return new ResponseEntity<Integer>(zauzeceService.createSync(Zauzece), HttpStatus.OK);
 	}
 	
 	@GetMapping
@@ -58,8 +54,8 @@ public class ZauzeceController {
 		return new ResponseEntity<List<ZauzeceDTO>>(zauzeceService.getBySmestaj(smestajId), HttpStatus.OK);
 	}
 	@PostMapping
-	public ResponseEntity<String> add(@RequestBody ZauzeceDTO zauzeceDTO){
-		if(zauzeceService.add(zauzeceDTO)) {
+	public ResponseEntity<String> add(@RequestBody Zauzece zauzece){
+		if(zauzeceService.add(zauzece)) {
 			return new ResponseEntity<String>("Zauzece je uspesno dodato!", HttpStatus.CREATED);
 		}else {
 			return new ResponseEntity<String>("Greska pri dodavanju zauzeca!", HttpStatus.CONFLICT);

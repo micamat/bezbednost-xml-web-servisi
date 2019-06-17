@@ -8,8 +8,6 @@ import org.springframework.stereotype.Service;
 
 import ftn.uns.ac.rs.model.CreateSobaRequest;
 import ftn.uns.ac.rs.model.CreateSobaResponse;
-import ftn.uns.ac.rs.model.GetAllSobaRequest;
-import ftn.uns.ac.rs.model.GetAllSobaResponse;
 import ftn.uns.ac.rs.model.ProducerPort;
 import ftn.uns.ac.rs.model.ProducerPortService;
 import ftn.uns.ac.rs.model.Soba;
@@ -33,33 +31,22 @@ public class SobaService {
 	public List<SobaDTO> getAll(){ 
 		return sobaRepository.findAll().stream().map(this::convertToDTO).collect(Collectors.toList());
 	};
-	
-	//TODO: Implementirati poslovnu logiku ..... cuvanja u bazu kao i 
-		public List<SobaDTO> getAllSync(){
-			ProducerPortService producerPortService = new ProducerPortService();
-			ProducerPort producerPort = producerPortService.getProducerPortSoap11();
-			
-			GetAllSobaRequest getAllSobaRequest = new GetAllSobaRequest();
-			GetAllSobaResponse getSmestajResponse = producerPort.getAllSoba(getAllSobaRequest);
-			return getSmestajResponse.getSobaDTO();
-		};
 		
+	public int createSync(SobaDTO smd){
+		ProducerPortService producerPortService = new ProducerPortService();
+		ProducerPort producerPort = producerPortService.getProducerPortSoap11();
 		
-		public int createSync(SobaDTO smd){
-			ProducerPortService producerPortService = new ProducerPortService();
-			ProducerPort producerPort = producerPortService.getProducerPortSoap11();
-			
-			CreateSobaRequest getSobaRequest = new CreateSobaRequest();
-			getSobaRequest.setId(smd.getId());
-			getSobaRequest.setIdSmestaj(smd.getIdSmestaj());
-			getSobaRequest.setIdTipSobe(smd.getIdTipSobe());
-			getSobaRequest.setNaziv(smd.getNaziv());
-			getSobaRequest.setOpis(smd.getOpis());
-			getSobaRequest.setSlika(smd.getSlika());
-			
-			CreateSobaResponse getSmestajResponse = producerPort.createSoba(getSobaRequest);
-			return getSmestajResponse.getId();
-		};
+		CreateSobaRequest getSobaRequest = new CreateSobaRequest();
+		getSobaRequest.setId(smd.getId());
+		getSobaRequest.setIdSmestaj(smd.getIdSmestaj());
+		getSobaRequest.setIdTipSobe(smd.getIdTipSobe());
+		getSobaRequest.setNaziv(smd.getNaziv());
+		getSobaRequest.setOpis(smd.getOpis());
+		getSobaRequest.setSlika(smd.getSlika());
+		
+		CreateSobaResponse getSmestajResponse = producerPort.createSoba(getSobaRequest);
+		return getSmestajResponse.getId();
+	};
 	
 	
 	
@@ -78,7 +65,9 @@ public class SobaService {
 	
 	public boolean add(SobaDTO sobaDTO) {
 		sobaDTO.setId(null);
-		if(sobaRepository.save(convertToEntity(sobaDTO)) != null) {
+		Soba soba =sobaRepository.save(convertToEntity(sobaDTO));
+		if(soba != null) {
+			createSync(convertToDTO(soba));
 			return true;
 		}
 		return false;
