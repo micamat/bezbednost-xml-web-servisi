@@ -23,42 +23,42 @@ public class KorisnikController {
 	
 	@GetMapping("block/{id}")
 	public ResponseEntity<Korisnik> blockKorisnik(@PathVariable Long id, HttpSession session){
-		if (session.getAttribute("loggedIn") == null) {
+		/*if (session.getAttribute("loggedIn") == null) {
 			return new ResponseEntity<Korisnik>(HttpStatus.FORBIDDEN);
-		} else {
+		} else {*/
 			if (korisnikService.blockById(id)) {
 				return new ResponseEntity<Korisnik>(korisnikService.findById(id), HttpStatus.OK);
 			} else {
 				return new ResponseEntity<Korisnik>(HttpStatus.BAD_REQUEST);
 			}
-		}
+		//}
 	}
 	
 	@GetMapping("unblock/{id}")
 	public ResponseEntity<Korisnik> unblockKorisnik(@PathVariable Long id, HttpSession session){
-		if (session.getAttribute("loggedIn") == null) {
+		/*if (session.getAttribute("loggedIn") == null) {
 			return new ResponseEntity<Korisnik>(HttpStatus.FORBIDDEN);
-		} else {
+		} else {*/
 			if (korisnikService.unblockById(id)) {
 				return new ResponseEntity<Korisnik>(korisnikService.findById(id), HttpStatus.OK);
 			} else {
 				return new ResponseEntity<Korisnik>(HttpStatus.BAD_REQUEST);
 			}
-		}
+		//}
 	}
 	
 	@DeleteMapping("{id}")
 	public ResponseEntity<Korisnik> removeKorisnik(@PathVariable Long id, HttpSession session){
-		if (session.getAttribute("loggedIn") == null) {
+		/*if (session.getAttribute("loggedIn") == null) {
 			return new ResponseEntity<Korisnik>(HttpStatus.FORBIDDEN);
-		} else {
+		} else {*/
 			if (korisnikService.removeById(id)) {
 				return new ResponseEntity<Korisnik>(HttpStatus.OK);
 			} else {
 			
 				return new ResponseEntity<Korisnik>(HttpStatus.BAD_REQUEST);
 			}
-		}
+		//}
 	}
 	
 }

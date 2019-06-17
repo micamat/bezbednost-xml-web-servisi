@@ -29,20 +29,20 @@ public class TipUslugeController {
 
 	@GetMapping("{id}")
 	public ResponseEntity<TipUsluge> getTipUsluge(@PathVariable Long id, HttpSession session){
-		if (session.getAttribute("loggedIn") == null) {
+		/*if (session.getAttribute("loggedIn") == null) {
 			return new ResponseEntity<TipUsluge>(HttpStatus.FORBIDDEN);
-		} else {
+		} else {*/
 			TipUsluge usluga = tipUslugeService.getTypeServiceById(id);
 			
 			return new ResponseEntity<TipUsluge>(usluga, HttpStatus.OK);
-		}
+		//}
 	}
 	
 	@GetMapping
 	public ResponseEntity<List<TipUsluge>> getAllTipUsluge(HttpSession session){
-		if (session.getAttribute("loggedIn") == null) {
+		/*if (session.getAttribute("loggedIn") == null) {
 			return new ResponseEntity<List<TipUsluge>>(HttpStatus.FORBIDDEN);
-		} else {
+		} else {*/
 			ArrayList<TipUsluge> tipovi = new ArrayList<>();
 			
 			for(TipUsluge tipUsluge : tipUslugeService.getAllTypesServices()) {
@@ -50,7 +50,7 @@ public class TipUslugeController {
 			}
 			
 			return new ResponseEntity<List<TipUsluge>>(tipovi, HttpStatus.OK);
-		}
+		//}
 	}
 	
 	@DeleteMapping("{id}")

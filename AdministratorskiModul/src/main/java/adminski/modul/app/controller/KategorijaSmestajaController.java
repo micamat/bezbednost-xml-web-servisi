@@ -29,20 +29,20 @@ public class KategorijaSmestajaController {
 	
 	@GetMapping("{id}")
 	public ResponseEntity<KategorijaSmestaja> getKategorijaSmestaja(@PathVariable Long id, HttpSession session){
-		if (session.getAttribute("loggedIn") == null) {
+		/*if (session.getAttribute("loggedIn") == null) {
 			return new ResponseEntity<KategorijaSmestaja>(HttpStatus.FORBIDDEN);
-		} else {
+		} else {*/
 			KategorijaSmestaja kategorija = kategorijaSmestajaService.getCategoryAccommodationById(id);
 			
 			return new ResponseEntity<KategorijaSmestaja>(kategorija, HttpStatus.OK);
-		}
+		//}
 	}
 	
 	@GetMapping
 	public ResponseEntity<List<KategorijaSmestaja>> getAllKategorijaSmestaja(HttpSession session){
-		if (session.getAttribute("loggedIn") == null) {
+		/*if (session.getAttribute("loggedIn") == null) {
 			return new ResponseEntity<List<KategorijaSmestaja>>(HttpStatus.FORBIDDEN);
-		} else {
+		} else {*/
 			ArrayList<KategorijaSmestaja> kategorije = new ArrayList<>();
 			
 			for(KategorijaSmestaja kategorija : kategorijaSmestajaService.getAllCategoryAccommodations()) {
@@ -50,43 +50,43 @@ public class KategorijaSmestajaController {
 			}
 			
 			return new ResponseEntity<List<KategorijaSmestaja>>(kategorije, HttpStatus.OK);
-		}
+		//}
 	}
 	
 	@DeleteMapping("{id}")
 	public ResponseEntity<Void> deleteTipSmestaja(@PathVariable Long id, HttpSession session){
-		if (session.getAttribute("loggedIn") == null) {
+		/*if (session.getAttribute("loggedIn") == null) {
 			return new ResponseEntity<Void>(HttpStatus.FORBIDDEN);
-		} else {
+		} else {*/
 			if (kategorijaSmestajaService.removeCategoryAccommodation(id)) {
 				return new ResponseEntity<Void>(HttpStatus.OK);
 			} else {
 				return new ResponseEntity<Void>(HttpStatus.BAD_REQUEST);
 			}
-		}
+		//}
 	}
 	
 	@PutMapping("{id}")
 	public ResponseEntity<KategorijaSmestaja> updateKategorijaSmestaja(@PathVariable Long id, @RequestBody KategorijaSmestaja kategorijaSmestaja, HttpSession session){
-		if (session.getAttribute("loggedIn") == null) {
+		/*if (session.getAttribute("loggedIn") == null) {
 			return new ResponseEntity<KategorijaSmestaja>(HttpStatus.FORBIDDEN);
-		} else {
+		} else {*/
 			if (kategorijaSmestajaService.updateCategoryAccommodation(id,kategorijaSmestaja)) {
 				return new ResponseEntity<KategorijaSmestaja>(kategorijaSmestajaService.getCategoryAccommodationById(id), HttpStatus.OK);
 			} else {
 				return new ResponseEntity<KategorijaSmestaja>(HttpStatus.BAD_REQUEST);
 			}
-		}
+		//}
 	}
 	
 	@PostMapping
 	public ResponseEntity<KategorijaSmestaja> createTipSmestaja(@RequestBody KategorijaSmestaja kategorija, HttpSession session){
-		if (session.getAttribute("loggedIn") == null) {
+		/*if (session.getAttribute("loggedIn") == null) {
 			return new ResponseEntity<KategorijaSmestaja>(HttpStatus.FORBIDDEN);
-		} else {
+		} else {*/
 			kategorijaSmestajaService.createCategoryAccommodation(kategorija);
 			
 			return new ResponseEntity<KategorijaSmestaja>(kategorija, HttpStatus.OK);
-		}
+		//}
 	}
 }

@@ -71,7 +71,7 @@ public class Agent {
     @XmlElement(required = true)
     protected String adresa;
     @XmlElement(name = "poslovni_maticni_broj", required = true)
-    protected BigInteger poslovniMaticniBroj;
+    protected String poslovniMaticniBroj;
     @XmlElement(required = true)
     protected String sifra;
 
@@ -179,7 +179,7 @@ public class Agent {
      *     {@link BigInteger }
      *     
      */
-    public BigInteger getPoslovniMaticniBroj() {
+    public String getPoslovniMaticniBroj() {
         return poslovniMaticniBroj;
     }
 
@@ -191,7 +191,7 @@ public class Agent {
      *     {@link BigInteger }
      *     
      */
-    public void setPoslovniMaticniBroj(BigInteger value) {
+    public void setPoslovniMaticniBroj(String value) {
         this.poslovniMaticniBroj = value;
     }
 
