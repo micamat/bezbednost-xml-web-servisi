@@ -35,4 +35,8 @@ export class AccommodationService {
     return this.http.get(SERVER_URL + "/smestaj/" + id);
   }
 
+  getAllRooms(){
+    return this.http.get(SERVER_URL + "/soba");
+  }
+
 }

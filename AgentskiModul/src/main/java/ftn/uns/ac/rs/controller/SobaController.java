@@ -41,8 +41,6 @@ public class SobaController {
 		return new ResponseEntity<Integer>(sobaService.createSync(sobaDTO), HttpStatus.OK);
 	}
 	
-	
-	
 	@GetMapping(value = "/{id}")
 	public ResponseEntity<SobaDTO> getById(@PathVariable Long id){
 		if(sobaService.getById(id) == null) {
