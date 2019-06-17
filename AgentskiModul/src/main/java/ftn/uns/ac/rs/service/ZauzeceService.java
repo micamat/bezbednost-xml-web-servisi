@@ -55,7 +55,7 @@ public class ZauzeceService {
 	}
 	
 	public boolean add(ZauzeceDTO zauzeceDTO) {
-		zauzeceDTO.setId(null);
+		zauzeceDTO.setId(zauzeceDTO.getId());
 		Zauzece zauzece = zauzeceRepository.save(convertToEntity(zauzeceDTO));
 		if(zauzece != null) {
 			createSync(zauzece);

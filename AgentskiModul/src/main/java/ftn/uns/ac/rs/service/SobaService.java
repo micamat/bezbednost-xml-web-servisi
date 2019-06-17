@@ -65,7 +65,7 @@ public class SobaService {
 	
 	
 	public boolean add(SobaDTO sobaDTO) {
-		sobaDTO.setId(null);
+		sobaDTO.setId(sobaDTO.getId());
 		Soba soba = sobaRepository.save(convertToEntity(sobaDTO));
 		if(soba != null) {
 			createSync(soba);

@@ -63,7 +63,7 @@ public class CenovnikService {
 	
 	
 	public boolean add(CenovnikDTO cenovnikDTO) {
-		cenovnikDTO.setId(null);
+		cenovnikDTO.setId(cenovnikDTO.getId());
 		Cenovnik cenovnik = cenovnikRepository.save(convertToEntity(cenovnikDTO));
 		if(cenovnik != null) {
 			createSync(cenovnik);

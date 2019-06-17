@@ -37,6 +37,7 @@ public class SyncAllController {
 			return new ResponseEntity<String>("Podaci uspesno sinhronizovani!", HttpStatus.OK);
 			
 		}catch(Exception e){
+			e.printStackTrace();
 			return new ResponseEntity<String>("Greska pri sinhronizaciji!", HttpStatus.CONFLICT);		
 		}
 	}
