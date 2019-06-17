@@ -1,17 +1,17 @@
 <table class="table ml-2 mt-2">
   <thead style="background-color: #0074E1;">
     <tr>
-      <th scope="col" colspan="5" style="text-align: center; color: white">
+      <th scope="col" colspan="6" style="text-align: center; color: white">
         <div class="row">
           <div class="col" style="float: right;"></div>
           <div class="col">
               <span class="d-inline">Rooms of</span>
-              <select (change)="odabrani($event)" class="form-control d-inline ml-2" style="width: 150px;">
-                <option></option>
+              <select (change)="odabrani($event)" class="form-control d-inline ml-2" style="width: 200px;">
+                <option>All Accommodations</option>
                 <option *ngFor="let item of accommodations; let i = index" [value]="item.id">{{item.naziv}}</option>
               </select>
           </div>
-          <div class="col"><a class="active" [routerLink]="'/accommodation/add'">
+          <div class="col"><a class="active" routerLink="../room/add">
             <img src="/assets/img/add-32.png" style="float: right;">
           </a></div>
         </div>
@@ -25,6 +25,7 @@
       <th scope="col">Name</th>
       <th scope="col">Description</th>
       <th scope="col">Type</th>
+      <th scope="col">Accommodation</th>
       <th scope="col">Manipulation</th>
     </tr>
   </thead>
@@ -33,12 +34,13 @@
       <td scope="row">{{i+1}}</td>
       <td>{{item.naziv}}</td>
       <td>{{item.opis}}</td>
-      <td></td>
+      <td>{{item.nazivTipaSobe}}</td>
+      <td>{{item.nazivSmestaja}}</td>
       <td>
-          <a class="active" [routerLink]="['/accommodation/change', item.id]">
+          <a class="active" [routerLink]="['/room/change', item.id]">
             <img class="mr-2" src="/assets/img/edit-9-32.png">
           </a>
-          <a class="active" (click)="delete(item.id)" [routerLink]="'/accommodation'">
+          <a class="active" (click)="delete(item.id)" [routerLink]="'/room'">
             <img src="/assets/img/x-mark-4-32.png">
           </a>
         </td>

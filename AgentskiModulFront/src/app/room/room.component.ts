@@ -27,15 +27,43 @@ export class RoomComponent implements OnInit {
       data => {
         this.rooms = data;
     });
+    
   }
 
   odabrani(event : any){
     this.smestajId = event.target.value;
+    
+    if(this.smestajId=="All Accommodations"){
+      this._accommodationService.getAllRooms().subscribe(
+        data => {
+          this.rooms = data;
+      });
+    }else{
+      this._accommodationService.getByAccommodationRoom(this.smestajId).subscribe(
+        data => {
+          this.rooms = data;
+      });
+    }
+      
+  }
 
-    /*this._accommodationService.getAllAccommodation().subscribe(
+  delete(id:any){
+    this._accommodationService.deleteRoom(id).subscribe(
       data => {
-        this.accommodations = data;
-    });*/
+        //ovo promenuti :D
+        if(this.smestajId=="All Accommodations"){
+          this._accommodationService.getAllRooms().subscribe(
+            data => {
+              this.rooms = data;
+          });
+        }else{
+          this._accommodationService.getByAccommodationRoom(this.smestajId).subscribe(
+            data => {
+              this.rooms = data;
+          });
+        }
+    });
+    
   }
 
 }

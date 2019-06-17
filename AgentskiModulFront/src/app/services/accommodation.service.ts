@@ -39,4 +39,24 @@ export class AccommodationService {
     return this.http.get(SERVER_URL + "/soba");
   }
 
+  getByAccommodationRoom(id : any){
+    return this.http.get(SERVER_URL + "/soba/smestaj/" + id);
+  }
+
+  addRoom(room : any){
+      return this.http.post(SERVER_URL + '/soba',room,{responseType: 'text'});
+  }
+
+  getAllTypeRooms(){
+    return this.http.get(SERVER_URL + '/tip-sobe');
+  }
+
+  deleteRoom(id:any){
+    return this.http.delete(SERVER_URL + "/soba/" + id,{responseType: 'text'});
+  }
+
+  getRoom(id:any){
+    return this.http.get(SERVER_URL + "/soba/" + id);
+  }
+
 }
