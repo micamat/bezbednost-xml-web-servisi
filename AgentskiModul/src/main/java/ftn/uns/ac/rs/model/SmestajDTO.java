@@ -62,7 +62,7 @@ public class SmestajDTO {
     protected String ulica;
     @XmlElement(required = true)
     protected String broj;
-    
+    protected long idLokacija;
     protected long idTipSmestaja;
     protected long idKategorijaSmestaja;
 
@@ -233,6 +233,16 @@ public class SmestajDTO {
 	public void setBroj(String broj) {
 		this.broj = broj;
 	}
+
+	public long getIdLokacija() {
+		return idLokacija;
+	}
+
+	public void setIdLokacija(long idLokacija) {
+		this.idLokacija = idLokacija;
+	}
+	
+	
     
     
 

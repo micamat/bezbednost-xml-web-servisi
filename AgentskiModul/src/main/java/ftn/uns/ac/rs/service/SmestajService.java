@@ -50,6 +50,7 @@ public class SmestajService {
 			dto.setGrad(temp.getLokacija().getGrad());
 			dto.setUlica(temp.getLokacija().getUlica());
 			dto.setBroj(temp.getLokacija().getBroj());
+			dto.setIdLokacija(temp.getLokacija().getId());
 			sl.add(dto);
 		}
 		return sl;
@@ -95,6 +96,7 @@ public class SmestajService {
 		dto.setGrad(s.getLokacija().getGrad());
 		dto.setUlica(s.getLokacija().getUlica());
 		dto.setBroj(s.getLokacija().getBroj());
+		dto.setIdLokacija(s.getLokacija().getId());
 		
 		return dto;
 	}
@@ -102,13 +104,14 @@ public class SmestajService {
 	
 	public boolean add(SmestajDTO smestajDTO) {
 		Lokacija l = new Lokacija();
+		l.setId(smestajDTO.getIdLokacija());
 		l.setBroj(smestajDTO.getBroj());
 		l.setDrzava(smestajDTO.getDrzava());
 		l.setGrad(smestajDTO.getGrad());
 		l.setUlica(smestajDTO.getUlica());
 		l = lokacijaService.add(l);
 		Smestaj s = new Smestaj();
-		s.setId(null);
+		s.setId(smestajDTO.getId());
 		s.setTipSmestaja(tipSmestajaRepository.findById(smestajDTO.getIdTipSmestaja()).orElse(null));
 		s.setKategorijaSmestaja(kategorijaSmestajaRepository.findById(smestajDTO.getIdKategorijaSmestaja()).orElse(null));
 		s.setLokacija(l);

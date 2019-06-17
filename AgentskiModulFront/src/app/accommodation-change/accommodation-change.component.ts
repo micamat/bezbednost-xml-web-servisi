@@ -39,7 +39,7 @@ export class AccommodationChangeComponent implements OnInit {
         data => {
           this.typeL = data;
       });
-
+      
       this.activatedRoute.paramMap.subscribe(
         params => {
             this.accommodationId = params.get('id');
@@ -47,9 +47,9 @@ export class AccommodationChangeComponent implements OnInit {
                 data => {
                   this.smestaj = data;
                   this.accommodationAdd = this.formBuilder.group({
-                    naziv:["",Validators.compose([Validators.required, Validators.pattern('[a-zA-Z 0-9!]+')])],
+                    naziv:[this.smestaj.naziv,Validators.compose([Validators.required, Validators.pattern('[a-zA-Z 0-9!]+')])],
                     idKategorijaSmestaja:["",Validators.compose([Validators.required, Validators.pattern('[a-z.A-Z 0-9!]+')])],
-                    opis:["",Validators.compose([Validators.required, Validators.pattern('[a-zA-Z 0-9!]+')])],
+                    opis:[this.smestaj.opis,Validators.compose([Validators.required, Validators.pattern('[a-zA-Z 0-9!]+')])],
                     idTipSmestaja:["",Validators.compose([Validators.required, Validators.pattern('[a-z.A-Z 0-9!]+')])],  
                     drzava:[this.smestaj.drzava,Validators.compose([Validators.required, Validators.pattern('[a-zA-Z 0-9!]+')])],
                     grad:[this.smestaj.grad,Validators.compose([Validators.required, Validators.pattern('[a-zA-Z 0-9!]+')])],
@@ -58,6 +58,7 @@ export class AccommodationChangeComponent implements OnInit {
                   });
                 }
             );
+
         }
       );
       
@@ -68,7 +69,19 @@ export class AccommodationChangeComponent implements OnInit {
 
 
   onSubmit(event:any) {
+    this.submitted = true;
+    this.temp = this.accommodationAdd.getRawValue();
+    this.accommodation = this.temp;
+    this.accommodation.idKategorijaSmestaja = this.temp.idKategorijaSmestaja.split(".",1)[0];
+    this.accommodation.idTipSmestaja = this.temp.idTipSmestaja.split(".",1)[0];
+    this.accommodation.idLokacija = this.smestaj.idLokacija;
+    this.accommodation.id = this.smestaj.id;
+    console.log(this.temp);
 
+    this._accommodationService.addAccommmodation(this.accommodation).subscribe(
+      data => {
+              this.router.navigateByUrl("accommodation");
+    });
   }
 
 }

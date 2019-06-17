@@ -76,7 +76,7 @@ public class LokacijaService {
 	}
 	
 	public Lokacija add(Lokacija lokacija) {
-		lokacija.setId(null);
+		lokacija.setId(lokacija.getId());
 		Lokacija l = lokacijaRepository.save(lokacija);
 		if(l != null) {
 			return l;

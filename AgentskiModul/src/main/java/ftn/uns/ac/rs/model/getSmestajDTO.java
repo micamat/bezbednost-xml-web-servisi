@@ -8,6 +8,7 @@ public class getSmestajDTO {
 	    protected String grad;
 	    protected String ulica;
 	    protected String broj;
+	    protected long idLokacija;
 	    protected String TipSmestaja;
 	    protected String KategorijaSmestaja;
 		public Long getId() {
@@ -63,6 +64,12 @@ public class getSmestajDTO {
 		}
 		public void setKategorijaSmestaja(String kategorijaSmestaja) {
 			KategorijaSmestaja = kategorijaSmestaja;
+		}
+		public long getIdLokacija() {
+			return idLokacija;
+		}
+		public void setIdLokacija(long idLokacija) {
+			this.idLokacija = idLokacija;
 		}
 	    
 	    
