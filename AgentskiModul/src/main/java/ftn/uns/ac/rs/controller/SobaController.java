@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import ftn.uns.ac.rs.model.ShowSobaDTO;
 import ftn.uns.ac.rs.model.SobaDTO;
 import ftn.uns.ac.rs.service.SobaService;
 
@@ -24,39 +25,27 @@ public class SobaController {
 	private SobaService sobaService;
 
 	@GetMapping
-	public ResponseEntity<List<SobaDTO>> getAll(){
+	public ResponseEntity<List<ShowSobaDTO>> getAll(){
 		if(sobaService.getAll() == null) {
-			return new ResponseEntity<List<SobaDTO>>(HttpStatus.NO_CONTENT);
+			return new ResponseEntity<List<ShowSobaDTO>>(HttpStatus.NO_CONTENT);
 		}
-		return new ResponseEntity<List<SobaDTO>>(sobaService.getAll(), HttpStatus.OK);
+		return new ResponseEntity<List<ShowSobaDTO>>(sobaService.getAll(), HttpStatus.OK);
 	}
-	
-	@GetMapping(value = "getAllSync")
-	public ResponseEntity<List<SobaDTO>> getAllSync(){
-		return new ResponseEntity<List<SobaDTO>>(sobaService.getAllSync(), HttpStatus.OK);
-	}
-	
-	@PostMapping(value = "createSync")
-	public ResponseEntity<Integer> createSync(@RequestBody SobaDTO sobaDTO){
-		return new ResponseEntity<Integer>(sobaService.createSync(sobaDTO), HttpStatus.OK);
-	}
-	
-	
 	
 	@GetMapping(value = "/{id}")
-	public ResponseEntity<SobaDTO> getById(@PathVariable Long id){
+	public ResponseEntity<ShowSobaDTO> getById(@PathVariable Long id){
 		if(sobaService.getById(id) == null) {
-			return new ResponseEntity<SobaDTO>(HttpStatus.NO_CONTENT);
+			return new ResponseEntity<ShowSobaDTO>(HttpStatus.NO_CONTENT);
 		}
-		return new ResponseEntity<SobaDTO>(sobaService.getById(id), HttpStatus.OK);
+		return new ResponseEntity<ShowSobaDTO>(sobaService.getById(id), HttpStatus.OK);
 	}
 	
 	@GetMapping(value = "/smestaj/{smestajId}")
-	public ResponseEntity<List<SobaDTO>> getBySmestaj(@PathVariable Long smestajId){
+	public ResponseEntity<List<ShowSobaDTO>> getBySmestaj(@PathVariable Long smestajId){
 		if(sobaService.getBySmestaj(smestajId) == null) {
-			return new ResponseEntity<List<SobaDTO>>(HttpStatus.NO_CONTENT);
+			return new ResponseEntity<List<ShowSobaDTO>>(HttpStatus.NO_CONTENT);
 		}
-		return new ResponseEntity<List<SobaDTO>>(sobaService.getBySmestaj(smestajId), HttpStatus.OK);
+		return new ResponseEntity<List<ShowSobaDTO>>(sobaService.getBySmestaj(smestajId), HttpStatus.OK);
 	}
 	
 	@PostMapping

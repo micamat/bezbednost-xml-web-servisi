@@ -30,17 +30,6 @@ public class LokacijaService {
 		return lokacijaRepository.findAll().stream().map(this::convertToDTO).collect(Collectors.toList());
 	};
 	
-	//TODO: Implementirati poslovnu logiku ..... cuvanja u bazu kao i 
-	public List<LokacijaDTO> getAllSync(){
-		ProducerPortService producerPortService = new ProducerPortService();
-		ProducerPort producerPort = producerPortService.getProducerPortSoap11();
-		
-		GetAllLokacijaRequest getAllLokacijaRequest = new GetAllLokacijaRequest();
-		GetAllLokacijaResponse getAllLokacijaResponse = producerPort.getAllLokacija(getAllLokacijaRequest);
-		return getAllLokacijaResponse.getLokacijaDTO();
-	};
-	
-	
 	public int createSync(LokacijaDTO cmd){
 		ProducerPortService producerPortService = new ProducerPortService();
 		ProducerPort producerPort = producerPortService.getProducerPortSoap11();
@@ -68,15 +57,17 @@ public class LokacijaService {
 	
 	
 	public boolean add(LokacijaDTO lokacijaDTO) {
-		lokacijaDTO.setId(null);
-		if(lokacijaRepository.save(convertToEntity(lokacijaDTO)) != null) {
+		lokacijaDTO.setId(lokacijaDTO.getId());
+		Lokacija  lokacija = lokacijaRepository.save(convertToEntity(lokacijaDTO));
+		if(lokacija != null) {
+			createSync(convertToDTO(lokacija));
 			return true;
 		}
 		return false;
 	}
 	
 	public Lokacija add(Lokacija lokacija) {
-		lokacija.setId(null);
+		lokacija.setId(lokacija.getId());
 		Lokacija l = lokacijaRepository.save(lokacija);
 		if(l != null) {
 			return l;

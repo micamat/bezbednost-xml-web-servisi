@@ -1,8 +1,7 @@
 
 package ftn.uns.ac.rs.model;
 
-import javax.xml.bind.annotation.XmlRegistry;
-
+import javax.xml.bind.annotation.XmlRegistry;;
 
 /**
  * This object contains factory methods for each 
@@ -138,8 +137,8 @@ public class ObjectFactory {
      * Create an instance of {@link UslugaDTO }
      * 
      */
-    public UslugaDTO createUslugaDTO() {
-        return new UslugaDTO();
+    public SifarnikDTO createUslugaDTO() {
+        return new SifarnikDTO();
     }
 
     /**
@@ -156,38 +155,6 @@ public class ObjectFactory {
      */
     public GetAllUslugaResponse createGetAllUslugaResponse() {
         return new GetAllUslugaResponse();
-    }
-
-    /**
-     * Create an instance of {@link GetByIdUslugaRequest }
-     * 
-     */
-    public GetByIdUslugaRequest createGetByIdUslugaRequest() {
-        return new GetByIdUslugaRequest();
-    }
-
-    /**
-     * Create an instance of {@link GetByIdUslugaResponse }
-     * 
-     */
-    public GetByIdUslugaResponse createGetByIdUslugaResponse() {
-        return new GetByIdUslugaResponse();
-    }
-
-    /**
-     * Create an instance of {@link CreateUslugaRequest }
-     * 
-     */
-    public CreateUslugaRequest createCreateUslugaRequest() {
-        return new CreateUslugaRequest();
-    }
-
-    /**
-     * Create an instance of {@link CreateUslugaResponse }
-     * 
-     */
-    public CreateUslugaResponse createCreateUslugaResponse() {
-        return new CreateUslugaResponse();
     }
 
     /**
@@ -220,22 +187,6 @@ public class ObjectFactory {
      */
     public GetAllCenovnikResponse createGetAllCenovnikResponse() {
         return new GetAllCenovnikResponse();
-    }
-
-    /**
-     * Create an instance of {@link GetByIdCenovnikRequest }
-     * 
-     */
-    public GetByIdCenovnikRequest createGetByIdCenovnikRequest() {
-        return new GetByIdCenovnikRequest();
-    }
-
-    /**
-     * Create an instance of {@link GetByIdCenovnikResponse }
-     * 
-     */
-    public GetByIdCenovnikResponse createGetByIdCenovnikResponse() {
-        return new GetByIdCenovnikResponse();
     }
 
     /**
@@ -286,21 +237,6 @@ public class ObjectFactory {
         return new GetAllZauzeceResponse();
     }
 
-    /**
-     * Create an instance of {@link GetByIdZauzeceRequest }
-     * 
-     */
-    public GetByIdZauzeceRequest createGetByIdZauzeceRequest() {
-        return new GetByIdZauzeceRequest();
-    }
-
-    /**
-     * Create an instance of {@link GetByIdZauzeceResponse }
-     * 
-     */
-    public GetByIdZauzeceResponse createGetByIdZauzeceResponse() {
-        return new GetByIdZauzeceResponse();
-    }
 
     /**
      * Create an instance of {@link CreateZauzeceRequest }
@@ -344,39 +280,6 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link GetByIdTipSobeRequest }
-     * 
-     */
-    public GetByIdTipSobeRequest createGetByIdTipSobeRequest() {
-        return new GetByIdTipSobeRequest();
-    }
-
-    /**
-     * Create an instance of {@link GetByIdTipSobeResponse }
-     * 
-     */
-    public GetByIdTipSobeResponse createGetByIdTipSobeResponse() {
-        return new GetByIdTipSobeResponse();
-    }
-
-    /**
-     * Create an instance of {@link CreateTipSobeRequest }
-     * 
-     */
-    public CreateTipSobeRequest createCreateTipSobeRequest() {
-        return new CreateTipSobeRequest();
-    }
-
-    /**
-     * Create an instance of {@link CreateTipSobeResponse }
-     * 
-     */
-    public CreateTipSobeResponse createCreateTipSobeResponse() {
-        return new CreateTipSobeResponse();
-    }
-
-
-    /**
      * Create an instance of {@link GetAllKategorijaSmestajaRequest }
      * 
      */
@@ -393,39 +296,6 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link GetByIdKategorijaSmestajaRequest }
-     * 
-     */
-    public GetByIdKategorijaSmestajaRequest createGetByIdKategorijaSmestajaRequest() {
-        return new GetByIdKategorijaSmestajaRequest();
-    }
-
-    /**
-     * Create an instance of {@link GetByIdKategorijaSmestajaResponse }
-     * 
-     */
-    public GetByIdKategorijaSmestajaResponse createGetByIdKategorijaSmestajaResponse() {
-        return new GetByIdKategorijaSmestajaResponse();
-    }
-
-    /**
-     * Create an instance of {@link CreateKategorijaSmestajaRequest }
-     * 
-     */
-    public CreateKategorijaSmestajaRequest createCreateKategorijaSmestajaRequest() {
-        return new CreateKategorijaSmestajaRequest();
-    }
-
-    /**
-     * Create an instance of {@link CreateKategorijaSmestajaResponse }
-     * 
-     */
-    public CreateKategorijaSmestajaResponse createCreateKategorijaSmestajaResponse() {
-        return new CreateKategorijaSmestajaResponse();
-    }
-
-
-    /**
      * Create an instance of {@link GetAllTipSmestajaRequest }
      * 
      */
@@ -439,38 +309,6 @@ public class ObjectFactory {
      */
     public GetAllTipSmestajaResponse createGetAllTipSmestajaResponse() {
         return new GetAllTipSmestajaResponse();
-    }
-
-    /**
-     * Create an instance of {@link GetByIdTipSmestajaRequest }
-     * 
-     */
-    public GetByIdTipSmestajaRequest createGetByIdTipSmestajaRequest() {
-        return new GetByIdTipSmestajaRequest();
-    }
-
-    /**
-     * Create an instance of {@link GetByIdTipSmestajaResponse }
-     * 
-     */
-    public GetByIdTipSmestajaResponse createGetByIdTipSmestajaResponse() {
-        return new GetByIdTipSmestajaResponse();
-    }
-
-    /**
-     * Create an instance of {@link CreateTipSmestajaRequest }
-     * 
-     */
-    public CreateTipSmestajaRequest createCreateTipSmestajaRequest() {
-        return new CreateTipSmestajaRequest();
-    }
-
-    /**
-     * Create an instance of {@link CreateTipSmestajaResponse }
-     * 
-     */
-    public CreateTipSmestajaResponse createCreateTipSmestajaResponse() {
-        return new CreateTipSmestajaResponse();
     }
 
     /**
@@ -497,21 +335,6 @@ public class ObjectFactory {
         return new GetAllLokacijaResponse();
     }
 
-    /**
-     * Create an instance of {@link GetByIdLokacijaRequest }
-     * 
-     */
-    public GetByIdLokacijaRequest createGetByIdLokacijaRequest() {
-        return new GetByIdLokacijaRequest();
-    }
-
-    /**
-     * Create an instance of {@link GetByIdLokacijaResponse }
-     * 
-     */
-    public GetByIdLokacijaResponse createGetByIdLokacijaResponse() {
-        return new GetByIdLokacijaResponse();
-    }
 
     /**
      * Create an instance of {@link CreateLokacijaRequest }
@@ -553,21 +376,6 @@ public class ObjectFactory {
         return new GetAllKoordinateResponse();
     }
 
-    /**
-     * Create an instance of {@link GetByIdKoordinateRequest }
-     * 
-     */
-    public GetByIdKoordinateRequest createGetByIdKoordinateRequest() {
-        return new GetByIdKoordinateRequest();
-    }
-
-    /**
-     * Create an instance of {@link GetByIdKoordinateResponse }
-     * 
-     */
-    public GetByIdKoordinateResponse createGetByIdKoordinateResponse() {
-        return new GetByIdKoordinateResponse();
-    }
 
     /**
      * Create an instance of {@link CreateKoordinateRequest }
@@ -610,22 +418,6 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link GetByIdSmestajRequest }
-     * 
-     */
-    public GetByIdSmestajRequest createGetByIdSmestajRequest() {
-        return new GetByIdSmestajRequest();
-    }
-
-    /**
-     * Create an instance of {@link GetByIdSmestajResponse }
-     * 
-     */
-    public GetByIdSmestajResponse createGetByIdSmestajResponse() {
-        return new GetByIdSmestajResponse();
-    }
-
-    /**
      * Create an instance of {@link CreateSmestajRequest }
      * 
      */
@@ -663,22 +455,6 @@ public class ObjectFactory {
      */
     public GetAllSobaResponse createGetAllSobaResponse() {
         return new GetAllSobaResponse();
-    }
-
-    /**
-     * Create an instance of {@link GetByIdSobaRequest }
-     * 
-     */
-    public GetByIdSobaRequest createGetByIdSobaRequest() {
-        return new GetByIdSobaRequest();
-    }
-
-    /**
-     * Create an instance of {@link GetByIdSobaResponse }
-     * 
-     */
-    public GetByIdSobaResponse createGetByIdSobaResponse() {
-        return new GetByIdSobaResponse();
     }
 
     /**

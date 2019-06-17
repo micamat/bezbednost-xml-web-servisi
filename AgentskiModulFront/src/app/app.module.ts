@@ -14,6 +14,8 @@ import { PricelistComponent } from './pricelist/pricelist.component';
 import { AccommodationAddComponent } from './accommodation-add/accommodation-add.component';
 import { HttpClientModule } from '@angular/common/http';
 import { AccommodationChangeComponent } from './accommodation-change/accommodation-change.component';
+import { RoomAddComponent } from './room-add/room-add.component';
+import { RoomChangeComponent } from './room-change/room-change.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +29,9 @@ import { AccommodationChangeComponent } from './accommodation-change/accommodati
     OcupationComponent,
     PricelistComponent,
     AccommodationAddComponent,
-    AccommodationChangeComponent
+    AccommodationChangeComponent,
+    RoomAddComponent,
+    RoomChangeComponent
   ],
   imports: [
     BrowserModule,

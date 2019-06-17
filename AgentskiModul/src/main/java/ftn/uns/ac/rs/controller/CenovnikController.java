@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import ftn.uns.ac.rs.model.CenovnikDTO;
+import ftn.uns.ac.rs.model.ShowCenovnikDTO;
 import ftn.uns.ac.rs.service.CenovnikService;
 
 @RestController
@@ -24,38 +25,27 @@ public class CenovnikController {
 	private CenovnikService cenovnikService;
 
 	@GetMapping
-	public ResponseEntity<List<CenovnikDTO>> getAll(){
+	public ResponseEntity<List<ShowCenovnikDTO>> getAll(){
 		if(cenovnikService.getAll() == null) {
-			return new ResponseEntity<List<CenovnikDTO>>(HttpStatus.NO_CONTENT);
+			return new ResponseEntity<List<ShowCenovnikDTO>>(HttpStatus.NO_CONTENT);
 		}
-		return new ResponseEntity<List<CenovnikDTO>>(cenovnikService.getAll(), HttpStatus.OK);
-	}
-	
-	@GetMapping(value = "getAllSync")
-	public ResponseEntity<List<CenovnikDTO>> getAllSync(){
-		return new ResponseEntity<List<CenovnikDTO>>(cenovnikService.getAllSync(), HttpStatus.OK);
-	}
-	
-	@PostMapping(value = "createSync")
-	public ResponseEntity<Integer> createSync(@RequestBody CenovnikDTO cenovnikDTO){
-		
-		return new ResponseEntity<Integer>(cenovnikService.createSync(cenovnikDTO), HttpStatus.OK);
+		return new ResponseEntity<List<ShowCenovnikDTO>>(cenovnikService.getAll(), HttpStatus.OK);
 	}
 	
 	@GetMapping(value = "/{id}")
-	public ResponseEntity<CenovnikDTO> getById(@PathVariable Long id){
+	public ResponseEntity<ShowCenovnikDTO> getById(@PathVariable Long id){
 		if(cenovnikService.getById(id) == null) {
-			return new ResponseEntity<CenovnikDTO>(HttpStatus.NO_CONTENT);
+			return new ResponseEntity<ShowCenovnikDTO>(HttpStatus.NO_CONTENT);
 		}
-		return new ResponseEntity<CenovnikDTO>(cenovnikService.getById(id), HttpStatus.OK);
+		return new ResponseEntity<ShowCenovnikDTO>(cenovnikService.getById(id), HttpStatus.OK);
 	}
 	
 	@GetMapping(value = "/smestaj/{smestajId}")
-	public ResponseEntity<List<CenovnikDTO>> getBySmestaj(@PathVariable Long smestajId){
+	public ResponseEntity<List<ShowCenovnikDTO>> getBySmestaj(@PathVariable Long smestajId){
 		if(cenovnikService.getBySmestaj(smestajId) == null) {
-			return new ResponseEntity<List<CenovnikDTO>>(HttpStatus.NO_CONTENT);
+			return new ResponseEntity<List<ShowCenovnikDTO>>(HttpStatus.NO_CONTENT);
 		}
-		return new ResponseEntity<List<CenovnikDTO>>(cenovnikService.getBySmestaj(smestajId), HttpStatus.OK);
+		return new ResponseEntity<List<ShowCenovnikDTO>>(cenovnikService.getBySmestaj(smestajId), HttpStatus.OK);
 	}
 	
 	@PostMapping

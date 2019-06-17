@@ -31,11 +31,6 @@ public class LokacijaController {
 		return new ResponseEntity<List<LokacijaDTO>>(lokacijaService.getAll(), HttpStatus.OK);
 	}
 	
-	@GetMapping(value = "getAllSync")
-	public ResponseEntity<List<LokacijaDTO>> getAllSync(){
-		return new ResponseEntity<List<LokacijaDTO>>(lokacijaService.getAllSync(), HttpStatus.OK);
-	}
-	
 	@PostMapping(value = "createSync")
 	public ResponseEntity<Integer> createSync(@RequestBody LokacijaDTO lokacijaDTO){
 		

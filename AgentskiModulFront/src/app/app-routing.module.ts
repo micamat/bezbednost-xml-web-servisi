@@ -9,6 +9,8 @@ import { OcupationComponent } from './ocupation/ocupation.component';
 import { PricelistComponent } from './pricelist/pricelist.component';
 import { AccommodationAddComponent } from './accommodation-add/accommodation-add.component';
 import { AccommodationChangeComponent } from './accommodation-change/accommodation-change.component';
+import { RoomAddComponent } from './room-add/room-add.component';
+import { RoomChangeComponent } from './room-change/room-change.component';
 
 const routes: Routes = [
   {path : '', component: HomeComponent},
@@ -18,6 +20,8 @@ const routes: Routes = [
   {path : 'accommodation/add', component : AccommodationAddComponent},
   {path : 'accommodation/change/:id', component : AccommodationChangeComponent},
   {path : 'room', component : RoomComponent},
+  {path : 'room/add', component : RoomAddComponent},
+  {path : 'room/change/:id', component : RoomChangeComponent},
   {path : 'ocupation', component : OcupationComponent},
   {path : 'pricelist', component : PricelistComponent},
 ];

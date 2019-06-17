@@ -24,11 +24,6 @@ public class StatusSobeController {
 
 	@Autowired
 	private StatusSobeService statusSobeService;
-
-	@GetMapping(value = "getAllSync")
-	public ResponseEntity<List<SifarnikDTO>> getAllSync(){
-		return new ResponseEntity<List<SifarnikDTO>>(statusSobeService.getAllSync(), HttpStatus.OK);
-	}
 	
 	@PostMapping(value = "createSync")
 	public ResponseEntity<Integer> createSync(@RequestBody SifarnikDTO StatusSobeDTO){

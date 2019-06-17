@@ -8,8 +8,6 @@ import org.springframework.stereotype.Service;
 
 import ftn.uns.ac.rs.model.CreateStatusSobeRequest;
 import ftn.uns.ac.rs.model.CreateStatusSobeResponse;
-import ftn.uns.ac.rs.model.GetAllStatusSobeRequest;
-import ftn.uns.ac.rs.model.GetAllStatusSobeResponse;
 import ftn.uns.ac.rs.model.ProducerPort;
 import ftn.uns.ac.rs.model.ProducerPortService;
 import ftn.uns.ac.rs.model.SifarnikDTO;
@@ -20,16 +18,6 @@ import ftn.uns.ac.rs.repository.StatusSobeRepository;
 public class StatusSobeService {
 	@Autowired
 	private StatusSobeRepository statusSobeRepository;
-
-	public List<SifarnikDTO> getAllSync(){
-		ProducerPortService producerPortService = new ProducerPortService();
-		ProducerPort producerPort = producerPortService.getProducerPortSoap11();
-		
-		GetAllStatusSobeRequest getStatusSobeRequest = new GetAllStatusSobeRequest();
-		GetAllStatusSobeResponse getStatusSobeResponse = producerPort.getAllStatusSobe(getStatusSobeRequest);
-		return getStatusSobeResponse.getStatusSobeDTO();
-	};
-	
 	
 	public int createSync(SifarnikDTO smd){
 		ProducerPortService producerPortService = new ProducerPortService();
@@ -59,7 +47,8 @@ public class StatusSobeService {
 	public boolean add(SifarnikDTO statusSobeDTO) {
 		statusSobeDTO.setId(null);
 		if(statusSobeRepository.findAll().stream().filter(x -> statusSobeDTO.getNaziv().equals(x.getNaziv())).map(this::convertToDTO).collect(Collectors.toList()).isEmpty()) {
-			statusSobeRepository.save(convertToEntity(statusSobeDTO));
+			StatusSobe statusSobe = statusSobeRepository.save(convertToEntity(statusSobeDTO));
+			createSync(convertToDTO(statusSobe));
 			return true;
 		}
 		return false;

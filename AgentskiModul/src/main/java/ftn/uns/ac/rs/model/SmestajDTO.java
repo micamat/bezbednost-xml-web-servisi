@@ -39,6 +39,10 @@ import javax.xml.bind.annotation.XmlType;
     "naziv",
     "opis",
     //"slika",
+    "drzava",
+    "grad",
+    "ulica",
+    "broj",
     "idLokacija",
     "idTipSmestaja",
     "idKategorijaSmestaja"
@@ -62,9 +66,9 @@ public class SmestajDTO {
     protected String ulica;
     @XmlElement(required = true)
     protected String broj;
-    
-    protected long idTipSmestaja;
-    protected long idKategorijaSmestaja;
+    protected Long idLokacija;
+    protected Long idTipSmestaja;
+    protected Long idKategorijaSmestaja;
 
     /**
      * Gets the value of the id property.
@@ -233,6 +237,16 @@ public class SmestajDTO {
 	public void setBroj(String broj) {
 		this.broj = broj;
 	}
+
+	public long getIdLokacija() {
+		return idLokacija;
+	}
+
+	public void setIdLokacija(long idLokacija) {
+		this.idLokacija = idLokacija;
+	}
+	
+	
     
     
 

@@ -8,10 +8,9 @@ import org.springframework.stereotype.Service;
 
 import ftn.uns.ac.rs.model.CreateZauzeceRequest;
 import ftn.uns.ac.rs.model.CreateZauzeceResponse;
-import ftn.uns.ac.rs.model.GetAllZauzeceRequest;
-import ftn.uns.ac.rs.model.GetAllZauzeceResponse;
 import ftn.uns.ac.rs.model.ProducerPort;
 import ftn.uns.ac.rs.model.ProducerPortService;
+import ftn.uns.ac.rs.model.ShowZauzeceDTO;
 import ftn.uns.ac.rs.model.Zauzece;
 import ftn.uns.ac.rs.model.ZauzeceDTO;
 import ftn.uns.ac.rs.repository.SobaRepository;
@@ -29,36 +28,21 @@ public class ZauzeceService {
 
 	@Autowired
 	private ZauzeceRepository zauzeceRepository;
-
-	public List<ZauzeceDTO> getAllSync(){
+	
+	public int createSync(Zauzece zauzece){
 		ProducerPortService producerPortService = new ProducerPortService();
 		ProducerPort producerPort = producerPortService.getProducerPortSoap11();
 		
-		GetAllZauzeceRequest getZauzeceRequest = new GetAllZauzeceRequest();
-		GetAllZauzeceResponse getZauzeceResponse = producerPort.getAllZauzece(getZauzeceRequest);
-		return getZauzeceResponse.getZauzeceDTO();
-	};
-	
-	
-	public int createSync(ZauzeceDTO smd){
-		ProducerPortService producerPortService = new ProducerPortService();
-		ProducerPort producerPort = producerPortService.getProducerPortSoap11();
-		
-		CreateZauzeceRequest getZauzeceRequest = new CreateZauzeceRequest();
-		getZauzeceRequest.setId(smd.getId());
-		getZauzeceRequest.setDatumDo(smd.getDatumDo());
-		getZauzeceRequest.setDatumOd(smd.getDatumOd());
-		getZauzeceRequest.setIdSoba(smd.getIdSoba());
-		getZauzeceRequest.setIdStatusSobe(smd.getIdStatusSobe());
+		CreateZauzeceRequest getZauzeceRequest = new CreateZauzeceRequest(zauzece);
 		CreateZauzeceResponse getZauzeceResponse = producerPort.createZauzece(getZauzeceRequest);
 		return getZauzeceResponse.getId();
 	};
 	
-	public List<ZauzeceDTO> getAll(){ 
+	public List<ShowZauzeceDTO> getAll(){ 
 		return zauzeceRepository.findAll().stream().map(this::convertToDTO).collect(Collectors.toList());
 	};
 	
-	public ZauzeceDTO getById(Long id) {
+	public ShowZauzeceDTO getById(Long id) {
 		if(!zauzeceRepository.existsById(id)) {
 			return null;
 		}
@@ -66,13 +50,15 @@ public class ZauzeceService {
 		return convertToDTO(zauzece);
 	}
 	
-	public List<ZauzeceDTO> getBySmestaj(Long smestajId) {
+	public List<ShowZauzeceDTO> getBySmestaj(Long smestajId) {
 		return zauzeceRepository.findAll().stream().filter(x -> smestajId.equals(x.getSoba().getSmestaj().getId())).map(this::convertToDTO).collect(Collectors.toList());
 	}
 	
 	public boolean add(ZauzeceDTO zauzeceDTO) {
-		zauzeceDTO.setId(null);
-		if(zauzeceRepository.save(convertToEntity(zauzeceDTO)) != null) {
+		zauzeceDTO.setId(zauzeceDTO.getId());
+		Zauzece zauzece = zauzeceRepository.save(convertToEntity(zauzeceDTO));
+		if(zauzece != null) {
+			createSync(zauzece);
 			return true;
 		}
 		return false;
@@ -86,13 +72,14 @@ public class ZauzeceService {
 		return false;
 	}
 	
-	private ZauzeceDTO convertToDTO(Zauzece zauzece) {
-		ZauzeceDTO zauzeceDTO = new ZauzeceDTO();
+	private ShowZauzeceDTO convertToDTO(Zauzece zauzece) {
+		ShowZauzeceDTO zauzeceDTO = new ShowZauzeceDTO();
 		zauzeceDTO.setId(zauzece.getId());
 		zauzeceDTO.setDatumOd(zauzece.getDatumOd());
-		zauzeceDTO.setDatumOd(zauzece.getDatumDo());
-		zauzeceDTO.setIdSoba(zauzece.getSoba().getId());
-		zauzeceDTO.setIdStatusSobe(zauzece.getStatusSobe().getId());
+		zauzeceDTO.setDatumDo(zauzece.getDatumDo());
+		zauzeceDTO.setNazivSobe(zauzece.getSoba().getNaziv());
+		zauzeceDTO.setNazivStatusaSobe(zauzece.getStatusSobe().getNaziv());
+		zauzeceDTO.setNazivSmestaja(zauzece.getSoba().getSmestaj().getNaziv());
 		return zauzeceDTO;
 	}
 	
@@ -100,7 +87,7 @@ public class ZauzeceService {
 		Zauzece zauzece = new Zauzece();
 		zauzece.setId(zauzeceDTO.getId());
 		zauzece.setDatumOd(zauzeceDTO.getDatumOd());
-		zauzece.setDatumOd(zauzeceDTO.getDatumDo());
+		zauzece.setDatumDo(zauzeceDTO.getDatumDo());
 		zauzece.setSoba(sobaRepository.findById(zauzeceDTO.getIdSoba()).orElse(null));
 		zauzece.setStatusSobe(statusSobeRepository.findById(zauzeceDTO.getIdStatusSobe()).orElse(null));
 		return zauzece;
