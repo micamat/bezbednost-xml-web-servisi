@@ -1,19 +1,20 @@
 package ftn.uns.ac.rs.service;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import ftn.uns.ac.rs.model.CreateLokacijaRequest;
 import ftn.uns.ac.rs.model.CreateSmestajRequest;
 import ftn.uns.ac.rs.model.CreateSmestajResponse;
 import ftn.uns.ac.rs.model.Lokacija;
 import ftn.uns.ac.rs.model.ProducerPort;
 import ftn.uns.ac.rs.model.ProducerPortService;
+import ftn.uns.ac.rs.model.ShowSmestajDTO;
 import ftn.uns.ac.rs.model.Smestaj;
 import ftn.uns.ac.rs.model.SmestajDTO;
-import ftn.uns.ac.rs.model.getSmestajDTO;
 import ftn.uns.ac.rs.repository.KategorijaSmestajaRepository;
 import ftn.uns.ac.rs.repository.SmestajRepository;
 import ftn.uns.ac.rs.repository.TipSmestajaRepository;
@@ -33,63 +34,44 @@ public class SmestajService {
 	@Autowired
 	private KategorijaSmestajaRepository kategorijaSmestajaRepository;
 
-	public List<getSmestajDTO> getAll(){ 
-		List<Smestaj> s = smestajRepository.findAll();
-		List<getSmestajDTO> sl = new ArrayList<getSmestajDTO>();
-		for(Smestaj temp : s) {
-			getSmestajDTO dto = new getSmestajDTO();
-			dto.setId(temp.getId());
-			dto.setNaziv(temp.getNaziv());
-			dto.setOpis(temp.getOpis());
-			dto.setKategorijaSmestaja(temp.getKategorijaSmestaja().getNaziv());
-			dto.setTipSmestaja(temp.getTipSmestaja().getNaziv());
-			dto.setDrzava(temp.getLokacija().getDrzava());
-			dto.setGrad(temp.getLokacija().getGrad());
-			dto.setUlica(temp.getLokacija().getUlica());
-			dto.setBroj(temp.getLokacija().getBroj());
-			dto.setIdLokacija(temp.getLokacija().getId());
-			sl.add(dto);
-		}
-		return sl;
+	public List<ShowSmestajDTO> getAll(){ 
+		return smestajRepository.findAll().stream().map(this::convertToDTO).collect(Collectors.toList());
 	};
 	
-	public int createSync(SmestajDTO smd){
+	public int createSync(Smestaj smestaj, Lokacija lokacija){
 		ProducerPortService producerPortService = new ProducerPortService();
 		ProducerPort producerPort = producerPortService.getProducerPortSoap11();
-		
+		CreateLokacijaRequest getLokacijaRequest = new CreateLokacijaRequest();
+		getLokacijaRequest.setId(lokacija.getId());
+		getLokacijaRequest.setDrzava(lokacija.getDrzava());
+		getLokacijaRequest.setGrad(lokacija.getGrad());
+		getLokacijaRequest.setUlica(lokacija.getUlica());
+		getLokacijaRequest.setBroj(lokacija.getBroj());
+		producerPort.createLokacija(getLokacijaRequest);
 		CreateSmestajRequest getSmestajRequest = new CreateSmestajRequest();
-		getSmestajRequest.setId(smd.getId());
-		getSmestajRequest.setIdKategorijaSmestaja(smd.getIdKategorijaSmestaja());
+		getSmestajRequest.setId(smestaj.getId());
+		getSmestajRequest.setIdKategorijaSmestaja(smestaj.getKategorijaSmestaja().getId());
 		//getSmestajRequest.setIdLokacija(smd.getIdLokacija());
-		getSmestajRequest.setIdTipSmestaja(smd.getIdTipSmestaja());
-		getSmestajRequest.setNaziv(smd.getNaziv());
-		getSmestajRequest.setOpis(smd.getOpis());
+		getSmestajRequest.setIdTipSmestaja(smestaj.getTipSmestaja().getId());
+		getSmestajRequest.setNaziv(smestaj.getNaziv());
+		getSmestajRequest.setOpis(smestaj.getOpis());
 		//getSmestajRequest.setSlika(smd.getSlika());
 		CreateSmestajResponse getSmestajResponse = producerPort.createSmestaj(getSmestajRequest);
 		return getSmestajResponse.getId();
 	};
 	
-	public getSmestajDTO getById(Long id) {
-		Smestaj s = smestajRepository.findById(id).get();
-		
-		getSmestajDTO dto = new getSmestajDTO();
-		dto.setId(s.getId());
-		dto.setNaziv(s.getNaziv());
-		dto.setOpis(s.getOpis());
-		dto.setKategorijaSmestaja(s.getKategorijaSmestaja().getNaziv());
-		dto.setTipSmestaja(s.getTipSmestaja().getNaziv());
-		dto.setDrzava(s.getLokacija().getDrzava());
-		dto.setGrad(s.getLokacija().getGrad());
-		dto.setUlica(s.getLokacija().getUlica());
-		dto.setBroj(s.getLokacija().getBroj());
-		dto.setIdLokacija(s.getLokacija().getId());
-		
-		return dto;
+	public ShowSmestajDTO getById(Long id) {
+		if(!smestajRepository.existsById(id)) {
+			return null;
+		}
+		Smestaj smestaj = smestajRepository.findById(id).orElse(null);
+		return convertToDTO(smestaj);
 	}
 	
 	
 	public boolean add(SmestajDTO smestajDTO) {
 		Lokacija l = new Lokacija();
+		
 		l.setId(smestajDTO.getIdLokacija());
 		l.setBroj(smestajDTO.getBroj());
 		l.setDrzava(smestajDTO.getDrzava());
@@ -104,8 +86,8 @@ public class SmestajService {
 		s.setNaziv(smestajDTO.getNaziv());
 		s.setOpis(smestajDTO.getOpis());
 		s = smestajRepository.save(s);
-		if(s != null) {
-			createSync(convertToDTO(s));
+		if(s != null && l != null) {
+			createSync(s, l);
 			return true;
 		}
 		return false;
@@ -121,14 +103,20 @@ public class SmestajService {
 		return false;
 	}
 	
-	private SmestajDTO convertToDTO(Smestaj smestaj) {
-		SmestajDTO smestajDTO = new SmestajDTO();
+	private ShowSmestajDTO convertToDTO(Smestaj smestaj) {
+		
+		ShowSmestajDTO smestajDTO = new ShowSmestajDTO();
 		smestajDTO.setId(smestaj.getId());
+		smestajDTO.setNaziv(smestaj.getNaziv());
 		smestajDTO.setOpis(smestaj.getOpis());
-		//smestajDTO.setSlika(smestaj.getSlika());
-		//smestajDTO.setIdLokacija(smestaj.getLokacija().getId());
-		smestajDTO.setIdTipSmestaja(smestaj.getTipSmestaja().getId());
-		smestajDTO.setIdKategorijaSmestaja(smestaj.getKategorijaSmestaja().getId());
+		smestajDTO.setKategorijaSmestaja(smestaj.getKategorijaSmestaja().getNaziv());
+		smestajDTO.setTipSmestaja(smestaj.getTipSmestaja().getNaziv());
+		smestajDTO.setDrzava(smestaj.getLokacija().getDrzava());
+		smestajDTO.setGrad(smestaj.getLokacija().getGrad());
+		smestajDTO.setUlica(smestaj.getLokacija().getUlica());
+		smestajDTO.setBroj(smestaj.getLokacija().getBroj());
+		smestajDTO.setIdLokacija(smestaj.getLokacija().getId());
+		
 		return smestajDTO;
 	}
 	

@@ -10,6 +10,7 @@ import ftn.uns.ac.rs.model.CreateZauzeceRequest;
 import ftn.uns.ac.rs.model.CreateZauzeceResponse;
 import ftn.uns.ac.rs.model.ProducerPort;
 import ftn.uns.ac.rs.model.ProducerPortService;
+import ftn.uns.ac.rs.model.ShowZauzeceDTO;
 import ftn.uns.ac.rs.model.Zauzece;
 import ftn.uns.ac.rs.model.ZauzeceDTO;
 import ftn.uns.ac.rs.repository.SobaRepository;
@@ -37,11 +38,11 @@ public class ZauzeceService {
 		return getZauzeceResponse.getId();
 	};
 	
-	public List<ZauzeceDTO> getAll(){ 
+	public List<ShowZauzeceDTO> getAll(){ 
 		return zauzeceRepository.findAll().stream().map(this::convertToDTO).collect(Collectors.toList());
 	};
 	
-	public ZauzeceDTO getById(Long id) {
+	public ShowZauzeceDTO getById(Long id) {
 		if(!zauzeceRepository.existsById(id)) {
 			return null;
 		}
@@ -49,13 +50,13 @@ public class ZauzeceService {
 		return convertToDTO(zauzece);
 	}
 	
-	public List<ZauzeceDTO> getBySmestaj(Long smestajId) {
+	public List<ShowZauzeceDTO> getBySmestaj(Long smestajId) {
 		return zauzeceRepository.findAll().stream().filter(x -> smestajId.equals(x.getSoba().getSmestaj().getId())).map(this::convertToDTO).collect(Collectors.toList());
 	}
 	
-	public boolean add(Zauzece zauzece) {
-		zauzece.setId(null);
-		zauzece = zauzeceRepository.save(zauzece);
+	public boolean add(ZauzeceDTO zauzeceDTO) {
+		zauzeceDTO.setId(null);
+		Zauzece zauzece = zauzeceRepository.save(convertToEntity(zauzeceDTO));
 		if(zauzece != null) {
 			createSync(zauzece);
 			return true;
@@ -71,13 +72,14 @@ public class ZauzeceService {
 		return false;
 	}
 	
-	private ZauzeceDTO convertToDTO(Zauzece zauzece) {
-		ZauzeceDTO zauzeceDTO = new ZauzeceDTO();
+	private ShowZauzeceDTO convertToDTO(Zauzece zauzece) {
+		ShowZauzeceDTO zauzeceDTO = new ShowZauzeceDTO();
 		zauzeceDTO.setId(zauzece.getId());
 		zauzeceDTO.setDatumOd(zauzece.getDatumOd());
-		zauzeceDTO.setDatumOd(zauzece.getDatumDo());
-		zauzeceDTO.setIdSoba(zauzece.getSoba().getId());
-		zauzeceDTO.setIdStatusSobe(zauzece.getStatusSobe().getId());
+		zauzeceDTO.setDatumDo(zauzece.getDatumDo());
+		zauzeceDTO.setNazivSobe(zauzece.getSoba().getNaziv());
+		zauzeceDTO.setNazivStatusaSobe(zauzece.getStatusSobe().getNaziv());
+		zauzeceDTO.setNazivSmestaja(zauzece.getSoba().getSmestaj().getNaziv());
 		return zauzeceDTO;
 	}
 	
@@ -85,7 +87,7 @@ public class ZauzeceService {
 		Zauzece zauzece = new Zauzece();
 		zauzece.setId(zauzeceDTO.getId());
 		zauzece.setDatumOd(zauzeceDTO.getDatumOd());
-		zauzece.setDatumOd(zauzeceDTO.getDatumDo());
+		zauzece.setDatumDo(zauzeceDTO.getDatumDo());
 		zauzece.setSoba(sobaRepository.findById(zauzeceDTO.getIdSoba()).orElse(null));
 		zauzece.setStatusSobe(statusSobeRepository.findById(zauzeceDTO.getIdStatusSobe()).orElse(null));
 		return zauzece;

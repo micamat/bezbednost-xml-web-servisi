@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import ftn.uns.ac.rs.model.SmestajDTO;
-import ftn.uns.ac.rs.model.getSmestajDTO;
+import ftn.uns.ac.rs.model.ShowSmestajDTO;
 import ftn.uns.ac.rs.service.SmestajService;
 
 @RestController
@@ -25,25 +25,18 @@ public class SmestajController {
 	private SmestajService smestajService;
 
 	@GetMapping
-	public ResponseEntity<List<getSmestajDTO>> getAll(){
+	public ResponseEntity<List<ShowSmestajDTO>> getAll(){
 		if(smestajService.getAll() == null) {
-			return new ResponseEntity<List<getSmestajDTO>>(HttpStatus.NO_CONTENT);
+			return new ResponseEntity<List<ShowSmestajDTO>>(HttpStatus.NO_CONTENT);
 		}
-		return new ResponseEntity<List<getSmestajDTO>>(smestajService.getAll(), HttpStatus.OK);
+		return new ResponseEntity<List<ShowSmestajDTO>>(smestajService.getAll(), HttpStatus.OK);
 	}
-	
-	@PostMapping(value = "createSync")
-	public ResponseEntity<Integer> createSync(@RequestBody SmestajDTO smestajDTO){
-		
-		return new ResponseEntity<Integer>(smestajService.createSync(smestajDTO), HttpStatus.OK);
-	}
-	
 	@GetMapping(value = "/{id}")
-	public ResponseEntity<getSmestajDTO> getById(@PathVariable Long id){
+	public ResponseEntity<ShowSmestajDTO> getById(@PathVariable Long id){
 		if(smestajService.getById(id) == null) {
-			return new ResponseEntity<getSmestajDTO>(HttpStatus.NO_CONTENT);
+			return new ResponseEntity<ShowSmestajDTO>(HttpStatus.NO_CONTENT);
 		}
-		return new ResponseEntity<getSmestajDTO>(smestajService.getById(id), HttpStatus.OK);
+		return new ResponseEntity<ShowSmestajDTO>(smestajService.getById(id), HttpStatus.OK);
 	}
 	
 	@PostMapping
