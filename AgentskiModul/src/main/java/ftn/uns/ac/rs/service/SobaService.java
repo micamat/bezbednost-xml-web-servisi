@@ -10,6 +10,7 @@ import ftn.uns.ac.rs.model.CreateSobaRequest;
 import ftn.uns.ac.rs.model.CreateSobaResponse;
 import ftn.uns.ac.rs.model.ProducerPort;
 import ftn.uns.ac.rs.model.ProducerPortService;
+import ftn.uns.ac.rs.model.ShowSobaDTO;
 import ftn.uns.ac.rs.model.Soba;
 import ftn.uns.ac.rs.model.SobaDTO;
 import ftn.uns.ac.rs.repository.SmestajRepository;
@@ -28,21 +29,21 @@ public class SobaService {
 	@Autowired
 	private TipSobeRepository tipSobeRepository;
 
-	public List<SobaDTO> getAll(){ 
+	public List<ShowSobaDTO> getAll(){ 
 		return sobaRepository.findAll().stream().map(this::convertToDTO).collect(Collectors.toList());
 	};
 		
-	public int createSync(SobaDTO smd){
+	public int createSync(Soba soba){
 		ProducerPortService producerPortService = new ProducerPortService();
 		ProducerPort producerPort = producerPortService.getProducerPortSoap11();
 		
 		CreateSobaRequest getSobaRequest = new CreateSobaRequest();
-		getSobaRequest.setId(smd.getId());
-		getSobaRequest.setIdSmestaj(smd.getIdSmestaj());
-		getSobaRequest.setIdTipSobe(smd.getIdTipSobe());
-		getSobaRequest.setNaziv(smd.getNaziv());
-		getSobaRequest.setOpis(smd.getOpis());
-		getSobaRequest.setSlika(smd.getSlika());
+		getSobaRequest.setId(soba.getId());
+		getSobaRequest.setIdSmestaj(soba.getSmestaj().getId());
+		getSobaRequest.setIdTipSobe(soba.getTipSobe().getId());
+		getSobaRequest.setNaziv(soba.getNaziv());
+		getSobaRequest.setOpis(soba.getOpis());
+		getSobaRequest.setSlika(soba.getSlika());
 		
 		CreateSobaResponse getSmestajResponse = producerPort.createSoba(getSobaRequest);
 		return getSmestajResponse.getId();
@@ -50,7 +51,7 @@ public class SobaService {
 	
 	
 	
-	public SobaDTO getById(Long id) {
+	public ShowSobaDTO getById(Long id) {
 		if(!sobaRepository.existsById(id)) {
 			return null;
 		}
@@ -58,16 +59,16 @@ public class SobaService {
 		return convertToDTO(soba);
 	}
 	
-	public List<SobaDTO> getBySmestaj(Long smestajId) {
+	public List<ShowSobaDTO> getBySmestaj(Long smestajId) {
 		return sobaRepository.findAll().stream().filter(x -> smestajId.equals(x.getSmestaj().getId())).map(this::convertToDTO).collect(Collectors.toList());
 	}
 	
 	
 	public boolean add(SobaDTO sobaDTO) {
 		sobaDTO.setId(null);
-		Soba soba =sobaRepository.save(convertToEntity(sobaDTO));
+		Soba soba = sobaRepository.save(convertToEntity(sobaDTO));
 		if(soba != null) {
-			createSync(convertToDTO(soba));
+			createSync(soba);
 			return true;
 		}
 		return false;
@@ -81,14 +82,15 @@ public class SobaService {
 		return false;
 	}
 	
-	private SobaDTO convertToDTO(Soba soba) {
-		SobaDTO sobaDTO = new SobaDTO();
+	private ShowSobaDTO convertToDTO(Soba soba) {
+		ShowSobaDTO sobaDTO = new ShowSobaDTO();
 		sobaDTO.setId(soba.getId());
 		sobaDTO.setNaziv(soba.getNaziv());
 		sobaDTO.setOpis(soba.getOpis());
 		sobaDTO.setSlika(soba.getSlika());
-		sobaDTO.setIdTipSobe(soba.getTipSobe().getId());
-		sobaDTO.setIdSmestaj(soba.getSmestaj().getId());
+		sobaDTO.setNazivSmestaja(soba.getSmestaj().getNaziv());
+		sobaDTO.setNazivTipaSobe(soba.getTipSobe().getNaziv());
+		sobaDTO.setOpisTipaSobe(soba.getTipSobe().getOpis());
 		return sobaDTO;
 	}
 	
