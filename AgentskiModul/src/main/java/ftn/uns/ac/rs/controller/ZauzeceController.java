@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import ftn.uns.ac.rs.model.ShowZauzeceDTO;
 import ftn.uns.ac.rs.model.Zauzece;
 import ftn.uns.ac.rs.model.ZauzeceDTO;
 import ftn.uns.ac.rs.service.ZauzeceService;
@@ -24,38 +25,32 @@ public class ZauzeceController {
 	@Autowired
 	private ZauzeceService zauzeceService;
 	
-	@PostMapping(value = "createSync")
-	public ResponseEntity<Integer> createSync(@RequestBody Zauzece Zauzece){
-		
-		return new ResponseEntity<Integer>(zauzeceService.createSync(Zauzece), HttpStatus.OK);
-	}
-	
 	@GetMapping
-	public ResponseEntity<List<ZauzeceDTO>> getAll(){
+	public ResponseEntity<List<ShowZauzeceDTO>> getAll(){
 		if(zauzeceService.getAll() == null) {
-			return new ResponseEntity<List<ZauzeceDTO>>(HttpStatus.NO_CONTENT);
+			return new ResponseEntity<List<ShowZauzeceDTO>>(HttpStatus.NO_CONTENT);
 		}
-		return new ResponseEntity<List<ZauzeceDTO>>(zauzeceService.getAll(), HttpStatus.OK);
+		return new ResponseEntity<List<ShowZauzeceDTO>>(zauzeceService.getAll(), HttpStatus.OK);
 	}
 	
 	@GetMapping(value = "/{id}")
-	public ResponseEntity<ZauzeceDTO> getById(@PathVariable Long id){
+	public ResponseEntity<ShowZauzeceDTO> getById(@PathVariable Long id){
 		if(zauzeceService.getById(id) == null) {
-			return new ResponseEntity<ZauzeceDTO>(HttpStatus.NO_CONTENT);
+			return new ResponseEntity<ShowZauzeceDTO>(HttpStatus.NO_CONTENT);
 		}
-		return new ResponseEntity<ZauzeceDTO>(zauzeceService.getById(id), HttpStatus.OK);
+		return new ResponseEntity<ShowZauzeceDTO>(zauzeceService.getById(id), HttpStatus.OK);
 	}
 	
 	@GetMapping(value = "/smestaj/{smestajId}")
-	public ResponseEntity<List<ZauzeceDTO>> getBySmestaj(@PathVariable Long smestajId){
+	public ResponseEntity<List<ShowZauzeceDTO>> getBySmestaj(@PathVariable Long smestajId){
 		if(zauzeceService.getBySmestaj(smestajId) == null) {
-			return new ResponseEntity<List<ZauzeceDTO>>(HttpStatus.NO_CONTENT);
+			return new ResponseEntity<List<ShowZauzeceDTO>>(HttpStatus.NO_CONTENT);
 		}
-		return new ResponseEntity<List<ZauzeceDTO>>(zauzeceService.getBySmestaj(smestajId), HttpStatus.OK);
+		return new ResponseEntity<List<ShowZauzeceDTO>>(zauzeceService.getBySmestaj(smestajId), HttpStatus.OK);
 	}
 	@PostMapping
-	public ResponseEntity<String> add(@RequestBody Zauzece zauzece){
-		if(zauzeceService.add(zauzece)) {
+	public ResponseEntity<String> add(@RequestBody ZauzeceDTO zauzeceDTO){
+		if(zauzeceService.add(zauzeceDTO)) {
 			return new ResponseEntity<String>("Zauzece je uspesno dodato!", HttpStatus.CREATED);
 		}else {
 			return new ResponseEntity<String>("Greska pri dodavanju zauzeca!", HttpStatus.CONFLICT);

@@ -1,6 +1,6 @@
 package ftn.uns.ac.rs.model;
 
-public class getSmestajDTO {
+public class ShowSmestajDTO {
 	 	protected Long id;
 	    protected String naziv;
 	    protected String opis;
