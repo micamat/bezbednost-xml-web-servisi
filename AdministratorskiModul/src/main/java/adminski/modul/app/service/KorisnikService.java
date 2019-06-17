@@ -11,8 +11,8 @@ public class KorisnikService {
 	@Autowired
 	KorisnikRepository korisnikRepository;
 	
-	public boolean blockById(String id) {
-		Korisnik entity = korisnikRepository.findById(Long.getLong(id)).orElse(null);
+	public boolean blockById(Long id) {
+		Korisnik entity = korisnikRepository.findById(id).orElse(null);
 		
 		if (entity != null) {
 			entity.setAktivan(false);
@@ -25,8 +25,8 @@ public class KorisnikService {
 		}
 	}
 	
-	public boolean unblockById(String id) {
-		Korisnik entity = korisnikRepository.findById(Long.getLong(id)).orElse(null);
+	public boolean unblockById(Long id) {
+		Korisnik entity = korisnikRepository.findById(id).orElse(null);
 		
 		if (entity != null) {
 			entity.setAktivan(true);
@@ -39,8 +39,8 @@ public class KorisnikService {
 		}
 	}
 	
-	public boolean removeById(String id) {
-		Korisnik entity = korisnikRepository.findById(Long.getLong(id)).orElse(null);
+	public boolean removeById(Long id) {
+		Korisnik entity = korisnikRepository.findById(id).orElse(null);
 		
 		if (entity != null) {
 			korisnikRepository.delete(entity);
@@ -52,7 +52,7 @@ public class KorisnikService {
 		}
 	}
 	
-	public Korisnik findById(String id) {
-		return korisnikRepository.findById(Long.getLong(id)).orElse(null);
+	public Korisnik findById(Long id) {
+		return korisnikRepository.findById(id).orElse(null);
 	}
 }

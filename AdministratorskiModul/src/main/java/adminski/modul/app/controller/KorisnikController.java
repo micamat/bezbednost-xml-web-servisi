@@ -22,7 +22,7 @@ public class KorisnikController {
 	KorisnikService korisnikService;
 	
 	@GetMapping("block/{id}")
-	public ResponseEntity<Korisnik> blockKorisnik(@PathVariable String id, HttpSession session){
+	public ResponseEntity<Korisnik> blockKorisnik(@PathVariable Long id, HttpSession session){
 		if (session.getAttribute("loggedIn") == null) {
 			return new ResponseEntity<Korisnik>(HttpStatus.FORBIDDEN);
 		} else {
@@ -35,7 +35,7 @@ public class KorisnikController {
 	}
 	
 	@GetMapping("unblock/{id}")
-	public ResponseEntity<Korisnik> unblockKorisnik(@PathVariable String id, HttpSession session){
+	public ResponseEntity<Korisnik> unblockKorisnik(@PathVariable Long id, HttpSession session){
 		if (session.getAttribute("loggedIn") == null) {
 			return new ResponseEntity<Korisnik>(HttpStatus.FORBIDDEN);
 		} else {
@@ -48,7 +48,7 @@ public class KorisnikController {
 	}
 	
 	@DeleteMapping("{id}")
-	public ResponseEntity<Korisnik> removeKorisnik(@PathVariable String id, HttpSession session){
+	public ResponseEntity<Korisnik> removeKorisnik(@PathVariable Long id, HttpSession session){
 		if (session.getAttribute("loggedIn") == null) {
 			return new ResponseEntity<Korisnik>(HttpStatus.FORBIDDEN);
 		} else {

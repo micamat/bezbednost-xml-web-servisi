@@ -8,6 +8,10 @@
 
 package adminski.modul.app.model;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
@@ -48,13 +52,16 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 })
 @XmlRootElement(name = "korisnik")
+@Entity
 public class Korisnik {
 
     @XmlElement(required = true)
     @XmlJavaTypeAdapter(CollapsedStringAdapter.class)
     @XmlID
     @XmlSchemaType(name = "ID")
-    protected String id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    protected Long id;
     @XmlElement(required = true)
     protected String ime;
     @XmlElement(required = true)
@@ -75,7 +82,7 @@ public class Korisnik {
      *     {@link String }
      *     
      */
-    public String getId() {
+    public Long getId() {
         return id;
     }
 
@@ -87,7 +94,7 @@ public class Korisnik {
      *     {@link String }
      *     
      */
-    public void setId(String value) {
+    public void setId(Long value) {
         this.id = value;
     }
 
