@@ -1,0 +1,33 @@
+<table class="table ml-2 mt-2">
+  <thead style="background-color: #0074E1;">
+    <tr>
+      <th scope="col" colspan="7" style="text-align: center; color: white">
+        Accessory
+        <a class="active" [routerLink]="'/accessory-add'">
+          <img src="/assets/img/add-32.png" style="float: right;">
+        </a>
+      </th>
+    </tr>
+    <tr style="color: white">
+      <th scope="col">#</th>
+      <th scope="col">Name</th>
+      <th scope="col">Description</th>
+      <th scope="col"></th>
+    </tr>
+  </thead>
+  <tbody style="color: #0074E1">
+    <tr *ngFor="let item of accessories; let i = index">
+      <th scope="row">{{i+1}}</th>
+      <td>{{item.naziv}}</td>
+      <td>{{item.opis}}</td>
+      <td>
+          <a class="active" [routerLink]="['/accessory-modify', item.id]">
+            <img class="mr-2" src="/assets/img/edit-9-32.png">
+          </a>
+          <a class="active" (click)="delete(item.id)" [routerLink]="'/accessory'">
+            <img src="/assets/img/x-mark-4-32.png">
+          </a>
+        </td>
+    </tr>
+  </tbody>
+</table>

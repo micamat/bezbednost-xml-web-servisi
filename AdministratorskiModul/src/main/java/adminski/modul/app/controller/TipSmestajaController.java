@@ -15,11 +15,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import adminski.modul.app.model.TipSmestaja;
-import adminski.modul.app.repository.TipSmestajaRepository;
 import adminski.modul.app.service.TipSmestajaService;
 
 @RestController
@@ -29,8 +27,8 @@ public class TipSmestajaController {
 	@Autowired
 	private TipSmestajaService tipSmestajaService;
 	
-	@GetMapping("{id}")
-	public ResponseEntity<TipSmestaja> getTipSmestaja(@PathVariable Long id, HttpSession session){
+	@GetMapping("/{id}")
+	public ResponseEntity<TipSmestaja> getTipSmestaja(@PathVariable Long id/*, HttpSession session*/){
 		/*if (session.getAttribute("loggedIn") == null) {
 			return new ResponseEntity<TipSmestaja>(HttpStatus.FORBIDDEN);
 		} else {*/

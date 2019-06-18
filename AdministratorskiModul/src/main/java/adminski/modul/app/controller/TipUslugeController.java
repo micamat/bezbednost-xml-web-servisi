@@ -54,39 +54,39 @@ public class TipUslugeController {
 	}
 	
 	@DeleteMapping("{id}")
-	public ResponseEntity<Void> deleteTipUsluge(@PathVariable Long id, HttpSession session){
-		if (session.getAttribute("loggedIn") == null) {
+	public ResponseEntity<Void> deleteTipUsluge(@PathVariable Long id/*, HttpSession session*/){
+		/*if (session.getAttribute("loggedIn") == null) {
 			return new ResponseEntity<Void>(HttpStatus.FORBIDDEN);
-		} else {
+		} else {*/
 			if (tipUslugeService.removeTypeService(id)) {
 				return new ResponseEntity<Void>(HttpStatus.OK);
 			} else {
 				return new ResponseEntity<Void>(HttpStatus.BAD_REQUEST);
 			}
-		}
+		//}
 	}
 	
 	@PutMapping("{id}")
-	public ResponseEntity<TipUsluge> updateTipUsluge(@PathVariable Long id, @RequestBody TipUsluge tipUsluge, HttpSession session){
-		if (session.getAttribute("loggedIn") == null) {
+	public ResponseEntity<TipUsluge> updateTipUsluge(@PathVariable Long id, @RequestBody TipUsluge tipUsluge/*, HttpSession session*/){
+		/*if (session.getAttribute("loggedIn") == null) {
 			return new ResponseEntity<TipUsluge>(HttpStatus.FORBIDDEN);
-		} else {
+		} else {*/
 			if (tipUslugeService.updateTypeService(id, tipUsluge)) {
 				return new ResponseEntity<TipUsluge>(tipUslugeService.getTypeServiceById(id), HttpStatus.OK);
 			} else {
 				return new ResponseEntity<TipUsluge>(HttpStatus.BAD_REQUEST);
 			}
-		}
+		//}
 	}
 	
 	@PostMapping
-	public ResponseEntity<TipUsluge> createTipUsluge(@RequestBody TipUsluge tipUsluge, HttpSession session){
-		if (session.getAttribute("loggedIn") == null) {
+	public ResponseEntity<TipUsluge> createTipUsluge(@RequestBody TipUsluge tipUsluge/*, HttpSession session*/){
+		/*if (session.getAttribute("loggedIn") == null) {
 			return new ResponseEntity<TipUsluge>(HttpStatus.FORBIDDEN);
-		} else {
+		} else {*/
 			tipUslugeService.createTypeService(tipUsluge);
 			
 			return new ResponseEntity<TipUsluge>(tipUsluge, HttpStatus.OK);
-		}
+		//}
 	}
 }
