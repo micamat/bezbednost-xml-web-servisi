@@ -25,15 +25,12 @@ public class AgentController {
 	private AgentService agentService;
 
 	@PostMapping
-	public ResponseEntity<Agent> createAgent(@RequestBody Agent agent/* , HttpSession session */) {
-		/*
-		 * if (session.getAttribute("loggedIn") == null) { return new
-		 * ResponseEntity<Agent>(HttpStatus.FORBIDDEN); } else {
-		 */
+	public ResponseEntity<Agent> createAgent(@RequestBody Agent agent) {
+		
 		agentService.createAgent(agent);
 
 		return new ResponseEntity<Agent>(agent, HttpStatus.OK);
-		// }
+		
 	}
 
 	@GetMapping
