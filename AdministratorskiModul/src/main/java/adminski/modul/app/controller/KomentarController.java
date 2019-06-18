@@ -29,10 +29,8 @@ public class KomentarController {
 	
 
 	@GetMapping("{id}")
-	public ResponseEntity<Komentar> getComment(@PathVariable Long id, HttpSession session){
-		/*if (session.getAttribute("loggedIn") == null) {
-			return new ResponseEntity<Komentar>(HttpStatus.FORBIDDEN);
-		} else {*/
+	public ResponseEntity<Komentar> getComment(@PathVariable Long id){
+		
 			Komentar komentar = komentarService.getCommentById(id);
 			
 			if (komentar != null) {
@@ -40,14 +38,12 @@ public class KomentarController {
 			} else {
 				return new ResponseEntity<Komentar>(HttpStatus.BAD_REQUEST);
 			}
-		//}
+		
 	}
 	
 	@GetMapping
-	public ResponseEntity<List<Komentar>> getAllComments(HttpSession session){
-		/*if (session.getAttribute("loggedIn") == null) {
-			return new ResponseEntity<List<Komentar>>(HttpStatus.FORBIDDEN);
-		} else {*/
+	public ResponseEntity<List<Komentar>> getAllComments(){
+		
 			ArrayList<Komentar> komentari = new ArrayList<>();
 			
 			for(Komentar komentar : komentarService.getAllComments()) {
@@ -55,43 +51,37 @@ public class KomentarController {
 			}
 			
 			return new ResponseEntity<List<Komentar>>(komentari, HttpStatus.OK);
-		//}
+		
 	}
 	
 	@DeleteMapping("{id}")
-	public ResponseEntity<Void> deleteComment(@PathVariable Long id, HttpSession session){
-		/*if (session.getAttribute("loggedIn") == null) {
-			return new ResponseEntity<Void>(HttpStatus.FORBIDDEN);
-		} else {*/
+	public ResponseEntity<Void> deleteComment(@PathVariable Long id){
+		
 			if (komentarService.removeComment(id)) {
 				return new ResponseEntity<Void>(HttpStatus.OK);
 			} else {
 				return new ResponseEntity<Void>(HttpStatus.BAD_REQUEST);
 			}
-		//}
+		
 	}
 	
 	@PutMapping("{id}")
-	public ResponseEntity<Komentar> updateKomentar(@PathVariable Long id, @RequestBody Komentar komentar, HttpSession session){
-		/*if (session.getAttribute("loggedIn") == null) {
-			return new ResponseEntity<Komentar>(HttpStatus.FORBIDDEN);
-		} else {*/
+	public ResponseEntity<Komentar> updateKomentar(@PathVariable Long id, @RequestBody Komentar komentar){
+		
 			if (komentarService.updateComment(id,komentar)) {
 				return new ResponseEntity<Komentar>(komentarService.getCommentById(id), HttpStatus.OK);
 			} else {
 				return new ResponseEntity<Komentar>(HttpStatus.BAD_REQUEST);
 			}
-		//}
+		
 	}
 	
 	@PostMapping
-	public ResponseEntity<Komentar> createKomentar(@RequestBody Komentar komentar, HttpSession session){
-		/*if (session.getAttribute("loggedIn") == null) {
-			return new ResponseEntity<Komentar>(HttpStatus.FORBIDDEN);
-		} else {*/
+	public ResponseEntity<Komentar> createKomentar(@RequestBody Komentar komentar){
+		
 			komentarService.createComment(komentar);
 			
 			return new ResponseEntity<Komentar>(komentar, HttpStatus.OK);
-		//}
+		
 	}
 }

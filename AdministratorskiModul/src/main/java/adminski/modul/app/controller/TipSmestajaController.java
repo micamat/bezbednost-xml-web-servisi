@@ -30,21 +30,17 @@ public class TipSmestajaController {
 	private TipSmestajaService tipSmestajaService;
 	
 	@GetMapping("{id}")
-	public ResponseEntity<TipSmestaja> getTipSmestaja(@PathVariable Long id, HttpSession session){
-		/*if (session.getAttribute("loggedIn") == null) {
-			return new ResponseEntity<TipSmestaja>(HttpStatus.FORBIDDEN);
-		} else {*/
+	public ResponseEntity<TipSmestaja> getTipSmestaja(@PathVariable Long id){
+		
 			TipSmestaja entity = tipSmestajaService.getTipSmestajaById(id);
 			
 			return new ResponseEntity<TipSmestaja>(entity, HttpStatus.OK);
-		//}
+		
 	}
 	
 	@GetMapping
-	public ResponseEntity<List<TipSmestaja>> getAllTipSmestaja(HttpSession session){
-		/*if (session.getAttribute("loggedIn") == null) {
-			return new ResponseEntity<List<TipSmestaja>>(HttpStatus.FORBIDDEN);
-		} else {*/
+	public ResponseEntity<List<TipSmestaja>> getAllTipSmestaja(){
+		
 			ArrayList<TipSmestaja> entity = new ArrayList<>();
 			
 			for(TipSmestaja ts : tipSmestajaService.getAllTipSmestaja()) {
@@ -52,43 +48,37 @@ public class TipSmestajaController {
 			}
 			
 			return new ResponseEntity<List<TipSmestaja>>(entity, HttpStatus.OK);
-		//}
+		
 	}
 	
 	@DeleteMapping("{id}")
-	public ResponseEntity<TipSmestaja> deleteTipSmestaja(@PathVariable Long id, HttpSession session){
-		/*if (session.getAttribute("loggedIn") == null) {
-			return new ResponseEntity<TipSmestaja>(HttpStatus.FORBIDDEN);
-		} else {*/
+	public ResponseEntity<TipSmestaja> deleteTipSmestaja(@PathVariable Long id){
+		
 			if (tipSmestajaService.removeTipSmestaja(id)) {
 				return new ResponseEntity<TipSmestaja>(HttpStatus.OK);
 			} else {
 				return new ResponseEntity<TipSmestaja>(HttpStatus.BAD_REQUEST);
 			}
-		//}
+		
 	}
 	
 	@PutMapping("{id}")
-	public ResponseEntity<TipSmestaja> updateTipSmestaja(@PathVariable Long id, @RequestBody TipSmestaja tipSmestaja, HttpSession session){
-		/*if (session.getAttribute("loggedIn") == null) {
-			return new ResponseEntity<TipSmestaja>(HttpStatus.FORBIDDEN);
-		} else {*/
+	public ResponseEntity<TipSmestaja> updateTipSmestaja(@PathVariable Long id, @RequestBody TipSmestaja tipSmestaja){
+		
 			if (tipSmestajaService.updateTipSmestaja(id,tipSmestaja)) {
 				return new ResponseEntity<TipSmestaja>(tipSmestajaService.getTipSmestajaById(id), HttpStatus.OK);
 			} else {
 				return new ResponseEntity<TipSmestaja>(HttpStatus.BAD_REQUEST);
 			}
-		//}
+		
 	}
 	
 	@PostMapping
-	public ResponseEntity<TipSmestaja> createTipSmestaja(@RequestBody TipSmestaja tipSmestaja, HttpSession session){
-		/*if (session.getAttribute("loggedIn") == null) {
-			return new ResponseEntity<TipSmestaja>(HttpStatus.FORBIDDEN);
-		} else {*/
+	public ResponseEntity<TipSmestaja> createTipSmestaja(@RequestBody TipSmestaja tipSmestaja){
+		
 			tipSmestajaService.createTipSmestaja(tipSmestaja);
 			
 			return new ResponseEntity<TipSmestaja>(tipSmestaja, HttpStatus.OK);
-		//}
+		
 	}
 }
