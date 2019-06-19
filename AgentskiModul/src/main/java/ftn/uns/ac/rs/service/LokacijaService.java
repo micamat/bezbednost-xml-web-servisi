@@ -57,7 +57,7 @@ public class LokacijaService {
 	
 	
 	public boolean add(LokacijaDTO lokacijaDTO) {
-		lokacijaDTO.setId(null);
+		lokacijaDTO.setId(lokacijaDTO.getId());
 		Lokacija  lokacija = lokacijaRepository.save(convertToEntity(lokacijaDTO));
 		if(lokacija != null) {
 			createSync(convertToDTO(lokacija));

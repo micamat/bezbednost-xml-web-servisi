@@ -1,0 +1,93 @@
+<body class="text-center">
+  <div class="row">
+      <div class="col-md-3"></div>
+      <div class="col-6">
+          <h1 class="h3 mb-3 font-weight-normal mt-3">Add agent</h1>
+          <form class="mt-4" [formGroup]="agentAdd" (ngSubmit)="onSubmit($event)" novalidate>
+              <div class="form-group">
+                  <div class="row">
+                      <div class="col-4">
+                          <label>First Name</label>
+                      </div>
+                      <div class="col-8">
+                          <input type="text" formControlName="ime" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.ime.errors }" />
+
+                          <div *ngIf="submitted && f.ime.errors">
+                              <div style="color:red;">Name is incorrect!</div>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+              
+              <div class="form-group">
+                  <div class="row">
+                      <div class="col-4">
+                          <label>Last Name</label>
+                      </div>
+                      <div class="col-8">
+                          <input type="text" formControlName="prezime" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.prezime.errors }" />
+                          <div *ngIf="submitted && f.prezime.errors">
+                              <div style="color:red;">Last Name is incorrect!</div>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+              <div class="form-group">
+                  <div class="row">
+                      <div class="col-4">
+                          <label>Address</label>
+                      </div>
+                      <div class="col-8">
+                        <input type="text" formControlName="adresa" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.adresa.errors }" />
+                          <div *ngIf="submitted && f.adresa.errors">
+                              <div style="color:red;">Address is incorrect!</div>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+              <div class="form-group">
+                  <div class="row">
+                      <div class="col-4">
+                          <label>EIN</label>
+                      </div>
+                      <div class="col-8">
+                        <input type="text" formControlName="poslovniMaticniBroj" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.poslovniMaticniBroj.errors }" />
+                          <div *ngIf="submitted && f.poslovniMaticniBroj.errors">
+                              <div style="color:red;">Type is incorrect!</div>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+              <div class="form-group">
+                  <div class="row">
+                      <div class="col-4">
+                          <label>Password</label>
+                      </div>
+                      <div class="col-8">
+                          <input type="text" formControlName="sifra" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.sifra.errors }" />
+
+                          <div *ngIf="submitted && f.sifra.errors">
+                              <div style="color:red;">name is incorrect!</div>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+              
+              <div class="form-group">
+                  <div class="row">
+                      <div class="col-6">
+                      </div>
+                      <div class="col-6">
+                          <button class="btn btn-lg btn-primary btn-block" type="submit">
+                              Add
+                          </button>
+                      </div>
+                  </div>
+              </div>
+
+          </form>
+      </div>
+      <div class="col-md-3"></div>
+  </div>
+
+</body>

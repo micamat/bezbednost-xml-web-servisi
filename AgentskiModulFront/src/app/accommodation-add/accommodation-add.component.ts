@@ -35,8 +35,6 @@ export class AccommodationAddComponent implements OnInit {
         grad:['',Validators.compose([Validators.required, Validators.pattern('[a-zA-Z 0-9!]+')])],
         ulica:['',Validators.compose([Validators.required, Validators.pattern('[a-zA-Z 0-9!]+')])],
         broj:['',Validators.compose([Validators.required, Validators.pattern('[a-zA-Z 0-9!]+')])],  
-      
-      
       });
       this._accommodationService.getAllCategoryAccommodation().subscribe(
         data => {

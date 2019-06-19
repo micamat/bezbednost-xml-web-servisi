@@ -66,9 +66,9 @@ public class SmestajDTO {
     protected String ulica;
     @XmlElement(required = true)
     protected String broj;
-    protected long idLokacija;
-    protected long idTipSmestaja;
-    protected long idKategorijaSmestaja;
+    protected Long idLokacija;
+    protected Long idTipSmestaja;
+    protected Long idKategorijaSmestaja;
 
     /**
      * Gets the value of the id property.

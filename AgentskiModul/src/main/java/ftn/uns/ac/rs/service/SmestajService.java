@@ -38,23 +38,18 @@ public class SmestajService {
 		return smestajRepository.findAll().stream().map(this::convertToDTO).collect(Collectors.toList());
 	};
 	
-	public int createSync(Smestaj smestaj, Lokacija lokacija){
+	public int createSync(Smestaj smestaj){
 		ProducerPortService producerPortService = new ProducerPortService();
 		ProducerPort producerPort = producerPortService.getProducerPortSoap11();
-		CreateLokacijaRequest getLokacijaRequest = new CreateLokacijaRequest();
-		getLokacijaRequest.setId(lokacija.getId());
-		getLokacijaRequest.setDrzava(lokacija.getDrzava());
-		getLokacijaRequest.setGrad(lokacija.getGrad());
-		getLokacijaRequest.setUlica(lokacija.getUlica());
-		getLokacijaRequest.setBroj(lokacija.getBroj());
-		producerPort.createLokacija(getLokacijaRequest);
+		
 		CreateSmestajRequest getSmestajRequest = new CreateSmestajRequest();
 		getSmestajRequest.setId(smestaj.getId());
 		getSmestajRequest.setIdKategorijaSmestaja(smestaj.getKategorijaSmestaja().getId());
-		//getSmestajRequest.setIdLokacija(smd.getIdLokacija());
+		getSmestajRequest.setIdLokacija(smestaj.getLokacija().getId());
 		getSmestajRequest.setIdTipSmestaja(smestaj.getTipSmestaja().getId());
 		getSmestajRequest.setNaziv(smestaj.getNaziv());
 		getSmestajRequest.setOpis(smestaj.getOpis());
+		
 		//getSmestajRequest.setSlika(smd.getSlika());
 		CreateSmestajResponse getSmestajResponse = producerPort.createSmestaj(getSmestajRequest);
 		return getSmestajResponse.getId();
@@ -86,8 +81,8 @@ public class SmestajService {
 		s.setNaziv(smestajDTO.getNaziv());
 		s.setOpis(smestajDTO.getOpis());
 		s = smestajRepository.save(s);
-		if(s != null && l != null) {
-			createSync(s, l);
+		if(s != null) {
+			createSync(s);
 			return true;
 		}
 		return false;

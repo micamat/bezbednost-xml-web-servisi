@@ -3,8 +3,6 @@ package adminski.modul.app.controller;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.servlet.http.HttpSession;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -28,21 +26,17 @@ public class TipUslugeController {
 	private TipUslugeService tipUslugeService;
 
 	@GetMapping("{id}")
-	public ResponseEntity<TipUsluge> getTipUsluge(@PathVariable Long id, HttpSession session){
-		if (session.getAttribute("loggedIn") == null) {
-			return new ResponseEntity<TipUsluge>(HttpStatus.FORBIDDEN);
-		} else {
+	public ResponseEntity<TipUsluge> getTipUsluge(@PathVariable Long id){
+		
 			TipUsluge usluga = tipUslugeService.getTypeServiceById(id);
 			
 			return new ResponseEntity<TipUsluge>(usluga, HttpStatus.OK);
-		}
+		
 	}
 	
 	@GetMapping
-	public ResponseEntity<List<TipUsluge>> getAllTipUsluge(HttpSession session){
-		if (session.getAttribute("loggedIn") == null) {
-			return new ResponseEntity<List<TipUsluge>>(HttpStatus.FORBIDDEN);
-		} else {
+	public ResponseEntity<List<TipUsluge>> getAllTipUsluge(){
+		
 			ArrayList<TipUsluge> tipovi = new ArrayList<>();
 			
 			for(TipUsluge tipUsluge : tipUslugeService.getAllTypesServices()) {
@@ -50,43 +44,33 @@ public class TipUslugeController {
 			}
 			
 			return new ResponseEntity<List<TipUsluge>>(tipovi, HttpStatus.OK);
-		}
+		
 	}
 	
 	@DeleteMapping("{id}")
-	public ResponseEntity<Void> deleteTipUsluge(@PathVariable Long id, HttpSession session){
-		if (session.getAttribute("loggedIn") == null) {
-			return new ResponseEntity<Void>(HttpStatus.FORBIDDEN);
-		} else {
+	public ResponseEntity<Void> deleteTipUsluge(@PathVariable Long id){
+		
 			if (tipUslugeService.removeTypeService(id)) {
 				return new ResponseEntity<Void>(HttpStatus.OK);
 			} else {
 				return new ResponseEntity<Void>(HttpStatus.BAD_REQUEST);
 			}
-		}
 	}
 	
 	@PutMapping("{id}")
-	public ResponseEntity<TipUsluge> updateTipUsluge(@PathVariable Long id, @RequestBody TipUsluge tipUsluge, HttpSession session){
-		if (session.getAttribute("loggedIn") == null) {
-			return new ResponseEntity<TipUsluge>(HttpStatus.FORBIDDEN);
-		} else {
+	public ResponseEntity<TipUsluge> updateTipUsluge(@PathVariable Long id, @RequestBody TipUsluge tipUsluge){
 			if (tipUslugeService.updateTypeService(id, tipUsluge)) {
 				return new ResponseEntity<TipUsluge>(tipUslugeService.getTypeServiceById(id), HttpStatus.OK);
 			} else {
 				return new ResponseEntity<TipUsluge>(HttpStatus.BAD_REQUEST);
 			}
-		}
 	}
 	
 	@PostMapping
-	public ResponseEntity<TipUsluge> createTipUsluge(@RequestBody TipUsluge tipUsluge, HttpSession session){
-		if (session.getAttribute("loggedIn") == null) {
-			return new ResponseEntity<TipUsluge>(HttpStatus.FORBIDDEN);
-		} else {
+	public ResponseEntity<TipUsluge> createTipUsluge(@RequestBody TipUsluge tipUsluge){
+		
 			tipUslugeService.createTypeService(tipUsluge);
 			
 			return new ResponseEntity<TipUsluge>(tipUsluge, HttpStatus.OK);
-		}
 	}
 }
