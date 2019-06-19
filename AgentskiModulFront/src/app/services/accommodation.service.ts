@@ -91,6 +91,10 @@ export class AccommodationService {
     return this.http.delete(SERVER_URL + "/cenovnik/" + id,{responseType: 'text'});
   }
 
+  getPrice(id:any){
+    return this.http.get(SERVER_URL + "/cenovnik/" + id);
+  }
+
   
 
 }
