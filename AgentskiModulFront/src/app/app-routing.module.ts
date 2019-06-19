@@ -11,6 +11,10 @@ import { AccommodationAddComponent } from './accommodation-add/accommodation-add
 import { AccommodationChangeComponent } from './accommodation-change/accommodation-change.component';
 import { RoomAddComponent } from './room-add/room-add.component';
 import { RoomChangeComponent } from './room-change/room-change.component';
+import { OcupationAddComponent } from './ocupation-add/ocupation-add.component';
+import { OcupationChangeComponent } from './ocupation-change/ocupation-change.component';
+import { PricelistAddComponent } from './pricelist-add/pricelist-add.component';
+import { PricelistChangeComponent } from './pricelist-change/pricelist-change.component';
 
 const routes: Routes = [
   {path : '', component: HomeComponent},
@@ -23,7 +27,12 @@ const routes: Routes = [
   {path : 'room/add', component : RoomAddComponent},
   {path : 'room/change/:id', component : RoomChangeComponent},
   {path : 'ocupation', component : OcupationComponent},
+  {path : 'ocupation/add', component : OcupationAddComponent},
+  {path : 'ocupation/change/:id', component : OcupationChangeComponent},
   {path : 'pricelist', component : PricelistComponent},
+  {path : 'pricelist/add', component : PricelistAddComponent},
+  {path : 'pricelist/change/:id', component : PricelistChangeComponent},
+  
 ];
 
 @NgModule({

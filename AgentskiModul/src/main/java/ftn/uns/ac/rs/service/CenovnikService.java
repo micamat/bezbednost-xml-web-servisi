@@ -84,7 +84,8 @@ public class CenovnikService {
 		ShowCenovnikDTO cenovnikDTO = new ShowCenovnikDTO();
 		cenovnikDTO.setId(cenovnik.getId());
 		cenovnikDTO.setDatumOd(cenovnik.getDatumOd());
-		cenovnikDTO.setDatumOd(cenovnik.getDatumDo());
+		cenovnikDTO.setDatumDo(cenovnik.getDatumDo());
+		cenovnikDTO.setCena(cenovnik.getCena());
 		cenovnikDTO.setNazivTipSobe(cenovnik.getTipSobe().getNaziv());
 		cenovnikDTO.setNazivSmestaj(cenovnik.getSmestaj().getNaziv());
 		return cenovnikDTO;

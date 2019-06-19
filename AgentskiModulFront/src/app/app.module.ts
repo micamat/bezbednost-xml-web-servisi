@@ -16,6 +16,10 @@ import { HttpClientModule } from '@angular/common/http';
 import { AccommodationChangeComponent } from './accommodation-change/accommodation-change.component';
 import { RoomAddComponent } from './room-add/room-add.component';
 import { RoomChangeComponent } from './room-change/room-change.component';
+import { OcupationAddComponent } from './ocupation-add/ocupation-add.component';
+import { OcupationChangeComponent } from './ocupation-change/ocupation-change.component';
+import { PricelistAddComponent } from './pricelist-add/pricelist-add.component';
+import { PricelistChangeComponent } from './pricelist-change/pricelist-change.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +35,11 @@ import { RoomChangeComponent } from './room-change/room-change.component';
     AccommodationAddComponent,
     AccommodationChangeComponent,
     RoomAddComponent,
-    RoomChangeComponent
+    RoomChangeComponent,
+    OcupationAddComponent,
+    OcupationChangeComponent,
+    PricelistAddComponent,
+    PricelistChangeComponent
   ],
   imports: [
     BrowserModule,

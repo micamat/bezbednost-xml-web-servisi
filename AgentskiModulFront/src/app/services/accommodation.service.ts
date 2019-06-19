@@ -59,4 +59,38 @@ export class AccommodationService {
     return this.http.get(SERVER_URL + "/soba/" + id);
   }
 
+  getAllOcupation(){
+    return this.http.get(SERVER_URL + "/zauzece");
+  }
+  
+  getAllStatusRoom(){
+    return this.http.get(SERVER_URL + "/status-sobe");
+  }
+
+  addOcupation(ocupation : any){
+    return this.http.post(SERVER_URL + '/zauzece',ocupation,{responseType: 'text'});
+  }
+
+  getOcupation(id:any){
+    return this.http.get(SERVER_URL + "/zauzece/" + id);
+  }
+
+  deleteOcupation(id:any){
+    return this.http.delete(SERVER_URL + "/zauzece/" + id,{responseType: 'text'});
+  }
+
+  getAllPricelist(){
+    return this.http.get(SERVER_URL + "/cenovnik");
+  }
+
+  addPrice(price : any){
+    return this.http.post(SERVER_URL + '/cenovnik',price,{responseType: 'text'});
+  }
+
+  deletePrice(id:any){
+    return this.http.delete(SERVER_URL + "/cenovnik/" + id,{responseType: 'text'});
+  }
+
+  
+
 }
