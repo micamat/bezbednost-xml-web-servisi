@@ -19,6 +19,7 @@ import ftn.uns.ac.rs.repository.TipSobeRepository;
 
 @Service
 public class CenovnikService {
+	
 	@Autowired
 	private SmestajRepository smestajRepository;
 

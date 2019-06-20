@@ -30,4 +30,6 @@ public class SobaController {
 			@DateTimeFormat(iso = DateTimeFormat.ISO.DATE) @RequestParam(value = "datumDo", required = false) Date datumDo){
 		return new ResponseEntity<List<Soba>>(sobaService.search(tip, smestaj, usluge, datumOd, datumDo), HttpStatus.OK);
 	}
+	
+	
 }
