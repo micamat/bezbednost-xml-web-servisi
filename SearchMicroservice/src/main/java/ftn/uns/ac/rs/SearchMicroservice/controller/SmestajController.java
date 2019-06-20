@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import ftn.uns.ac.rs.SearchMicroservice.model.Smestaj;
+import ftn.uns.ac.rs.SearchMicroservice.repository.SmestajRepository;
 import ftn.uns.ac.rs.SearchMicroservice.service.SmestajService;
 
 @RestController
@@ -19,6 +20,15 @@ import ftn.uns.ac.rs.SearchMicroservice.service.SmestajService;
 public class SmestajController {
 	@Autowired
 	SmestajService smestajService;
+	
+	@Autowired
+	SmestajRepository repo;
+	
+	@GetMapping("/getAll")
+	public ResponseEntity<List<Smestaj>> getAll(){
+		
+		return new ResponseEntity<List<Smestaj>>(repo.findAll(), HttpStatus.OK);
+	}
 	
 	@GetMapping
 	public ResponseEntity<List<Smestaj>> search(
