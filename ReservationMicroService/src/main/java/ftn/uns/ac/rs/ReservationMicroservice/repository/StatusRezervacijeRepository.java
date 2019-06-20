@@ -8,5 +8,5 @@ import ftn.uns.ac.rs.ReservationMicroservice.model.StatusRezervacije;
 @Repository
 public interface StatusRezervacijeRepository extends JpaRepository<StatusRezervacije, Long> {
 
-	StatusRezervacije findByNaziv(String naziv);
+	StatusRezervacije findByStatus(String naziv);
 }

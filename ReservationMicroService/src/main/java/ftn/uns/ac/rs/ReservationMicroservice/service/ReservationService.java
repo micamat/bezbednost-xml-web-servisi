@@ -42,7 +42,7 @@ public class ReservationService {
 		rez.setSoba(sobRepo.findById(reservationDTO.getIdSobe()).get());
 		resRepo.save(rez);
 		
-		StatusRezervacije sre = sreRepo.findByNaziv("Rezervisano");
+		StatusRezervacije sre = sreRepo.findByStatus("Rezervisano");
 		Date d = new Date();
 		IstorijaRezervacije ire = new IstorijaRezervacije();
 		ire.setStatusRezervacije(sre);
