@@ -8,8 +8,8 @@ import { addClass } from '@syncfusion/ej2-base';
 })
 export class HomeComponent implements OnInit {
 
-  public minDate: Date = new Date("11/07/2018");
-  public maxDate: Date = new Date("02/27/2019");
+  public minDate: Date = new Date("25/07/2018");
+  public maxDate: Date = new Date("02/27/2028");
   //public placeholder: string = "Choose a Date";
 
   constructor() { }

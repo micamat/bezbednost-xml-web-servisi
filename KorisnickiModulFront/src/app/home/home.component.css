@@ -1,6 +1,44 @@
-#control_wrapper {
-    max-width: 250px;
-    margin: 0px auto;
+#type{
+    max-width: 300px;
+}
+
+#search{
+    position: absolute;
+    left: 1150px;
+    top: 0px;
+    width: 130px;
+}
+
+#destination{
+    width: 370px !important;
+    margin-left: 5px
+}
+
+#person{
+    margin-left: 30px !important;
+}
+#service{
+    margin-left: 65px;
+}
+
+#category{
+    max-width: 300px;
+    margin-left: 30px;
+}
+
+#control_wrapperFrom {
+    max-width: 300px;
+    width: 200px;
+    margin-left: 35px !important;
+    
+    padding-top: 5px;
+}
+
+#control_wrapperTo {
+    max-width: 300px;
+    width: 200px;
+    margin-left: 40px !important;
+    
     padding-top: 5px;
 }
 
