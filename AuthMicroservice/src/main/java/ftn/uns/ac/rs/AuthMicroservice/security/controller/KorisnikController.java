@@ -15,7 +15,7 @@ public class KorisnikController {
 	@Autowired
 	KorisnikService korisnikService;
 	
-	@PostMapping("auth/register")
+	@PostMapping("/register")
 	public ResponseEntity<Korisnik> save(@RequestBody Korisnik korisnik){
 		return new ResponseEntity<Korisnik>(korisnikService.save(korisnik), HttpStatus.OK);
 	}
