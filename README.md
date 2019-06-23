@@ -1,3 +1,0 @@
-# BSEP + XML Project
-
-#  MEGATRAVEL
