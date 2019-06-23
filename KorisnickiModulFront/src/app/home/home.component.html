@@ -1,0 +1,85 @@
+<form style="margin-top: 20px">
+  <div class="form-row" id="glavni">
+    <div class="" id="destination">
+      <div class="input-group mb-3">
+        <div class="input-group-prepend">
+          <span class="input-group-text" id="basic-addon1">
+            <img src="assets/img/red car.ico" class="img-responsive" alt="Responsive image" width="18" height="18" />
+          </span>
+        </div>
+        <input type="text" class="form-control" placeholder="Destination" aria-label="Destination">
+      </div>
+    </div>
+    <div id="control_wrapperFrom">
+      <ejs-datepicker [value]='date' [min]='minDate' [max]='maxDate' placeholder="Check in" (renderDayCell)='onLoad($event)' cssClass='e-customStyle'></ejs-datepicker>
+    </div>
+    <div id="control_wrapperTo">
+      <ejs-datepicker [value]='date' [min]='minDate' [max]='maxDate' placeholder="Check out" (renderDayCell)='onLoad($event)' cssClass='e-customStyle'></ejs-datepicker>
+    </div>
+    <div class="col-2" id="person">
+      <div class="input-group mb-3">
+        <div class="input-group-prepend">
+          <span class="input-group-text" id="basic-addon1">
+            <img src="assets/img/user-24.ico" class="img-responsive" alt="Responsive image" width="18" height="18" />
+          </span>
+        </div>
+        <input type="number" class="form-control"  min="1" placeholder="Persons" aria-label="Persons">
+      </div>
+    </div>
+    
+  </div>
+  <div class="form-row" style="margin-top:20px">
+  <div class="form-group col-3">
+      <!--<label for="exampleFormControlSelect1">Accommodation type</label>-->
+      <select class="form-control" name="type" id="type">
+          <option value="" selected disabled hidden>Accommodation type...</option>
+        <option value="hotel">Hotel</option>
+        <option value="bed">Bed&Breakfast</option>
+        <option value="apartman">Apartment</option>
+      </select>
+    </div>
+    <div class="form-group ">
+        <!--<label for="exampleFormControlSelect1">Accommodation type</label>-->
+        <select class="form-control" name="category" id="category">
+            <option value="" selected disabled hidden>Accommodation category...</option>
+          <option value="uncategorized">Uncategorized</option>
+          <option value="1">1 star</option>
+          <option value="2">2 stars</option>
+          <option value="3">3 stars</option>
+          <option value="4">4 stars</option>
+          <option value="5">5 stars</option>
+        </select>
+      </div>
+      <div class="form-group ">
+          <!--<label for="exampleFormControlSelect1">Accommodation type</label>-->
+          <select multiple class="form-control" name="service" id="service">
+            <option value="" selected disabled hidden>Additional services...</option>
+            <option value="parking">Parking</option>
+            <option value="tv">TV</option>
+            <option value="kitchen">Kitchen</option>
+            <option value="mini">Mini kitchen</option>
+            <option value="wifi">WiFi</option>
+            <option value="breakfast">Breakfast</option>
+            <option value="half">Half board</option>
+            <option value="house">Boarding house</option>
+            <option value="inclusive">All inclusive</option>
+            <option value="bathroom">Private bathroom</option>
+            <option value="cancel">Free cancellation</option>
+            <option value="pets">Pets</option>
+          </select>
+        </div>
+        <div class="col-2" style="margin-left: 95px">
+            <div class="input-group mb-3">
+              <div class="input-group-prepend">
+                <span class="input-group-text" id="basic-addon1">
+                  <img src="assets/img/define-location-24.ico" class="img-responsive" alt="Responsive image" width="18" height="18" />
+                </span>
+              </div>
+              <input type="text" class="form-control" placeholder="Distance" aria-label="Distance">
+            </div>
+          </div>
+    </div>
+    <div>
+        <button class="btn btn-primary" type="submit" id="search">Search</button>
+    </div>
+</form>
