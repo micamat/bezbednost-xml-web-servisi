@@ -1,0 +1,31 @@
+<body>
+  <div class="leftContent">
+  <table class="table table-sm">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Header name</th>
+        <th>Alias</th>
+        <th>keystore</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr scope="col" *ngFor="let el of certificates; let i = index">
+          <th scope="row">{{i}}</th>
+          <td>{{el.alias}}</td>
+          <td>{{el.commonName}}</td>
+          <td>
+              <select  class="form-control" (change)="transfer($event)">
+                <option></option>
+                <option *ngFor="let keystore of keystores">{{keystore.keystoreName}}</option>
+              </select>
+          </td>
+          <td>    
+            <button class="btn btn-info btn-sm" type="button" (click)="distribution(el.alias)">Distribute</button>
+          </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+</body>

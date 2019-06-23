@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" 
+    elementFormDefault="qualified"
+    targetNamespace="http://model.app.modul.adminski/Korisnik"
+    >
+    <xs:element name="korisnik">
+        <xs:complexType>
+            <xs:all>
+                <xs:element name="id" type="xs:ID"/>
+                <xs:element name="ime" type="xs:string"/>
+                <xs:element name="prezime" type="xs:string"/>
+                <xs:element name="email" type="xs:string"/>
+                <xs:element name="telefon" type="xs:string"/>
+                <xs:element name="sifra" type="xs:string"/>
+                <xs:element name="aktivan" type="xs:boolean"/>
+            </xs:all>
+        </xs:complexType>
+    </xs:element>
+
+</xs:schema>
