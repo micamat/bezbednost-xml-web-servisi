@@ -1,0 +1,175 @@
+<body class="text-center">
+  <div class="row">
+    <div class="col-3"></div>
+    <div class="col-6">
+        <h1 class="h3 mb-3 font-weight-normal">Create an organization component</h1>
+        <form [formGroup]="nodeForm" (ngSubmit)="onSubmit($event)" novalidate>
+            <div class="form-group">
+                <div class="row">
+                  <div style="text-align:left;" class="col-4">
+                    <label>Parent:</label>
+                  </div>
+                  <div class="col-8">
+                      <select formControlName="parentId" class="form-control">
+                        <option></option>
+                          <option  [ngValue]="parent.id" *ngFor="let parent of parents">{{parent.comonName}}</option>
+                        
+                      </select>
+                  </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="row">
+                  <div style="text-align:left;" class="col-4">
+                    <label>Comon name:</label>
+                  </div>
+                  <div class="col-8">
+                      <input type="text" formControlName="comonName" class="form-control"/>
+                
+                  </div>
+                </div>
+                <!-- <div *ngIf="submitted && f.comonName.errors" class="invalid-feedback">
+                    <div *ngIf="f.comonName.errors.required">Username is required</div>
+                </div> -->
+            </div>
+            <div class="form-group">
+                <div class="row">
+                  <div style="text-align:left;" class="col-4">
+                    <label>Surname name:</label>
+                  </div>
+                  <div class="col-8">
+                      <input type="text" formControlName="surname" class="form-control"/>
+                
+                  </div>
+                </div>
+                <!-- <div *ngIf="submitted && f.surname.errors" class="invalid-feedback">
+                    <div *ngIf="f.surname.errors.required">Username is required</div>
+                </div> -->
+            </div>
+            <div class="form-group">
+                <div class="row">
+                  <div style="text-align:left;" class="col-4">
+                    <label>Given name:</label>
+                  </div>
+                  <div class="col-8">
+                      <input type="text" formControlName="givenName" class="form-control"/>
+                
+                  </div>
+                </div>
+                <!-- <div *ngIf="submitted && f.givenName.errors" class="invalid-feedback">
+                    <div *ngIf="f.givenName.errors.required">Username is required</div>
+                </div> -->
+            </div>
+            <div class="form-group">
+                <div class="row">
+                  <div style="text-align:left;" class="col-4">
+                    <label>Organization name:</label>
+                  </div>
+                  <div class="col-8">
+                      <input type="text" formControlName="organizationName" class="form-control"/>
+                
+                  </div>
+                </div>
+                <!-- <div *ngIf="submitted && f.organizationName.errors" class="invalid-feedback">
+                    <div *ngIf="f.organizationName.errors.required">Username is required</div>
+                </div> -->
+            </div>
+            <div class="form-group">
+                <div class="row">
+                  <div style="text-align:left;" class="col-4">
+                    <label>Organizational unit name:</label>
+                  </div>
+                  <div class="col-8">
+                      <input type="text" formControlName="organizationUnitName" class="form-control"/>
+                
+                  </div>
+                </div>
+                <!-- <div *ngIf="submitted && f.organizationUnitName.errors" class="invalid-feedback">
+                    <div *ngIf="f.organizationUnitName.errors.required">Username is required</div>
+                </div> -->
+            </div>
+            <div class="form-group">
+                <div class="row">
+                  <div style="text-align:left;" class="col-4">
+                    <label>Contry name:</label>
+                  </div>
+                  <div class="col-8">
+                      <input type="text" formControlName="countryName" class="form-control"/>
+                
+                  </div>
+                </div>
+                <!-- <div *ngIf="submitted && f.countryName.errors" class="invalid-feedback">
+                    <div *ngIf="f.countryName.errors.required">Username is required</div>
+                </div> -->
+            </div>
+            <div class="form-group">
+                <div class="row">
+                  <div style="text-align:left;" class="col-4">
+                    <label>E-mail:</label>
+                  </div>
+                  <div class="col-8">
+                      <input type="text" formControlName="email" class="form-control"/>
+                
+                  </div>
+                </div>
+                <!-- <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
+                    <div *ngIf="f.email.errors.required">Username is required</div>
+                </div> -->
+            </div>
+            <!--><h5 style="border-bottom:1px solid black; text-align:left;">Period of validity</h5>
+            <div class="form-group">
+                <div class="row">
+                  <div style="text-align:left;" class="col-4">
+                    <label>From:</label>
+                  </div>
+                  <div class="col-8">
+                      <div class="input-group mb-2">
+                          <div class="input-group-prepend">
+                            <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                          </div>
+                          <input class="form-control " formControlName="startDate" [ngClass]="{ 'is-invalid': submitted && f.startDate.errors }"
+                          [owlDateTimeTrigger]="dtfrom" [owlDateTime]="dtfrom">
+                          <owl-date-time #dtfrom></owl-date-time>
+                        </div>
+                  </div>
+                </div>
+                <div *ngIf="submitted && f.startDate.errors" class="invalid-feedback">
+                    <div *ngIf="f.startDate.errors.required">Username is required</div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="row">
+                  <div style="text-align:left;" class="col-4">
+                    <label>To:</label>
+                  </div>
+                  <div class="col-8">
+                      <div class="input-group mb-2">
+                          <div class="input-group-prepend">
+                            <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                          </div>
+                          <input class="form-control " formControlName="endDate" [ngClass]="{ 'is-invalid': submitted && f.endDate.errors }"
+                          [owlDateTimeTrigger]="dtTo" [owlDateTime]="dtTo">
+                          <owl-date-time #dtTo></owl-date-time>
+                        </div>
+                  </div>
+                </div>
+                <div *ngIf="submitted && f.endDate.errors" class="invalid-feedback">
+                    <div *ngIf="f.endDate.errors.required">Username is required</div>
+                </div>
+            </div><-->
+
+            <div class="form-group">
+              <div class="row">
+                <div class="col"></div>
+                <div class="col">
+                    <button class="btn btn-lg btn-primary btn-block" type="submit">Create</button>
+                </div>
+              </div>
+            </div>
+        
+      </form>
+    </div>
+    <div class="col-3"></div>
+  </div>
+  
+</body>

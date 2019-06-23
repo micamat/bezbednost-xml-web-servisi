@@ -1,0 +1,174 @@
+
+  <div class="row">
+    <div class="col-6">
+        <table class="table table-sm">
+            <thead>
+                <td colspan="6" style="text-align: center;"> <h3>Certificates</h3></td>
+                <tr>
+                    <th *ngFor="let head of headElements" scope="col">{{head}} </th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr scope="col" *ngFor="let el of certificates; let i = index">
+                    <th scope="row">{{i}}</th>
+                    <td>{{el.commonName}}</td>
+
+                    <td>
+                        <button class="btn btn-info btn-sm" type="button" (click)="showDetails(i)">Details</button>
+
+                    </td>
+                    <!--td>    
+            <button class="btn btn-sm btn-primary btn-block" type="submit">Show hierarchy</button>
+        </td>
+        <td>    
+            <button class="btn btn-sm btn-primary btn-block" type="submit">Show trusted certificates</button>
+        </td>-->
+                    <td>
+                        <button class="btn btn-sm btn-primary btn-block" type="submit" (click)="revoke(el.serialNumber)">Withdraw</button>
+                    </td>
+                    <td>
+                        <button class="btn btn-sm btn-primary btn-block" (click)="addTrustedCertificates()" type="submit">Add Trusted Certificates</button>
+                    </td>
+                    <td>
+                        <button class="btn btn-sm btn-primary btn-block" (click)="addTrustedCertificates()" type="submit">Validate</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm">
+            <thead>
+                <td colspan="5" style="text-align: center;"> <h3>Revoked certificates</h3></td>
+                <tr>
+                    <th *ngFor="let head of headElements" scope="col">{{head}} </th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr scope="col" *ngFor="let el of certificatesF; let i = index">
+                    <th scope="row">{{i}}</th>
+                    <td>{{el.commonName}}</td>
+
+                    <td>
+                        <button class="btn btn-info btn-sm" type="button" (click)="showDetailsF(i)">Details</button>
+
+                    </td>
+                    <!--td>    
+            <button class="btn btn-sm btn-primary btn-block" type="submit">Show hierarchy</button>
+        </td>
+        <td>    
+            <button class="btn btn-sm btn-primary btn-block" type="submit">Show trusted certificates</button>
+        </td>
+                    <td>
+                        <button class="btn btn-sm btn-primary btn-block" type="submit" (click)="revoke(el.serialNumber)">Withdraw</button>
+                    </td>
+                    <td>
+                        <button class="btn btn-sm btn-primary btn-block" (click)="addTrustedCertificates()" type="submit">Add Trusted Certificates</button>
+                    </td>-->
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="col-6">
+        <div>
+
+        </div>
+        <div id="details" *ngIf="hideDetails">
+            <h3>Certificate Details</h3>
+            <table id="certificateDetailsTable" class="table table-sm">
+                <tbody>
+                    <tr>
+                        <td>Issued to:</td>
+                        <td *ngIf="ispis1">{{certificate.commonName}}</td>
+                        <td *ngIf="ispis2">{{certificateF.commonName}}</td>
+                    </tr>
+                    <tr>
+                        <td>Common name:</td>
+                        <td *ngIf="ispis1">{{certificate.commonName}}</td>
+                        <td *ngIf="ispis2">{{certificateF.commonName}}</td>
+                    </tr>
+                    <tr>
+                        <td>Organization:</td>
+                        <td *ngIf="ispis1">{{certificate.organization}}</td>
+                        <td *ngIf="ispis2">{{certificateF.organization}}</td>
+                    </tr>
+                    <tr>
+                        <td>Organization unit:</td>
+                        <td *ngIf="ispis1">{{certificate.organizationalUnit}}</td>
+                        <td *ngIf="ispis2">{{certificateF.organizationalUnit}}</td>
+                    </tr>
+
+                    <tr>
+                        <td>Serial number:</td>
+                        <td *ngIf="ispis1">{{certificate.serialNumber}}</td>
+                        <td *ngIf="ispis2">{{certificateF.serialNumber}}</td>
+                    </tr>
+                    <tr>
+                        <td>Issued by:</td>
+                        <td *ngIf="ispis1">{{certificate.commonNameIssuer}}</td>
+                        <td *ngIf="ispis2">{{certificateF.commonNameIssuer}}</td>
+                    </tr>
+                    <tr>
+                        <td>Issuer common name :</td>
+                        <td *ngIf="ispis1">{{certificate.commonNameIssuer}}</td>
+                        <td *ngIf="ispis2">{{certificateF.commonNameIssuer}}</td>
+                    </tr>
+                    <tr>
+                        <td>Issuer organization:</td>
+                        <td *ngIf="ispis1">{{certificate.organizationIssuer}}</td>
+                        <td *ngIf="ispis2">{{certificateF.organizationIssuer}}</td>
+                    </tr>
+                    <tr>
+                        <td>Issuer organization unit:</td>
+                        <td *ngIf="ispis1">{{certificate.organizationalUnitIssuer}}</td>
+                        <td *ngIf="ispis2">{{certificateF.organizationalUnitIssuer}}</td>
+                    </tr>
+                    <tr>
+                        <td>Validate not before:</td>
+                        <td *ngIf="ispis1">{{certificate.validityBegins}}</td>
+                        <td *ngIf="ispis2">{{certificateF.validityBegins}}</td>
+                    </tr>
+                    <tr>
+                        <td>Validate not after:</td>
+                        <td *ngIf="ispis1">{{certificate.validityExpires}}</td>
+                        <td *ngIf="ispis2">{{certificateF.validityExpires}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div id="showTrustedCertificates" *ngIf="showAddTrustedCertificates">
+            <table class="table table-sm">
+                <thead>
+                    <tr>
+                        <th *ngFor="let el of trustedElements" scope="col">{{el}}</th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr scope="col" *ngFor="let el of certificates; let i = index">
+                        <td>
+                          {{el.commonName}}
+                        </td>
+                        <td>
+                            {{el.organization}}
+                        </td>
+                        <td>
+                            <input (change)="onChange($event)" class="form-check-input" type="checkbox" value="" id="el.serialNumber">
+                        </td>
+                        <td>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <button class="btn btn-sm btn-primary btn-block" type="submit">Confirm</button>
+            <div>
+
+            </div>
+        </div>
+    </div>
+  </div>
