@@ -1,0 +1,16 @@
+button{
+}
+.rightContent {
+    width: 30%;
+    display: inline;
+    float: right;
+    margin-right: 15px;
+}
+.leftContent{
+    display: inline;
+    float: left;
+    width: 60%;
+}
+
+
+
