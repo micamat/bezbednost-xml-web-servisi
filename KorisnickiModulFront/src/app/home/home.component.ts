@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { addClass } from '@syncfusion/ej2-base';
+import { Router } from '@angular/router';
+import { SearchService } from '../services/search.service';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-home',
@@ -11,10 +14,37 @@ export class HomeComponent implements OnInit {
   public minDate: Date = new Date("25/07/2018");
   public maxDate: Date = new Date("02/27/2028");
   //public placeholder: string = "Choose a Date";
+  
+  searchForm:FormGroup
 
-  constructor() { }
+  constructor(private router:Router,
+              private searchService:SearchService,
+              private formBuilder:FormBuilder) { }
+
 
   ngOnInit() {
+    
+
+
+    this.searchForm = this.formBuilder.group({
+      destination:['',Validators.compose([Validators.required, Validators.pattern('[a-zA-Z 0-9!]+')])],  
+      dateFrom:[null,Validators.required],
+      dateTo:[null,Validators.required],
+      type:[null],
+      category:[null],
+      service:[null],
+      distance:['',Validators.pattern('[0-9]*')],
+      person:['',Validators.compose([Validators.required, Validators.pattern('[0-9]*')])]  
+    });
+  }
+
+  search(){
+    const accommodations= this.searchForm.getRawValue();
+    this.searchService.getAllAvailableAccommodations(accommodations).subscribe(
+      (data:any)=>{
+          this.router.navigateByUrl('/accommodation-list');      
+      } 
+    );
   }
 
   onLoad(args: any) {
@@ -29,6 +59,7 @@ export class HomeComponent implements OnInit {
         this.specialDate(args, "Vacation");
     }
   }
+  
   /*Function to customize the Date*/
   public specialDate(args, name) {
     let span = document.createElement('span');

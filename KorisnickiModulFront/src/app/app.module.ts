@@ -11,6 +11,7 @@ import { FormGroup,ReactiveFormsModule } from '@angular/forms';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { DatePickerModule } from '@syncfusion/ej2-angular-calendars';
+import { AccommodationListComponent } from './accommodation-list/accommodation-list.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { DatePickerModule } from '@syncfusion/ej2-angular-calendars';
     NavbarComponent,
     RegistrationComponent,
     LoginComponent,
-    HomeComponent
+    HomeComponent,
+    AccommodationListComponent
   ],
   imports: [
     BrowserModule,
