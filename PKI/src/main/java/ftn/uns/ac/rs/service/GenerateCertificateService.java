@@ -86,6 +86,7 @@ public class GenerateCertificateService {
 		cm.setRevoked(false);
 		cm.setAlias("");
 		cm.setTrustStore(trustStoreName);
+		cm.setRevokedReason("");
 		
 		cm = certificateRepository.save(cm);
 		cm.setAlias(cm.getId().toString());
@@ -238,7 +239,7 @@ public class GenerateCertificateService {
 		KeyStoreReader kr = new KeyStoreReader();
 		Enumeration<String> aliases = null;
 		List<CertificateM> m = service.findAll();
-
+		List<String> reason = new ArrayList<String>();
 		for(int i = 0; i < keystoreDTO.size(); i++) {
 			System.out.println("SD"+keystoreDTO.size());
 			try {
@@ -274,6 +275,7 @@ public class GenerateCertificateService {
 					for (CertificateM certificateM : m) {
 						if(certificateM.getAlias().equals(s)) {
 							if(certificateM.getRevoked() == false) {
+								reason.add("");
 								temp = 1;
 							}else {
 								temp = 2;
@@ -287,7 +289,7 @@ public class GenerateCertificateService {
 		}
 		
 		
-		return CertificatesToCertificatesDTO(certificates);
+		return CertificatesToCertificatesDTO(certificates,reason);
 	}
 	
 	public List<CertificateDetailDTO> getAllCertificatesDetailsRevoked() {
@@ -296,7 +298,7 @@ public class GenerateCertificateService {
 		KeyStoreReader kr = new KeyStoreReader();
 		Enumeration<String> aliases = null;
 		List<CertificateM> m = service.findAll();
-
+		List<String> reason = new ArrayList<String>();
 		for(int i = 0; i < keystoreDTO.size(); i++) {
 			System.out.println("SD"+keystoreDTO.size());
 			try {
@@ -334,6 +336,7 @@ public class GenerateCertificateService {
 							if(certificateM.getRevoked() == false) {
 								temp = 1;
 							}else {
+								reason.add(certificateM.getRevokedReason());
 								temp = 2;
 							}
 						}
@@ -345,10 +348,10 @@ public class GenerateCertificateService {
 		}
 		
 		
-		return CertificatesToCertificatesDTO(certificates);
+		return CertificatesToCertificatesDTO(certificates,reason);
 	}
 	
-	public List<CertificateDetailDTO> CertificatesToCertificatesDTO(List<Certificate> certificates) {
+	public List<CertificateDetailDTO> CertificatesToCertificatesDTO(List<Certificate> certificates,List<String> reason) {
 		List<CertificateDetailDTO> certificatesDTO = new ArrayList<CertificateDetailDTO>();
 		for(int i = 0; i < certificates.size(); i++) {
 			CertificateDetailDTO certificateDetailDTO = new CertificateDetailDTO();
@@ -360,9 +363,9 @@ public class GenerateCertificateService {
 				cert.getIssuerDN();
 				  String[] subject = cert.getSubjectDN().getName().split(",");
 				  String[] issuer = cert.getIssuerDN().getName().split(",");
-
+	
 				  certificateDetailDTO.setCommonName(subject[7].replace("CN=", ""));
-
+	
 				  certificateDetailDTO.setOrganization(subject[4].replace("O=", ""));
 				  certificateDetailDTO.setOrganizationalUnit(subject[3].replace("OU=", ""));
 				  certificateDetailDTO.setOrganizationalUnitIssuer(issuer[3].replace("OU=", ""));
@@ -371,12 +374,13 @@ public class GenerateCertificateService {
 				  certificateDetailDTO.setCommonNameIssuer(issuer[7].replace("CN=", ""));
 				  certificateDetailDTO.setValidityExpires(cert.getNotAfter().toString());
 				  certificateDetailDTO.setValidityBegins(cert.getNotBefore().toString());
-				  
+				  certificateDetailDTO.setRevokedReason(reason.get(i));
 
 			}
 		}
 		return certificatesDTO;
 	}
+	
 	
 	//vracanje svih ca sertifikata
 	public List<SignedSertificateDTO> getAllCertificates(){

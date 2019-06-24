@@ -6,10 +6,10 @@
                 <td colspan="6" style="text-align: center;"> <h3>Certificates</h3></td>
                 <tr>
                     <th *ngFor="let head of headElements" scope="col">{{head}} </th>
-                    <th></th>
-                    <th></th>
-                    <th></th>
-                    <th></th>
+                    <th colspan="4">
+                        <h5 *ngIf="!prikaz && show" style="color: green; text-align: right;">{{validation}}</h5>
+                        <h5 *ngIf="prikaz && show" style="color: red; text-align: right;">{{validation}}</h5>
+                    </th>
                 </tr>
             </thead>
             <tbody>
@@ -34,7 +34,7 @@
                         <button class="btn btn-sm btn-primary btn-block" (click)="addTrustedCertificates()" type="submit">Add Trusted Certificates</button>
                     </td>
                     <td>
-                        <button class="btn btn-sm btn-primary btn-block" (click)="addTrustedCertificates()" type="submit">Validate</button>
+                        <button class="btn btn-sm btn-primary btn-block" (click)="validate(el.serialNumber)" type="submit">Validate</button>
                     </td>
                 </tr>
             </tbody>
@@ -44,8 +44,7 @@
                 <td colspan="5" style="text-align: center;"> <h3>Revoked certificates</h3></td>
                 <tr>
                     <th *ngFor="let head of headElements" scope="col">{{head}} </th>
-                    <th></th>
-                    <th></th>
+                    <th>Reason</th>
                     <th></th>
                 </tr>
             </thead>
@@ -53,7 +52,7 @@
                 <tr scope="col" *ngFor="let el of certificatesF; let i = index">
                     <th scope="row">{{i}}</th>
                     <td>{{el.commonName}}</td>
-
+                    <td>{{el.revokedReason}}</td>
                     <td>
                         <button class="btn btn-info btn-sm" type="button" (click)="showDetailsF(i)">Details</button>
 
@@ -76,7 +75,7 @@
     </div>
     <div class="col-6">
         <div>
-
+            
         </div>
         <div id="details" *ngIf="hideDetails">
             <h3>Certificate Details</h3>
