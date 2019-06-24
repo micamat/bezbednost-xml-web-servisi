@@ -63,10 +63,10 @@ public class Soba {
     @XmlElement(required = true)
     protected String opis;
     @XmlElement(name = "TipSobe", required = true)
-    @ManyToOne
+    @ManyToOne(optional = false)
     protected TipSobe tipSobe;
     @XmlElement(name = "Smestaj", required = true)
-    @ManyToOne
+    @ManyToOne(optional = false)
     protected Smestaj smestaj;
 
     /**

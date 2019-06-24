@@ -58,4 +58,8 @@ export class CertificateService {
   revoke(id:string):Observable<any>{
     return this.http.put(SERVER_URL+'/certificate/'+id, {params: id});
   }
+
+  validate(id:string):Observable<any>{
+    return this.http.put(SERVER_URL+'/certificate/validate/'+id, {params: id});
+  }
 }

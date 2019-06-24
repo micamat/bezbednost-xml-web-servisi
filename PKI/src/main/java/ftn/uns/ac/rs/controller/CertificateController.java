@@ -1,6 +1,8 @@
 package ftn.uns.ac.rs.controller;
 
 import java.security.cert.X509Certificate;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import org.bouncycastle.cert.CertIOException;
@@ -163,14 +165,63 @@ public class CertificateController {
 						SignedSertificateDTO cDTO1 = certificateService.makeCertDTOFromCert(cx1, c.getAlias());
 						if(h.getComonName().equals(cDTO1.getCommonName())) {
 							c.setRevoked(true);
+							c.setRevokedReason("Hand revoked");
 							service.save(c);
 						}
 					}
 				}
 			}
 		}
+		cert.setRevokedReason("Hand revoked");
 		service.save(cert);
 		return new ResponseEntity<CertificateM>(cert, HttpStatus.OK);
 	}
+	
+	@PutMapping(value = "/validate/{comonName}")
+	public ResponseEntity<Boolean> validate(@PathVariable("comonName") String serialNumber) {	
+		CertificateM cert = service.findByAlias(serialNumber);
+		
+		KeystoreDTO keyStore = null;
+		for(KeystoreDTO k : certificateService.getAllAdminKeystores()) {
+			if(k.getKeystoreName().equals(cert.getKeyStore())) {
+				keyStore = k;
+			}
+		}
+			
+		KeyStoreReader ksr = new KeyStoreReader();
+		X509Certificate cx = (X509Certificate)ksr.readCertificate("./keystore/admin/" + keyStore.getKeystoreName(), keyStore.getPassword(), serialNumber);
+		SignedSertificateDTO cDTO = certificateService.makeCertDTOFromCert(cx, serialNumber);
+		
+		Date start = cx.getNotBefore();
+		Date end = cx.getNotAfter();
+		Date d = new Date();
+		if (start.after(end) || end.before(d)) {
+			HierarchyModel node = nodeService.findByComonName(cDTO.getCommonName());
+			List<HierarchyModel> children = nodeService.findChildren(node.getId());
+			for(HierarchyModel h : children) {
+				for(CertificateM c : service.findAll()) {
+					for(KeystoreDTO k : certificateService.getAllAdminKeystores()) {
+						if(k.getKeystoreName().equals(c.getKeyStore())) {
+							X509Certificate cx1 = (X509Certificate) ksr.readCertificate("./keystore/admin/" + k.getKeystoreName(), k.getPassword(), c.getAlias());
+							
+							SignedSertificateDTO cDTO1 = certificateService.makeCertDTOFromCert(cx1, c.getAlias());
+							if(h.getComonName().equals(cDTO1.getCommonName())) {
+								c.setRevoked(true);
+								c.setRevokedReason("Issuer revoked");
+								service.save(c);
+							}
+						}
+					}
+				}
+			}
+			cert.setRevoked(true);
+			cert.setRevokedReason("Date expire");
+			service.save(cert);
+			return new ResponseEntity<Boolean>(true, HttpStatus.OK);
+		}else {
+			return new ResponseEntity<Boolean>(false, HttpStatus.OK);
+		}
+	}
+	
 	
 }

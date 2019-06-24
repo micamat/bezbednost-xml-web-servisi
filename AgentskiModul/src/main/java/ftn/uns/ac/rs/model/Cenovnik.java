@@ -10,6 +10,7 @@ package ftn.uns.ac.rs.model;
 
 import java.sql.Date;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -71,10 +72,10 @@ public class Cenovnik {
     @XmlSchemaType(name = "dateTime")
     protected Date datumDo;
     @XmlElement(name = "Smestaj", required = true)
-    @ManyToOne
+    @ManyToOne(optional = false)
     protected Smestaj smestaj;
     @XmlElement(name = "TipSobe", required = true)
-    @ManyToOne
+    @ManyToOne(optional = false)
     protected TipSobe tipSobe;
 
 

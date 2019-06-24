@@ -1,9 +1,15 @@
 package ftn.uns.ac.rs.service;
 
+import java.sql.SQLException;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import org.apache.tools.ant.types.CommandlineJava.SysProperties;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.Marker;
+import org.apache.logging.log4j.MarkerManager;
+import org.apache.logging.log4j.ThreadContext;
+import org.hibernate.engine.jdbc.spi.SqlExceptionHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -37,6 +43,11 @@ public class SmestajService {
 	
 	@Autowired
 	private AgentRepository agentRepository;
+	
+
+	 private Logger logger = LogManager.getLogger();
+	 private static final Marker USER = MarkerManager
+			   .getMarker("USER");
 
 	public List<ShowSmestajDTO> getAll(){ 
 		return smestajRepository.findAll().stream().map(this::convertToDTO).collect(Collectors.toList());
@@ -62,22 +73,40 @@ public class SmestajService {
 	
 	
 	public boolean add(SmestajDTO smestajDTO) {
-		
-		Smestaj smestaj = smestajRepository.save(convertToEntity(smestajDTO));
-		if(smestaj != null) {
-			//createSync(smestajDTO);
+		Smestaj smestaj = new Smestaj();
+		ThreadContext.put("userId", "3ss");
+		try {
+			smestaj = smestajRepository.save(convertToEntity(smestajDTO));
+			logger.info(USER, "Dodat smestaj" + smestaj.getId());
 			return true;
+
+		} catch (Exception e) {
+			logger.error(USER, "Smestaj nije uspesno sacuvan u bazi");
 		}
 		return false;
 	}
 	
 	public boolean delete(Long id) {
-		Smestaj s = smestajRepository.findById(id).get();
-		if(s != null) {
-			smestajRepository.deleteById(id);
-			lokacijaService.delete(s.getLokacija().getId());
-			return true;
+		Smestaj s = new Smestaj();
+		ThreadContext.put("user", "Ads");
+		try {
+			s = smestajRepository.findById(id).orElse(null);
+		}catch (Exception e) {
+			logger.warn(USER, "Smestaj " + id + " nije pronadjen");
+			return false;
 		}
+		
+		try {
+			smestajRepository.deleteById(id);
+			lokacijaService.delete(id);
+			logger.info(USER, "Smestaj " + id + "obrisan");
+
+			return true;
+		} catch (Exception e) {
+			logger.error(USER, "Greska prilikom brisanja smestaja " + id + ": " + e.getMessage());
+		}
+	
+
 		return false;
 	}
 	

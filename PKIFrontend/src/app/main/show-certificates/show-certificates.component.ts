@@ -21,6 +21,9 @@ export class ShowCertificatesComponent implements OnInit {
   certificateF : any;
   ispis1 : boolean = false;
   ispis2 : boolean = false;
+  validation : any;
+  prikaz : boolean = false;
+  show : boolean = true;
 
   ngOnInit() {
 
@@ -83,6 +86,35 @@ export class ShowCertificatesComponent implements OnInit {
           data => {
                   this.certificatesF = data;
         });
+    });
+  }
+
+  validate(id:any){
+    this._certificateService.validate(id).subscribe(
+      data => {
+        if(data){
+          this._certificateService.getCertificateDetails().subscribe(
+            data => {
+                    this.certificates = data;
+          });
+          this._certificateService.getCertificateDetailsR().subscribe(
+            data => {
+                    this.certificatesF = data;
+          });
+          this.show = true;
+          this.prikaz = true;
+          this.validation = "Certificate is not trusted!";
+          setTimeout (() => {
+            this.show = false;
+         }, 5000);
+        }else{
+          this.show = true;
+          this.prikaz = false;
+          this.validation = "Certificate is ok!";
+          setTimeout (() => {
+            this.show = false;
+         }, 5000);
+        }
     });
   }
 
