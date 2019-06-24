@@ -4,6 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.Marker;
+import org.apache.logging.log4j.MarkerManager;
+import org.apache.logging.log4j.ThreadContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,6 +17,7 @@ import ftn.uns.ac.rs.model.CreateSobaResponse;
 import ftn.uns.ac.rs.model.ProducerPort;
 import ftn.uns.ac.rs.model.ProducerPortService;
 import ftn.uns.ac.rs.model.ShowSobaDTO;
+import ftn.uns.ac.rs.model.Smestaj;
 import ftn.uns.ac.rs.model.Soba;
 import ftn.uns.ac.rs.model.SobaDTO;
 import ftn.uns.ac.rs.model.SobneUsluge;
@@ -39,6 +45,12 @@ public class SobaService {
 
 	@Autowired
 	private TipSobeRepository tipSobeRepository;
+	
+	private Logger logger = LogManager.getLogger();
+	
+	private static final Marker USER = MarkerManager
+			   .getMarker("USER");
+	
 
 	public List<ShowSobaDTO> getAll(){ 
 		return sobaRepository.findAll().stream().map(this::convertToDTO).collect(Collectors.toList());
@@ -72,8 +84,13 @@ public class SobaService {
 	
 	public boolean add(SobaDTO sobaDTO) {
 		sobaDTO.setId(sobaDTO.getId());
-		Soba soba = sobaRepository.save(convertToEntity(sobaDTO));
-		
+		Soba soba = new Soba();
+		try {
+			soba = sobaRepository.save(convertToEntity(sobaDTO));
+			logger.info(USER, "Soba " + soba.getId() + " uspesno dodata");
+		} catch (Exception e) {
+			logger.error(USER, "Neuspesno dodavanje sobe: " + e.getMessage());
+		}
 
 		for (Long idUsluga : sobaDTO.getIdUsluga()) {
 
@@ -90,10 +107,20 @@ public class SobaService {
 		return false;
 	}
 	
+	
 	public boolean delete(Long id) {
 		if(sobaRepository.existsById(id)) {
-			sobaRepository.deleteById(id);
+			try {
+				sobaRepository.deleteById(id);
+
+				logger.info(USER, "Soba " + id + " uspesno obrisana");
+			} catch (Exception e) {
+				logger.error(USER, "Greska prilikom brisanja sobe " + id + ": " + e.getMessage());
+			}
+			
 			return true;
+		} else {
+			logger.warn(USER, "Soba " + id + " nije pronadjena");
 		}
 		return false;
 	}

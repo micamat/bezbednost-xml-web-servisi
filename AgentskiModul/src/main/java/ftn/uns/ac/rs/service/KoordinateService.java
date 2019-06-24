@@ -1,5 +1,10 @@
 package ftn.uns.ac.rs.service;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.Marker;
+import org.apache.logging.log4j.MarkerManager;
+import org.apache.logging.log4j.ThreadContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,6 +20,11 @@ public class KoordinateService {
 	
 	@Autowired
 	private KoordinateRepository koordinateRepository;
+	
+	private Logger logger = LogManager.getLogger();
+	 private static final Marker USER = MarkerManager
+			   .getMarker("USER");
+	
 	
 	public int createSync(Koordinate koordinate){
 		ProducerPortService producerPortService = new ProducerPortService();
@@ -53,10 +63,13 @@ public class KoordinateService {
 	 */
 	
 	public boolean delete(Long id) {
+		ThreadContext.put("user", "A");
 		if(koordinateRepository.existsById(id)) {
 			koordinateRepository.deleteById(id);
+			logger.info(USER, "Koordinate " + id + "uspesno izbrisane");
 			return true;
 		}
+		logger.warn(USER, "Koordinate " + id + "ne postoje u bazi");
 		return false;
 	}
 }

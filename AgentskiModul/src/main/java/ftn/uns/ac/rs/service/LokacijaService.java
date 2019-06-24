@@ -9,6 +9,11 @@ import java.net.URLConnection;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.Marker;
+import org.apache.logging.log4j.MarkerManager;
+import org.apache.logging.log4j.ThreadContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -28,6 +33,10 @@ public class LokacijaService {
 	
 	@Autowired
 	KoordinateService koordinateService;
+	
+	private Logger logger = LogManager.getLogger();
+	 private static final Marker USER = MarkerManager
+			   .getMarker("USER");
 	
 	
 	public List<Lokacija> getAll(){ 
@@ -95,7 +104,6 @@ public class LokacijaService {
         }
 		
 		lokacija = lokacijaRepository.save(lokacija);
-		System.out.println(lokacija.getGrad() + "" + lokacija.getId());
 		if(lokacija != null) {
 			//createSync(lokacija);
 			return true;
@@ -110,10 +118,19 @@ public class LokacijaService {
 	 */
 	
 	public boolean delete(Long id) {
+		ThreadContext.put("user", "AS");
 		if(lokacijaRepository.existsById(id)) {
-			lokacijaRepository.deleteById(id);
+			try {
+				lokacijaRepository.deleteById(id);
+				logger.info(USER, "Lokacija" + id + "obrisana");
+			} catch (Exception e) {
+				logger.error(USER, "Greska prilikom brisanja koordinata " + id + ": " + e.getMessage());
+			}
+			koordinateService.delete(id);
 			return true;
 		}
+
+		logger.warn(USER, "Koordinate " + id + "ne postoje u bazi");
 		return false;
 	}
 	

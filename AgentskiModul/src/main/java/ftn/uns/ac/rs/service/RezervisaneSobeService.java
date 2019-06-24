@@ -3,6 +3,10 @@ package ftn.uns.ac.rs.service;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.Marker;
+import org.apache.logging.log4j.MarkerManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -24,7 +28,10 @@ public class RezervisaneSobeService {
 	
 	@Autowired
 	private RezervisaneSobeRepository rezervisaneSobeRepository;
+private Logger logger = LogManager.getLogger();
 	
+	private static final Marker USER = MarkerManager
+			   .getMarker("USER");
 	
 	public int createSync(RezervisaneSobeDTO rezervisaneSobeDTO){
 		ProducerPortService producerPortService = new ProducerPortService();
@@ -53,11 +60,12 @@ public class RezervisaneSobeService {
 	}
 	
 	public boolean add(RezervisaneSobe rezervisaneSobe) {
-		System.out.println("Y");
-		rezervisaneSobe = rezervisaneSobeRepository.save(rezervisaneSobe);
-		if(rezervisaneSobe != null) {
-			//createSync(rezervacijaDTO);
+		try {
+			rezervisaneSobe = rezervisaneSobeRepository.save(rezervisaneSobe);
+			logger.info(USER, "Soba " + rezervisaneSobe.getSoba().getId() + " uspesno rezervisana");
 			return true;
+		} catch (Exception e) {
+			logger.error(USER, "Greska prilikom rezrvisanja sobe " + rezervisaneSobe.getSoba().getId() + ": " + e.getMessage());
 		}
 		return false;
 	}

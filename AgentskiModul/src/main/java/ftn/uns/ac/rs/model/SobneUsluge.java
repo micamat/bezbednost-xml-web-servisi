@@ -57,10 +57,10 @@ public class SobneUsluge {
 	@XmlElement(name = "id", required = true)
     protected Long id;
     @XmlElement(name = "Soba", required = true)
-    @ManyToOne
+    @ManyToOne(optional = false)
     protected Soba soba;
     @XmlElement(name = "Usluga", required = true)
-    @ManyToOne
+    @ManyToOne(optional = false)
     protected Usluga usluga;
 
     /**

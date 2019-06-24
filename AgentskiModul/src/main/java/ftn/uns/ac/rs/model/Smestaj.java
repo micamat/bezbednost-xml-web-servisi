@@ -85,20 +85,20 @@ public class Smestaj {
     @XmlElement(required = true)
     @XmlSchemaType(name = "nonNegativeInteger")
     protected int kapacitet;
-    @OneToOne
+    @OneToOne(optional = false)
     @XmlElement(name = "Lokacija", required = true)
     protected Lokacija lokacija;
-    @ManyToOne
+    @ManyToOne(optional = false)
     @XmlElement(name = "TipSmestaja", required = true)
     protected TipSmestaja tipSmestaja;
     @XmlElement(name = "KategorijaSmestaja", required = true)
-    @ManyToOne
+    @ManyToOne(optional = false)
     protected KategorijaSmestaja kategorijaSmestaja;
     @XmlElement(name = "Soba")
     @OneToMany(mappedBy = "smestaj")
     protected List<Soba> soba;
     @XmlElement(name = "Agent", required = true)
-    @ManyToOne
+    @ManyToOne(optional = false)
     protected Agent agent;
     @XmlElement(name = "Komentar")
     @OneToMany(mappedBy = "smestaj")

@@ -10,6 +10,7 @@ package ftn.uns.ac.rs.model;
 
 import java.sql.Date;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -72,7 +73,7 @@ public class Poruka {
     @XmlSchemaType(name = "dateTime")
     protected Date datum;
     @XmlElement(name = "Rezervacija", required = true)
-    @ManyToOne
+    @ManyToOne(optional = false)
     protected Rezervacija rezervacija;
     protected boolean korisnikPosiljalac;
 

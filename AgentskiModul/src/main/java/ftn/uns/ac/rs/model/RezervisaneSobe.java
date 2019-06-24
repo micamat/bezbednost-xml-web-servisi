@@ -62,10 +62,10 @@ public class RezervisaneSobe {
     protected String statusRezervacije;
     protected float cena;
     @XmlElement(name = "Rezervacija", required = true)
-    @ManyToOne
+    @ManyToOne(optional = false)
     protected Rezervacija rezervacija;
     @XmlElement(name = "Soba", required = true)
-    @ManyToOne
+    @ManyToOne(optional = false)
     protected Soba soba;
 
     /**
