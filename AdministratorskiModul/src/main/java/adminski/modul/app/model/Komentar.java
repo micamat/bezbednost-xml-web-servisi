@@ -72,13 +72,15 @@ public class Komentar {
     protected String tekst;
     @XmlElement(namespace = "http://model.app.modul.adminski/Komentar", required = true)
     @XmlSchemaType(name = "date")
-    protected Date datum;
+    protected Date datumKreiranja;
     @XmlElement(required = true)
     @javax.persistence.ManyToOne(targetEntity=Korisnik.class)
     protected Korisnik korisnik;
     @XmlElement(name = "id_sobe", namespace = "http://model.app.modul.adminski/Komentar", required = true)
     protected BigInteger idSobe;
-
+    @XmlElement(required=true)
+    protected String statusKomentara;
+    
     /**
      * Gets the value of the id property.
      * 
@@ -159,8 +161,8 @@ public class Komentar {
      *     {@link XMLGregorianCalendar }
      *     
      */
-    public Date getDatum() {
-        return datum;
+    public Date getDatumKreiranja() {
+        return datumKreiranja;
     }
 
     /**
@@ -171,8 +173,8 @@ public class Komentar {
      *     {@link XMLGregorianCalendar }
      *     
      */
-    public void setDatum(Date value) {
-        this.datum = value;
+    public void setDatumKreiranja(Date value) {
+        this.datumKreiranja = value;
     }
 
     /**
@@ -223,4 +225,12 @@ public class Komentar {
         this.idSobe = value;
     }
 
+    public String getStatusKomentara() {
+		return statusKomentara;
+	}
+    
+    public void setStatusKomentara(String statusKomentara) {
+		this.statusKomentara = statusKomentara;
+	}
+    
 }

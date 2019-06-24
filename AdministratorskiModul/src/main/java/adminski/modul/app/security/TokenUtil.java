@@ -136,7 +136,7 @@ public class TokenUtil {
   }
 
   public Boolean validateToken(String token, UserDetails userDetails) {
-    Admin user = (Admin) userDetails; // pretpostavka
+	UserDetailsImpl user = (UserDetailsImpl) userDetails; // pretpostavka
     final String username = this.getUsernameFromToken(token);
     final Date created = this.getCreatedDateFromToken(token);
     final Date expiration = this.getExpirationDateFromToken(token);

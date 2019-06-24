@@ -47,9 +47,10 @@ public class KomentarService {
 		} else {
 			postojeci.setNaslov(komentar.getNaslov());
 			postojeci.setTekst(komentar.getTekst());
-			postojeci.setDatum(komentar.getDatum());
+			postojeci.setDatumKreiranja(komentar.getDatumKreiranja());
 			postojeci.setKorisnik(komentar.getKorisnik());
 			postojeci.setIdSobe(komentar.getIdSobe());
+			postojeci.setStatusKomentara(komentar.getStatusKomentara());
 			
 			komentarRepository.save(postojeci);
 			return true;	
