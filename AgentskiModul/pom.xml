@@ -64,8 +64,8 @@
 			It provides an abstraction for managing the XML-Java binding information 
 			necessary to implement the JAXB binding framework operations: unmarshal, 
 			marshal and validate. -->
-		<!-- <dependency> <groupId>javax.xml.bind</groupId> <artifactId>jaxb-api</artifactId> 
-			</dependency> -->
+		<dependency> <groupId>javax.xml.bind</groupId> <artifactId>jaxb-api</artifactId> 
+			</dependency> 
 		<!-- https://mvnrepository.com/artifact/org.apache.cxf/cxf-rt-frontend-jaxws -->
 		<dependency>
 			<groupId>org.apache.cxf</groupId>
@@ -79,6 +79,20 @@
 			<artifactId>cxf-rt-transports-http</artifactId>
 			<version>3.3.2</version>
 		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-log4j2</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter</artifactId>
+			<exclusions>
+				<exclusion>
+					<groupId>org.springframework.boot</groupId>
+					<artifactId>spring-boot-starter-logging</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
 	</dependencies>
 
 
@@ -88,7 +102,7 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
-			  <!-- <plugin>
+			  <!--  <plugin>
 				<groupId>org.apache.cxf</groupId>
 				<artifactId>cxf-codegen-plugin</artifactId>
 				<version>3.3.2</version>
@@ -100,8 +114,8 @@
 							<sourceRoot>${basedir}/src/generated</sourceRoot>
 							<wsdlOptions>
 								<wsdlOption> 
-									<wsdl>${basedir}/src/main/resources/wsdl/MegaTravel.wsdl</wsdl>
-									<wsdlLocation>classpath:wsdl/MegaTravel.wsdl</wsdlLocation>   
+									<wsdl>${basedir}/src/main/resources/wsdl/Agent.wsdl</wsdl>
+									<wsdlLocation>classpath:wsdl/Agent.wsdl</wsdlLocation>   
 								</wsdlOption>
 							</wsdlOptions>
 						</configuration>
@@ -110,7 +124,7 @@
 						</goals>
 					</execution>
 				</executions>
-			</plugin>   -->
+			</plugin>  -->
 			
 		</plugins>
 	</build>

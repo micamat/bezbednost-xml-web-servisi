@@ -8,6 +8,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import adminski.modul.app.model.Komentar;
+import adminski.modul.app.service.AuthService;
 import adminski.modul.app.service.KomentarService;
 
 @RestController
@@ -25,9 +27,11 @@ import adminski.modul.app.service.KomentarService;
 public class KomentarController {
 	
 	@Autowired
+	private AuthService authService;
+	@Autowired
 	private KomentarService komentarService;
 	
-
+	@PreAuthorize("@authService.hasProtectedAccess()")
 	@GetMapping("{id}")
 	public ResponseEntity<Komentar> getComment(@PathVariable Long id){
 		
@@ -41,6 +45,7 @@ public class KomentarController {
 		
 	}
 	
+	@PreAuthorize("@authService.hasProtectedAccess()")
 	@GetMapping
 	public ResponseEntity<List<Komentar>> getAllComments(){
 		
@@ -54,6 +59,7 @@ public class KomentarController {
 		
 	}
 	
+	@PreAuthorize("@authService.hasProtectedAccess()")
 	@DeleteMapping("{id}")
 	public ResponseEntity<Void> deleteComment(@PathVariable Long id){
 		
@@ -65,6 +71,7 @@ public class KomentarController {
 		
 	}
 	
+	@PreAuthorize("@authService.hasProtectedAccess()")
 	@PutMapping("{id}")
 	public ResponseEntity<Komentar> updateKomentar(@PathVariable Long id, @RequestBody Komentar komentar){
 		
@@ -76,6 +83,7 @@ public class KomentarController {
 		
 	}
 	
+	@PreAuthorize("@authService.hasProtectedAccess()")
 	@PostMapping
 	public ResponseEntity<Komentar> createKomentar(@RequestBody Komentar komentar){
 		

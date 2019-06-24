@@ -5,15 +5,12 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import ftn.uns.ac.rs.model.SifarnikDTO;
+import ftn.uns.ac.rs.model.KategorijaSmestaja;
 import ftn.uns.ac.rs.service.KategorijaSmestajaService;
 
 @RestController
@@ -24,24 +21,24 @@ public class KategorijaSmestajaController {
 	private KategorijaSmestajaService kategorijaSmestajaService;
 
 	@GetMapping
-	public ResponseEntity<List<SifarnikDTO>> getAll(){
+	public ResponseEntity<List<KategorijaSmestaja>> getAll(){
 		if(kategorijaSmestajaService.getAll() == null) {
-			return new ResponseEntity<List<SifarnikDTO>>(HttpStatus.NO_CONTENT);
+			return new ResponseEntity<List<KategorijaSmestaja>>(HttpStatus.NO_CONTENT);
 		}
-		return new ResponseEntity<List<SifarnikDTO>>(kategorijaSmestajaService.getAll(), HttpStatus.OK);
+		return new ResponseEntity<List<KategorijaSmestaja>>(kategorijaSmestajaService.getAll(), HttpStatus.OK);
 	}
 	
 	@GetMapping(value = "getAllSync")
-	public ResponseEntity<List<SifarnikDTO>> getAllSync(){
-		return new ResponseEntity<List<SifarnikDTO>>(kategorijaSmestajaService.getAllSync(), HttpStatus.OK);
+	public ResponseEntity<List<KategorijaSmestaja>> getAllSync(){
+		return new ResponseEntity<List<KategorijaSmestaja>>(kategorijaSmestajaService.getAllSync(), HttpStatus.OK);
 	}
 	
 	@GetMapping(value = "/{id}")
-	public ResponseEntity<SifarnikDTO> getById(@PathVariable Long id){
+	public ResponseEntity<KategorijaSmestaja> getById(@PathVariable Long id){
 		if(kategorijaSmestajaService.getById(id) == null) {
-			return new ResponseEntity<SifarnikDTO>(HttpStatus.NO_CONTENT);
+			return new ResponseEntity<KategorijaSmestaja>(HttpStatus.NO_CONTENT);
 		}
-		return new ResponseEntity<SifarnikDTO>(kategorijaSmestajaService.getById(id), HttpStatus.OK);
+		return new ResponseEntity<KategorijaSmestaja>(kategorijaSmestajaService.getById(id), HttpStatus.OK);
 	}
 
 }

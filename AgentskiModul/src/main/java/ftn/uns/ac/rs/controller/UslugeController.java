@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import ftn.uns.ac.rs.model.SifarnikDTO;
+import ftn.uns.ac.rs.model.Usluga;
 import ftn.uns.ac.rs.service.UslugaService;
 
 /**
@@ -25,19 +25,19 @@ public class UslugeController {
 
 	
 	@GetMapping
-	public ResponseEntity<List<SifarnikDTO>> getAll(){
+	public ResponseEntity<List<Usluga>> getAll(){
 		if(uslugaService.getAll() == null) {
-			return new ResponseEntity<List<SifarnikDTO>>(HttpStatus.NO_CONTENT);
+			return new ResponseEntity<List<Usluga>>(HttpStatus.NO_CONTENT);
 		}
-		return new ResponseEntity<List<SifarnikDTO>>(uslugaService.getAll(), HttpStatus.OK);
+		return new ResponseEntity<List<Usluga>>(uslugaService.getAll(), HttpStatus.OK);
 	}
 	
 	@GetMapping(value = "/{id}")
-	public ResponseEntity<SifarnikDTO> getById(@PathVariable Long id){
+	public ResponseEntity<Usluga> getById(@PathVariable Long id){
 		if(uslugaService.getById(id) == null) {
-			return new ResponseEntity<SifarnikDTO>(HttpStatus.NO_CONTENT);
+			return new ResponseEntity<Usluga>(HttpStatus.NO_CONTENT);
 		}
-		return new ResponseEntity<SifarnikDTO>(uslugaService.getById(id), HttpStatus.OK);
+		return new ResponseEntity<Usluga>(uslugaService.getById(id), HttpStatus.OK);
 	}
 
 }

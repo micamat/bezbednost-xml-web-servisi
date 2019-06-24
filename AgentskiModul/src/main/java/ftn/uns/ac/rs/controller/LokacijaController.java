@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import ftn.uns.ac.rs.model.LokacijaDTO;
+import ftn.uns.ac.rs.model.Lokacija;
 import ftn.uns.ac.rs.service.LokacijaService;
 
 @RestController
@@ -24,31 +24,31 @@ public class LokacijaController {
 	private LokacijaService lokacijaService;
 
 	@GetMapping
-	public ResponseEntity<List<LokacijaDTO>> getAll(){
+	public ResponseEntity<List<Lokacija>> getAll(){
 		if(lokacijaService.getAll() == null) {
-			return new ResponseEntity<List<LokacijaDTO>>(HttpStatus.NO_CONTENT);
+			return new ResponseEntity<List<Lokacija>>(HttpStatus.NO_CONTENT);
 		}
-		return new ResponseEntity<List<LokacijaDTO>>(lokacijaService.getAll(), HttpStatus.OK);
+		return new ResponseEntity<List<Lokacija>>(lokacijaService.getAll(), HttpStatus.OK);
 	}
 	
 	@PostMapping(value = "createSync")
-	public ResponseEntity<Integer> createSync(@RequestBody LokacijaDTO lokacijaDTO){
+	public ResponseEntity<Integer> createSync(@RequestBody Lokacija lokacija){
 		
-		return new ResponseEntity<Integer>(lokacijaService.createSync(lokacijaDTO), HttpStatus.OK);
+		return new ResponseEntity<Integer>(lokacijaService.createSync(lokacija), HttpStatus.OK);
 	}
 	
 	
 	@GetMapping(value = "/{id}")
-	public ResponseEntity<LokacijaDTO> getById(@PathVariable Long id){
+	public ResponseEntity<Lokacija> getById(@PathVariable Long id){
 		if(lokacijaService.getById(id) == null) {
-			return new ResponseEntity<LokacijaDTO>(HttpStatus.NO_CONTENT);
+			return new ResponseEntity<Lokacija>(HttpStatus.NO_CONTENT);
 		}
-		return new ResponseEntity<LokacijaDTO>(lokacijaService.getById(id), HttpStatus.OK);
+		return new ResponseEntity<Lokacija>(lokacijaService.getById(id), HttpStatus.OK);
 	}
 	
 	@PostMapping
-	public ResponseEntity<String> add(@RequestBody LokacijaDTO lokacijaDTO){
-		if(lokacijaService.add(lokacijaDTO)) {
+	public ResponseEntity<String> add(@RequestBody Lokacija lokacija){
+		if(lokacijaService.add(lokacija)) {
 			return new ResponseEntity<String>("Lokacija je uspesno dodata!", HttpStatus.CREATED);
 		}else {
 			return new ResponseEntity<String>("Greska pri dodavanju lokacije!", HttpStatus.CONFLICT);

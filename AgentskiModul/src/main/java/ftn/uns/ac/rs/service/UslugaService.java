@@ -3,6 +3,10 @@ package ftn.uns.ac.rs.service;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.Marker;
+import org.apache.logging.log4j.MarkerManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -10,7 +14,6 @@ import ftn.uns.ac.rs.model.GetAllUslugaRequest;
 import ftn.uns.ac.rs.model.GetAllUslugaResponse;
 import ftn.uns.ac.rs.model.ProducerPort;
 import ftn.uns.ac.rs.model.ProducerPortService;
-import ftn.uns.ac.rs.model.SifarnikDTO;
 import ftn.uns.ac.rs.model.Usluga;
 import ftn.uns.ac.rs.repository.UslugaRepository;
 
@@ -18,21 +21,30 @@ import ftn.uns.ac.rs.repository.UslugaRepository;
 public class UslugaService {
 	@Autowired
 	private UslugaRepository uslugaRepository;
-
 	
-	public List<SifarnikDTO> getAllSync(){
+	private Logger logger = LogManager.getLogger();
+	 private static final Marker USER = MarkerManager
+			   .getMarker("USER");
+	
+	
+	public List<Usluga> getAllSync(){
 		ProducerPortService producerPortService = new ProducerPortService();
 		ProducerPort producerPort = producerPortService.getProducerPortSoap11();
 		
 		GetAllUslugaRequest getUslugaRequest = new GetAllUslugaRequest();
-		GetAllUslugaResponse getUslugaResponse = producerPort.getAllUsluga(getUslugaRequest);
-		for (SifarnikDTO uslugaDTO : getUslugaResponse.getUslugaDTO()) {
-			uslugaRepository.save(convertToEntity(uslugaDTO));
+		GetAllUslugaResponse getUslugaResponse = new GetAllUslugaResponse();
+		try {
+			getUslugaResponse = producerPort.getAllUsluga(getUslugaRequest);
+		} catch (Exception e) {
+			logger.error(USER, "Neuspesna sinhronizacija Usluga: " + e.getMessage());
+		}
+		for (Usluga uslugaDTO : getUslugaResponse.getUsluga()) {
+			uslugaRepository.save(uslugaDTO);
 		}
 		
 		for (Usluga usluga : uslugaRepository.findAll()) {
 			boolean exists = false;
-			for (SifarnikDTO uslugaDTO : getUslugaResponse.getUslugaDTO()) {
+			for (Usluga uslugaDTO : getUslugaResponse.getUsluga()) {
 				if (usluga.getId().equals(uslugaDTO.getId())){
 					exists = true;
 					break;
@@ -42,34 +54,18 @@ public class UslugaService {
 				uslugaRepository.deleteById(usluga.getId());
 			}
 		}
-		return getUslugaResponse.getUslugaDTO();
+		return getUslugaResponse.getUsluga();
 	};
 	
-	public List<SifarnikDTO> getAll(){ 
-		return uslugaRepository.findAll().stream().map(this::convertToDTO).collect(Collectors.toList());
+	public List<Usluga> getAll(){ 
+		return uslugaRepository.findAll().stream().collect(Collectors.toList());
 	};
 	
-	public SifarnikDTO getById(Long id) {
+	public Usluga getById(Long id) {
 		if(!uslugaRepository.existsById(id)) {
 			return null;
 		}
-		Usluga uslugaDTO = uslugaRepository.findById(id).orElse(null);
-		return convertToDTO(uslugaDTO);
-	}
-	
-	private SifarnikDTO convertToDTO(Usluga usluga) {
-		SifarnikDTO uslugaDTO = new SifarnikDTO();
-		uslugaDTO.setId(usluga.getId());
-		uslugaDTO.setNaziv(usluga.getNaziv());
-		uslugaDTO.setOpis(usluga.getOpis());
-		return uslugaDTO;
-	}
-	
-	private Usluga convertToEntity(SifarnikDTO uslugaDTO) {
-		Usluga usluga = new Usluga();
-		usluga.setId(uslugaDTO.getId());
-		usluga.setNaziv(uslugaDTO.getNaziv());
-		usluga.setOpis(uslugaDTO.getOpis());
+		Usluga usluga = uslugaRepository.findById(id).orElse(null);
 		return usluga;
 	}
 }

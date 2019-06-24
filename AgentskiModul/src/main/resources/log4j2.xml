@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="WARN">
+  <Appenders>
+    <Console name="ConsoleUser" target="SYSTEM_OUT">
+    	<Filters>
+<!--     		<ThresholdFilter level="WARN" onMatch="ACCEPT" onMismatch="NEUTRAL"/> -->
+<!--         	<ThresholdFilter level="ERROR" onMatch="ACCEPT" onMismatch="NEUTRAL"/>	 -->
+			<MarkerFilter marker="USER" onMatch="ACCEPT" onMismatch="DENY"/>
+        	<ThresholdFilter level="INFO" onMatch="ACCEPT" onMismatch="DENY"/>
+       	</Filters>
+      <PatternLayout pattern="%d{yyyy-MMM-dd HH:mm:ss.SSS} [%t] %-5level %logger{36} User: %-20X{userId} - %msg%n"/>
+    </Console>
+    <Console name="ConsoleApp" target="SYSTEM_OUT">
+    <Filters>
+<!--     		<ThresholdFilter level="WARN" onMatch="ACCEPT" onMismatch="NEUTRAL"/> -->
+<!--         	<ThresholdFilter level="ERROR" onMatch="ACCEPT" onMismatch="NEUTRAL"/>	 -->
+			<MarkerFilter marker="USER" onMatch="DENY" onMismatch="NEUTRAL"/>
+        	<ThresholdFilter level="INFO" onMatch="ACCEPT" onMismatch="DENY"/>
+       	</Filters>
+      <PatternLayout pattern="%d{yyyy-MMM-dd HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>
+    </Console>
+    <RollingFile name="File" fileName="./logs/agentskiModul.log" immediateFlush="true" append="true" locking="true"
+        filePattern="./logs/agentskiModul-%d{HH MM-dd-yyyy}-%i.log">
+		<Filters>
+			<MarkerFilter marker="USER" onMatch="ACCEPT" onMismatch="DENY"/>
+			<ThresholdFilter level="INFO" onMatch="ACCEPT" onMismatch="DENY"/>
+		</Filters>
+    	<PatternLayout pattern="%d{yyyy-MMM-dd HH:mm:ss} [%t] %-5level %logger{36} User: %-20X{userId} - %msg%n"/>
+    	<Policies>              
+            <TimeBasedTriggeringPolicy interval="1" modulate="true"/>
+            <SizeBasedTriggeringPolicy size="250 KB" /> 
+        </Policies>
+    </RollingFile>
+	<RollingFile name="CriticalFile" fileName="./logs/agentskiModul_critical.log" immediateFlush="true" append="true" locking="true"
+        filePattern="./logs/agentskiModul_critical-%d{HH MM-dd-yyyy}-%i.log">
+        <Filters>
+			<ThresholdFilter level="WARN" onMatch="ACCEPT" onMismatch="NEUTRAL"/>
+			<MarkerFilter marker="USER" onMatch="ACCEPT" onMismatch="DENY"/>
+        </Filters>
+    	<PatternLayout pattern="%d{yyyy-MMM-dd HH:mm:ss.SSS} [%t] %-5level %logger{36} User: %-20X{userId} - %msg%n"/>
+    	<Policies>              
+            <TimeBasedTriggeringPolicy interval="1" modulate="true"/>
+           <SizeBasedTriggeringPolicy size="100 KB" /> 
+        </Policies>
+    </RollingFile>
+  </Appenders>
+  <Loggers>
+    <Root level="debug">
+      <AppenderRef ref="ConsoleUser"/>
+            <AppenderRef ref="ConsoleApp"/>
+      
+      <AppenderRef ref="File"/>
+      <AppenderRef ref="CriticalFile"/>
+    </Root>
+  </Loggers>
+</Configuration>

@@ -1,5 +1,9 @@
 package adminski.modul.app.controller;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -7,6 +11,8 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -17,6 +23,7 @@ import org.springframework.web.bind.annotation.RestController;
 import adminski.modul.app.model.Admin;
 import adminski.modul.app.repository.AdminRepository;
 import adminski.modul.app.security.TokenUtil;
+import adminski.modul.app.security.UserDetailsImpl;
 
 @RestController
 @RequestMapping("/login")
@@ -32,13 +39,20 @@ public class LoginController {
 
 	@PostMapping
 	public ResponseEntity<?> authenticationRequest(@RequestParam String username, @RequestParam String password) throws AuthenticationException {
-	    // Perform the authentication
+	    
+		List<SimpleGrantedAuthority> authorities = new ArrayList<SimpleGrantedAuthority>();
+		authorities.add(new SimpleGrantedAuthority("ADMIN"));
+				
+		// Perform the authentication
 	    Authentication authentication = this.authenticationManager.authenticate(
 	      new UsernamePasswordAuthenticationToken(
 	        username,
-	        password
+	        password,
+	        authorities
 	      )
 	    );
+	    
+	    //System.out.println(authentication.getAuthorities());
 	   
 	    SecurityContextHolder.getContext().setAuthentication(authentication);
 	    
@@ -51,9 +65,17 @@ public class LoginController {
 	    }
 	    
 	    // Reload password post-authentication so we can generate token
-	    UserDetails userDetails = (UserDetails) user;
-	    String token = this.tokenUtil.generateToken(userDetails);
+	    UserDetailsImpl details = new UserDetailsImpl();
+	    details.setId(user.getId());
+	    details.setUsername(user.getUsername());
+	    details.setPassword(user.getPassword());
+	    details.setAuthorities(authorities);
+	    
+	    UserDetails userDetails = (UserDetails) details;
+	   	String token = this.tokenUtil.generateToken(userDetails);
 
+	   	//System.out.println(SecurityContextHolder.getContext().getAuthentication().getAuthorities());
+	   	
 	    // Return the token
 	    return ResponseEntity.ok(token);
 	  }
