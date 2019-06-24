@@ -38,14 +38,6 @@ public class KorisnikService implements UserDetailsService {
 
 	@Autowired
 	private BCryptPasswordEncoder encoder;
-	
-	@Autowired
-	private AuthenticationManager authenticationManager;
-	
-	@Autowired
-	private UserDetailsService userDetailsService;
-	
-	private final JwtConfig jwtConfig = new JwtConfig();
 
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -67,25 +59,6 @@ public class KorisnikService implements UserDetailsService {
 		}
 
 		throw new UsernameNotFoundException("Korisnik: " + username + " nije pronadjen");
-	}
-	
-	public String signin(String username, String password) {
-		Authentication authentication = this.authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
-				username, password));
-		SecurityContextHolder.getContext().setAuthentication(authentication);
-		UserDetails userDetails = this.userDetailsService.loadUserByUsername(username);
-		
-		Long now = System.currentTimeMillis();
-		String token = Jwts.builder()
-			.setSubject(authentication.getName())
-			.claim("authorities", authentication.getAuthorities().stream()
-				.map(GrantedAuthority::getAuthority).collect(Collectors.toList()))
-			.setIssuedAt(new Date(now))
-			.setExpiration(new Date(now + jwtConfig.getExpiration() * 1000))  // in milliseconds
-			.signWith(SignatureAlgorithm.HS512, jwtConfig.getSecret().getBytes())
-			.compact();
-		
-		return token;
 	}
 
 

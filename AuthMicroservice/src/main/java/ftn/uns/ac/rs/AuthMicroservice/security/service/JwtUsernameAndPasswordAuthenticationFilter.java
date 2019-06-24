@@ -15,6 +15,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
@@ -82,5 +83,22 @@ public class JwtUsernameAndPasswordAuthenticationFilter extends UsernamePassword
 		
 		// postavljanje tokena u header odgovora 
 		response.addHeader(jwtConfig.getHeader(), jwtConfig.getPrefix() + token);
+	}
+	
+	public String signin(String username, String password) {
+		Authentication authentication = this.authManager.authenticate(new UsernamePasswordAuthenticationToken(username, password));
+		SecurityContextHolder.getContext().setAuthentication(authentication);
+		
+		Long now = System.currentTimeMillis();
+		String token = Jwts.builder()
+			.setSubject(authentication.getName())
+			.claim("authorities", authentication.getAuthorities().stream()
+				.map(GrantedAuthority::getAuthority).collect(Collectors.toList()))
+			.setIssuedAt(new Date(now))
+			.setExpiration(new Date(now + jwtConfig.getExpiration() * 1000))  // in milliseconds
+			.signWith(SignatureAlgorithm.HS512, jwtConfig.getSecret().getBytes())
+			.compact();
+		
+		return token;
 	}
 }
