@@ -10,7 +10,6 @@ import ftn.uns.ac.rs.model.GetAllTipSmestajaRequest;
 import ftn.uns.ac.rs.model.GetAllTipSmestajaResponse;
 import ftn.uns.ac.rs.model.ProducerPort;
 import ftn.uns.ac.rs.model.ProducerPortService;
-import ftn.uns.ac.rs.model.SifarnikDTO;
 import ftn.uns.ac.rs.model.TipSmestaja;
 import ftn.uns.ac.rs.repository.TipSmestajaRepository;
 
@@ -20,18 +19,18 @@ public class TipSmestajaService {
 	@Autowired
 	private TipSmestajaRepository tipSmestajaRepository;
 
-	public List<SifarnikDTO> getAllSync(){
+	public List<TipSmestaja> getAllSync(){
 		ProducerPortService producerPortService = new ProducerPortService();
 		ProducerPort producerPort = producerPortService.getProducerPortSoap11();
 		
 		GetAllTipSmestajaRequest getTipSmestajaRequest = new GetAllTipSmestajaRequest();
 		GetAllTipSmestajaResponse getTipSmestajaResponse = producerPort.getAllTipSmestaja(getTipSmestajaRequest);
-		for (SifarnikDTO tipSmestajaDTO : getTipSmestajaResponse.getTipSmestajaDTO()) {
-			tipSmestajaRepository.save(convertToEntity(tipSmestajaDTO));
+		for (TipSmestaja tipSmestajaDTO : getTipSmestajaResponse.getTipSmestaja()) {
+			tipSmestajaRepository.save(tipSmestajaDTO);
 		}
 		boolean exists = false;
 		for (TipSmestaja tipSmestaja : tipSmestajaRepository.findAll()) {
-			for (SifarnikDTO tipSmestajaDTO : getTipSmestajaResponse.getTipSmestajaDTO()) {
+			for (TipSmestaja tipSmestajaDTO : getTipSmestajaResponse.getTipSmestaja()) {
 				if (tipSmestaja.getId().equals(tipSmestajaDTO.getId())){
 					exists = true;
 				}
@@ -40,35 +39,17 @@ public class TipSmestajaService {
 				tipSmestajaRepository.deleteById(tipSmestaja.getId());
 			}
 		}
-		return getTipSmestajaResponse.getTipSmestajaDTO();
+		return getTipSmestajaResponse.getTipSmestaja();
 	};
 	
-	public List<SifarnikDTO> getAll(){ 
-		return tipSmestajaRepository.findAll().stream().map(this::convertToDTO).collect(Collectors.toList());
+	public List<TipSmestaja> getAll(){ 
+		return tipSmestajaRepository.findAll().stream().collect(Collectors.toList());
 	};
 	
-	public SifarnikDTO getById(Long id) {
+	public TipSmestaja getById(Long id) {
 		if(!tipSmestajaRepository.existsById(id)) {
 			return null;
 		}
-		TipSmestaja tipSmestaja = tipSmestajaRepository.findById(id).orElse(null);
-		return convertToDTO(tipSmestaja);
-	}
-	
-	
-	private SifarnikDTO convertToDTO(TipSmestaja tipSmestaja) {
-		SifarnikDTO tipSmestajaDTO = new SifarnikDTO();
-		tipSmestajaDTO.setId(tipSmestaja.getId());
-		tipSmestajaDTO.setNaziv(tipSmestaja.getNaziv());
-		tipSmestajaDTO.setOpis(tipSmestaja.getOpis());
-		return tipSmestajaDTO;
-	}
-	
-	private TipSmestaja convertToEntity(SifarnikDTO tipSmestajaDTO) {
-		TipSmestaja tipSmestaja = new TipSmestaja();
-		tipSmestaja.setId(tipSmestajaDTO.getId());
-		tipSmestaja.setNaziv(tipSmestajaDTO.getNaziv());
-		tipSmestaja.setOpis(tipSmestajaDTO.getOpis());
-		return tipSmestaja;
+		return tipSmestajaRepository.findById(id).orElse(null);
 	}
 }

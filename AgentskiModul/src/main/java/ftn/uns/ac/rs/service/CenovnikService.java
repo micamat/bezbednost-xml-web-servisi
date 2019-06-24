@@ -19,7 +19,6 @@ import ftn.uns.ac.rs.repository.TipSobeRepository;
 
 @Service
 public class CenovnikService {
-	
 	@Autowired
 	private SmestajRepository smestajRepository;
 
@@ -34,17 +33,12 @@ public class CenovnikService {
 	};
 	
 	
-	public int createSync(Cenovnik cenovnik){
+	public int createSync(CenovnikDTO cenovnikDTO){
 		ProducerPortService producerPortService = new ProducerPortService();
 		ProducerPort producerPort = producerPortService.getProducerPortSoap11();
 		
 		CreateCenovnikRequest createCenovnikRequest = new CreateCenovnikRequest();
-		createCenovnikRequest.setId(cenovnik.getId());
-		createCenovnikRequest.setCena(cenovnik.getCena());
-		createCenovnikRequest.setDatumDo(cenovnik.getDatumDo());
-		createCenovnikRequest.setDatumOd(cenovnik.getDatumOd());
-		createCenovnikRequest.setIdSmestaj(cenovnik.getSmestaj().getId());
-		createCenovnikRequest.setIdTipSobe(cenovnik.getTipSobe().getId());
+		createCenovnikRequest.setCenovnikDTO(cenovnikDTO);
 		
 		CreateCenovnikResponse createCenovnikResponse = producerPort.createCenovnik(createCenovnikRequest);
 		return createCenovnikResponse.getId();
@@ -67,7 +61,7 @@ public class CenovnikService {
 		cenovnikDTO.setId(cenovnikDTO.getId());
 		Cenovnik cenovnik = cenovnikRepository.save(convertToEntity(cenovnikDTO));
 		if(cenovnik != null) {
-			createSync(cenovnik);
+			//createSync(cenovnikDTO);
 			return true;
 		}
 		return false;
@@ -89,6 +83,7 @@ public class CenovnikService {
 		cenovnikDTO.setCena(cenovnik.getCena());
 		cenovnikDTO.setNazivTipSobe(cenovnik.getTipSobe().getNaziv());
 		cenovnikDTO.setNazivSmestaj(cenovnik.getSmestaj().getNaziv());
+		cenovnikDTO.setBrojDanaZaOtkazivanje(cenovnik.getBrojDanaZaOtkazivanje());
 		return cenovnikDTO;
 	}
 	
@@ -98,6 +93,7 @@ public class CenovnikService {
 		cenovnik.setCena(cenovnikDTO.getCena());
 		cenovnik.setDatumOd(cenovnikDTO.getDatumOd());
 		cenovnik.setDatumDo(cenovnikDTO.getDatumDo());
+		cenovnik.setBrojDanaZaOtkazivanje(cenovnikDTO.getBrojDanaZaOtkazivanje());
 		cenovnik.setTipSobe(tipSobeRepository.findById(cenovnikDTO.getIdTipSobe()).orElse(null));
 		cenovnik.setSmestaj(smestajRepository.findById(cenovnikDTO.getIdSmestaj()).orElse(null));
 		return cenovnik;
