@@ -55,6 +55,22 @@
             </xs:all>
         </xs:complexType>
     </xs:element>
+    
+    <xs:element name="LoginRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="korisnickoIme" type="xs:string"/>
+                <xs:element name="lozinka" type="xs:string"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="LoginResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="token" type="xs:string"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
     <!-- ===================================================================================== -->
     <xs:element name="StatusSobe">
         <xs:complexType>

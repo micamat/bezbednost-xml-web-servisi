@@ -80,7 +80,7 @@ public class JwtUsernameAndPasswordAuthenticationFilter extends UsernamePassword
 			.signWith(SignatureAlgorithm.HS512, jwtConfig.getSecret().getBytes())
 			.compact();
 		
-		// postavljanje tokena u header zahteva 
+		// postavljanje tokena u header odgovora 
 		response.addHeader(jwtConfig.getHeader(), jwtConfig.getPrefix() + token);
 	}
 }
