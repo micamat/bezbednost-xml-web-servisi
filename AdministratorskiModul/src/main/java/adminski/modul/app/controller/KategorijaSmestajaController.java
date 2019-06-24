@@ -8,6 +8,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import adminski.modul.app.model.KategorijaSmestaja;
+import adminski.modul.app.service.AuthService;
 import adminski.modul.app.service.KategorijaSmestajaService;
 
 @RestController
@@ -25,8 +27,12 @@ import adminski.modul.app.service.KategorijaSmestajaService;
 public class KategorijaSmestajaController {
 
 	@Autowired
+	private AuthService authService;
+	
+	@Autowired
 	private KategorijaSmestajaService kategorijaSmestajaService;
 	
+	@PreAuthorize("@authService.hasProtectedAccess()")
 	@GetMapping("{id}")
 	public ResponseEntity<KategorijaSmestaja> getKategorijaSmestaja(@PathVariable Long id){
 		
@@ -36,6 +42,7 @@ public class KategorijaSmestajaController {
 		
 	}
 	
+	@PreAuthorize("@authService.hasProtectedAccess()")
 	@GetMapping
 	public ResponseEntity<List<KategorijaSmestaja>> getAllKategorijaSmestaja(){
 		
@@ -49,6 +56,7 @@ public class KategorijaSmestajaController {
 		
 	}
 	
+	@PreAuthorize("@authService.hasProtectedAccess()")
 	@DeleteMapping("{id}")
 	public ResponseEntity<Void> deleteTipSmestaja(@PathVariable Long id){
 		
@@ -60,6 +68,7 @@ public class KategorijaSmestajaController {
 		
 	}
 	
+	@PreAuthorize("@authService.hasProtectedAccess()")
 	@PutMapping("{id}")
 	public ResponseEntity<KategorijaSmestaja> updateKategorijaSmestaja(@PathVariable Long id, @RequestBody KategorijaSmestaja kategorijaSmestaja){
 		
@@ -71,6 +80,7 @@ public class KategorijaSmestajaController {
 		
 	}
 	
+	@PreAuthorize("@authService.hasProtectedAccess()")
 	@PostMapping
 	public ResponseEntity<KategorijaSmestaja> createTipSmestaja(@RequestBody KategorijaSmestaja kategorija){
 		

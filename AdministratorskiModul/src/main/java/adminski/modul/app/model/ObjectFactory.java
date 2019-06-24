@@ -43,6 +43,9 @@ public class ObjectFactory {
     public Admin createAdmin() {
         return new Admin();
     }
+    public TipSobe createTipSobe() {
+        return new TipSobe();
+    }
     public Agent createAgent() {
         return new Agent();
     }

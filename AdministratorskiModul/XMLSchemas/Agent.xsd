@@ -10,8 +10,10 @@
                 <xs:element name="ime" type="xs:string"/>
                 <xs:element name="prezime" type="xs:string"/>
                 <xs:element name="adresa" type="xs:string"/>
-                <xs:element name="poslovni_maticni_broj" type="xs:integer"/>
-                <xs:element name="sifra" type="xs:string"/>
+                <xs:element name="poslovniMaticniBroj" type="xs:integer"/>
+                <xs:element name="korisnickoIme" type="xs:string"/>
+                <xs:element name="email" type="xs:string"/>
+                <xs:element name="lozinka" type="xs:string"/>
             </xs:all>
         </xs:complexType>
     </xs:element>
