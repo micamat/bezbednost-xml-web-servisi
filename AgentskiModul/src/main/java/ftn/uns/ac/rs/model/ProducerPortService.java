@@ -13,7 +13,7 @@ import javax.xml.ws.WebServiceFeature;
  * Generated source version: 3.3.2
  *
  */
-@WebServiceClient(name = "ProducerPortService", wsdlLocation = "classpath:wsdl/MegaTravel.wsdl", targetNamespace = "http://rs.ac.uns.ftn/Model")
+@WebServiceClient(name = "ProducerPortService", wsdlLocation = "classpath:wsdl/Agent.wsdl", targetNamespace = "http://rs.ac.uns.ftn/Model")
 public class ProducerPortService extends Service {
 
 	public final static URL WSDL_LOCATION;
@@ -21,10 +21,10 @@ public class ProducerPortService extends Service {
 	public final static QName SERVICE = new QName("http://rs.ac.uns.ftn/Model", "ProducerPortService");
 	public final static QName ProducerPortSoap11 = new QName("http://rs.ac.uns.ftn/Model", "ProducerPortSoap11");
 	static {
-		URL url = ProducerPortService.class.getClassLoader().getResource("wsdl/MegaTravel.wsdl");
+		URL url = ProducerPortService.class.getClassLoader().getResource("wsdl/Agent.wsdl");
 		if (url == null) {
 			java.util.logging.Logger.getLogger(ProducerPortService.class.getName()).log(java.util.logging.Level.INFO,
-					"Can not initialize the default wsdl from {0}", "classpath:wsdl/MegaTravel.wsdl");
+					"Can not initialize the default wsdl from {0}", "classpath:wsdl/Agent.wsdl");
 		}
 		WSDL_LOCATION = url;
 	}

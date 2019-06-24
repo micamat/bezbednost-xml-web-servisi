@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import ftn.uns.ac.rs.model.SifarnikDTO;
+import ftn.uns.ac.rs.model.TipSmestaja;
 import ftn.uns.ac.rs.service.TipSmestajaService;
 
 @RestController
@@ -22,19 +22,19 @@ public class TipSmestajaController {
 
 	
 	@GetMapping
-	public ResponseEntity<List<SifarnikDTO>> getAll(){
+	public ResponseEntity<List<TipSmestaja>> getAll(){
 		if(tipSmestajaService.getAll() == null) {
-			return new ResponseEntity<List<SifarnikDTO>>(HttpStatus.NO_CONTENT);
+			return new ResponseEntity<List<TipSmestaja>>(HttpStatus.NO_CONTENT);
 		}
-		return new ResponseEntity<List<SifarnikDTO>>(tipSmestajaService.getAll(), HttpStatus.OK);
+		return new ResponseEntity<List<TipSmestaja>>(tipSmestajaService.getAll(), HttpStatus.OK);
 	}
 	
 	@GetMapping(value = "/{id}")
-	public ResponseEntity<SifarnikDTO> getById(@PathVariable Long id){
+	public ResponseEntity<TipSmestaja> getById(@PathVariable Long id){
 		if(tipSmestajaService.getById(id) == null) {
-			return new ResponseEntity<SifarnikDTO>(HttpStatus.NO_CONTENT);
+			return new ResponseEntity<TipSmestaja>(HttpStatus.NO_CONTENT);
 		}
-		return new ResponseEntity<SifarnikDTO>(tipSmestajaService.getById(id), HttpStatus.OK);
+		return new ResponseEntity<TipSmestaja>(tipSmestajaService.getById(id), HttpStatus.OK);
 	}
 
 

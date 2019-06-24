@@ -18,14 +18,6 @@ import javax.xml.bind.annotation.XmlSeeAlso;
 @SOAPBinding(parameterStyle = SOAPBinding.ParameterStyle.BARE)
 public interface ProducerPort {
 
-    @WebMethod(operationName = "GetAllStatusSobe")
-    @WebResult(name = "GetAllStatusSobeResponse", targetNamespace = "http://rs.ac.uns.ftn/Model", partName = "GetAllStatusSobeResponse")
-    public GetAllStatusSobeResponse getAllStatusSobe(
-
-        @WebParam(partName = "GetAllStatusSobeRequest", name = "GetAllStatusSobeRequest", targetNamespace = "http://rs.ac.uns.ftn/Model")
-        GetAllStatusSobeRequest getAllStatusSobeRequest
-    );
-
     @WebMethod(operationName = "CreateCenovnik")
     @WebResult(name = "CreateCenovnikResponse", targetNamespace = "http://rs.ac.uns.ftn/Model", partName = "CreateCenovnikResponse")
     public CreateCenovnikResponse createCenovnik(
@@ -33,23 +25,7 @@ public interface ProducerPort {
         @WebParam(partName = "CreateCenovnikRequest", name = "CreateCenovnikRequest", targetNamespace = "http://rs.ac.uns.ftn/Model")
         CreateCenovnikRequest createCenovnikRequest
     );
-
-    @WebMethod(operationName = "GetAllLokacija")
-    @WebResult(name = "GetAllLokacijaResponse", targetNamespace = "http://rs.ac.uns.ftn/Model", partName = "GetAllLokacijaResponse")
-    public GetAllLokacijaResponse getAllLokacija(
-
-        @WebParam(partName = "GetAllLokacijaRequest", name = "GetAllLokacijaRequest", targetNamespace = "http://rs.ac.uns.ftn/Model")
-        GetAllLokacijaRequest getAllLokacijaRequest
-    );
-
-    @WebMethod(operationName = "GetAllCenovnik")
-    @WebResult(name = "GetAllCenovnikResponse", targetNamespace = "http://rs.ac.uns.ftn/Model", partName = "GetAllCenovnikResponse")
-    public GetAllCenovnikResponse getAllCenovnik(
-
-        @WebParam(partName = "GetAllCenovnikRequest", name = "GetAllCenovnikRequest", targetNamespace = "http://rs.ac.uns.ftn/Model")
-        GetAllCenovnikRequest getAllCenovnikRequest
-    );
-
+    
     @WebMethod(operationName = "GetAllKategorijaSmestaja")
     @WebResult(name = "GetAllKategorijaSmestajaResponse", targetNamespace = "http://rs.ac.uns.ftn/Model", partName = "GetAllKategorijaSmestajaResponse")
     public GetAllKategorijaSmestajaResponse getAllKategorijaSmestaja(
@@ -57,29 +33,13 @@ public interface ProducerPort {
         @WebParam(partName = "GetAllKategorijaSmestajaRequest", name = "GetAllKategorijaSmestajaRequest", targetNamespace = "http://rs.ac.uns.ftn/Model")
         GetAllKategorijaSmestajaRequest getAllKategorijaSmestajaRequest
     );
-
-    @WebMethod(operationName = "GetAllSoba")
-    @WebResult(name = "GetAllSobaResponse", targetNamespace = "http://rs.ac.uns.ftn/Model", partName = "GetAllSobaResponse")
-    public GetAllSobaResponse getAllSoba(
-
-        @WebParam(partName = "GetAllSobaRequest", name = "GetAllSobaRequest", targetNamespace = "http://rs.ac.uns.ftn/Model")
-        GetAllSobaRequest getAllSobaRequest
-    );
-
+    
     @WebMethod(operationName = "CreateLokacija")
     @WebResult(name = "CreateLokacijaResponse", targetNamespace = "http://rs.ac.uns.ftn/Model", partName = "CreateLokacijaResponse")
     public CreateLokacijaResponse createLokacija(
 
         @WebParam(partName = "CreateLokacijaRequest", name = "CreateLokacijaRequest", targetNamespace = "http://rs.ac.uns.ftn/Model")
         CreateLokacijaRequest createLokacijaRequest
-    );
-
-    @WebMethod(operationName = "GetAllZauzece")
-    @WebResult(name = "GetAllZauzeceResponse", targetNamespace = "http://rs.ac.uns.ftn/Model", partName = "GetAllZauzeceResponse")
-    public GetAllZauzeceResponse getAllZauzece(
-
-        @WebParam(partName = "GetAllZauzeceRequest", name = "GetAllZauzeceRequest", targetNamespace = "http://rs.ac.uns.ftn/Model")
-        GetAllZauzeceRequest getAllZauzeceRequest
     );
 
     @WebMethod(operationName = "GetAllTipSobe")
@@ -89,21 +49,12 @@ public interface ProducerPort {
         @WebParam(partName = "GetAllTipSobeRequest", name = "GetAllTipSobeRequest", targetNamespace = "http://rs.ac.uns.ftn/Model")
         GetAllTipSobeRequest getAllTipSobeRequest
     );
+    @WebMethod(operationName = "CreateRezervacija")
+    @WebResult(name = "CreateRezervacijaResponse", targetNamespace = "http://rs.ac.uns.ftn/Model", partName = "CreateRezervacijaResponse")
+    public CreateRezervacijaResponse createRezervacija(
 
-    @WebMethod(operationName = "CreateKoordinate")
-    @WebResult(name = "CreateKoordinateResponse", targetNamespace = "http://rs.ac.uns.ftn/Model", partName = "CreateKoordinateResponse")
-    public CreateKoordinateResponse createKoordinate(
-
-        @WebParam(partName = "CreateKoordinateRequest", name = "CreateKoordinateRequest", targetNamespace = "http://rs.ac.uns.ftn/Model")
-        CreateKoordinateRequest createKoordinateRequest
-    );
-
-    @WebMethod(operationName = "CreateZauzece")
-    @WebResult(name = "CreateZauzeceResponse", targetNamespace = "http://rs.ac.uns.ftn/Model", partName = "CreateZauzeceResponse")
-    public CreateZauzeceResponse createZauzece(
-
-        @WebParam(partName = "CreateZauzeceRequest", name = "CreateZauzeceRequest", targetNamespace = "http://rs.ac.uns.ftn/Model")
-        CreateZauzeceRequest createZauzeceRequest
+        @WebParam(partName = "CreateRezervacijaRequest", name = "CreateRezervacijaRequest", targetNamespace = "http://rs.ac.uns.ftn/Model")
+        CreateRezervacijaRequest createRezervacijaRequest
     );
 
     @WebMethod(operationName = "CreateSmestaj")
@@ -129,36 +80,106 @@ public interface ProducerPort {
         @WebParam(partName = "CreateSobaRequest", name = "CreateSobaRequest", targetNamespace = "http://rs.ac.uns.ftn/Model")
         CreateSobaRequest createSobaRequest
     );
-
-    @WebMethod(operationName = "GetAllKoordinate")
-    @WebResult(name = "GetAllKoordinateResponse", targetNamespace = "http://rs.ac.uns.ftn/Model", partName = "GetAllKoordinateResponse")
-    public GetAllKoordinateResponse getAllKoordinate(
-
-        @WebParam(partName = "GetAllKoordinateRequest", name = "GetAllKoordinateRequest", targetNamespace = "http://rs.ac.uns.ftn/Model")
-        GetAllKoordinateRequest getAllKoordinateRequest
-    );
-
-    @WebMethod(operationName = "CreateStatusSobe")
-    @WebResult(name = "CreateStatusSobeResponse", targetNamespace = "http://rs.ac.uns.ftn/Model", partName = "CreateStatusSobeResponse")
-    public CreateStatusSobeResponse createStatusSobe(
-
-        @WebParam(partName = "CreateStatusSobeRequest", name = "CreateStatusSobeRequest", targetNamespace = "http://rs.ac.uns.ftn/Model")
-        CreateStatusSobeRequest createStatusSobeRequest
-    );
-
-    @WebMethod(operationName = "GetAllSmestaj")
-    @WebResult(name = "GetAllSmestajResponse", targetNamespace = "http://rs.ac.uns.ftn/Model", partName = "GetAllSmestajResponse")
-    public GetAllSmestajResponse getAllSmestaj(
-
-        @WebParam(partName = "GetAllSmestajRequest", name = "GetAllSmestajRequest", targetNamespace = "http://rs.ac.uns.ftn/Model")
-        GetAllSmestajRequest getAllSmestajRequest
-    );
-
+    
     @WebMethod(operationName = "GetAllUsluga")
     @WebResult(name = "GetAllUslugaResponse", targetNamespace = "http://rs.ac.uns.ftn/Model", partName = "GetAllUslugaResponse")
     public GetAllUslugaResponse getAllUsluga(
 
         @WebParam(partName = "GetAllUslugaRequest", name = "GetAllUslugaRequest", targetNamespace = "http://rs.ac.uns.ftn/Model")
         GetAllUslugaRequest getAllUslugaRequest
+    );
+
+    @WebMethod(operationName = "CreateKoordinate")
+    @WebResult(name = "CreateKoordinateResponse", targetNamespace = "http://rs.ac.uns.ftn/Model", partName = "CreateKoordinateResponse")
+    public CreateKoordinateResponse createKoordinate(
+
+        @WebParam(partName = "CreateKoordinateRequest", name = "CreateKoordinateRequest", targetNamespace = "http://rs.ac.uns.ftn/Model")
+        CreateKoordinateRequest createKoordinateRequest
+    );
+    
+    @WebMethod(operationName = "GetAllKorisnik")
+    @WebResult(name = "GetAllKorisnikResponse", targetNamespace = "http://rs.ac.uns.ftn/Model", partName = "GetAllKorisnikResponse")
+    public GetAllKorisnikResponse getAllKorisnik(
+
+        @WebParam(partName = "GetAllKorisnikRequest", name = "GetAllKorisnikRequest", targetNamespace = "http://rs.ac.uns.ftn/Model")
+        GetAllKorisnikRequest getAllKorisnikRequest
+    );
+    
+    @WebMethod(operationName = "GetAllAgent")
+    @WebResult(name = "GetAllAgentResponse", targetNamespace = "http://rs.ac.uns.ftn/Model", partName = "GetAllAgentResponse")
+    public GetAllAgentResponse getAllAgent(
+
+        @WebParam(partName = "GetAllAgentRequest", name = "GetAllAgentRequest", targetNamespace = "http://rs.ac.uns.ftn/Model")
+        GetAllAgentRequest getAllAgentRequest
+    );
+    
+    @WebMethod(operationName = "UpdateAgent")
+    @WebResult(name = "UpdateAgentResponse", targetNamespace = "http://rs.ac.uns.ftn/Model", partName = "UpdateAgentResponse")
+    public UpdateAgentResponse updateAgent(
+
+        @WebParam(partName = "UpdateAgentRequest", name = "UpdateAgentRequest", targetNamespace = "http://rs.ac.uns.ftn/Model")
+        UpdateAgentRequest updateAgentRequest
+    );
+    
+    @WebMethod(operationName = "GetAllKomentar")
+    @WebResult(name = "GetAllKomentarResponse", targetNamespace = "http://rs.ac.uns.ftn/Model", partName = "GetAllKomentarResponse")
+    public GetAllKomentarResponse getAllKomentar(
+
+        @WebParam(partName = "GetAllKomentarRequest", name = "GetAllKomentarRequest", targetNamespace = "http://rs.ac.uns.ftn/Model")
+        GetAllKomentarRequest getAllKomentarRequest
+    );
+    
+    @WebMethod(operationName = "CreatePoruka")
+    @WebResult(name = "CreatePorukaResponse", targetNamespace = "http://rs.ac.uns.ftn/Model", partName = "CreatePorukaResponse")
+    public CreatePorukaResponse createPoruka(
+
+        @WebParam(partName = "CreatePorukaRequest", name = "CreatePorukaRequest", targetNamespace = "http://rs.ac.uns.ftn/Model")
+        CreatePorukaRequest createPorukaRequest
+    );
+    
+    @WebMethod(operationName = "GetAllPoruka")
+    @WebResult(name = "GetAllPorukaResponse", targetNamespace = "http://rs.ac.uns.ftn/Model", partName = "GetAllPorukaResponse")
+    public GetAllPorukaResponse getAllPoruka(
+
+        @WebParam(partName = "GetAllPorukaRequest", name = "GetAllPorukaRequest", targetNamespace = "http://rs.ac.uns.ftn/Model")
+        GetAllPorukaRequest getAllPorukaRequest
+    );
+    
+	/*
+	 * @WebMethod(operationName = "CreateSobneUsluge")
+	 * 
+	 * @WebResult(name = "CreateSobneUslugeResponse", targetNamespace =
+	 * "http://rs.ac.uns.ftn/Model", partName = "CreateSobneUslugeResponse") public
+	 * CreateSobneUslugeResponse createSobneUsluge(
+	 * 
+	 * @WebParam(partName = "CreateSobneUslugeRequest", name =
+	 * "CreateSobneUslugeRequest", targetNamespace = "http://rs.ac.uns.ftn/Model")
+	 * CreateSobneUslugeRequest createSobneUslugeRequest );
+	 * 
+	 * @WebMethod(operationName = "GetAllSobneUsluge")
+	 * 
+	 * @WebResult(name = "GetAllSobneUslugeResponse", targetNamespace =
+	 * "http://rs.ac.uns.ftn/Model", partName = "GetAllPorukaResponse") public
+	 * GetAllSobneUslugeResponse getAllSobneUsluge(
+	 * 
+	 * @WebParam(partName = "GetAllSobneUslugeRequest", name =
+	 * "GetAllSobneUslugeRequest", targetNamespace = "http://rs.ac.uns.ftn/Model")
+	 * GetAllSobneUslugeRequest getAllSobneUslugeRequest );
+	 * 
+	 */
+    @WebMethod(operationName = "UpdateRezervisaneSobe")
+    @WebResult(name = "UpdateRezervisaneSobeResponse", targetNamespace = "http://rs.ac.uns.ftn/Model", partName = "UpdateRezervisaneSobeResponse")
+    public UpdateRezervisaneSobeResponse updateRezervisaneSobe(
+
+        @WebParam(partName = "UpdateRezervisaneSobeRequest", name = "UpdateRezervisaneSobeRequest", targetNamespace = "http://rs.ac.uns.ftn/Model")
+        UpdateRezervisaneSobeRequest updateRezervisaneSobeRequest
+    );
+    
+    @WebMethod(operationName = "GetAllPoruka")
+    @WebResult(name = "GetAllRezervisaneSobeResponse", targetNamespace = "http://rs.ac.uns.ftn/Model", partName = "GetAllRezervisaneSobeResponse")
+    public GetAllRezervisaneSobeResponse getAllRezervisaneSobe(
+
+        @WebParam(partName = "GetAllRezervisaneSobeRequest", name = "GetAllRezervisaneSobeRequest", targetNamespace = "http://rs.ac.uns.ftn/Model")
+        GetAllRezervisaneSobeRequest getAllRezervisaneSobeRequest
     );
 }
