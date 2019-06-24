@@ -27,111 +27,108 @@ import ftn.uns.ac.rs.repository.LokacijaRepository;
 
 @Service
 public class LokacijaService {
-	
+
 	@Autowired
 	private LokacijaRepository lokacijaRepository;
-	
+
 	@Autowired
 	KoordinateService koordinateService;
-	
+
 	private Logger logger = LogManager.getLogger();
-	 private static final Marker USER = MarkerManager
-			   .getMarker("USER");
-	
-	
-	public List<Lokacija> getAll(){ 
+	private static final Marker USER = MarkerManager.getMarker("USER");
+
+	public List<Lokacija> getAll() {
 		return lokacijaRepository.findAll().stream().collect(Collectors.toList());
 	};
-	
-	public int createSync(Lokacija lokacija){
+
+	public int createSync(Lokacija lokacija) {
 		ProducerPortService producerPortService = new ProducerPortService();
 		ProducerPort producerPort = producerPortService.getProducerPortSoap11();
-		
+
 		CreateLokacijaRequest createLokacijaRequest = new CreateLokacijaRequest();
 		createLokacijaRequest.setLokacija(lokacija);
 		CreateLokacijaResponse createLokacijaResponse = producerPort.createLokacija(createLokacijaRequest);
 		return createLokacijaResponse.getId();
 	};
-	
-	
-	
+
 	public Lokacija getById(Long id) {
-		if(!lokacijaRepository.existsById(id)) {
+		if (!lokacijaRepository.existsById(id)) {
 			return null;
 		}
 		return lokacijaRepository.findById(id).orElse(null);
 	}
-	
-	
+
 	public boolean add(Lokacija lokacija) {
 		Koordinate koordinate = new Koordinate();
 		URL url;
 
-        try {
-            // get URL content
-        	String adresa = lokacija.getUlica().replace(" ", "+"); 
-        	String grad = lokacija.getGrad().replace(" ", "+");
-            String a="https://www.google.com/maps/place/" + adresa + ',' + grad;
-            url = new URL(a);
-            URLConnection conn = url.openConnection();
-            System.out.println(conn.getURL());
-            // open the stream and put it into BufferedReader
-            BufferedReader br = new BufferedReader(
-                               new InputStreamReader(conn.getInputStream()));
+		try {
+			// get URL content
+			String adresa = lokacija.getUlica().replace(" ", "+");
+			String grad = lokacija.getGrad().replace(" ", "+");
+			String a = "https://www.google.com/maps/place/" + adresa + ',' + grad;
+			url = new URL(a);
+			URLConnection conn = url.openConnection();
+			System.out.println(conn.getURL());
+			// open the stream and put it into BufferedReader
+			BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
 
-            String inputLine;
-            while ((inputLine = br.readLine()) != null) {
-            	if(inputLine.contains("INITIALIZATION_STATE")) {
-            		String[] niz = inputLine.split(",");
-            		koordinate.setId(lokacija.getId());
-            		koordinate.setDuzina(Float.parseFloat(niz[2].replace("]", "")));
-            		koordinate.setSirina(Float.parseFloat(niz[1]));
-            		koordinateService.add(koordinate);
-                    //System.out.println(niz[2] + niz[1]);
+			String inputLine;
+			while ((inputLine = br.readLine()) != null) {
+				if (inputLine.contains("INITIALIZATION_STATE")) {
+					String[] niz = inputLine.split(",");
+					koordinate.setId(lokacija.getId());
+					koordinate.setDuzina(Float.parseFloat(niz[2].replace("]", "")));
+					koordinate.setSirina(Float.parseFloat(niz[1]));
+					koordinateService.add(koordinate);
+					// System.out.println(niz[2] + niz[1]);
 
+				}
+				// System.out.println(inputLine);
 
-            	}
-            	//System.out.println(inputLine);
+			}
+			br.close();
 
-            }
-            br.close();
-
-
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-		
-		lokacija = lokacijaRepository.save(lokacija);
-		if(lokacija != null) {
-			//createSync(lokacija);
-			return true;
+		} catch (MalformedURLException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
 		}
+		try {
+			lokacija = lokacijaRepository.save(lokacija);
+
+			// createSync(lokacija);
+			logger.info(USER, "Uspesno sacuvana lokacija");
+			return true;
+		} catch (Exception e) {
+			logger.error(USER, "okacija nije sacuvana");
+		}
+			
 		return false;
 	}
-	
+
 	/*
 	 * public Lokacija add(Lokacija lokacija) { lokacija.setId(lokacija.getId());
 	 * Lokacija l = lokacijaRepository.save(lokacija); if(l != null) { return l; }
 	 * return null; }
 	 */
-	
+
 	public boolean delete(Long id) {
 		ThreadContext.put("user", "AS");
-		if(lokacijaRepository.existsById(id)) {
+		if (lokacijaRepository.existsById(id)) {
 			try {
 				lokacijaRepository.deleteById(id);
 				logger.info(USER, "Lokacija" + id + "obrisana");
 			} catch (Exception e) {
-				logger.error(USER, "Greska prilikom brisanja koordinata " + id + ": " + e.getMessage());
+				logger.error(USER, "Greska prilikom brisanja lokacije " + id + ": " + e.getMessage());
 			}
 			koordinateService.delete(id);
 			return true;
-		}
+		} else {
 
-		logger.warn(USER, "Koordinate " + id + "ne postoje u bazi");
+			logger.warn(USER, "Lokacija " + id + "ne postoji u bazi");
+		}
 		return false;
 	}
-	
+
 }

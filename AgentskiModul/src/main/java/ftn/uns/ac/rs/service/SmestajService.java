@@ -98,13 +98,14 @@ public class SmestajService {
 		
 		try {
 			smestajRepository.deleteById(id);
-			lokacijaService.delete(id);
 			logger.info(USER, "Smestaj " + id + "obrisan");
 
 			return true;
 		} catch (Exception e) {
 			logger.error(USER, "Greska prilikom brisanja smestaja " + id + ": " + e.getMessage());
 		}
+
+		lokacijaService.delete(id);
 	
 
 		return false;

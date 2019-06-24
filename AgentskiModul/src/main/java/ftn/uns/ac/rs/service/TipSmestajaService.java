@@ -3,6 +3,10 @@ package ftn.uns.ac.rs.service;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.Marker;
+import org.apache.logging.log4j.MarkerManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,13 +22,27 @@ public class TipSmestajaService {
 	
 	@Autowired
 	private TipSmestajaRepository tipSmestajaRepository;
+	
+	private Logger logger = LogManager.getLogger();
+	 private static final Marker USER = MarkerManager
+			   .getMarker("USER");
+
 
 	public List<TipSmestaja> getAllSync(){
 		ProducerPortService producerPortService = new ProducerPortService();
 		ProducerPort producerPort = producerPortService.getProducerPortSoap11();
 		
 		GetAllTipSmestajaRequest getTipSmestajaRequest = new GetAllTipSmestajaRequest();
-		GetAllTipSmestajaResponse getTipSmestajaResponse = producerPort.getAllTipSmestaja(getTipSmestajaRequest);
+		GetAllTipSmestajaResponse getTipSmestajaResponse = new GetAllTipSmestajaResponse();
+		
+		try {
+			getTipSmestajaResponse = producerPort.getAllTipSmestaja(getTipSmestajaRequest);
+
+			logger.info(USER, "Uspesna sinhronizacija Tipa sobe");
+		} catch (Exception e) {
+			logger.error(USER, "Neuspesna sinhronizacija Tipa sobe: " + e.getMessage());
+		}
+		
 		for (TipSmestaja tipSmestajaDTO : getTipSmestajaResponse.getTipSmestaja()) {
 			tipSmestajaRepository.save(tipSmestajaDTO);
 		}
