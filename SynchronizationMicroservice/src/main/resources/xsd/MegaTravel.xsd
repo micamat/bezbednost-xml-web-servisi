@@ -2,6 +2,59 @@
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified"
     targetNamespace="http://rs.ac.uns.ftn/Model"
     xmlns="http://rs.ac.uns.ftn/Model">
+    <!-- ================================KORISNIK============================================= -->
+    <xs:element name="Permisija">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="id" type="xs:long"></xs:element>
+                <xs:element name="naziv" type="xs:string"></xs:element>
+                <xs:element ref="Uloga" minOccurs="1" maxOccurs="unbounded"></xs:element>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    
+    <xs:element name="Uloga">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="id" type="xs:long"></xs:element>
+                <xs:element name="naziv" type="xs:string"></xs:element>
+                <xs:element ref="Permisija" minOccurs="1" maxOccurs="unbounded"></xs:element>
+                <xs:element ref="Korisnik" minOccurs="0" maxOccurs="unbounded"></xs:element>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    
+    <xs:element name="Korisnik">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="id" type="xs:long"/>
+                <xs:element name="ime" type="xs:string"/>
+                <xs:element name="prezime" type="xs:string"/>
+                <xs:element name="email" type="xs:string"/>
+                <xs:element name="telefon" type="xs:string"/>
+                <xs:element name="sifra" type="xs:string"/>
+                <xs:element name="aktivan" type="xs:boolean"/>
+                <xs:element name="korisnickoIme" type="xs:string"/>
+                <xs:element ref="Uloga" minOccurs="1" maxOccurs="1"></xs:element>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    
+    <xs:element name="KorisnikDTO">
+        <xs:complexType>
+            <xs:all>
+                <xs:element name="id" type="xs:long"/>
+                <xs:element name="ime" type="xs:string"/>
+                <xs:element name="prezime" type="xs:string"/>
+                <xs:element name="email" type="xs:string"/>
+                <xs:element name="telefon" type="xs:string"/>
+                <xs:element name="sifra" type="xs:string"/>
+                <xs:element name="aktivan" type="xs:boolean"/>
+                <xs:element name="korisnickoIme" type="xs:string"/>
+                <xs:element name="idUloga" type="xs:long"/>
+            </xs:all>
+        </xs:complexType>
+    </xs:element>
     <!-- ===================================================================================== -->
     <xs:element name="StatusSobe">
         <xs:complexType>

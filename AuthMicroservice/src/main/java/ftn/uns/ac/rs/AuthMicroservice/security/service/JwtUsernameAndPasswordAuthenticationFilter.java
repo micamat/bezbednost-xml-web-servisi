@@ -21,7 +21,7 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import com.eureka.common.security.JwtConfig;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import ftn.uns.ac.rs.AuthMicroservice.security.user.UserCredentials;
+import ftn.uns.ac.rs.AuthMicroservice.security.model.UserCredentials;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 
@@ -50,7 +50,6 @@ public class JwtUsernameAndPasswordAuthenticationFilter extends UsernamePassword
 			throws AuthenticationException {
 		
 		try {
-			System.out.println("==========DOSAO OVDE========");
 			
 			// Uzimanje kredencijala iz zahteva
 			UserCredentials creds = new ObjectMapper().readValue(request.getInputStream(), UserCredentials.class);
