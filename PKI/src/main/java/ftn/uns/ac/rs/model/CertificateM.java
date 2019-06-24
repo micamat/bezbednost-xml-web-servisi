@@ -29,6 +29,9 @@ public class CertificateM {
 	Boolean revoked;
 	
 	@Column(nullable = false)
+	String revokedReason;
+	
+	@Column(nullable = false)
 	Boolean ca;
 
 	
@@ -68,4 +71,12 @@ public class CertificateM {
 	public void setTrustStore(String trustStore) {
 		this.trustStore = trustStore;
 	}
+	public String getRevokedReason() {
+		return revokedReason;
+	}
+	public void setRevokedReason(String revokedReason) {
+		this.revokedReason = revokedReason;
+	}
+	
+	
 }

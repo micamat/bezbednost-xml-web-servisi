@@ -11,6 +11,7 @@ public class CertificateDetailDTO {
 	  String serialNumber;
 	  String validityBegins; 
 	  String validityExpires;
+	  String revokedReason;
 	 
 	public String getCommonNameIssuer() {
 		return commonNameIssuer;
@@ -83,5 +84,13 @@ public class CertificateDetailDTO {
 	public void setValidityExpires(String validityExpires) {
 		this.validityExpires = validityExpires;
 	}
-	 
+
+	public String getRevokedReason() {
+		return revokedReason;
+	}
+
+	public void setRevokedReason(String revokedReason) {
+		this.revokedReason = revokedReason;
+	}
+	
 }
