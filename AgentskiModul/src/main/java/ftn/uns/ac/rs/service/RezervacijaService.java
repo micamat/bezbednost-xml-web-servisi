@@ -99,7 +99,7 @@ public class RezervacijaService {
 				return true;
 			}
 		} catch (Exception e){
-			logger.error(USER, "Neuspesno dodata rezervacija: " + e.getMessage());
+			logger.error(USER, "Neuspesno dodavanje rezervacije: " + e.getMessage());
 		}
 		return false;
 		

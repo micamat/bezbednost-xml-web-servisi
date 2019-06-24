@@ -3,16 +3,20 @@ package ftn.uns.ac.rs.service;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.Marker;
+import org.apache.logging.log4j.MarkerManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import ftn.uns.ac.rs.model.Agent;
 import ftn.uns.ac.rs.model.AgentDTO;
+import ftn.uns.ac.rs.model.AgentLoginDTO;
+import ftn.uns.ac.rs.model.AgentLoginRequest;
+import ftn.uns.ac.rs.model.AgentLoginResponse;
 import ftn.uns.ac.rs.model.GetAllAgentRequest;
 import ftn.uns.ac.rs.model.GetAllAgentResponse;
-import ftn.uns.ac.rs.model.GetAllKategorijaSmestajaRequest;
-import ftn.uns.ac.rs.model.GetAllKategorijaSmestajaResponse;
-import ftn.uns.ac.rs.model.KategorijaSmestaja;
 import ftn.uns.ac.rs.model.ProducerPort;
 import ftn.uns.ac.rs.model.ProducerPortService;
 import ftn.uns.ac.rs.model.ShowAgentDTO;
@@ -24,33 +28,54 @@ import ftn.uns.ac.rs.repository.AgentRepository;
 public class AgentService {
 	@Autowired
 	private AgentRepository agentRepository;
+	
+	private Logger logger = LogManager.getLogger();
+	 private static final Marker USER = MarkerManager
+			   .getMarker("USER");
 
-	/*
-	 * public List<AgentDTO> getAllSync() { ProducerPortService producerPortService
-	 * = new ProducerPortService(); ProducerPort producerPort =
-	 * producerPortService.getProducerPortSoap11();
-	 * 
-	 * GetAllAgentRequest getAllAgentRequest = new GetAllAgentRequest();
-	 * GetAllAgentResponse getAllAgentResponse =
-	 * producerPort.getAllAgent(getAllAgentRequest);
-	 * 
-	 * for (AgentDTO agentDTO : getAllAgentResponse.getAgentDTO()) {
-	 * agentRepository.save(convertToEntity(agentDTO)); } for (Agent agent :
-	 * agentRepository.findAll()) { boolean exists = false; for (AgentDTO agentDTO :
-	 * getAllAgentResponse.getAgentDTO()) { if (agent.getId() == agentDTO.getId()) {
-	 * exists = true; break; } } if (!exists) {
-	 * agentRepository.deleteById(agent.getId()); } } return
-	 * getAllAgentResponse.getAgentDTO(); };
-	 */
-
-	public int updateSync(AgentDTO agentDTO) {
+	public List<ShowAgentDTO> getAllSync() {
 		ProducerPortService producerPortService = new ProducerPortService();
 		ProducerPort producerPort = producerPortService.getProducerPortSoap11();
 
+		GetAllAgentRequest getAllAgentRequest = new GetAllAgentRequest();
+		GetAllAgentResponse getAllAgentResponse = producerPort.getAllAgent(getAllAgentRequest);
+
+		for (ShowAgentDTO agentDTO : getAllAgentResponse.getAgent()) {
+			agentRepository.save(convertToEntity(agentDTO));
+		}
+		for (Agent agent : agentRepository.findAll()) {
+			boolean exists = false;
+			for (ShowAgentDTO agentDTO : getAllAgentResponse.getAgent()) {
+				if (agent.getId() == agentDTO.getId()) {
+					exists = true;
+					break;
+				}
+			}
+			if (!exists) {
+				agentRepository.deleteById(agent.getId());
+			}
+		}
+		return getAllAgentResponse.getAgent();
+	};
+
+	public boolean updateSync(AgentDTO agentDTO) {
+		ProducerPortService producerPortService = new ProducerPortService();
+		ProducerPort producerPort = producerPortService.getProducerPortSoap11();
+		
 		UpdateAgentRequest updateAgentRequest = new UpdateAgentRequest();
-		updateAgentRequest.setAgentDTO(agentDTO);
-		UpdateAgentResponse updateAgentResponse = producerPort.updateAgent(updateAgentRequest);
-		return updateAgentResponse.getId();
+		UpdateAgentResponse updateAgentResponse = new UpdateAgentResponse();
+		updateAgentResponse = producerPort.updateAgent(updateAgentRequest);
+		try {
+			Agent agent = agentRepository.findByKorisnickoIme(agentDTO.getKorisnickoIme());
+			agent.setToken(updateAgentResponse.getToken());
+			agentRepository.save(agent);
+			logger.info(USER, "Uspesno logovanje");
+			return true;
+		} catch (Exception e) {
+
+			logger.error(USER, "Greska prilikom logovanja: " + e.getMessage());
+		}
+		return false;
 	};
 
 	public List<ShowAgentDTO> getAll() {
@@ -66,13 +91,42 @@ public class AgentService {
 	}
 
 	public boolean update(AgentDTO agentDTO) {
-		Agent agent = agentRepository.findById(agentDTO.getId()).orElse(null);
-		agent.setId(agentDTO.getId());
-		agent.setLozinka(agentDTO.getLozinka());
-		agent = agentRepository.save(agent);
-		if (agent != null) {
-			// createSync(agentDTO);
+		ProducerPortService producerPortService = new ProducerPortService();
+		ProducerPort producerPort = producerPortService.getProducerPortSoap11();
+		
+		UpdateAgentRequest updateAgentRequest = new UpdateAgentRequest();
+		UpdateAgentResponse updateAgentResponse = new UpdateAgentResponse();
+		updateAgentResponse = producerPort.updateAgent(updateAgentRequest);
+		try {
+			Agent agent = agentRepository.findByKorisnickoIme(agentDTO.getKorisnickoIme());
+			agent.setToken(updateAgentResponse.getToken());
+			agentRepository.save(agent);
+			logger.info(USER, "Uspesno logovanje");
 			return true;
+		} catch (Exception e) {
+
+			logger.error(USER, "Greska prilikom logovanja: " + e.getMessage());
+		}
+		return false;
+	}
+
+	public boolean login(AgentLoginDTO agentLoginDTO) {
+
+		ProducerPortService producerPortService = new ProducerPortService();
+		ProducerPort producerPort = producerPortService.getProducerPortSoap11();
+		
+		AgentLoginRequest agentLoginRequest = new AgentLoginRequest();
+		AgentLoginResponse agentLoginResponse = new AgentLoginResponse();
+		
+		agentLoginResponse = producerPort.agentLogin(agentLoginRequest);
+		try {
+			Agent agent = agentRepository.findByKorisnickoIme(agentLoginDTO.getKorisnickoIme());
+			agent.setToken(agentLoginResponse.getToken());
+			agentRepository.save(agent);
+			logger.info(USER, "Uspesno logovanje");
+		} catch (Exception e) {
+
+			logger.error(USER, "Greska prilikom logovanja: " + e.getMessage());
 		}
 		return false;
 	}
@@ -88,14 +142,17 @@ public class AgentService {
 		agentDTO.setPoslovniMaticniBroj(agent.getPoslovniMaticniBroj());
 		return agentDTO;
 	}
-	
-	/*
-	 * private Agent convertToDTO(AgentDTO agentDTO) { Agent agent = new Agent();
-	 * agent.setId(agentDTO.getId()); agent.setIme(agentDTO.getIme());
-	 * agent.setPrezime(agentDTO.getPrezime());
-	 * agent.setAdresa(agentDTO.getAdresa()); agent.setEmail(agentDTO.getEmail());
-	 * agent.setKorisnickoIme(agentDTO.getKorisnickoIme());
-	 * agent.setPoslovniMaticniBroj(agentDTO.getPoslovniMaticniBroj()); return
-	 * agent; }
-	 */
+
+	private Agent convertToEntity(ShowAgentDTO agentDTO) {
+		Agent agent = new Agent();
+		agent.setId(agentDTO.getId());
+		agent.setIme(agentDTO.getIme());
+		agent.setPrezime(agentDTO.getPrezime());
+		agent.setAdresa(agentDTO.getAdresa());
+		agent.setEmail(agentDTO.getEmail());
+		agent.setKorisnickoIme(agentDTO.getKorisnickoIme());
+		agent.setPoslovniMaticniBroj(agentDTO.getPoslovniMaticniBroj());
+		return agent;
+	}
+
 }

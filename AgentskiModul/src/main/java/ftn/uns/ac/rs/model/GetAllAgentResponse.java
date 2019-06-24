@@ -27,7 +27,7 @@ import javax.xml.bind.annotation.XmlType;
  *   &lt;complexContent&gt;
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
  *       &lt;sequence&gt;
- *         &lt;element ref="{http://rs.ac.uns.ftn/Model}AgentDTO" maxOccurs="unbounded" minOccurs="0"/&gt;
+ *         &lt;element ref="{http://rs.ac.uns.ftn/Model}Agent" maxOccurs="unbounded" minOccurs="0"/&gt;
  *       &lt;/sequence&gt;
  *     &lt;/restriction&gt;
  *   &lt;/complexContent&gt;
@@ -38,13 +38,13 @@ import javax.xml.bind.annotation.XmlType;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
-    "agentDTO"
+    "showAgentDTO"
 })
 @XmlRootElement(name = "GetAllAgentResponse")
 public class GetAllAgentResponse {
 
-    @XmlElement(name = "AgentDTO")
-    protected List<AgentDTO> agentDTO;
+    @XmlElement(name = "ShowAgentDTO")
+    protected List<ShowAgentDTO> agent;
 
     /**
      * Gets the value of the agentDTO property.
@@ -68,11 +68,11 @@ public class GetAllAgentResponse {
      * 
      * 
      */
-    public List<AgentDTO> getAgentDTO() {
-        if (agentDTO == null) {
-            agentDTO = new ArrayList<AgentDTO>();
+    public List<ShowAgentDTO> getAgent() {
+        if (agent == null) {
+            agent = new ArrayList<ShowAgentDTO>();
         }
-        return this.agentDTO;
+        return this.agent;
     }
 
 }

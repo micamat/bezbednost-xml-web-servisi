@@ -35,6 +35,8 @@ public class UslugaService {
 		GetAllUslugaResponse getUslugaResponse = new GetAllUslugaResponse();
 		try {
 			getUslugaResponse = producerPort.getAllUsluga(getUslugaRequest);
+
+			logger.info(USER, "Uspesna sinhronizacija Usluga");
 		} catch (Exception e) {
 			logger.error(USER, "Neuspesna sinhronizacija Usluga: " + e.getMessage());
 		}

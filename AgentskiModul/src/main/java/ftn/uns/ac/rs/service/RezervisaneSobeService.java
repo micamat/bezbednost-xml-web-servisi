@@ -28,7 +28,7 @@ public class RezervisaneSobeService {
 	
 	@Autowired
 	private RezervisaneSobeRepository rezervisaneSobeRepository;
-private Logger logger = LogManager.getLogger();
+	private Logger logger = LogManager.getLogger();
 	
 	private static final Marker USER = MarkerManager
 			   .getMarker("USER");
@@ -74,7 +74,6 @@ private Logger logger = LogManager.getLogger();
 		ShowRezervisaneSobeDTO rezervisaneSobeDTO = new ShowRezervisaneSobeDTO();
 		rezervisaneSobeDTO.setId(rezervisaneSobe.getId());
 		rezervisaneSobeDTO.setCena(rezervisaneSobe.getCena());
-		System.out.println(rezervisaneSobe.getSoba().getNaziv());
 		rezervisaneSobeDTO.setNazivSoba(rezervisaneSobe.getSoba().getNaziv());
 		rezervisaneSobeDTO.setNazivStatusRezervacije(rezervisaneSobe.getStatusRezervacije());
 		return rezervisaneSobeDTO;

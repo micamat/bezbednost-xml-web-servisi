@@ -25,9 +25,8 @@ import javax.xml.bind.annotation.XmlType;
  *   &lt;complexContent&gt;
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
  *       &lt;sequence&gt;
- *         &lt;element name="id" type="{http://www.w3.org/2001/XMLSchema}long"/&gt;
+ *         &lt;element name="korisnickoIme" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
  *         &lt;element name="lozinka" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
- *         &lt;element name="prethodnaLozinka" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
  *       &lt;/sequence&gt;
  *     &lt;/restriction&gt;
  *   &lt;/complexContent&gt;
@@ -38,37 +37,17 @@ import javax.xml.bind.annotation.XmlType;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
-    "id",
     "korisnickoIme",
-    "lozinka",
-    "prethodnaLozinka"
+    "lozinka"
 })
-@XmlRootElement(name = "AgentDTO")
-public class AgentDTO {
+@XmlRootElement(name = "AgentLoginDTO")
+public class AgentLoginDTO {
 
-    protected long id;
     @XmlElement(required = true)
     protected String korisnickoIme;
     @XmlElement(required = true)
     protected String lozinka;
-    @XmlElement(required = true)
-    protected String prethodnaLozinka;
 
-    /**
-     * Gets the value of the id property.
-     * 
-     */
-    public long getId() {
-        return id;
-    }
-
-    /**
-     * Sets the value of the id property.
-     * 
-     */
-    public void setId(long value) {
-        this.id = value;
-    }
 
     /**
      * Gets the value of the lozinka property.
@@ -82,15 +61,7 @@ public class AgentDTO {
         return lozinka;
     }
 
-    public String getKorisnickoIme() {
-		return korisnickoIme;
-	}
-
-	public void setKorisnickoIme(String korisnickoIme) {
-		this.korisnickoIme = korisnickoIme;
-	}
-
-	/**
+    /**
      * Sets the value of the lozinka property.
      * 
      * @param value
@@ -110,8 +81,8 @@ public class AgentDTO {
      *     {@link String }
      *     
      */
-    public String getPrethodnaLozinka() {
-        return prethodnaLozinka;
+    public String getKorisnickoIme() {
+        return korisnickoIme;
     }
 
     /**
@@ -122,8 +93,8 @@ public class AgentDTO {
      *     {@link String }
      *     
      */
-    public void setPrethodnaLozinka(String value) {
-        this.prethodnaLozinka = value;
+    public void setKorisnickoIme(String value) {
+        this.korisnickoIme = value;
     }
 
 }

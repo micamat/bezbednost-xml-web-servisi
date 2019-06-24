@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import ftn.uns.ac.rs.model.AgentDTO;
+import ftn.uns.ac.rs.model.AgentLoginDTO;
 import ftn.uns.ac.rs.model.ShowAgentDTO;
 import ftn.uns.ac.rs.service.AgentService;
 
@@ -40,11 +41,19 @@ public class AgentController {
 	
 	@PutMapping
 	public ResponseEntity<String> update(@RequestBody AgentDTO agentDTO){
-		if(agentService.update(agentDTO)) {
+		if(agentService.updateSync(agentDTO)) {
 			return new ResponseEntity<String>("Agent je uspesno azuriran!", HttpStatus.CREATED);
 		}else {
 			return new ResponseEntity<String>("Greska pri azuriranju agenta!", HttpStatus.CONFLICT);
 		}
 			
+	}
+	
+	public ResponseEntity<String> login(@RequestBody AgentLoginDTO agentDTO){
+		if(agentService.login(agentDTO)) {
+			return new ResponseEntity<String>("Agent je uspesno logovan!", HttpStatus.CREATED);
+		}else {
+			return new ResponseEntity<String>("Greska pri logovanju agenta!", HttpStatus.CONFLICT);
+		}
 	}
 }
