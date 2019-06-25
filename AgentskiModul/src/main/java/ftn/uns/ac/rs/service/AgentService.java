@@ -134,6 +134,7 @@ public class AgentService {
 			agent.setToken(agentLoginResponse.getToken());
 			agentRepository.save(agent);
 			logger.info(USER, "Uspesno logovanje");
+			return true;
 		} catch (Exception e) {
 
 			logger.error(USER, "Greska prilikom logovanja: " + e.getMessage());

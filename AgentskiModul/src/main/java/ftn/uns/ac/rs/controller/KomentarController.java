@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import ftn.uns.ac.rs.model.Komentar;
-import ftn.uns.ac.rs.model.TipSobe;
+import ftn.uns.ac.rs.model.ShowKomentarDTO;
 import ftn.uns.ac.rs.service.KomentarService;
 
 @RestController
@@ -23,18 +23,18 @@ public class KomentarController {
 	
 	
 	@GetMapping
-	public ResponseEntity<List<Komentar>> getAll(){
+	public ResponseEntity<List<ShowKomentarDTO>> getAll(){
 		if(komentarService.getAll() == null) {
-			return new ResponseEntity<List<Komentar>>(HttpStatus.NO_CONTENT);
+			return new ResponseEntity<List<ShowKomentarDTO>>(HttpStatus.NO_CONTENT);
 		}
-		return new ResponseEntity<List<Komentar>>(komentarService.getAll(), HttpStatus.OK);
+		return new ResponseEntity<List<ShowKomentarDTO>>(komentarService.getAll(), HttpStatus.OK);
 	}
 	
 	@GetMapping(value = "/{id}")
-	public ResponseEntity<Komentar> getById(@PathVariable Long id){
+	public ResponseEntity<ShowKomentarDTO> getById(@PathVariable Long id){
 		if(komentarService.getById(id) == null) {
-			return new ResponseEntity<Komentar>(HttpStatus.NO_CONTENT);
+			return new ResponseEntity<ShowKomentarDTO>(HttpStatus.NO_CONTENT);
 		}
-		return new ResponseEntity<Komentar>(komentarService.getById(id), HttpStatus.OK);
+		return new ResponseEntity<ShowKomentarDTO>(komentarService.getById(id), HttpStatus.OK);
 	}
 }
