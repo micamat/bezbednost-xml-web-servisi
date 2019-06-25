@@ -1,7 +1,7 @@
 <table class="table ml-2 mt-2">
   <thead style="background-color: #0074E1;">
     <tr>
-      <th scope="col" colspan="7" style="text-align: center; color: white">
+      <th scope="col" colspan="8" style="text-align: center; color: white">
         Pricelist
         <a class="active" [routerLink]="'/pricelist/add'">
           <img src="/assets/img/add-32.png" style="float: right;">
@@ -15,6 +15,7 @@
       <th scope="col">Date from</th>
       <th scope="col">Date to</th>
       <th scope="col">Price</th>
+      <th scope="col">Withdrawal</th>
       <th scope="col">Manipulation</th>
     </tr>
   </thead>
@@ -26,6 +27,7 @@
       <td>{{item.datumOd}}</td>
       <td>{{item.datumDo}}</td>
       <td>{{item.cena}}</td>
+      <td>{{item.brojDanaZaOtkazivanje}}</td>
       <td>
           <a class="active" [routerLink]="['../pricelist/change/', item.id]">
             <img class="mr-2" src="/assets/img/edit-9-32.png">

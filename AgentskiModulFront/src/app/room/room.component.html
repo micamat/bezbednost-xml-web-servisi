@@ -6,10 +6,10 @@
           <div class="col" style="float: right;"></div>
           <div class="col">
               <span class="d-inline">Rooms of</span>
-              <select (change)="odabrani($event)" class="form-control d-inline ml-2" style="width: 200px;">
+              <!--select (change)="odabrani($event)" class="form-control d-inline ml-2" style="width: 200px;">
                 <option>All Accommodations</option>
                 <option *ngFor="let item of accommodations; let i = index" [value]="item.id">{{item.naziv}}</option>
-              </select>
+              </select>-->
           </div>
           <div class="col"><a class="active" routerLink="../room/add">
             <img src="/assets/img/add-32.png" style="float: right;">
@@ -35,7 +35,11 @@
       <td scope="row">{{i+1}}</td>
       <td>{{item.naziv}}</td>
       <td>{{item.opis}}</td>
-      <td>{{item.idUsluga}}</td>
+      <td >
+        <div *ngFor="let item of item.usluga">
+            {{item.naziv}},
+        </div>
+      </td>
       <td>{{item.nazivTipSobe}}</td>
       <td>{{item.nazivSmestaj}}</td>
       <td>
