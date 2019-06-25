@@ -91,9 +91,9 @@ public class SobaService {
 		} catch (Exception e) {
 			logger.error(USER, "Neuspesno dodavanje sobe: " + e.getMessage());
 		}
-
+		System.out.println(sobaDTO.getIdUsluga());
 		for (Long idUsluga : sobaDTO.getIdUsluga()) {
-
+			System.out.println(idUsluga);
 			SobneUsluge sobneUsluge = new SobneUsluge();
 			sobneUsluge.setId(null);
 			sobneUsluge.setSoba(soba);
