@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { AccommodationService } from '../services/accommodation.service';
@@ -19,6 +19,7 @@ export class AccommodationAddComponent implements OnInit {
   typeL : any;
   temp:any;
   accommodation:any;
+  kategorijaID : any;
 
   constructor(private _accommodationService : AccommodationService,
     private formBuilder:FormBuilder,
@@ -30,7 +31,10 @@ export class AccommodationAddComponent implements OnInit {
         naziv:['',Validators.compose([Validators.required, Validators.pattern('[a-zA-Z 0-9!]+')])],
         idKategorijaSmestaja:['',Validators.compose([Validators.required, Validators.pattern('[a-z.A-Z 0-9!]+')])],
         opis:['',Validators.compose([Validators.required, Validators.pattern('[a-zA-Z 0-9!]+')])],
-        idTipSmestaja:['',Validators.compose([Validators.required, Validators.pattern('[a-z.A-Z 0-9!]+')])],  
+        idTipSmestaja:['',Validators.compose([Validators.required, Validators.pattern('[0-9!]+')])],  
+        idAgent:['',Validators.compose([Validators.required, Validators.pattern('[0-9!]+')])],  
+        slika:['',Validators.compose([Validators.required, Validators.pattern('[a-z.A-Z 0-9!]+')])],  
+        kapacitet:['',Validators.compose([Validators.required, Validators.pattern('[0-9!]+')])],  
         drzava:['',Validators.compose([Validators.required, Validators.pattern('[a-zA-Z 0-9!]+')])],
         grad:['',Validators.compose([Validators.required, Validators.pattern('[a-zA-Z 0-9!]+')])],
         ulica:['',Validators.compose([Validators.required, Validators.pattern('[a-zA-Z 0-9!]+')])],
@@ -55,8 +59,7 @@ export class AccommodationAddComponent implements OnInit {
     this.submitted = true;
     this.temp = this.accommodationAdd.getRawValue();
     this.accommodation = this.temp;
-    this.accommodation.idKategorijaSmestaja = this.temp.idKategorijaSmestaja.split(".",1)[0];
-    this.accommodation.idTipSmestaja = this.temp.idTipSmestaja.split(".",1)[0];
+    this.accommodation.idAgent = 1;
     console.log(this.temp);
 
     this._accommodationService.addAccommmodation(this.accommodation).subscribe(
@@ -64,5 +67,14 @@ export class AccommodationAddComponent implements OnInit {
               this.router.navigateByUrl("accommodation");
     });
   }
+  @ViewChild('labelImport')
+  labelImport: ElementRef;
+  fileToUpload: File = null;
 
+  onFileChange(files: FileList) {
+    this.labelImport.nativeElement.innerText = Array.from(files)
+      .map(f => f.name)
+      .join(', ');
+    this.fileToUpload = files.item(0);
+  }
 }
