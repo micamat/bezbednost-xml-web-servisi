@@ -50,7 +50,7 @@ public class AgentController {
 			
 	}
 	
-	@PostMapping
+	@PostMapping("/login")
 	public ResponseEntity<String> login(@RequestBody AgentLoginDTO agentDTO){
 		if(agentService.login(agentDTO)) {
 			return new ResponseEntity<String>("Agent je uspesno logovan!", HttpStatus.CREATED);

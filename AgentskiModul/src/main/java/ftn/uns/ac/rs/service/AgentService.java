@@ -127,13 +127,14 @@ public class AgentService {
 		System.out.println("b");
 
 		agentLoginResponse = producerPort.agentLogin(agentLoginRequest);
-		System.out.println("n");
+		System.out.println("token: " + agentLoginResponse.getToken());
 
 		try {
 			Agent agent = agentRepository.findByKorisnickoIme(agentLoginDTO.getUsername());
 			agent.setToken(agentLoginResponse.getToken());
 			agentRepository.save(agent);
 			logger.info(USER, "Uspesno logovanje");
+			return true;
 		} catch (Exception e) {
 
 			logger.error(USER, "Greska prilikom logovanja: " + e.getMessage());
