@@ -364,6 +364,7 @@
                 <xs:element name="naziv" type="xs:string"/>
                 <xs:element name="opis" type="xs:string"/>
                 <xs:element name="slika" type="xs:string"/>
+                <xs:element name="kapacitet" type="xs:int"/>
                 <xs:element name="drzava" type="xs:string"/>
                 <xs:element name="grad" type="xs:string"/>
                 <xs:element name="ulica" type="xs:string"/>
@@ -526,8 +527,8 @@
     <xs:element name="AgentLoginDTO">
         <xs:complexType>
             <xs:sequence>
-                <xs:element name="korisnickoIme" type="xs:string"/>
-                <xs:element name="lozinka" type="xs:string"/>
+                <xs:element name="username" type="xs:string"/>
+                <xs:element name="password" type="xs:string"/>
             </xs:sequence>
         </xs:complexType>
     </xs:element>

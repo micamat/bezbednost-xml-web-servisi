@@ -29,6 +29,7 @@ import javax.xml.bind.annotation.XmlType;
  *         &lt;element name="naziv" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
  *         &lt;element name="opis" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
  *         &lt;element name="slika" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
+ *         &lt;element name="kapacitet" type="{http://www.w3.org/2001/XMLSchema}int"/&gt;
  *         &lt;element name="drzava" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
  *         &lt;element name="grad" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
  *         &lt;element name="ulica" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
@@ -49,6 +50,7 @@ import javax.xml.bind.annotation.XmlType;
     "naziv",
     "opis",
     "slika",
+    "kapacitet",
     "drzava",
     "grad",
     "ulica",
@@ -66,6 +68,8 @@ public class ShowSmestajDTO {
     protected String opis;
     @XmlElement(required = true)
     protected String slika;
+    @XmlElement(required = true)
+    protected int kapacitet;
     @XmlElement(required = true)
     protected String drzava;
     @XmlElement(required = true)
@@ -310,5 +314,13 @@ public class ShowSmestajDTO {
     public void setNazivTipSmestaja(String value) {
         this.nazivTipSmestaja = value;
     }
+
+	public int getKapacitet() {
+		return kapacitet;
+	}
+
+	public void setKapacitet(int kapacitet) {
+		this.kapacitet = kapacitet;
+	}
 
 }
