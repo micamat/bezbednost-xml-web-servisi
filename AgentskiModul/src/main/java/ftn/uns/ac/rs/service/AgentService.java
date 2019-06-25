@@ -113,12 +113,22 @@ public class AgentService {
 	public boolean login(AgentLoginDTO agentLoginDTO) {
 
 		ProducerPortService producerPortService = new ProducerPortService();
+		System.out.println("A");
+
 		ProducerPort producerPort = producerPortService.getProducerPortSoap11();
 		
 		AgentLoginRequest agentLoginRequest = new AgentLoginRequest();
+		System.out.println("c");
 		AgentLoginResponse agentLoginResponse = new AgentLoginResponse();
-		
+		System.out.println("v");
+
+		agentLoginRequest.setusername(agentLoginDTO.getUsername());
+		agentLoginRequest.setpassword(agentLoginDTO.getPassword());
+		System.out.println("b");
+
 		agentLoginResponse = producerPort.agentLogin(agentLoginRequest);
+		System.out.println("n");
+
 		try {
 			Agent agent = agentRepository.findByKorisnickoIme(agentLoginDTO.getUsername());
 			agent.setToken(agentLoginResponse.getToken());

@@ -128,26 +128,6 @@ public class SmestajService {
 		smestajDTO.setUlica(smestaj.getLokacija().getUlica());
 		smestajDTO.setBroj(smestaj.getLokacija().getBroj());
 
-		String[] slike = smestaj.getSlika().split(",");
-		String dekodirano = null;
-		byte[] decodedBytes = null;
-		for (int i = 0; i < slike.length; i++) {
-
-			decodedBytes = Base64.getDecoder().decode(slike[i]);
-			System.out.println(decodedBytes);
-			String s;
-			try {
-				s = new String(decodedBytes, "UTF-8");
-				dekodirano += s;
-				if (i != slike.length - 1) {
-					dekodirano += ",";
-				}
-			} catch (UnsupportedEncodingException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			
-		}
 		smestajDTO.setSlika(smestaj.getSlika());
 		
 		return smestajDTO;
@@ -162,7 +142,6 @@ public class SmestajService {
 		lokacija.setGrad(smestajDTO.getGrad());
 		lokacija.setUlica(smestajDTO.getUlica());
 		lokacija.setIdKoordinate(smestajDTO.getId());
-		System.out.println(lokacija.getId());
 		lokacijaService.add(lokacija);
 
 		Smestaj smestaj = new Smestaj();
@@ -174,23 +153,7 @@ public class SmestajService {
 		smestaj.setOpis(smestajDTO.getOpis());
 		smestaj.setAgent(agentRepository.findById(smestajDTO.getIdAgent()).orElse(null));
 		smestaj.setKapacitet(smestajDTO.getKapacitet());
-		
-		
-		
-		
-		
-		String[] slike = smestajDTO.getSlika().split(",");
-		String encodeBytes = null;
-		for (int i = 0; i < slike.length; i++) {
-			encodeBytes = Base64.getEncoder().encodeToString((slike[i]).getBytes());
-			
-			if (i != slike.length - 1) {
-				encodeBytes += ",";
-			}
-		}
-
-		System.out.println("encodedBytes " + new String(encodeBytes));
-		smestaj.setSlika(encodeBytes);
+		smestaj.setSlika(smestajDTO.getSlika());
 		return smestaj;
 	}
 }

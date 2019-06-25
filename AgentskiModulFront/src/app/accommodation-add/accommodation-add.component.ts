@@ -15,6 +15,7 @@ export class AccommodationAddComponent implements OnInit {
   user: any;
   public isLoged:boolean=false;
   us:any;
+  slika : String;
   categoryL:any;
   typeL : any;
   temp:any;
@@ -49,7 +50,6 @@ export class AccommodationAddComponent implements OnInit {
           this.typeL = data;
       });
       
-      
 
   }
 
@@ -59,6 +59,12 @@ export class AccommodationAddComponent implements OnInit {
     this.submitted = true;
     this.temp = this.accommodationAdd.getRawValue();
     this.accommodation = this.temp;
+
+    this.image.forEach(element => {
+      this.slika += element + " ";
+    });
+    console.log(this.slika)
+    this.accommodation.slika = this.slika;
     this.accommodation.idAgent = 1;
     console.log(this.temp);
 
@@ -67,14 +73,24 @@ export class AccommodationAddComponent implements OnInit {
               this.router.navigateByUrl("accommodation");
     });
   }
-  @ViewChild('labelImport')
-  labelImport: ElementRef;
-  fileToUpload: File = null;
 
-  onFileChange(files: FileList) {
-    this.labelImport.nativeElement.innerText = Array.from(files)
-      .map(f => f.name)
-      .join(', ');
-    this.fileToUpload = files.item(0);
+  image:Array<any> = new Array();
+
+  changeListener($event) : void {
+    this.image = new Array();
+    for (var i = 0; i < $event.target.files.length; i++) {
+        this.readThis($event.target.files[i]);
+    }
   }
+
+  readThis(inputValue: any): void {
+    
+      var myReader:FileReader = new FileReader();
+      var file: File = inputValue
+      myReader.onloadend = (e) => {
+        this.image.push(myReader.result);
+      }
+      myReader.readAsDataURL(file);
+  }
+  
 }

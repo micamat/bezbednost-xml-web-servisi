@@ -1,7 +1,7 @@
 <table class="table ml-2 mt-2">
   <thead style="background-color: #0074E1;">
     <tr>
-      <th scope="col" colspan="6" style="text-align: center; color: white">
+      <th scope="col" colspan="7" style="text-align: center; color: white">
         <div class="row">
           <div class="col" style="float: right;"></div>
           <div class="col">
@@ -24,6 +24,7 @@
       <th scope="col">#</th>
       <th scope="col">Name</th>
       <th scope="col">Description</th>
+      <th scope="col">Service</th>
       <th scope="col">Type</th>
       <th scope="col">Accommodation</th>
       <th scope="col">Manipulation</th>
@@ -34,8 +35,9 @@
       <td scope="row">{{i+1}}</td>
       <td>{{item.naziv}}</td>
       <td>{{item.opis}}</td>
-      <td>{{item.nazivTipaSobe}}</td>
-      <td>{{item.nazivSmestaja}}</td>
+      <td>{{item.idUsluga}}</td>
+      <td>{{item.nazivTipSobe}}</td>
+      <td>{{item.nazivSmestaj}}</td>
       <td>
           <a class="active" [routerLink]="['/room/change', item.id]">
             <img class="mr-2" src="/assets/img/edit-9-32.png">

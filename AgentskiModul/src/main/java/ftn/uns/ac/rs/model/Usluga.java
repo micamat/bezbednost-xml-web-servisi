@@ -42,11 +42,6 @@ import javax.xml.bind.annotation.XmlType;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "", propOrder = {
-    "id",
-    "naziv",
-    "opis"
-})
 @XmlRootElement(name = "Usluga")
 @Entity
 public class Usluga extends Sifarnik {

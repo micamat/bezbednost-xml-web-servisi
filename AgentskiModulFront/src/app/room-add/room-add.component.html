@@ -33,6 +33,21 @@
                     </div>
                 </div>
                 <div class="form-group">
+                        <div class="row">
+                            <div class="col-4">
+                                <label>Service</label>
+                            </div>
+                            <div class="col-8">
+                               <select class="form-control" multiple formControlName="idUsluga" [ngClass]="{ 'is-invalid': submitted && f.idUsluga.errors }" >
+                                    <option *ngFor="let item of uslugaL; let i = index" [ngValue]="item.id">{{item.naziv}}</option>
+                                </select>
+                                <div *ngIf="submitted && f.idUsluga.errors">
+                                    <div style="color:red;">Type is incorect!</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                <div class="form-group">
                     <div class="row">
                         <div class="col-4">
                             <label>Type</label>
@@ -40,7 +55,7 @@
                         <div class="col-8">
                            <select class="form-control" formControlName="idTipSobe" [ngClass]="{ 'is-invalid': submitted && f.idTipSobe.errors }" >
                                 <option></option>
-                                <option *ngFor="let item of typeL; let i = index">{{item.id}}.{{item.naziv}}</option>
+                                <option *ngFor="let item of typeL; let i = index" [ngValue]="item.id">{{item.naziv}}</option>
                             </select>
                             <div *ngIf="submitted && f.idTipSobe.errors">
                                 <div style="color:red;">Type is incorect!</div>
@@ -56,7 +71,7 @@
                         <div class="col-8">
                            <select class="form-control" formControlName="idSmestaj" [ngClass]="{ 'is-invalid': submitted && f.idSmestaj.errors }" >
                                 <option></option>
-                                <option *ngFor="let item of accommodationsL; let i = index">{{item.id}}.{{item.naziv}}</option>
+                                <option *ngFor="let item of accommodationsL; let i = index" [ngValue]="item.id">{{item.naziv}}</option>
                             </select>
                             <div *ngIf="submitted && f.idSmestaj.errors">
                                 <div style="color:red;">Type is incorect!</div>

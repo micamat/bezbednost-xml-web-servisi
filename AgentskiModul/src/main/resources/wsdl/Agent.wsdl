@@ -2,56 +2,25 @@
     xmlns:sch="http://rs.ac.uns.ftn/Model" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
     xmlns:tns="http://rs.ac.uns.ftn/Model" targetNamespace="http://rs.ac.uns.ftn/Model">
     <wsdl:types>
-        <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified"
+
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified"
     targetNamespace="http://rs.ac.uns.ftn/Model"
     xmlns="http://rs.ac.uns.ftn/Model">
+    
     <!-- ===================================================================================== -->
-    <xs:element name="Sifarnik">
-        <xs:complexType>
-            <xs:all>
-                <xs:element name="id" type="xs:long"/>
-                <xs:element name="naziv" type="xs:string"/>
-            </xs:all>
-        </xs:complexType>
-    </xs:element>
-    <xs:element name="StatusSobe">
-        <xs:complexType>
-            <xs:sequence>
-                <xs:element ref="Sifarnik"/>
-            </xs:sequence>
-        </xs:complexType>
-    </xs:element>
-    <xs:element name="CreateStatusSobeRequest">
-        <xs:complexType>
-            <xs:sequence>
-                <xs:element ref="StatusSobe"/>
-            </xs:sequence>
-        </xs:complexType>
-    </xs:element>
-    <xs:element name="CreateStatusSobeResponse">
-        <xs:complexType>
-            <xs:sequence>
-                <xs:element name="id" type="xs:int"/>
-                <xs:element default="false" name="Successful" type="xs:boolean"/>
-            </xs:sequence>
-        </xs:complexType>
-    </xs:element>
+  <xs:complexType name="Sifarnik">
+        <xs:all>
+            <xs:element name="id" type="xs:long"/>
+            <xs:element name="naziv" type="xs:string"/>
+            <xs:element name="opis" type="xs:string"/>
+        </xs:all>
+    </xs:complexType>
     <!-- ===================================================================================== -->
     <xs:element name="Usluga">
         <xs:complexType>
-            <xs:sequence>
-                <xs:element name="id" type="xs:long"/>
-                <xs:element name="naziv" type="xs:string"/>
-                <xs:element name="opis" type="xs:string"/>
-                <xs:element ref="Soba" maxOccurs="unbounded"/>
-            </xs:sequence>
-        </xs:complexType>
-    </xs:element>
-    <xs:element name="UslugaDTO">
-        <xs:complexType>
-            <xs:sequence>
-                <xs:element ref="Sifarnik"/>
-            </xs:sequence>
+            <xs:complexContent>
+                <xs:extension base="Sifarnik"></xs:extension>
+            </xs:complexContent>
         </xs:complexType>
     </xs:element>
     <xs:element name="GetAllUslugaRequest">
@@ -61,7 +30,7 @@
     <xs:element name="GetAllUslugaResponse">
         <xs:complexType>
             <xs:sequence>
-                <xs:element minOccurs="0" maxOccurs="unbounded" ref="UslugaDTO"/>
+                <xs:element minOccurs="0" maxOccurs="unbounded" ref="Usluga"/>
             </xs:sequence>
         </xs:complexType>
     </xs:element>
@@ -70,7 +39,8 @@
         <xs:complexType>
             <xs:all>
                 <xs:element name="id" type="xs:long"/>
-                <xs:element name="cena" type="xs:string"/>
+                <xs:element name="cena" type="xs:float"/>
+                <xs:element name="brojDanaZaOtkazivanje" type="xs:int"></xs:element>
                 <xs:element name="datumOd" type="xs:dateTime"/>
                 <xs:element name="datumDo" type="xs:dateTime"/>
                 <xs:element ref="Smestaj"/>
@@ -82,7 +52,8 @@
         <xs:complexType>
             <xs:all>
                 <xs:element name="id" type="xs:long"/>
-                <xs:element name="cena" type="xs:string"/>
+                <xs:element name="cena" type="xs:float"/>
+                <xs:element name="brojDanaZaOtkazivanje" type="xs:int"></xs:element>
                 <xs:element name="datumOd" type="xs:dateTime"/>
                 <xs:element name="datumDo" type="xs:dateTime"/>
                 <xs:element name="idSmestaj" type="xs:long"/>
@@ -94,11 +65,12 @@
         <xs:complexType>
             <xs:all>
                 <xs:element name="id" type="xs:long"/>
-                <xs:element name="cena" type="xs:string"/>
+                <xs:element name="cena" type="xs:float"/>
                 <xs:element name="datumOd" type="xs:dateTime"/>
                 <xs:element name="datumDo" type="xs:dateTime"/>
-                <xs:element name="nazivSmestaj" type="xs:long"/>
-                <xs:element name="nazivTipSobe" type="xs:long"/>
+                <xs:element name="brojDanaZaOtkazivanje" type="xs:int"></xs:element>
+                <xs:element name="nazivSmestaj" type="xs:string"/>
+                <xs:element name="nazivTipSobe" type="xs:string"/>
             </xs:all>
         </xs:complexType>
     </xs:element>
@@ -117,48 +89,125 @@
             </xs:sequence>
         </xs:complexType>
     </xs:element>
-    <!-- =====================================ZAUZECE======================================= -->
-    <xs:element name="Zauzece">
-        <xs:complexType>
-            <xs:all>
-                <xs:element name="id" type="xs:long"/>
-                <xs:element name="datumOd" type="xs:dateTime"/>
-                <xs:element name="datumDo" type="xs:dateTime"/>
-                <xs:element ref="Soba"/>
-                <xs:element ref="StatusSobe"/>
-            </xs:all>
-        </xs:complexType>
-    </xs:element>
-    <xs:element name="ZauzeceDTO">
-        <xs:complexType>
-            <xs:all>
-                <xs:element name="id" type="xs:long"/>
-                <xs:element name="datumOd" type="xs:dateTime"/>
-                <xs:element name="datumDo" type="xs:dateTime"/>
-                <xs:element name="idSoba" type="xs:long"/>
-                <xs:element name="idStatusSobe" type="xs:long"/>
-            </xs:all>
-        </xs:complexType>
-    </xs:element>
-    <xs:element name="ShowZauzeceDTO">
-        <xs:complexType>
-            <xs:all>
-                <xs:element name="id" type="xs:long"/>
-                <xs:element name="datumOd" type="xs:dateTime"/>
-                <xs:element name="datumDo" type="xs:dateTime"/>
-                <xs:element name="nazivSoba" type="xs:string"/>
-                <xs:element name="nazivStatusSobe" type="xs:string"/>
-            </xs:all>
-        </xs:complexType>
-    </xs:element>
-    <xs:element name="CreateZauzeceRequest">
+    <!-- =====================================REZERVACIJA======================================= -->
+    <xs:element name="Rezervacija">
         <xs:complexType>
             <xs:sequence>
-                <xs:element ref="ZauzeceDTO"/>
+            	<xs:element name="id" type="xs:long" />
+            	<xs:element name="datumOd" type="xs:dateTime" />
+            	<xs:element name="datumDo" type="xs:dateTime" />
+            	<xs:element name="brojSoba" type="xs:int"></xs:element>
+            	<xs:element name="cena" type="xs:float" />
+            	<xs:element ref="Smestaj" />
+            	<xs:element ref="Poruka" maxOccurs="unbounded" />
+            	<xs:element ref="Korisnik" />
+            	<xs:element ref="RezervisaneSobe" maxOccurs="unbounded" />
             </xs:sequence>
         </xs:complexType>
     </xs:element>
-    <xs:element name="CreateZauzeceResponse">
+    <xs:element name="RezervacijaDTO">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="id" type="xs:long"/>
+                <xs:element name="datumOd" type="xs:dateTime"/>
+                <xs:element name="datumDo" type="xs:dateTime"/>
+                <xs:element name="cena" type="xs:float"/>
+                <xs:element name="idKorisnika" type="xs:long"/>
+                <xs:element name="idSmestaj" type="xs:long"/>
+                <xs:element ref="RezervisaneSobeDTO" maxOccurs="unbounded"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="ShowRezervacijaDTO">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="id" type="xs:long"/>
+                <xs:element name="datumOd" type="xs:dateTime"/>
+                <xs:element name="datumDo" type="xs:dateTime"/>
+                <xs:element name="cena" type="xs:float"/>
+                <xs:element name="nazivSmestaj" type="xs:string"/>
+                <xs:element name="brojSoba" type="xs:int"/>
+                <xs:element ref="ShowRezervisaneSobeDTO" maxOccurs="unbounded"/>
+                <xs:element name="imePrezimeKorisnik" type="xs:string"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="CreateRezervacijaRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="RezervacijaDTO"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="CreateRezervacijaResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="id" type="xs:int"/>
+                <xs:element default="false" name="Successful" type="xs:boolean"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="GetRezervacijaRequest">
+        <xs:complexType>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="GetAllRezervacijaResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element minOccurs="0" maxOccurs="unbounded" ref="Rezervacija"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="RezervisaneSobe">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="id" type="xs:long"/>
+                <xs:element name="statusRezervacije" type="xs:string"/>
+                <xs:element name="cena" type="xs:float"/>
+                <xs:element ref="Rezervacija"/>
+                <xs:element ref="Soba"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="RezervisaneSobeDTO">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="id" type="xs:long"/>
+                <xs:element name="statusRezervacije" type="xs:string"/>
+                <xs:element name="idSoba" type="xs:long"/>
+                <xs:element name="cena" type="xs:float"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="ShowRezervisaneSobeDTO">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="id" type="xs:long"/>
+                <xs:element name="nazivStatusRezervacije" type="xs:string"/>
+                <xs:element name="nazivSoba" type="xs:string"/>
+                <xs:element name="cena" type="xs:float"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="GetAllRezervisaneSobeRequest">
+        <xs:complexType>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="GetAllRezervisaneSobeResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element minOccurs="0" maxOccurs="unbounded" ref="RezervisaneSobe"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="UpdateRezervisaneSobeRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="RezervisaneSobeDTO"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="UpdateRezervisaneSobeResponse">
         <xs:complexType>
             <xs:sequence>
                 <xs:element name="id" type="xs:int"/>
@@ -169,9 +218,9 @@
     <!-- =======================================TIP SOBE========================================= -->
     <xs:element name="TipSobe">
         <xs:complexType>
-            <xs:sequence>
-                <xs:element ref="Sifarnik"/>
-            </xs:sequence>
+            <xs:complexContent>
+                <xs:extension base="Sifarnik"></xs:extension>
+            </xs:complexContent>
         </xs:complexType>
     </xs:element>
     <xs:element name="GetAllTipSobeRequest">
@@ -188,9 +237,9 @@
     <!-- ======================================KATEGORIJA SMESTAJA================================= -->
     <xs:element name="KategorijaSmestaja">
         <xs:complexType>
-            <xs:sequence>
-                <xs:element ref="Sifarnik"/>
-            </xs:sequence>
+            <xs:complexContent>
+                <xs:extension base="Sifarnik"></xs:extension>
+            </xs:complexContent>
         </xs:complexType>
     </xs:element>
     <xs:element name="GetAllKategorijaSmestajaRequest">
@@ -207,9 +256,9 @@
     <!-- ==================================TIP SMESTAJA========================================== -->
     <xs:element name="TipSmestaja">
         <xs:complexType>
-            <xs:sequence>
-                <xs:element ref="Sifarnik"/>
-            </xs:sequence>
+            <xs:complexContent>
+                <xs:extension base="Sifarnik"></xs:extension>
+            </xs:complexContent>
         </xs:complexType>
     </xs:element>
     <xs:element name="GetAllTipSmestajaRequest">
@@ -232,8 +281,7 @@
                 <xs:element name="grad" type="xs:string"/>
                 <xs:element name="ulica" type="xs:string"/>
                 <xs:element name="broj" type="xs:string"/>
-                <xs:element name="duzina" type="xs:float"/>
-                <xs:element name="sirina" type="xs:float"/>
+                <xs:element name="idKoordinate" type="xs:long"/>
             </xs:all>
         </xs:complexType>
     </xs:element>
@@ -252,6 +300,31 @@
             </xs:sequence>
         </xs:complexType>
     </xs:element>
+    <!-- =================================KOORDINATE============================================== -->
+    <xs:element name="Koordinate">
+        <xs:complexType>
+            <xs:all>
+                <xs:element name="id" type="xs:long"/>
+                <xs:element name="duzina" type="xs:float"/>
+                <xs:element name="sirina" type="xs:float"/>
+            </xs:all>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="CreateKoordinateRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element minOccurs="0" maxOccurs="1" ref="Koordinate"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="CreateKoordinateResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="id" type="xs:int"/>
+                <xs:element default="false" name="Successful" type="xs:boolean"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
     <!-- =========================================SMESTAJ========================================= -->
     <xs:element name="Smestaj">
         <xs:complexType>
@@ -260,10 +333,13 @@
                 <xs:element name="naziv" type="xs:string"/>
                 <xs:element name="opis" type="xs:string"/>
                 <xs:element name="slika" type="xs:string"/>
+                <xs:element name="kapacitet" type="xs:int"/>
                 <xs:element ref="Lokacija"/>
                 <xs:element ref="TipSmestaja"/>
                 <xs:element ref="KategorijaSmestaja"/>
                 <xs:element ref="Soba" minOccurs="0" maxOccurs="unbounded"/>
+                <xs:element ref="Agent" minOccurs="1" maxOccurs="1"/>
+                <xs:element ref="Komentar" minOccurs="0" maxOccurs="unbounded"/>
             </xs:sequence>
         </xs:complexType>
     </xs:element>
@@ -274,7 +350,11 @@
                 <xs:element name="naziv" type="xs:string"/>
                 <xs:element name="opis" type="xs:string"/>
                 <xs:element name="slika" type="xs:string"/>
-                <xs:element name="idLokacija" type="xs:long"/>
+                <xs:element name="kapacitet" type="xs:int"/>
+                <xs:element name="drzava" type="xs:string"/>
+                <xs:element name="grad" type="xs:string"/>
+                <xs:element name="ulica" type="xs:string"/>
+                <xs:element name="broj" type="xs:string"/>
                 <xs:element name="idTipSmestaja" type="xs:long"/>
                 <xs:element name="idKategorijaSmestaja" type="xs:long"/>
                 <xs:element name="idAgent" type="xs:long"/>
@@ -288,11 +368,12 @@
                 <xs:element name="naziv" type="xs:string"/>
                 <xs:element name="opis" type="xs:string"/>
                 <xs:element name="slika" type="xs:string"/>
+                <xs:element name="kapacitet" type="xs:int"/>
                 <xs:element name="drzava" type="xs:string"/>
                 <xs:element name="grad" type="xs:string"/>
                 <xs:element name="ulica" type="xs:string"/>
                 <xs:element name="broj" type="xs:string"/>
-                <xs:element name="nazivKategorijaSmestaja" type="xs:string"/>                
+                <xs:element name="nazivKategorijaSmestaja" type="xs:string"/>    
                 <xs:element name="nazivTipSmestaja" type="xs:string"/>
             </xs:sequence>
         </xs:complexType>
@@ -319,10 +400,8 @@
                 <xs:element name="id" type="xs:long"/>
                 <xs:element name="naziv" type="xs:string"/>
                 <xs:element name="opis" type="xs:string"/>
-                <xs:element name="slika" type="xs:string"/>
                 <xs:element ref="TipSobe"/>
                 <xs:element ref="Smestaj"/>
-                <xs:element ref="Usluga" maxOccurs="unbounded"/>
             </xs:sequence>
         </xs:complexType>
     </xs:element>
@@ -332,9 +411,9 @@
                 <xs:element name="id" type="xs:long"/>
                 <xs:element name="naziv" type="xs:string"/>
                 <xs:element name="opis" type="xs:string"/>
-                <xs:element name="slika" type="xs:string"/>
                 <xs:element name="idTipSobe" type="xs:long"/>
                 <xs:element name="idSmestaj" type="xs:long"/>
+                <xs:element name="idUsluga" type="xs:long" maxOccurs="unbounded"/>
             </xs:sequence>
         </xs:complexType>
     </xs:element>
@@ -344,9 +423,9 @@
                 <xs:element name="id" type="xs:long"/>
                 <xs:element name="naziv" type="xs:string"/>
                 <xs:element name="opis" type="xs:string"/>
-                <xs:element name="slika" type="xs:string"/>
-                <xs:element name="nazivTipSobe" type="xs:long"/>
-                <xs:element name="nazivSmestaj" type="xs:long"/>
+                <xs:element name="nazivTipSobe" type="xs:string"/>
+                <xs:element name="nazivSmestaj" type="xs:string"/>
+                <xs:element ref="Usluga" maxOccurs="unbounded"></xs:element>
             </xs:sequence>
         </xs:complexType>
     </xs:element>
@@ -365,7 +444,260 @@
             </xs:sequence>
         </xs:complexType>
     </xs:element>
+    <xs:element name="SobneUsluge">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="id" type="xs:long"/>
+                <xs:element ref="Soba"/>
+                <xs:element ref="Usluga"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="SobneUslugeDTO">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="id" type="xs:long"></xs:element>
+                <xs:element name="idSoba" type="xs:long"></xs:element>
+                <xs:element name="idUsluga" type="xs:long"></xs:element>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="CreateSobneUslugeRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="SobneUslugeDTO"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="CreateSobneUslugeResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="id" type="xs:int"/>
+                <xs:element default="false" name="Successful" type="xs:boolean"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="GetAllSobneUslugeRequest">
+        <xs:complexType>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="GetAllSobneUslugeResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element minOccurs="0" maxOccurs="unbounded" ref="SobneUslugeDTO"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <!-- =========================================AGENT=========================================== -->
+    
+    <xs:element name="Agent">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="id" type="xs:long"/>
+                <xs:element name="ime" type="xs:string"/>
+                <xs:element name="prezime" type="xs:string"/>
+                <xs:element name="adresa" type="xs:string"/>
+                <xs:element name="poslovniMaticniBroj" type="xs:integer"/>
+                <xs:element name="korisnickoIme" type="xs:string"/>
+                <xs:element name="email" type="xs:string"/>
+                <xs:element name="token" type="xs:string"/>
+                <xs:element ref="Smestaj" maxOccurs="unbounded"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="ShowAgentDTO">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="id" type="xs:long"/>
+                <xs:element name="ime" type="xs:string"/>
+                <xs:element name="prezime" type="xs:string"/>
+                <xs:element name="adresa" type="xs:string"/>
+                <xs:element name="poslovniMaticniBroj" type="xs:integer"/>
+                <xs:element name="korisnickoIme" type="xs:string"/>
+                <xs:element name="email" type="xs:string"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="AgentDTO">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="id" type="xs:long"/>
+                <xs:element name="korisnickoIme" type="xs:string"/>
+                <xs:element name="lozinka" type="xs:string"/>
+                <xs:element name="prethodnaLozinka" type="xs:string"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="AgentLoginDTO">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="username" type="xs:string"/>
+                <xs:element name="password" type="xs:string"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="AgentLoginRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="username" type="xs:string"/>
+                <xs:element name="password" type="xs:string"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="AgentLoginResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="token" type="xs:string"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="GetAllAgentRequest">
+        <xs:complexType>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="GetAllAgentResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element minOccurs="0" maxOccurs="unbounded" ref="Agent"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="UpdateAgentRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="AgentDTO"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="UpdateAgentResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="token" type="xs:string"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <!-- ========================================KOMENTAR========================================= -->
+    <xs:element name="Komentar">
+        <xs:complexType>
+            <xs:all>
+                <xs:element name="id" type="xs:long"/>
+                <xs:element name="naslov" type="xs:string"/>
+                <xs:element name="tekst" type="xs:string"/>
+                <xs:element name="statusKomentara" type="xs:string"/>
+                <xs:element name="datumKreiranja" type="xs:dateTime"/>
+                <xs:element ref="Smestaj" maxOccurs="1"/>
+                <xs:element ref="Korisnik" maxOccurs="1"/>
+            </xs:all>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="KomentarDTO">
+        <xs:complexType>
+            <xs:all>
+                <xs:element name="id" type="xs:long"/>
+                <xs:element name="naslov" type="xs:string"/>
+                <xs:element name="tekst" type="xs:string"/>
+                <xs:element name="statusKomentara" type="xs:string"/>
+                <xs:element name="datumKreiranja" type="xs:dateTime"/>
+                <xs:element name="idSmestaj" type="xs:long"/>
+                <xs:element name="idKorisnik" type="xs:long"/>
+            </xs:all>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="GetAllKomentarRequest">
+        <xs:complexType>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="GetAllKomentarResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element minOccurs="0" maxOccurs="unbounded" ref="KomentarDTO"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <!-- ========================================KORISNIK========================================= -->
+    <xs:element name="Korisnik">
+        <xs:complexType>
+            <xs:all>
+                <xs:element name="id" type="xs:long"/>
+                <xs:element name="korisnickoIme" type="xs:string"/>
+            </xs:all>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="GetAllKorisnikRequest">
+        <xs:complexType>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="GetAllKorisnikResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element minOccurs="0" maxOccurs="unbounded" ref="Korisnik"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <!-- ========================================PORUKA=========================================== -->
+    <xs:element name="Poruka">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="id" type="xs:long"/>
+                <xs:element name="naslov" type="xs:string"/>
+                <xs:element name="sadrzaj" type="xs:string"/>
+                <xs:element name="datum" type="xs:dateTime"/>
+                <xs:element ref="Rezervacija"/>
+                <xs:element name="korisnikPosiljalac" type="xs:boolean"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="PorukaDTO">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="id" type="xs:long"/>
+                <xs:element name="naslov" type="xs:string"/>
+                <xs:element name="sadrzaj" type="xs:string"/>
+                <xs:element name="datum" type="xs:dateTime"/>
+                <xs:element name="idRezervacije" type="xs:long"/>
+                <xs:element name="korisnikPosiljalac" type="xs:boolean"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="ShowPorukaDTO">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="id" type="xs:long"/>
+                <xs:element name="naslov" type="xs:string"/>
+                <xs:element name="sadrzaj" type="xs:string"/>
+                <xs:element name="datum" type="xs:dateTime"/>
+                <xs:element name="korisnickoIme" type="xs:string"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="GetAllPorukaRequest">
+        <xs:complexType>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="GetAllPorukaResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element minOccurs="0" maxOccurs="unbounded" ref="PorukaDTO"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="CreatePorukaRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="PorukaDTO"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="CreatePorukaResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="id" type="xs:int"/>
+                <xs:element default="false" name="Successful" type="xs:boolean"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
 </xs:schema>
+
     </wsdl:types>
     <wsdl:message name="GetAllTipSmestajaResponse">
         <wsdl:part element="tns:GetAllTipSmestajaResponse" name="GetAllTipSmestajaResponse"
@@ -379,20 +711,21 @@
     <wsdl:message name="CreateLokacijaRequest">
         <wsdl:part element="tns:CreateLokacijaRequest" name="CreateLokacijaRequest"> </wsdl:part>
     </wsdl:message>
+    
+    <wsdl:message name="GetAllRezervisaneSobeRequest">
+        <wsdl:part element="tns:GetAllRezervisaneSobeRequest" name="GetAllRezervisaneSobeRequest"> </wsdl:part>
+    </wsdl:message>
+    
+    <wsdl:message name="GetAllRezervisaneSobeResponse">
+        <wsdl:part element="tns:GetAllRezervisaneSobeResponse" name="GetAllRezervisaneSobeResponse"> </wsdl:part>
+    </wsdl:message>
    
     <wsdl:message name="CreateCenovnikRequest">
         <wsdl:part element="tns:CreateCenovnikRequest" name="CreateCenovnikRequest"> </wsdl:part>
     </wsdl:message>
-    <wsdl:message name="CreateStatusSobeResponse">
-        <wsdl:part element="tns:CreateStatusSobeResponse" name="CreateStatusSobeResponse"
-        > </wsdl:part>
-    </wsdl:message>
-    <wsdl:message name="GetAllKategorijaSmestajaResponse">
+   <wsdl:message name="GetAllKategorijaSmestajaResponse">
         <wsdl:part element="tns:GetAllKategorijaSmestajaResponse"
             name="GetAllKategorijaSmestajaResponse"> </wsdl:part>
-    </wsdl:message>
-    <wsdl:message name="CreateZauzeceResponse">
-        <wsdl:part element="tns:CreateZauzeceResponse" name="CreateZauzeceResponse"> </wsdl:part>
     </wsdl:message>
     <wsdl:message name="CreateSobaResponse">
         <wsdl:part element="tns:CreateSobaResponse" name="CreateSobaResponse"> </wsdl:part>
@@ -403,10 +736,7 @@
     <wsdl:message name="CreateSobaRequest">
         <wsdl:part element="tns:CreateSobaRequest" name="CreateSobaRequest"> </wsdl:part>
     </wsdl:message>
-    <wsdl:message name="CreateZauzeceRequest">
-        <wsdl:part element="tns:CreateZauzeceRequest" name="CreateZauzeceRequest"> </wsdl:part>
-    </wsdl:message>
-    <wsdl:message name="CreateSmestajResponse">
+   <wsdl:message name="CreateSmestajResponse">
         <wsdl:part element="tns:CreateSmestajResponse" name="CreateSmestajResponse"> </wsdl:part>
     </wsdl:message>
     <wsdl:message name="GetAllTipSobeResponse">
@@ -422,11 +752,7 @@
     <wsdl:message name="CreateCenovnikResponse">
         <wsdl:part element="tns:CreateCenovnikResponse" name="CreateCenovnikResponse"> </wsdl:part>
     </wsdl:message>
-    <wsdl:message name="CreateStatusSobeRequest">
-        <wsdl:part element="tns:CreateStatusSobeRequest" name="CreateStatusSobeRequest"
-        > </wsdl:part>
-    </wsdl:message>
-    <wsdl:message name="GetAllTipSobeRequest">
+     <wsdl:message name="GetAllTipSobeRequest">
         <wsdl:part element="tns:GetAllTipSobeRequest" name="GetAllTipSobeRequest"> </wsdl:part>
     </wsdl:message>
     <wsdl:message name="GetAllUslugaResponse">
@@ -434,6 +760,33 @@
     </wsdl:message>
     <wsdl:message name="GetAllTipSmestajaRequest">
         <wsdl:part element="tns:GetAllTipSmestajaRequest" name="GetAllTipSmestajaRequest"
+        > </wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="AgentLoginResponse">
+        <wsdl:part element="tns:AgentLoginResponse" name="AgentLoginResponse"
+        > </wsdl:part>
+    </wsdl:message>
+    
+    <wsdl:message name="UpdateAgentRequest">
+        <wsdl:part element="tns:UpdateAgentRequest" name="UpdateAgentRequest"
+        > </wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="UpdateAgentResponse">
+        <wsdl:part element="tns:UpdateAgentResponse" name="UpdateAgentResponse"
+        > </wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="CreateSobneUslugeRequest">
+        <wsdl:part element="tns:CreateSobneUslugeRequest" name="CreateSobneUslugeRequest"
+        > </wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="CreateSobneUslugeResponse">
+        <wsdl:part element="tns:CreateSobneUslugeResponse" name="CreateSobneUslugeResponse"
+        > </wsdl:part>
+    </wsdl:message>
+    
+    
+    <wsdl:message name="AgentLoginRequest">
+        <wsdl:part element="tns:AgentLoginRequest" name="AgentLoginRequest"
         > </wsdl:part>
     </wsdl:message>
     <wsdl:portType name="ProducerPort">
@@ -452,29 +805,36 @@
             <wsdl:output message="tns:CreateCenovnikResponse" name="CreateCenovnikResponse"
             > </wsdl:output>
         </wsdl:operation>
-        <wsdl:operation name="CreateStatusSobe">
-            <wsdl:input message="tns:CreateStatusSobeRequest" name="CreateStatusSobeRequest"> </wsdl:input>
-            <wsdl:output message="tns:CreateStatusSobeResponse" name="CreateStatusSobeResponse"
+        
+        <wsdl:operation name="AgentLogin">
+            <wsdl:input message="tns:AgentLoginRequest" name="AgentLoginRequest"> </wsdl:input>
+            <wsdl:output message="tns:AgentLoginResponse" name="AgentLoginResponse"
             > </wsdl:output>
         </wsdl:operation>
-        <wsdl:operation name="GetAllKategorijaSmestaja">
+        <wsdl:operation name="UpdateAgent">
+            <wsdl:input message="tns:UpdateAgentRequest" name="UpdateAgentRequest"> </wsdl:input>
+            <wsdl:output message="tns:UpdateAgentResponse" name="UpdateAgentResponse"
+            > </wsdl:output>
+        </wsdl:operation>
+      <wsdl:operation name="GetAllKategorijaSmestaja">
             <wsdl:input message="tns:GetAllKategorijaSmestajaRequest"
                 name="GetAllKategorijaSmestajaRequest"> </wsdl:input>
             <wsdl:output message="tns:GetAllKategorijaSmestajaResponse"
                 name="GetAllKategorijaSmestajaResponse"> </wsdl:output>
         </wsdl:operation>
-        <wsdl:operation name="CreateZauzece">
-            <wsdl:input message="tns:CreateZauzeceRequest" name="CreateZauzeceRequest"> </wsdl:input>
-            <wsdl:output message="tns:CreateZauzeceResponse" name="CreateZauzeceResponse"
-            > </wsdl:output>
-        </wsdl:operation>
-        <wsdl:operation name="CreateSoba">
+     <wsdl:operation name="CreateSoba">
             <wsdl:input message="tns:CreateSobaRequest" name="CreateSobaRequest"> </wsdl:input>
             <wsdl:output message="tns:CreateSobaResponse" name="CreateSobaResponse"> </wsdl:output>
         </wsdl:operation>
         <wsdl:operation name="CreateSmestaj">
             <wsdl:input message="tns:CreateSmestajRequest" name="CreateSmestajRequest"> </wsdl:input>
             <wsdl:output message="tns:CreateSmestajResponse" name="CreateSmestajResponse"
+            > </wsdl:output>
+        </wsdl:operation>
+        
+        <wsdl:operation name="GetAllRezervisaneSobe">
+            <wsdl:input message="tns:GetAllRezervisaneSobeRequest" name="GetAllRezervisaneSobeRequest"> </wsdl:input>
+            <wsdl:output message="tns:GetAllRezervisaneSobeResponse" name="GetAllRezervisaneSobeResponse"
             > </wsdl:output>
         </wsdl:operation>
         <wsdl:operation name="GetAllTipSobe">
@@ -485,6 +845,11 @@
         <wsdl:operation name="GetAllUsluga">
             <wsdl:input message="tns:GetAllUslugaRequest" name="GetAllUslugaRequest"> </wsdl:input>
             <wsdl:output message="tns:GetAllUslugaResponse" name="GetAllUslugaResponse"
+            > </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="CreateSobneUsluge">
+            <wsdl:input message="tns:CreateSobneUslugeRequest" name="CreateSobneUslugeRequest"> </wsdl:input>
+            <wsdl:output message="tns:CreateSobneUslugeResponse" name="CreateSobneUslugeResponse"
             > </wsdl:output>
         </wsdl:operation>
     </wsdl:portType>
@@ -508,6 +873,44 @@
                 <soap:body use="literal"/>
             </wsdl:output>
         </wsdl:operation>
+        
+        <wsdl:operation name="CreateSobneUsluge">
+            <soap:operation soapAction=""/>
+            <wsdl:input name="CreateSobneUslugeRequest">
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output name="CreateSobneUslugeResponse">
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="GetAllRezervisaneSobe">
+            <soap:operation soapAction=""/>
+            <wsdl:input name="GetAllRezervisaneSobeRequest">
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output name="GetAllRezervisaneSobeResponse">
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        
+        <wsdl:operation name="AgentLogin">
+            <soap:operation soapAction=""/>
+            <wsdl:input name="AgentLoginRequest">
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output name="AgentLoginResponse">
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="UpdateAgent">
+            <soap:operation soapAction=""/>
+            <wsdl:input name="UpdateAgentRequest">
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output name="UpdateAgentResponse">
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
         <wsdl:operation name="CreateCenovnik">
             <soap:operation soapAction=""/>
             <wsdl:input name="CreateCenovnikRequest">
@@ -517,16 +920,7 @@
                 <soap:body use="literal"/>
             </wsdl:output>
         </wsdl:operation>
-        <wsdl:operation name="CreateStatusSobe">
-            <soap:operation soapAction=""/>
-            <wsdl:input name="CreateStatusSobeRequest">
-                <soap:body use="literal"/>
-            </wsdl:input>
-            <wsdl:output name="CreateStatusSobeResponse">
-                <soap:body use="literal"/>
-            </wsdl:output>
-        </wsdl:operation>
-        <wsdl:operation name="GetAllKategorijaSmestaja">
+     <wsdl:operation name="GetAllKategorijaSmestaja">
             <soap:operation soapAction=""/>
             <wsdl:input name="GetAllKategorijaSmestajaRequest">
                 <soap:body use="literal"/>
@@ -535,16 +929,7 @@
                 <soap:body use="literal"/>
             </wsdl:output>
         </wsdl:operation>
-        <wsdl:operation name="CreateZauzece">
-            <soap:operation soapAction=""/>
-            <wsdl:input name="CreateZauzeceRequest">
-                <soap:body use="literal"/>
-            </wsdl:input>
-            <wsdl:output name="CreateZauzeceResponse">
-                <soap:body use="literal"/>
-            </wsdl:output>
-        </wsdl:operation>
-        <wsdl:operation name="CreateSoba">
+      <wsdl:operation name="CreateSoba">
             <soap:operation soapAction=""/>
             <wsdl:input name="CreateSobaRequest">
                 <soap:body use="literal"/>

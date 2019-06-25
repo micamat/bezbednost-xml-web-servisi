@@ -16,6 +16,7 @@ export class RoomAddComponent implements OnInit {
   accommodationsL : any;
   temp : any;
   room: any;
+  uslugaL : any;
 
   constructor(private _accommodationService : AccommodationService,
     private formBuilder:FormBuilder,
@@ -26,6 +27,7 @@ export class RoomAddComponent implements OnInit {
       this.roomAdd = this.formBuilder.group({
         naziv:['',Validators.compose([Validators.required, Validators.pattern('[a-zA-Z 0-9!]+')])],
         opis:['',Validators.compose([Validators.required, Validators.pattern('[a-zA-Z 0-9!]+')])],
+        idUsluga:['',Validators.compose(null)],
         idTipSobe:['',Validators.compose([Validators.required, Validators.pattern('[a-z.A-Z 0-9!]+')])],  
         idSmestaj:['',Validators.compose([Validators.required, Validators.pattern('[a-z.A-Z 0-9!]+')])],
         
@@ -39,18 +41,26 @@ export class RoomAddComponent implements OnInit {
         data => {
           this.accommodationsL = data;
       });
+      this._accommodationService.getAlUusluga().subscribe(
+        data => {
+          this.uslugaL = data;
+      });
 
   }
 
   get f() { return this.roomAdd.controls; }
 
+  //uslluga:Array<any> = new Array();
+
   onSubmit(event:any) {
     this.submitted = true;
     this.temp = this.roomAdd.getRawValue();
     this.room = this.temp;
-    this.room.slika = "";
-    this.room.idTipSobe = this.temp.idTipSobe.split(".",1)[0];
-    this.room.idSmestaj = this.temp.idSmestaj.split(".",1)[0];
+    //this.temp.usluga.array.forEach(element => {
+      //this.uslluga.push(element);
+    //});
+    console.log(this.room.usluga);
+    //this.room.usluga = this.uslluga;
 
     this._accommodationService.addRoom(this.room).subscribe(
       data => {

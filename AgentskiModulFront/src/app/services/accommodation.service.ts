@@ -94,7 +94,10 @@ export class AccommodationService {
   getPrice(id:any){
     return this.http.get(SERVER_URL + "/cenovnik/" + id);
   }
-
+  
+  getAlUusluga(){
+    return this.http.get(SERVER_URL + "/usluga");
+  }
   
 
 }

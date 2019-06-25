@@ -46,6 +46,7 @@ import javax.xml.datatype.XMLGregorianCalendar;
  *         &lt;element ref="{http://rs.ac.uns.ftn/Model}Smestaj"/&gt;
  *         &lt;element ref="{http://rs.ac.uns.ftn/Model}Poruka" maxOccurs="unbounded"/&gt;
  *         &lt;element ref="{http://rs.ac.uns.ftn/Model}Korisnik"/&gt;
+ &lt;element ref="{http://rs.ac.uns.ftn/Model}RezervisaneSobe" maxOccurs="unbounded"/&gt;
  *       &lt;/sequence&gt;
  *     &lt;/restriction&gt;
  *   &lt;/complexContent&gt;
@@ -63,7 +64,8 @@ import javax.xml.datatype.XMLGregorianCalendar;
     "cena",
     "smestaj",
     "poruka",
-    "korisnik"
+    "korisnik",
+    "rezervisaneSobe"
 })
 @XmlRootElement(name = "Rezervacija")
 @Entity
@@ -78,6 +80,8 @@ public class Rezervacija {
     @XmlElement(required = true)
     @XmlSchemaType(name = "dateTime")
     protected Date datumDo;
+    @XmlElement(required = true)
+    @XmlSchemaType(name = "int")
     protected int brojSoba;
     protected float cena;
     @XmlElement(name = "Smestaj", required = true)
