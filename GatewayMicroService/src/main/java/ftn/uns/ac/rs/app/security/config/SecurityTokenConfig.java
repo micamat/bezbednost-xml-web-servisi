@@ -5,6 +5,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpMethod;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
@@ -29,10 +30,9 @@ public class SecurityTokenConfig extends WebSecurityConfigurerAdapter {
 		   // filter za validaciju tokena svakog zahteva
 		   .addFilterAfter(new JwtTokenAuthenticationFilter(jwtConfig), UsernamePasswordAuthenticationFilter.class)
 		.authorizeRequests()
-		   .antMatchers(HttpMethod.POST, jwtConfig.getUri()).permitAll()
-		   .antMatchers(HttpMethod.GET, "/search/smestaj/**").hasAuthority("GET_SMESTAJ")
-		   .antMatchers(HttpMethod.PUT, "/auth/logout").permitAll()
-		   .anyRequest().authenticated(); 
+		   //.antMatchers(HttpMethod.POST, jwtConfig.getUri()).permitAll()
+		   .antMatchers("/**").permitAll();
+		   //.anyRequest().authenticated(); 
 	}
 	
 	@Bean

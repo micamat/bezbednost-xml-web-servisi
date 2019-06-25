@@ -10,6 +10,9 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -18,6 +21,9 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.eureka.common.security.JwtConfig;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -26,11 +32,14 @@ import ftn.uns.ac.rs.AuthMicroservice.security.model.UserCredentials;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 
+@RestController
 public class JwtUsernameAndPasswordAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
 	
 	// authManager za validaciju korisnickih kredencijala 
-	private AuthenticationManager authManager;
-	private final JwtConfig jwtConfig;
+	@Autowired
+	AuthenticationManager authManager;
+	@Autowired
+	JwtConfig jwtConfig;
 	
 	/**
 	 * Konstruktor
@@ -40,16 +49,15 @@ public class JwtUsernameAndPasswordAuthenticationFilter extends UsernamePassword
 	public JwtUsernameAndPasswordAuthenticationFilter(AuthenticationManager authManager, JwtConfig jwtConfig) {
 		this.authManager = authManager;
 		this.jwtConfig = jwtConfig;
-		
 		// po default-u, UsernamePasswordAuthenticationFilter prima zahtev po "/login" putanji,
 		// pa se, u slucaju drugacije putanje, mora override-ovati
-		this.setRequiresAuthenticationRequestMatcher(new AntPathRequestMatcher(jwtConfig.getUri(), "POST"));
+		this.setRequiresAuthenticationRequestMatcher(new AntPathRequestMatcher("/signin", "POST"));
 	}
 	
 	@Override
 	public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response)
 			throws AuthenticationException {
-		
+		System.out.println("NA REDU JE PROVERAAAAAA");
 		try {
 			
 			// Uzimanje kredencijala iz zahteva
@@ -63,6 +71,7 @@ public class JwtUsernameAndPasswordAuthenticationFilter extends UsernamePassword
 			throw new RuntimeException(e);
 		}
 	}
+	
 	
 	/**
 	 * Metoda, koja u slucaju uspesne autentifikacije, generise token
@@ -85,8 +94,14 @@ public class JwtUsernameAndPasswordAuthenticationFilter extends UsernamePassword
 		response.addHeader(jwtConfig.getHeader(), jwtConfig.getPrefix() + token);
 	}
 	
-	public String signin(String username, String password) {
-		Authentication authentication = this.authManager.authenticate(new UsernamePasswordAuthenticationToken(username, password));
+	@PostMapping("/prijava")
+	public ResponseEntity<String> prijava(@RequestParam String username, @RequestParam String password){
+		return new ResponseEntity<String>(signin(username, password), HttpStatus.OK);
+	}
+	
+	private String signin(String username, String password) {
+		UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(username, password, Collections.emptyList());
+		Authentication authentication = authManager.authenticate(authToken);
 		SecurityContextHolder.getContext().setAuthentication(authentication);
 		
 		Long now = System.currentTimeMillis();
@@ -100,5 +115,11 @@ public class JwtUsernameAndPasswordAuthenticationFilter extends UsernamePassword
 			.compact();
 		
 		return token;
+	}
+	
+	@Override
+	@Autowired
+	public void setAuthenticationManager(AuthenticationManager authenticationManager) {
+	    super.setAuthenticationManager(authenticationManager);
 	}
 }
