@@ -6,7 +6,7 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { HomeComponent } from './home/home.component';
 import { RegistrationComponent } from './registration/registration.component';
 import { LoginComponent } from './login/login.component';
-import { FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { FormGroup, ReactiveFormsModule , FormsModule} from '@angular/forms';
 import { AccommodationComponent } from './accommodation/accommodation.component';
 import { RoomComponent } from './room/room.component';
 import { OcupationComponent } from './ocupation/ocupation.component';
@@ -39,7 +39,7 @@ import { PricelistChangeComponent } from './pricelist-change/pricelist-change.co
     OcupationAddComponent,
     OcupationChangeComponent,
     PricelistAddComponent,
-    PricelistChangeComponent
+    PricelistChangeComponent,
   ],
   imports: [
     BrowserModule,
