@@ -37,14 +37,6 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link AgentLoginRequest }
-     * 
-     */
-    public AgentLoginRequest createAgentLoginRequest() {
-        return new AgentLoginRequest();
-    }
-
-    /**
      * Create an instance of {@link Uloga }
      * 
      */
@@ -66,14 +58,6 @@ public class ObjectFactory {
      */
     public Korisnik createKorisnik() {
         return new Korisnik();
-    }
-
-    /**
-     * Create an instance of {@link AgentLoginResponse }
-     * 
-     */
-    public AgentLoginResponse createAgentLoginResponse() {
-        return new AgentLoginResponse();
     }
 
     /**

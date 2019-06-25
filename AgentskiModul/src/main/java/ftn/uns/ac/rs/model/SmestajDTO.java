@@ -70,6 +70,7 @@ public class SmestajDTO {
     protected String opis;
     @XmlElement(required = true)
     protected String slika;
+    @XmlElement(required = true)
     protected int kapacitet;
     @XmlElement(required = true)
     protected String drzava;

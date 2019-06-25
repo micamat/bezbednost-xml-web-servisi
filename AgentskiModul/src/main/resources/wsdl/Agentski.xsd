@@ -5,7 +5,7 @@
     xmlns="http://rs.ac.uns.ftn/Model">
     
     <!-- ===================================================================================== -->
-    <xs:complexType name="Sifarnik">
+  <xs:complexType name="Sifarnik">
         <xs:all>
             <xs:element name="id" type="xs:long"/>
             <xs:element name="naziv" type="xs:string"/>
@@ -36,8 +36,8 @@
         <xs:complexType>
             <xs:all>
                 <xs:element name="id" type="xs:long"/>
-                <xs:element name="cena" type="xs:string"/>
-                <xs:element name="brojDanaZaOtkazivanje" type="xs:nonNegativeInteger"></xs:element>
+                <xs:element name="cena" type="xs:float"/>
+                <xs:element name="brojDanaZaOtkazivanje" type="xs:int"></xs:element>
                 <xs:element name="datumOd" type="xs:dateTime"/>
                 <xs:element name="datumDo" type="xs:dateTime"/>
                 <xs:element ref="Smestaj"/>
@@ -49,10 +49,10 @@
         <xs:complexType>
             <xs:all>
                 <xs:element name="id" type="xs:long"/>
-                <xs:element name="cena" type="xs:string"/>
-                <xs:element name="brojDanaZaOtkazivanje" type="xs:nonNegativeInteger"></xs:element>
-                <xs:element name="datumOd" type="xs:date"/>
-                <xs:element name="datumDo" type="xs:date"/>
+                <xs:element name="cena" type="xs:float"/>
+                <xs:element name="brojDanaZaOtkazivanje" type="xs:int"></xs:element>
+                <xs:element name="datumOd" type="xs:dateTime"/>
+                <xs:element name="datumDo" type="xs:dateTime"/>
                 <xs:element name="idSmestaj" type="xs:long"/>
                 <xs:element name="idTipSobe" type="xs:long"/>
             </xs:all>
@@ -62,10 +62,10 @@
         <xs:complexType>
             <xs:all>
                 <xs:element name="id" type="xs:long"/>
-                <xs:element name="cena" type="xs:string"/>
-                <xs:element name="datumOd" type="xs:date"/>
-                <xs:element name="datumDo" type="xs:date"/>
-                <xs:element name="brojDanaZaOtkazivanje" type="xs:nonNegativeInteger"></xs:element>
+                <xs:element name="cena" type="xs:float"/>
+                <xs:element name="datumOd" type="xs:dateTime"/>
+                <xs:element name="datumDo" type="xs:dateTime"/>
+                <xs:element name="brojDanaZaOtkazivanje" type="xs:int"></xs:element>
                 <xs:element name="nazivSmestaj" type="xs:string"/>
                 <xs:element name="nazivTipSobe" type="xs:string"/>
             </xs:all>
@@ -98,6 +98,7 @@
             	<xs:element ref="Smestaj" />
             	<xs:element ref="Poruka" maxOccurs="unbounded" />
             	<xs:element ref="Korisnik" />
+            	<xs:element ref="RezervisaneSobe" maxOccurs="unbounded" />
             </xs:sequence>
         </xs:complexType>
     </xs:element>
@@ -122,7 +123,7 @@
                 <xs:element name="datumDo" type="xs:dateTime"/>
                 <xs:element name="cena" type="xs:float"/>
                 <xs:element name="nazivSmestaj" type="xs:string"/>
-                <xs:element name="brojSoba" type="xs:nonNegativeInteger"/>
+                <xs:element name="brojSoba" type="xs:int"/>
                 <xs:element ref="ShowRezervisaneSobeDTO" maxOccurs="unbounded"/>
                 <xs:element name="imePrezimeKorisnik" type="xs:string"/>
             </xs:sequence>
@@ -364,6 +365,7 @@
                 <xs:element name="naziv" type="xs:string"/>
                 <xs:element name="opis" type="xs:string"/>
                 <xs:element name="slika" type="xs:string"/>
+                <xs:element name="kapacitet" type="xs:int"/>
                 <xs:element name="drzava" type="xs:string"/>
                 <xs:element name="grad" type="xs:string"/>
                 <xs:element name="ulica" type="xs:string"/>
@@ -420,7 +422,7 @@
                 <xs:element name="opis" type="xs:string"/>
                 <xs:element name="nazivTipSobe" type="xs:string"/>
                 <xs:element name="nazivSmestaj" type="xs:string"/>
-                <xs:element ref="UslugaDTO" maxOccurs="unbounded"></xs:element>
+                <xs:element ref="Usluga" maxOccurs="unbounded"></xs:element>
             </xs:sequence>
         </xs:complexType>
     </xs:element>
@@ -526,13 +528,17 @@
     <xs:element name="AgentLoginDTO">
         <xs:complexType>
             <xs:sequence>
-                <xs:element name="korisnickoIme" type="xs:string"/>
-                <xs:element name="lozinka" type="xs:string"/>
+                <xs:element name="username" type="xs:string"/>
+                <xs:element name="password" type="xs:string"/>
             </xs:sequence>
         </xs:complexType>
     </xs:element>
     <xs:element name="AgentLoginRequest">
         <xs:complexType>
+            <xs:sequence>
+                <xs:element name="username" type="xs:string"/>
+                <xs:element name="password" type="xs:string"/>
+            </xs:sequence>
         </xs:complexType>
     </xs:element>
     <xs:element name="AgentLoginResponse">
@@ -549,7 +555,7 @@
     <xs:element name="GetAllAgentResponse">
         <xs:complexType>
             <xs:sequence>
-                <xs:element minOccurs="0" maxOccurs="unbounded" ref="ShowAgentDTO"/>
+                <xs:element minOccurs="0" maxOccurs="unbounded" ref="Agent"/>
             </xs:sequence>
         </xs:complexType>
     </xs:element>
@@ -575,7 +581,7 @@
                 <xs:element name="naslov" type="xs:string"/>
                 <xs:element name="tekst" type="xs:string"/>
                 <xs:element name="statusKomentara" type="xs:string"/>
-                <xs:element name="datumKreiranja" type="xs:date"/>
+                <xs:element name="datumKreiranja" type="xs:dateTime"/>
                 <xs:element ref="Smestaj" maxOccurs="1"/>
                 <xs:element ref="Korisnik" maxOccurs="1"/>
             </xs:all>
@@ -588,7 +594,7 @@
                 <xs:element name="naslov" type="xs:string"/>
                 <xs:element name="tekst" type="xs:string"/>
                 <xs:element name="statusKomentara" type="xs:string"/>
-                <xs:element name="datumKreiranja" type="xs:date"/>
+                <xs:element name="datumKreiranja" type="xs:dateTime"/>
                 <xs:element name="idSmestaj" type="xs:long"/>
                 <xs:element name="idKorisnik" type="xs:long"/>
             </xs:all>
@@ -687,6 +693,4 @@
             </xs:sequence>
         </xs:complexType>
     </xs:element>
-
-    <xs:complexType name="RezervisaneSobeType"></xs:complexType>
 </xs:schema>

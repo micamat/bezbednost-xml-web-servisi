@@ -48,7 +48,7 @@ import javax.xml.bind.annotation.XmlType;
     "opis",
     "nazivTipSobe",
     "nazivSmestaj",
-    "uslugaDTO"
+    "usluga"
 })
 @XmlRootElement(name = "ShowSobaDTO")
 public class ShowSobaDTO {

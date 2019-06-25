@@ -68,7 +68,7 @@ public class RezervacijaDTO {
     protected float cena;
     protected Long idKorisnika;
     protected Long idSmestaj;
-    @XmlElement(type = Long.class)
+    @XmlElement(name = "RezervisaneSobeDTO", required = true)
     protected List<RezervisaneSobeDTO> rezervisaneSobeDTO;
 
     /**

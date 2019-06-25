@@ -1,13 +1,8 @@
 package ftn.uns.ac.rs.AuthMicroservice.security.service;
 
-import java.sql.Date;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -18,15 +13,13 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.eureka.common.security.JwtConfig;
+//import com.eureka.common.security.JwtConfig;
 
 import ftn.uns.ac.rs.AuthMicroservice.security.model.Korisnik;
 import ftn.uns.ac.rs.AuthMicroservice.security.model.KorisnikDTO;
 import ftn.uns.ac.rs.AuthMicroservice.security.model.Permisija;
 import ftn.uns.ac.rs.AuthMicroservice.security.repository.KorisnikRepository;
 import ftn.uns.ac.rs.AuthMicroservice.security.repository.UlogaRepository;
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
 
 @Service
 public class KorisnikService implements UserDetailsService {

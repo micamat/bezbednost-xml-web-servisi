@@ -54,7 +54,7 @@ public class ShowCenovnikDTO {
 
     protected long id;
     @XmlElement(required = true)
-    protected String cena;
+    protected float cena;
     @XmlElement(required = true)
     @XmlSchemaType(name = "date")
     protected Date datumOd;
@@ -62,7 +62,7 @@ public class ShowCenovnikDTO {
     @XmlSchemaType(name = "date")
     protected Date datumDo;
     @XmlElement(required = true)
-    @XmlSchemaType(name = "nonNegativeInteger")
+    @XmlSchemaType(name = "int")
     protected int brojDanaZaOtkazivanje;
     @XmlElement(required = true)
     protected String nazivSmestaj;
@@ -93,20 +93,20 @@ public class ShowCenovnikDTO {
      *     {@link String }
      *     
      */
-    public String getCena() {
+    public float getCena() {
         return cena;
     }
 
     /**
      * Sets the value of the cena property.
      * 
-     * @param value
+     * @param f
      *     allowed object is
      *     {@link String }
      *     
      */
-    public void setCena(String value) {
-        this.cena = value;
+    public void setCena(float f) {
+        this.cena = f;
     }
 
     /**

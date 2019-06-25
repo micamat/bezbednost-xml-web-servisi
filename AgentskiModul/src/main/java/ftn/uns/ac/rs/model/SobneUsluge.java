@@ -30,7 +30,7 @@ import javax.xml.bind.annotation.XmlType;
  *   &lt;complexContent&gt;
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
  *       &lt;sequence&gt;
- *         &lt;element name="id" type="{http://www.w3.org/2001/XMLSchema}Long"/&gt;
+ *         &lt;element name="id" type="{http://www.w3.org/2001/XMLSchema}long"/&gt;
  *         &lt;element ref="{http://rs.ac.uns.ftn/Model}Soba"/&gt;
  *         &lt;element ref="{http://rs.ac.uns.ftn/Model}Usluga"/&gt;
  *       &lt;/sequence&gt;
@@ -54,7 +54,6 @@ public class SobneUsluge {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@XmlElement(name = "id", required = true)
     protected Long id;
     @XmlElement(name = "Soba", required = true)
     @ManyToOne(optional = false)

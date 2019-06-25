@@ -1,6 +1,11 @@
 package ftn.uns.ac.rs.service;
 
-import java.sql.SQLException;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.util.Base64;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -9,7 +14,6 @@ import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.Marker;
 import org.apache.logging.log4j.MarkerManager;
 import org.apache.logging.log4j.ThreadContext;
-import org.hibernate.engine.jdbc.spi.SqlExceptionHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -123,6 +127,7 @@ public class SmestajService {
 		smestajDTO.setGrad(smestaj.getLokacija().getGrad());
 		smestajDTO.setUlica(smestaj.getLokacija().getUlica());
 		smestajDTO.setBroj(smestaj.getLokacija().getBroj());
+
 		smestajDTO.setSlika(smestaj.getSlika());
 		
 		return smestajDTO;
@@ -137,7 +142,6 @@ public class SmestajService {
 		lokacija.setGrad(smestajDTO.getGrad());
 		lokacija.setUlica(smestajDTO.getUlica());
 		lokacija.setIdKoordinate(smestajDTO.getId());
-		System.out.println(lokacija.getId());
 		lokacijaService.add(lokacija);
 
 		Smestaj smestaj = new Smestaj();

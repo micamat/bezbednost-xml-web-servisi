@@ -6,7 +6,7 @@
 //
 
 
-package ftn.uns.ac.rs.model;
+package ftn.uns.ac.rs.AuthMicroservice.security.model;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -48,52 +48,59 @@ public class AgentLoginDTO {
     @XmlElement(required = true)
     protected String password;
 
+    public AgentLoginDTO() {}
+    
+    public AgentLoginDTO(String username, String password) {
+		super();
+		this.username = username;
+		this.password = password;
+	}
 
-    /**
-     * Gets the value of the lozinka property.
+	/**
+     * Gets the value of the password property.
      * 
      * @return
      *     possible object is
      *     {@link String }
      *     
      */
-    public String getPassword() {
+    public String getpassword() {
         return password;
     }
 
     /**
-     * Sets the value of the lozinka property.
+     * Sets the value of the password property.
      * 
      * @param value
      *     allowed object is
      *     {@link String }
      *     
      */
-    public void setPassword(String value) {
+    public void setpassword(String value) {
         this.password = value;
     }
 
     /**
-     * Gets the value of the prethodnaLozinka property.
+     * Gets the value of the prethodnapassword property.
      * 
      * @return
      *     possible object is
      *     {@link String }
      *     
      */
-    public String getUsername() {
+    public String getusername() {
         return username;
     }
 
     /**
-     * Sets the value of the prethodnaLozinka property.
+     * Sets the value of the prethodnapassword property.
      * 
      * @param value
      *     allowed object is
      *     {@link String }
      *     
      */
-    public void setUsername(String value) {
+    public void setusername(String value) {
         this.username = value;
     }
 
