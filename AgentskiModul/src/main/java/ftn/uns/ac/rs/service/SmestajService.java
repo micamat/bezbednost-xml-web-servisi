@@ -1,6 +1,11 @@
 package ftn.uns.ac.rs.service;
 
-import java.sql.SQLException;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.util.Base64;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -9,7 +14,6 @@ import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.Marker;
 import org.apache.logging.log4j.MarkerManager;
 import org.apache.logging.log4j.ThreadContext;
-import org.hibernate.engine.jdbc.spi.SqlExceptionHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -123,6 +127,27 @@ public class SmestajService {
 		smestajDTO.setGrad(smestaj.getLokacija().getGrad());
 		smestajDTO.setUlica(smestaj.getLokacija().getUlica());
 		smestajDTO.setBroj(smestaj.getLokacija().getBroj());
+
+		String[] slike = smestaj.getSlika().split(",");
+		String dekodirano = null;
+		byte[] decodedBytes = null;
+		for (int i = 0; i < slike.length; i++) {
+
+			decodedBytes = Base64.getDecoder().decode(slike[i]);
+			System.out.println(decodedBytes);
+			String s;
+			try {
+				s = new String(decodedBytes, "UTF-8");
+				dekodirano += s;
+				if (i != slike.length - 1) {
+					dekodirano += ",";
+				}
+			} catch (UnsupportedEncodingException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+		}
 		smestajDTO.setSlika(smestaj.getSlika());
 		
 		return smestajDTO;
@@ -149,7 +174,23 @@ public class SmestajService {
 		smestaj.setOpis(smestajDTO.getOpis());
 		smestaj.setAgent(agentRepository.findById(smestajDTO.getIdAgent()).orElse(null));
 		smestaj.setKapacitet(smestajDTO.getKapacitet());
-		smestaj.setSlika(smestajDTO.getSlika());
+		
+		
+		
+		
+		
+		String[] slike = smestajDTO.getSlika().split(",");
+		String encodeBytes = null;
+		for (int i = 0; i < slike.length; i++) {
+			encodeBytes = Base64.getEncoder().encodeToString((slike[i]).getBytes());
+			
+			if (i != slike.length - 1) {
+				encodeBytes += ",";
+			}
+		}
+
+		System.out.println("encodedBytes " + new String(encodeBytes));
+		smestaj.setSlika(encodeBytes);
 		return smestaj;
 	}
 }

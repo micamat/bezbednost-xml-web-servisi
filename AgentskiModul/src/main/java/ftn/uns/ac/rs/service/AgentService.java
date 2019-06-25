@@ -120,7 +120,7 @@ public class AgentService {
 		
 		agentLoginResponse = producerPort.agentLogin(agentLoginRequest);
 		try {
-			Agent agent = agentRepository.findByKorisnickoIme(agentLoginDTO.getKorisnickoIme());
+			Agent agent = agentRepository.findByKorisnickoIme(agentLoginDTO.getUsername());
 			agent.setToken(agentLoginResponse.getToken());
 			agentRepository.save(agent);
 			logger.info(USER, "Uspesno logovanje");
