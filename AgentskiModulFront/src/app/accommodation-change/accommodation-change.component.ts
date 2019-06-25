@@ -23,6 +23,8 @@ export class AccommodationChangeComponent implements OnInit {
   accommodation:any;
   accommodationId : any;
   smestaj : any;
+  typeF : any;
+  kateF : any;
 
   constructor(private _accommodationService : AccommodationService,
     private formBuilder:FormBuilder,
@@ -48,17 +50,29 @@ export class AccommodationChangeComponent implements OnInit {
                   this.smestaj = data;
                   this.accommodationAdd = this.formBuilder.group({
                     naziv:[this.smestaj.naziv,Validators.compose([Validators.required, Validators.pattern('[a-zA-Z 0-9!]+')])],
-                    idKategorijaSmestaja:["",Validators.compose([Validators.required, Validators.pattern('[a-z.A-Z 0-9!]+')])],
+                    idKategorijaSmestaja:[this.smestaj.nazivKategorijaSmestaja,Validators.compose([Validators.required, Validators.pattern('[0-9!]+')])],
                     opis:[this.smestaj.opis,Validators.compose([Validators.required, Validators.pattern('[a-zA-Z 0-9!]+')])],
-                    idTipSmestaja:["",Validators.compose([Validators.required, Validators.pattern('[a-z.A-Z 0-9!]+')])],  
+                    idTipSmestaja:["",Validators.compose([Validators.required, Validators.pattern('[0-9!]+')])],  
                     drzava:[this.smestaj.drzava,Validators.compose([Validators.required, Validators.pattern('[a-zA-Z 0-9!]+')])],
                     grad:[this.smestaj.grad,Validators.compose([Validators.required, Validators.pattern('[a-zA-Z 0-9!]+')])],
                     ulica:[this.smestaj.ulica,Validators.compose([Validators.required, Validators.pattern('[a-zA-Z 0-9!]+')])],
-                    broj:[this.smestaj.broj,Validators.compose([Validators.required, Validators.pattern('[a-zA-Z 0-9!]+')])],  
+                    broj:[this.smestaj.broj,Validators.compose([Validators.required, Validators.pattern('[a-zA-Z 0-9!]+')])], 
+                    idAgent:["",Validators.compose([Validators.required, Validators.pattern('[0-9!]+')])],  
+                    slika:["",Validators.compose([Validators.required, Validators.pattern('[a-z.A-Z 0-9!]+')])],  
+                    kapacitet:[this.smestaj.kapacitet,Validators.compose([Validators.required, Validators.pattern('[0-9!]+')])],  
                   });
+                  this.categoryL.forEach(element => {
+                    if(element.nazivKategorijaSmestaja == this.smestaj.nazivKategorijaSmestaja){
+                        this.kateF = this.smestaj.nazivKategorijaSmestaja
+                    }
+                });
+                this.typeL.forEach(element => {
+                  if(element.nazivTipSmestaja == this.smestaj.nazivTipSmestaja){
+                      this.typeF = this.smestaj.nazivTipSmestaja
+                  }
+              });
                 }
             );
-
         }
       );
       

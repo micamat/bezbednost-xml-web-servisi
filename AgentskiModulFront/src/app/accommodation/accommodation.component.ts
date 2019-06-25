@@ -27,7 +27,6 @@ export class AccommodationComponent implements OnInit {
   delete(id:any){
     this._accommodationService.deleteAccommodation(id).subscribe(
       data => {
-        //ovo promenuti :D
         this._accommodationService.getAllAccommodation().subscribe(
           data => {
             this.accommodations = data;

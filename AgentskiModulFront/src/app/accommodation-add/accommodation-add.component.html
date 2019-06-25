@@ -35,12 +35,39 @@
                 <div class="form-group">
                     <div class="row">
                         <div class="col-4">
+                            <label>Capacity</label>
+                        </div>
+                        <div class="col-8">
+                            <input type="text" formControlName="kapacitet" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.kapacitet.errors }" />
+                            <div *ngIf="submitted && f.kapacitet.errors">
+                                <div style="color:red;">Description is incorect!</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group mb-3">
+                    <div class="row">
+                        <div class="col-4">
+                            <label>Picture</label>
+                        </div>
+                        <div class="col-8">
+                            <div class="custom-file">
+                                <input type="file" class="form-control" accept=".png, .jpg, .jpeg"
+                                    formControlName="slika" (change)="onFileChange($event.target.files)" id="inputGroupFile01" aria-describedby="inputGroupFileAddon01">
+                                <label #labelImport  class="custom-file-label" for="inputGroupFile01">Choose file</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-4">
                             <label>Category</label>
                         </div>
                         <div class="col-8">
                            <select class="form-control" formControlName="idKategorijaSmestaja" [ngClass]="{ 'is-invalid': submitted && f.idKategorijaSmestaja.errors }" >
                                 <option></option>
-                                <option *ngFor="let item of categoryL; let i = index">{{item.id}}.{{item.naziv}}</option>
+                                <option *ngFor="let item of categoryL; let i = index" [ngValue]="item.id">{{item.naziv}}</option>
                             </select>
                             <div *ngIf="submitted && f.idKategorijaSmestaja.errors">
                                 <div style="color:red;">Category is incorect!</div>
@@ -56,7 +83,7 @@
                         <div class="col-8">
                            <select class="form-control" formControlName="idTipSmestaja" [ngClass]="{ 'is-invalid': submitted && f.idTipSmestaja.errors }" >
                                 <option></option>
-                                <option *ngFor="let item of typeL; let i = index">{{item.id}}.{{item.naziv}}</option>
+                                <option *ngFor="let item of typeL; let i = index" [ngValue]="item.id">{{item.naziv}}</option>
                             </select>
                             <div *ngIf="submitted && f.idTipSmestaja.errors">
                                 <div style="color:red;">Type is incorect!</div>
