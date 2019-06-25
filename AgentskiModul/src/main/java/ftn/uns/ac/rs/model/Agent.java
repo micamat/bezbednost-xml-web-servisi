@@ -39,7 +39,6 @@ import javax.xml.bind.annotation.XmlType;
  *         &lt;element name="poslovniMaticniBroj" type="{http://www.w3.org/2001/XMLSchema}integer"/&gt;
  *         &lt;element name="korisnickoIme" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
  *         &lt;element name="email" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
- *         &lt;element name="lozinka" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
  *         &lt;element ref="{http://rs.ac.uns.ftn/Model}Smestaj" maxOccurs="unbounded"/&gt;
  *       &lt;/sequence&gt;
  *     &lt;/restriction&gt;
@@ -58,7 +57,7 @@ import javax.xml.bind.annotation.XmlType;
     "poslovniMaticniBroj",
     "korisnickoIme",
     "email",
-    "lozinka",
+    "token",
     "smestaj"
 })
 @XmlRootElement(name = "Agent")
@@ -78,8 +77,7 @@ public class Agent {
     protected String korisnickoIme;
     @XmlElement(required = true)
     protected String email;
-    @XmlElement(required = true)
-    protected String lozinka;
+    protected String token;
     @XmlElement(name = "Smestaj", required = true)
     @OneToMany(mappedBy = "agent")
     protected List<Smestaj> smestaj;
@@ -245,30 +243,6 @@ public class Agent {
     }
 
     /**
-     * Gets the value of the lozinka property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
-    public String getLozinka() {
-        return lozinka;
-    }
-
-    /**
-     * Sets the value of the lozinka property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
-    public void setLozinka(String value) {
-        this.lozinka = value;
-    }
-
-    /**
      * Gets the value of the smestaj property.
      * 
      * <p>
@@ -296,5 +270,22 @@ public class Agent {
         }
         return this.smestaj;
     }
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public void setSmestaj(List<Smestaj> smestaj) {
+		this.smestaj = smestaj;
+	}
+
+	public String getToken() {
+		return token;
+	}
+
+	public void setToken(String token) {
+		this.token = token;
+	}
+	
 
 }

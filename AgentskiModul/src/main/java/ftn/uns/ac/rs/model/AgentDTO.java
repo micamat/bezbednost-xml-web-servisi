@@ -39,6 +39,7 @@ import javax.xml.bind.annotation.XmlType;
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
     "id",
+    "korisnickoIme",
     "lozinka",
     "prethodnaLozinka"
 })
@@ -46,6 +47,8 @@ import javax.xml.bind.annotation.XmlType;
 public class AgentDTO {
 
     protected long id;
+    @XmlElement(required = true)
+    protected String korisnickoIme;
     @XmlElement(required = true)
     protected String lozinka;
     @XmlElement(required = true)
@@ -79,7 +82,15 @@ public class AgentDTO {
         return lozinka;
     }
 
-    /**
+    public String getKorisnickoIme() {
+		return korisnickoIme;
+	}
+
+	public void setKorisnickoIme(String korisnickoIme) {
+		this.korisnickoIme = korisnickoIme;
+	}
+
+	/**
      * Sets the value of the lozinka property.
      * 
      * @param value

@@ -10,6 +10,7 @@ package ftn.uns.ac.rs.model;
 
 import java.sql.Date;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
@@ -67,10 +68,10 @@ public class Komentar {
     @XmlSchemaType(name = "date")
     protected Date datumKreiranja;
     @XmlElement(name = "Smestaj", required = true)
-    @ManyToOne
+    @ManyToOne(optional = false)
     protected Smestaj smestaj;
     @XmlElement(name = "Korisnik", required = true)
-    @ManyToOne
+    @ManyToOne(optional = false)
     protected Korisnik korisnik;
 
     /**

@@ -495,7 +495,7 @@
                 <xs:element name="poslovniMaticniBroj" type="xs:integer"/>
                 <xs:element name="korisnickoIme" type="xs:string"/>
                 <xs:element name="email" type="xs:string"/>
-                <xs:element name="lozinka" type="xs:string"/>
+                <xs:element name="token" type="xs:string"/>
                 <xs:element ref="Smestaj" maxOccurs="unbounded"/>
             </xs:sequence>
         </xs:complexType>
@@ -517,8 +517,28 @@
         <xs:complexType>
             <xs:sequence>
                 <xs:element name="id" type="xs:long"/>
+                <xs:element name="korisnickoIme" type="xs:string"/>
                 <xs:element name="lozinka" type="xs:string"/>
                 <xs:element name="prethodnaLozinka" type="xs:string"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="AgentLoginDTO">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="korisnickoIme" type="xs:string"/>
+                <xs:element name="lozinka" type="xs:string"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="AgentLoginRequest">
+        <xs:complexType>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="AgentLoginResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="token" type="xs:string"/>
             </xs:sequence>
         </xs:complexType>
     </xs:element>
@@ -529,7 +549,7 @@
     <xs:element name="GetAllAgentResponse">
         <xs:complexType>
             <xs:sequence>
-                <xs:element minOccurs="0" maxOccurs="unbounded" ref="AgentDTO"/>
+                <xs:element minOccurs="0" maxOccurs="unbounded" ref="ShowAgentDTO"/>
             </xs:sequence>
         </xs:complexType>
     </xs:element>
@@ -543,8 +563,7 @@
     <xs:element name="UpdateAgentResponse">
         <xs:complexType>
             <xs:sequence>
-                <xs:element name="id" type="xs:int"/>
-                <xs:element default="false" name="Successful" type="xs:boolean"/>
+                <xs:element name="token" type="xs:string"/>
             </xs:sequence>
         </xs:complexType>
     </xs:element>

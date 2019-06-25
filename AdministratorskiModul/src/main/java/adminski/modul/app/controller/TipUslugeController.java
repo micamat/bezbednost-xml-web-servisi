@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import adminski.modul.app.model.TipUsluge;
+import adminski.modul.app.service.AuthService;
 import adminski.modul.app.service.TipUslugeService;
 
 @RestController
@@ -23,8 +25,11 @@ import adminski.modul.app.service.TipUslugeService;
 public class TipUslugeController {
 	
 	@Autowired
+	private AuthService authService;
+	@Autowired
 	private TipUslugeService tipUslugeService;
-
+	
+	@PreAuthorize("@authService.hasProtectedAccess()")
 	@GetMapping("{id}")
 	public ResponseEntity<TipUsluge> getTipUsluge(@PathVariable Long id){
 		
@@ -34,6 +39,7 @@ public class TipUslugeController {
 		
 	}
 	
+	@PreAuthorize("@authService.hasProtectedAccess()")
 	@GetMapping
 	public ResponseEntity<List<TipUsluge>> getAllTipUsluge(){
 		
@@ -47,6 +53,7 @@ public class TipUslugeController {
 		
 	}
 	
+	@PreAuthorize("@authService.hasProtectedAccess()")
 	@DeleteMapping("{id}")
 	public ResponseEntity<Void> deleteTipUsluge(@PathVariable Long id){
 		
@@ -57,6 +64,7 @@ public class TipUslugeController {
 			}
 	}
 	
+	@PreAuthorize("@authService.hasProtectedAccess()")
 	@PutMapping("{id}")
 	public ResponseEntity<TipUsluge> updateTipUsluge(@PathVariable Long id, @RequestBody TipUsluge tipUsluge){
 			if (tipUslugeService.updateTypeService(id, tipUsluge)) {
@@ -66,6 +74,7 @@ public class TipUslugeController {
 			}
 	}
 	
+	@PreAuthorize("@authService.hasProtectedAccess()")
 	@PostMapping
 	public ResponseEntity<TipUsluge> createTipUsluge(@RequestBody TipUsluge tipUsluge){
 		

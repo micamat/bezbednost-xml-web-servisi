@@ -70,11 +70,16 @@ public class Agent {
     protected String prezime;
     @XmlElement(required = true)
     protected String adresa;
-    @XmlElement(name = "poslovni_maticni_broj", required = true)
+    @XmlElement(name = "poslovniMaticniBroj", required = true)
     protected String poslovniMaticniBroj;
     @XmlElement(required = true)
-    protected String sifra;
-
+    protected String lozinka;
+    @XmlElement(required = true)
+    protected String korisnickoIme;
+    @XmlElement(required = true)
+    protected String email;
+    @XmlElement(required = true)
+    
     /**
      * Gets the value of the id property.
      * 
@@ -203,8 +208,8 @@ public class Agent {
      *     {@link String }
      *     
      */
-    public String getSifra() {
-        return sifra;
+    public String getLozinka() {
+        return lozinka;
     }
 
     /**
@@ -215,8 +220,24 @@ public class Agent {
      *     {@link String }
      *     
      */
-    public void setSifra(String value) {
-        this.sifra = value;
+    public void setLozinka(String value) {
+        this.lozinka = value;
     }
 
+    public String getEmail() {
+		return email;
+	}
+    
+    public void setEmail(String email) {
+		this.email = email;
+	}
+    
+    public String getKorisnickoIme() {
+		return korisnickoIme;
+	}
+    
+    public void setKorisnickoIme(String korisnickoIme) {
+	 this.korisnickoIme = korisnickoIme;
+    }
+     
 }

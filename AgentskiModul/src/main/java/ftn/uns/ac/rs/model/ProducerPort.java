@@ -175,6 +175,14 @@ public interface ProducerPort {
         UpdateRezervisaneSobeRequest updateRezervisaneSobeRequest
     );
     
+    @WebMethod(operationName = "AgentLogin")
+    @WebResult(name = "AgentLoginResponse", targetNamespace = "http://rs.ac.uns.ftn/Model", partName = "AgentLoginResponse")
+    public AgentLoginResponse agentLogin(
+
+        @WebParam(partName = "AgentLoginRequest", name = "AgentLoginRequest", targetNamespace = "http://rs.ac.uns.ftn/Model")
+        AgentLoginRequest AgentLoginRequesa
+    );
+    
     @WebMethod(operationName = "GetAllPoruka")
     @WebResult(name = "GetAllRezervisaneSobeResponse", targetNamespace = "http://rs.ac.uns.ftn/Model", partName = "GetAllRezervisaneSobeResponse")
     public GetAllRezervisaneSobeResponse getAllRezervisaneSobe(

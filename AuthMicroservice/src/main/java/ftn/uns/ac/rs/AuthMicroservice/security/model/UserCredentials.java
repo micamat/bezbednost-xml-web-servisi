@@ -1,4 +1,4 @@
-package ftn.uns.ac.rs.AuthMicroservice.security.user;
+package ftn.uns.ac.rs.AuthMicroservice.security.model;
 
 public class UserCredentials {
 	private String username;

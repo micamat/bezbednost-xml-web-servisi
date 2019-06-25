@@ -12,6 +12,7 @@ import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -80,13 +81,13 @@ public class Rezervacija {
     protected int brojSoba;
     protected float cena;
     @XmlElement(name = "Smestaj", required = true)
-    @ManyToOne
+    @ManyToOne(optional = false)
     protected Smestaj smestaj;
     @XmlElement(name = "Poruka", required = true)
     @OneToMany(mappedBy = "rezervacija")
     protected List<Poruka> poruka;
     @XmlElement(name = "Korisnik", required = true)
-    @ManyToOne
+    @ManyToOne(optional = false)
     protected Korisnik korisnik;
     @XmlElement(name = "RezervisaneSobe", required = true)
     @OneToMany(mappedBy = "rezervacija")

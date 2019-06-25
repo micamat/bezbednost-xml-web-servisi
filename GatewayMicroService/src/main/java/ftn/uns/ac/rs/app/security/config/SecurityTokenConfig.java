@@ -29,8 +29,9 @@ public class SecurityTokenConfig extends WebSecurityConfigurerAdapter {
 		   // filter za validaciju tokena svakog zahteva
 		   .addFilterAfter(new JwtTokenAuthenticationFilter(jwtConfig), UsernamePasswordAuthenticationFilter.class)
 		.authorizeRequests()
-		   .antMatchers(HttpMethod.POST, jwtConfig.getUri()).permitAll()  
-		   .antMatchers("/smestaj/**").hasRole("ADMIN")
+		   .antMatchers(HttpMethod.POST, jwtConfig.getUri()).permitAll()
+		   .antMatchers(HttpMethod.GET, "/search/smestaj/**").hasAuthority("GET_SMESTAJ")
+		   .antMatchers(HttpMethod.PUT, "/auth/logout").permitAll()
 		   .anyRequest().authenticated(); 
 	}
 	

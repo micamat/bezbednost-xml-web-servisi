@@ -3,6 +3,10 @@ package ftn.uns.ac.rs.service;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.Marker;
+import org.apache.logging.log4j.MarkerManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,13 +21,24 @@ import ftn.uns.ac.rs.repository.TipSobeRepository;
 public class TipSobeService {
 	@Autowired
 	private TipSobeRepository tipSobeRepository;
+	private Logger logger = LogManager.getLogger();
+	 private static final Marker USER = MarkerManager
+			   .getMarker("USER");
 
 	public List<TipSobe> getAllSync(){
 		ProducerPortService producerPortService = new ProducerPortService();
 		ProducerPort producerPort = producerPortService.getProducerPortSoap11();
 		
 		GetAllTipSobeRequest getTipSobeRequest = new GetAllTipSobeRequest();
-		GetAllTipSobeResponse getTipSobeResponse = producerPort.getAllTipSobe(getTipSobeRequest);
+		GetAllTipSobeResponse getTipSobeResponse = new GetAllTipSobeResponse();
+		
+		try {
+			getTipSobeResponse = producerPort.getAllTipSobe(getTipSobeRequest);
+
+			logger.info(USER, "Uspesna sinhronizacija Tipa sobe");
+		} catch (Exception e) {
+			logger.error(USER, "Neuspesna sinhronizacija Tipa sobe: " + e.getMessage());
+		}
 		
 		for (TipSobe tipSobeDTO : getTipSobeResponse.getTipSobe()) {
 			tipSobeRepository.save(tipSobeDTO);

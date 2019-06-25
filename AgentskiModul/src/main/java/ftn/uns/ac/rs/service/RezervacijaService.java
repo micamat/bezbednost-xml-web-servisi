@@ -4,6 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.Marker;
+import org.apache.logging.log4j.MarkerManager;
+import org.apache.logging.log4j.ThreadContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -40,6 +45,11 @@ public class RezervacijaService {
 	@Autowired
 	private SobaRepository sobaRepository;
 	
+	private Logger logger = LogManager.getLogger();
+	 private static final Marker USER = MarkerManager
+			   .getMarker("USER");
+	
+	
 	public int createSync(RezervacijaDTO rezervaicijaDTO){
 		ProducerPortService producerPortService = new ProducerPortService();
 		ProducerPort producerPort = producerPortService.getProducerPortSoap11();
@@ -67,28 +77,32 @@ public class RezervacijaService {
 	}
 	
 	public boolean add(RezervacijaDTO rezervacijaDTO) {
+		ThreadContext.put("user", "A");
 		rezervacijaDTO.setId(null);
 		float cena = 0;
 		for (RezervisaneSobeDTO rsDTO : rezervacijaDTO.getRezervisaneSobeDTO()) {
 			cena += rsDTO.getCena();
 		}
 		rezervacijaDTO.setCena(cena);
-		Rezervacija rezervacija = rezervacijaRepository.save(convertToEntity(rezervacijaDTO));
-		for (RezervisaneSobeDTO rezervisaneSobeDTO : rezervacijaDTO.getRezervisaneSobeDTO()) {
+		try {
+			Rezervacija rezervacija = rezervacijaRepository.save(convertToEntity(rezervacijaDTO));
+			logger.info(USER, "Dodata rezervacija " + rezervacija.getId());
+			for (RezervisaneSobeDTO rezervisaneSobeDTO : rezervacijaDTO.getRezervisaneSobeDTO()) {
 
-			RezervisaneSobe rezervisaneSobe = new RezervisaneSobe();
-			rezervisaneSobe.setId(null);
-			rezervisaneSobe.setCena(rezervisaneSobeDTO.getCena());
-			rezervisaneSobe.setRezervacija(rezervacijaRepository.findById(rezervacija.getId()).orElse(null));
-			rezervisaneSobe.setSoba(sobaRepository.findById(rezervisaneSobeDTO.getIdSoba()).orElse(null));
-			rezervisaneSobe.setStatusRezervacije(rezervisaneSobeDTO.getStatusRezervacije());
-			rezervisaneSobeService.add(rezervisaneSobe);
-		}
-		if(rezervacija != null) {
-			//createSync(rezervacijaDTO);
-			return true;
+				RezervisaneSobe rezervisaneSobe = new RezervisaneSobe();
+				rezervisaneSobe.setId(null);
+				rezervisaneSobe.setCena(rezervisaneSobeDTO.getCena());
+				rezervisaneSobe.setRezervacija(rezervacijaRepository.findById(rezervacija.getId()).orElse(null));
+				rezervisaneSobe.setSoba(sobaRepository.findById(rezervisaneSobeDTO.getIdSoba()).orElse(null));
+				rezervisaneSobe.setStatusRezervacije(rezervisaneSobeDTO.getStatusRezervacije());
+				rezervisaneSobeService.add(rezervisaneSobe);
+				return true;
+			}
+		} catch (Exception e){
+			logger.error(USER, "Neuspesno dodavanje rezervacije: " + e.getMessage());
 		}
 		return false;
+		
 	}
 	
 	private ShowRezervacijaDTO convertToDTO(Rezervacija rezervacija) {

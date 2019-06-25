@@ -37,7 +37,9 @@ public class AgentService {
 		stari.setPrezime(novi.getPrezime());
 		stari.setAdresa(novi.getAdresa());
 		stari.setPoslovniMaticniBroj(novi.getPoslovniMaticniBroj());
-		stari.setSifra(novi.getSifra());
+		stari.setLozinka(novi.getLozinka());
+		stari.setEmail(novi.getEmail());
+		stari.setKorisnickoIme(novi.getKorisnickoIme());
 		
 		agentRepository.save(stari);
 	}

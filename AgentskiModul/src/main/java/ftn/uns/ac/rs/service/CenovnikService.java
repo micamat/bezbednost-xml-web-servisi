@@ -1,8 +1,14 @@
 package ftn.uns.ac.rs.service;
 
 import java.util.List;
+
 import java.util.stream.Collectors;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.Marker;
+import org.apache.logging.log4j.MarkerManager;
+import org.apache.logging.log4j.ThreadContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -27,6 +33,11 @@ public class CenovnikService {
 
 	@Autowired
 	private CenovnikRepository cenovnikRepository;
+	
+
+	 private Logger logger = LogManager.getLogger();
+	 private static final Marker USER = MarkerManager
+			   .getMarker("USER");
 
 	public List<ShowCenovnikDTO> getAll(){ 
 		return cenovnikRepository.findAll().stream().map(this::convertToDTO).collect(Collectors.toList());
@@ -59,18 +70,34 @@ public class CenovnikService {
 	
 	public boolean add(CenovnikDTO cenovnikDTO) {
 		cenovnikDTO.setId(cenovnikDTO.getId());
-		Cenovnik cenovnik = cenovnikRepository.save(convertToEntity(cenovnikDTO));
-		if(cenovnik != null) {
-			//createSync(cenovnikDTO);
+
+		ThreadContext.put("user", "A");
+		try {
+			Cenovnik cenovnik = cenovnikRepository.save(convertToEntity(cenovnikDTO));
+
+			logger.info(USER,"Dodat cenovnik" + cenovnik.getId());
 			return true;
+
+		} catch (Exception e) {
+
+			logger.error(USER,"Greska prilikom upisa cenovnika u bazu: " + e.getMessage());
 		}
+		
 		return false;
 	}
 	
 	public boolean delete(Long id) {
 		if(cenovnikRepository.existsById(id)) {
-			cenovnikRepository.deleteById(id);
-			return true;
+			try {
+				cenovnikRepository.deleteById(id);
+				logger.info(USER, "Cenovnik " + id + " uspesno izbrisan");
+				return true;
+			}catch(Exception e) {
+				logger.error(USER, "Greska prilikom brisanja cenovnika " + id + ": " + e.getMessage());
+			}
+			
+		} else {
+			logger.warn(USER, "Cenovnik " + id + " nije pronadjen u bazi" );
 		}
 		return false;
 	}

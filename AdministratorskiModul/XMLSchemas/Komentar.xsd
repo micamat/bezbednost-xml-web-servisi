@@ -13,8 +13,9 @@
                 <xs:element name="id" type="xs:ID"/>
                 <xs:element name="naslov" type="xs:string"/>
                 <xs:element name="tekst" type="xs:string"/>
-                <xs:element name="datum" type="xs:date"/>
-                <xs:element ref="kor:korisnik"></xs:element>
+                 <xs:element name="statusKomentara" type="xs:string"/>
+                <xs:element name="datumKreiranja" type="xs:date"/>
+                <xs:element ref="kor:korisnik" maxOccurs="1"></xs:element>
                 <xs:element name="id_sobe" type="xs:integer"/>
             </xs:all>
         </xs:complexType>

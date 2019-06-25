@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import adminski.modul.app.model.TipSmestaja;
+import adminski.modul.app.service.AuthService;
 import adminski.modul.app.service.TipSmestajaService;
 
 @RestController
@@ -23,8 +25,11 @@ import adminski.modul.app.service.TipSmestajaService;
 public class TipSmestajaController {
 	
 	@Autowired
+	private AuthService authService;
+	@Autowired
 	private TipSmestajaService tipSmestajaService;
 	
+	@PreAuthorize("@authService.hasProtectedAccess()")
 	@GetMapping("{id}")
 	public ResponseEntity<TipSmestaja> getTipSmestaja(@PathVariable Long id){
 		
@@ -34,6 +39,7 @@ public class TipSmestajaController {
 		
 	}
 	
+	@PreAuthorize("@authService.hasProtectedAccess()")
 	@GetMapping
 	public ResponseEntity<List<TipSmestaja>> getAllTipSmestaja(){
 		
@@ -47,6 +53,7 @@ public class TipSmestajaController {
 		
 	}
 	
+	@PreAuthorize("@authService.hasProtectedAccess()")
 	@DeleteMapping("{id}")
 	public ResponseEntity<TipSmestaja> deleteTipSmestaja(@PathVariable Long id){
 		
@@ -58,6 +65,7 @@ public class TipSmestajaController {
 		
 	}
 	
+	@PreAuthorize("@authService.hasProtectedAccess()")
 	@PutMapping("{id}")
 	public ResponseEntity<TipSmestaja> updateTipSmestaja(@PathVariable Long id, @RequestBody TipSmestaja tipSmestaja){
 		
@@ -69,6 +77,7 @@ public class TipSmestajaController {
 		
 	}
 	
+	@PreAuthorize("@authService.hasProtectedAccess()")
 	@PostMapping
 	public ResponseEntity<TipSmestaja> createTipSmestaja(@RequestBody TipSmestaja tipSmestaja){
 		

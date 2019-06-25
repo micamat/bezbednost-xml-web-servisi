@@ -7,5 +7,5 @@ import ftn.uns.ac.rs.model.Agent;
 
 @Repository
 public interface AgentRepository extends JpaRepository<Agent, Long> {
-
+	public Agent findByKorisnickoIme(String korisnickoIme);
 }
