@@ -38,7 +38,7 @@ import javax.xml.bind.annotation.XmlType;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
-    "showAgentDTO"
+    "agent"
 })
 @XmlRootElement(name = "GetAllAgentResponse")
 public class GetAllAgentResponse {

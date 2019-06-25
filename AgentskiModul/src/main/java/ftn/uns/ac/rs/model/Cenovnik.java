@@ -36,8 +36,8 @@ import javax.xml.datatype.XMLGregorianCalendar;
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
  *       &lt;all&gt;
  *         &lt;element name="id" type="{http://www.w3.org/2001/XMLSchema}long"/&gt;
- *         &lt;element name="cena" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
- *         &lt;element name="brojDanaZaOtkazivanje" type="{http://www.w3.org/2001/XMLSchema}nonNegativeInteger"/&gt;
+ *         &lt;element name="cena" type="{http://www.w3.org/2001/XMLSchema}float"/&gt;
+ *         &lt;element name="brojDanaZaOtkazivanje" type="{http://www.w3.org/2001/XMLSchema}int"/&gt;
  *         &lt;element name="datumOd" type="{http://www.w3.org/2001/XMLSchema}dateTime"/&gt;
  *         &lt;element name="datumDo" type="{http://www.w3.org/2001/XMLSchema}dateTime"/&gt;
  *         &lt;element ref="{http://rs.ac.uns.ftn/Model}Smestaj"/&gt;
@@ -60,10 +60,9 @@ public class Cenovnik {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
     protected Long id;
+    protected float cena;
     @XmlElement(required = true)
-    protected String cena;
-    @XmlElement(required = true)
-    @XmlSchemaType(name = "nonNegativeInteger")
+    @XmlSchemaType(name = "int")
     protected int brojDanaZaOtkazivanje;
     @XmlElement(required = true)
     @XmlSchemaType(name = "dateTime")
@@ -103,7 +102,7 @@ public class Cenovnik {
      *     {@link String }
      *     
      */
-    public String getCena() {
+    public float getCena() {
         return cena;
     }
 
@@ -115,7 +114,7 @@ public class Cenovnik {
      *     {@link String }
      *     
      */
-    public void setCena(String value) {
+    public void setCena(float value) {
         this.cena = value;
     }
 

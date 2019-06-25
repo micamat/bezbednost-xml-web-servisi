@@ -39,6 +39,7 @@ import javax.xml.bind.annotation.XmlType;
  *         &lt;element name="poslovniMaticniBroj" type="{http://www.w3.org/2001/XMLSchema}integer"/&gt;
  *         &lt;element name="korisnickoIme" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
  *         &lt;element name="email" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
+	   &lt;element name="token" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
  *         &lt;element ref="{http://rs.ac.uns.ftn/Model}Smestaj" maxOccurs="unbounded"/&gt;
  *       &lt;/sequence&gt;
  *     &lt;/restriction&gt;
@@ -63,7 +64,7 @@ import javax.xml.bind.annotation.XmlType;
 @XmlRootElement(name = "Agent")
 @Entity
 public class Agent {
-	@Id
+    @Id
     protected Long id;
     @XmlElement(required = true)
     protected String ime;
@@ -77,6 +78,7 @@ public class Agent {
     protected String korisnickoIme;
     @XmlElement(required = true)
     protected String email;
+    @XmlElement(required = true)
     protected String token;
     @XmlElement(name = "Smestaj", required = true)
     @OneToMany(mappedBy = "agent")

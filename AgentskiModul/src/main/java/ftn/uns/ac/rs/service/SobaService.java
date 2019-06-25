@@ -101,7 +101,7 @@ public class SobaService {
 			sobneUslugeRepository.save(sobneUsluge);
 		}
 		if(soba != null) {
-			//createSync(sobaDTO);
+			createSync(sobaDTO);
 			return true;
 		}
 		return false;
