@@ -603,6 +603,19 @@
             </xs:all>
         </xs:complexType>
     </xs:element>
+    <xs:element name="ShowKomentarDTO">
+        <xs:complexType>
+            <xs:all>
+                <xs:element name="id" type="xs:long"/>
+                <xs:element name="naslov" type="xs:string"/>
+                <xs:element name="tekst" type="xs:string"/>
+                <xs:element name="statusKomentara" type="xs:string"/>
+                <xs:element name="datumKreiranja" type="xs:dateTime"/>
+                <xs:element name="nazivSmestaj" type="string"/>
+                <xs:element name="korisnickoImeKorisnik" type="string"/>
+            </xs:all>
+        </xs:complexType>
+    </xs:element>
     <xs:element name="GetAllKomentarRequest">
         <xs:complexType>
         </xs:complexType>
