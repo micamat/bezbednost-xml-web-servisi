@@ -25,9 +25,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.eureka.common.security.JwtConfig;
+//import com.eureka.common.security.JwtConfig;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import ftn.uns.ac.rs.AuthMicroservice.security.config.JwtConfig;
 import ftn.uns.ac.rs.AuthMicroservice.security.model.UserCredentials;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;

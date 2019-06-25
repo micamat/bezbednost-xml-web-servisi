@@ -14,8 +14,7 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
-import com.eureka.common.security.JwtConfig;
-
+import ftn.uns.ac.rs.AuthMicroservice.security.config.JwtConfig;
 import ftn.uns.ac.rs.AuthMicroservice.security.service.JwtUsernameAndPasswordAuthenticationFilter;
 
 @EnableWebSecurity
