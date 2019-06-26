@@ -9,6 +9,8 @@
 package ftn.uns.ac.rs.model;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -46,6 +48,7 @@ import javax.xml.bind.annotation.XmlType;
 public class Koordinate {
 
 	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	protected Long id;
     protected float duzina;
     protected float sirina;
@@ -54,7 +57,7 @@ public class Koordinate {
      * Gets the value of the id property.
      * 
      */
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
@@ -62,7 +65,7 @@ public class Koordinate {
      * Sets the value of the id property.
      * 
      */
-    public void setId(long value) {
+    public void setId(Long value) {
         this.id = value;
     }
 
