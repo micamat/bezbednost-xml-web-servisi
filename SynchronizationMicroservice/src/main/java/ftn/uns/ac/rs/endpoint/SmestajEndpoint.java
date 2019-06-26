@@ -1,8 +1,5 @@
 package ftn.uns.ac.rs.endpoint;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ws.server.endpoint.annotation.Endpoint;
 import org.springframework.ws.server.endpoint.annotation.PayloadRoot;
@@ -11,11 +8,7 @@ import org.springframework.ws.server.endpoint.annotation.ResponsePayload;
 
 import ftn.uns.ac.rs.model.CreateSmestajRequest;
 import ftn.uns.ac.rs.model.CreateSmestajResponse;
-import ftn.uns.ac.rs.model.GetAllSmestajRequest;
-import ftn.uns.ac.rs.model.GetAllSmestajResponse;
-import ftn.uns.ac.rs.model.Smestaj;
 import ftn.uns.ac.rs.model.SmestajDTO;
-import ftn.uns.ac.rs.repository.SmestajRepository;
 import ftn.uns.ac.rs.service.SmestajService;
 
 @Endpoint
@@ -25,28 +18,21 @@ public class SmestajEndpoint {
 	@Autowired
 	SmestajService smestajService;
 	
-	//TODO: OVDE U GetAllSmestajResponse dodati setSuccessful za povratnu infoooo...
 	@ResponsePayload
-	@PayloadRoot(namespace = NAMESPACE, localPart = "GetAllSmestajRequest")
-	public GetAllSmestajResponse getAll(@RequestPayload final GetAllSmestajRequest input) {
-		GetAllSmestajResponse response = new GetAllSmestajResponse();
-		response.setSmestajDTO(smestajService.getAll());
-		return response;
-	}
-	
-	/*@ResponsePayload
 	@PayloadRoot(namespace = NAMESPACE, localPart = "CreateSmestajRequest")
 	public CreateSmestajResponse create(@RequestPayload final CreateSmestajRequest input) {
+		System.out.println("STAVI NESTO BILO STA ? !!!");
+		System.out.println(input.getSmestajDTO().getGrad() + " fa " + input.getSmestajDTO().getUlica());
+		System.out.println(input.getSmestajDTO().getIdKategorijaSmestaja() + " fa " + input.getSmestajDTO().getNaziv());
+		System.out.println(input.getSmestajDTO().getSlika() + " fa " + input.getSmestajDTO().getOpis());
+		System.out.println(input.getSmestajDTO().getIdAgent() + " fa " + input.getSmestajDTO().getIdTipSmestaja());
 		CreateSmestajResponse response = new CreateSmestajResponse();
-		SmestajDTO sdto = new SmestajDTO();
-		sdto.setId(input.getId());
-		sdto.setIdKategorijaSmestaja(input.getIdKategorijaSmestaja());
-		sdto.setIdLokacija(input.getIdLokacija());
-		sdto.setIdTipSmestaja(input.getIdTipSmestaja());
-		sdto.setNaziv(input.getNaziv());
-		sdto.setOpis(input.getOpis());
-		sdto.setSlika(input.getSlika());
+		System.out.println("STAVI NESTO ");
+		
+		SmestajDTO sdto = input.getSmestajDTO();
+		System.out.println("STAVI  !!!");
 		int id = smestajService.create(sdto);
+		System.out.println("STAVI NESTO  !!!");
 		if(id == -1) {
 			response.setSuccessful(false);
 		}
@@ -55,7 +41,7 @@ public class SmestajEndpoint {
 			response.setSuccessful(true);
 		}
 		return response;
-	}*/
+	}
 	
 	
 	

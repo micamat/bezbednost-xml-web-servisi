@@ -1,21 +1,10 @@
 package ftn.uns.ac.rs.endpoint;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ws.server.endpoint.annotation.Endpoint;
-import org.springframework.ws.server.endpoint.annotation.PayloadRoot;
-import org.springframework.ws.server.endpoint.annotation.RequestPayload;
-import org.springframework.ws.server.endpoint.annotation.ResponsePayload;
-
-import ftn.uns.ac.rs.model.CreateStatusSobeRequest;
-import ftn.uns.ac.rs.model.CreateStatusSobeResponse;
-import ftn.uns.ac.rs.model.GetAllStatusSobeRequest;
-import ftn.uns.ac.rs.model.GetAllStatusSobeResponse;
-import ftn.uns.ac.rs.model.StatusSobeDTO;
-import ftn.uns.ac.rs.service.StatusSobeService;
 
 @Endpoint
 public class StatusSobeEndpoint {
-	final String NAMESPACE = "http://rs.ac.uns.ftn/Model";
+	/*final String NAMESPACE = "http://rs.ac.uns.ftn/Model";
 	
 	@Autowired
 	StatusSobeService statusSobeService;
@@ -45,5 +34,5 @@ public class StatusSobeEndpoint {
 			response.setSuccessful(true);
 		}
 		return response;
-	}
+	}*/
 }

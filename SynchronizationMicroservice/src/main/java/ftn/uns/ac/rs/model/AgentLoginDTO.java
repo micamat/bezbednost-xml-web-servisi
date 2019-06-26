@@ -48,15 +48,8 @@ public class AgentLoginDTO {
     @XmlElement(required = true)
     protected String password;
 
-    public AgentLoginDTO() {}
-    
-    public AgentLoginDTO(String korisnickoIme, String lozinka) {
-		super();
-		this.username = korisnickoIme;
-		this.password = lozinka;
-	}
 
-	/**
+    /**
      * Gets the value of the lozinka property.
      * 
      * @return
@@ -64,7 +57,7 @@ public class AgentLoginDTO {
      *     {@link String }
      *     
      */
-    public String getLozinka() {
+    public String getPassword() {
         return password;
     }
 
@@ -76,7 +69,7 @@ public class AgentLoginDTO {
      *     {@link String }
      *     
      */
-    public void setLozinka(String value) {
+    public void setPassword(String value) {
         this.password = value;
     }
 
@@ -88,7 +81,7 @@ public class AgentLoginDTO {
      *     {@link String }
      *     
      */
-    public String getKorisnickoIme() {
+    public String getUsername() {
         return username;
     }
 
@@ -100,7 +93,7 @@ public class AgentLoginDTO {
      *     {@link String }
      *     
      */
-    public void setKorisnickoIme(String value) {
+    public void setUsername(String value) {
         this.username = value;
     }
 

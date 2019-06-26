@@ -46,13 +46,13 @@ public class KoordinateService {
 	}
 	
 	
-	public boolean add(Koordinate koordinate) {
+	public Long add(Koordinate koordinate) {
 		koordinate = koordinateRepository.save(koordinate);
 		if(koordinate != null) {
 			//createSync(koordinate);
-			return true;
+			return koordinate.getId();
 		}
-		return false;
+		return null;
 	}
 	
 	/*

@@ -1,11 +1,5 @@
 package ftn.uns.ac.rs.service;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.UnsupportedEncodingException;
-import java.util.Base64;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -81,6 +75,7 @@ public class SmestajService {
 		ThreadContext.put("userId", "3ss");
 		try {
 			smestaj = smestajRepository.save(convertToEntity(smestajDTO));
+			createSync(smestajDTO);
 			logger.info(USER, "Dodat smestaj" + smestaj.getId());
 			return true;
 
@@ -141,10 +136,11 @@ public class SmestajService {
 		lokacija.setGrad(smestajDTO.getGrad());
 		lokacija.setUlica(smestajDTO.getUlica());
 		lokacija.setIdKoordinate(smestajDTO.getId());
-		lokacijaService.add(lokacija);
-
+		Long id = lokacijaService.add(lokacija);
+		lokacija.setId(id);
+		lokacija.setIdKoordinate(id);
 		Smestaj smestaj = new Smestaj();
-		smestaj.setId(smestajDTO.getId());
+		smestaj.setId(id);
 		smestaj.setTipSmestaja(tipSmestajaRepository.findById(smestajDTO.getIdTipSmestaja()).orElse(null));
 		smestaj.setKategorijaSmestaja(kategorijaSmestajaRepository.findById(smestajDTO.getIdKategorijaSmestaja()).orElse(null));
 		smestaj.setLokacija(lokacija);

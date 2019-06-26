@@ -1,21 +1,11 @@
 package ftn.uns.ac.rs.service;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import ftn.uns.ac.rs.model.Soba;
-import ftn.uns.ac.rs.model.SobaDTO;
-import ftn.uns.ac.rs.repository.SmestajRepository;
-import ftn.uns.ac.rs.repository.SobaRepository;
-import ftn.uns.ac.rs.repository.TipSobeRepository;
 
 @Service
 public class SobaService {
 	
-	@Autowired
+	/*@Autowired
 	private SobaRepository sobaRepository;
 	
 	@Autowired
@@ -63,5 +53,5 @@ public class SobaService {
 		s.setSmestaj(smestajRepository.findById(soba.getIdSmestaj()).get());
 		s.setTipSobe(tipSobeRepo.findById(soba.getIdTipSobe()).get());
 		return s;
-	}
+	}*/
 }
