@@ -23,11 +23,11 @@ public class PorukaController {
 	private PorukaService porukaService;
 
 	@GetMapping
-	public ResponseEntity<List<ShowPorukaDTO>> getAll(){
-		if(porukaService.getAll() == null) {
+	public ResponseEntity<List<ShowPorukaDTO>> getAllByRezervacija(@PathVariable Long idRezervacija){
+		if(porukaService.getAllByRezervacija(idRezervacija) == null) {
 			return new ResponseEntity<List<ShowPorukaDTO>>(HttpStatus.NO_CONTENT);
 		}
-		return new ResponseEntity<List<ShowPorukaDTO>>(porukaService.getAll(), HttpStatus.OK);
+		return new ResponseEntity<List<ShowPorukaDTO>>(porukaService.getAllByRezervacija(idRezervacija), HttpStatus.OK);
 	}
 	@GetMapping(value = "/{id}")
 	public ResponseEntity<ShowPorukaDTO> getById(@PathVariable Long id){

@@ -91,7 +91,7 @@ public class Rezervacija {
     @OneToMany(mappedBy = "rezervacija")
     protected List<Poruka> poruka;
     @XmlElement(name = "Korisnik", required = true)
-    @ManyToOne(optional = false)
+    @ManyToOne(optional = true)
     protected Korisnik korisnik;
     @XmlElement(name = "RezervisaneSobe", required = true)
     @OneToMany(mappedBy = "rezervacija")
