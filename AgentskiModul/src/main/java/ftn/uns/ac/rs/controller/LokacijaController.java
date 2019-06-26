@@ -46,15 +46,6 @@ public class LokacijaController {
 		return new ResponseEntity<Lokacija>(lokacijaService.getById(id), HttpStatus.OK);
 	}
 	
-	@PostMapping
-	public ResponseEntity<String> add(@RequestBody Lokacija lokacija){
-		if(lokacijaService.add(lokacija)) {
-			return new ResponseEntity<String>("Lokacija je uspesno dodata!", HttpStatus.CREATED);
-		}else {
-			return new ResponseEntity<String>("Greska pri dodavanju lokacije!", HttpStatus.CONFLICT);
-		}
-			
-	}
 	
 	@DeleteMapping(value = "/{id}")
 	public ResponseEntity<String> delete(@PathVariable Long id){

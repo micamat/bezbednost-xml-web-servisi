@@ -36,16 +36,6 @@ public class KoordinateController {
 		return new ResponseEntity<Koordinate>(koordinateService.getById(id), HttpStatus.OK);
 	}
 	
-	@PostMapping
-	public ResponseEntity<String> add(@RequestBody Koordinate koordinateDTO){
-		if(koordinateService.add(koordinateDTO)) {
-			return new ResponseEntity<String>("Koordinate su uspesno dodate!", HttpStatus.CREATED);
-		}else {
-			return new ResponseEntity<String>("Greska pri dodavanju koordinata!", HttpStatus.CONFLICT);
-		}
-			
-	}
-	
 	@DeleteMapping(value = "/{id}")
 	public ResponseEntity<String> delete(@PathVariable Long id){
 		if(koordinateService.delete(id)) {
