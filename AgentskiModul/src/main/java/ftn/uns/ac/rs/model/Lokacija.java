@@ -177,7 +177,7 @@ public class Lokacija {
      * Gets the value of the idKoordinate property.
      * 
      */
-    public long getIdKoordinate() {
+    public Long getIdKoordinate() {
         return idKoordinate;
     }
 
@@ -185,7 +185,7 @@ public class Lokacija {
      * Sets the value of the idKoordinate property.
      * 
      */
-    public void setIdKoordinate(long value) {
+    public void setIdKoordinate(Long value) {
         this.idKoordinate = value;
     }
 

@@ -4,8 +4,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
-import org.springframework.http.HttpMethod;
-import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
@@ -31,8 +29,10 @@ public class SecurityTokenConfig extends WebSecurityConfigurerAdapter {
 		   .addFilterAfter(new JwtTokenAuthenticationFilter(jwtConfig), UsernamePasswordAuthenticationFilter.class)
 		.authorizeRequests()
 		   //.antMatchers(HttpMethod.POST, jwtConfig.getUri()).permitAll()
-		   .antMatchers("/**").permitAll()
-		   .anyRequest().authenticated(); 
+			.antMatchers("/auth/validate").hasAuthority("AGENT")
+			.antMatchers("/auth/prijava**").permitAll()
+			.antMatchers("/auth/signin").permitAll()
+			.anyRequest().authenticated();
 	}
 	
 	@Bean

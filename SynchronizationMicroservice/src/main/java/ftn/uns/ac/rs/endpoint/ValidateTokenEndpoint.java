@@ -1,6 +1,9 @@
 package ftn.uns.ac.rs.endpoint;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.ws.server.endpoint.annotation.Endpoint;
 import org.springframework.ws.server.endpoint.annotation.PayloadRoot;
@@ -21,7 +24,12 @@ final String NAMESPACE = "http://rs.ac.uns.ftn/Model";
 	@PayloadRoot(namespace = NAMESPACE, localPart = "ValidateTokenRequest")
 	public ValidateTokenResponse validateToken(@RequestPayload final ValidateTokenRequest input) {
 		ValidateTokenResponse response = new ValidateTokenResponse();
-		Boolean isValid = restTemplate.getForObject("https://localhost:8765/auth/validate", Boolean.class);
+		HttpHeaders headers = new HttpHeaders();
+		headers.setContentType(MediaType.APPLICATION_JSON);
+		headers.set("Authorization", "Bearer "+ input.getToken());
+
+		HttpEntity<String> entity = new HttpEntity<String>(null, headers);
+		Boolean isValid = restTemplate.postForObject("https://localhost:8765/auth/validate", entity, Boolean.class);
 		response.setSuccessful(isValid);
 		return response;
 	}

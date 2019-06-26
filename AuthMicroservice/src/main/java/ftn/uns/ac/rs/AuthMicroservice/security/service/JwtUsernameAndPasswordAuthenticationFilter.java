@@ -116,7 +116,7 @@ public class JwtUsernameAndPasswordAuthenticationFilter extends UsernamePassword
 		return "Success";
 	}
 	
-	@GetMapping("/validate")
+	@PostMapping("/validate")
 	public Boolean validate() {
 		return true;
 	}
