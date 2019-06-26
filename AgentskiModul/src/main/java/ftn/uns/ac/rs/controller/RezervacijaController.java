@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import ftn.uns.ac.rs.model.RezervacijaDTO;
 import ftn.uns.ac.rs.model.ShowRezervacijaDTO;
+import ftn.uns.ac.rs.model.UpdateRezervisaneSobeDTO;
 import ftn.uns.ac.rs.service.RezervacijaService;
 
 @RestController
@@ -44,6 +45,16 @@ public class RezervacijaController {
 			return new ResponseEntity<String>("Rezervacija je uspesno dodata!", HttpStatus.OK);
 		}else {
 			return new ResponseEntity<String>("Greska pri dodavanju rezervacije!", HttpStatus.CONFLICT);
+		}
+			
+	}
+	
+	@PutMapping
+	public ResponseEntity<String> update(@RequestBody UpdateRezervisaneSobeDTO updateRezervisaneSobeDTO){
+		if(rezervacijaService.update(updateRezervisaneSobeDTO)) {
+			return new ResponseEntity<String>("Rezervacija je uspesno izmenjena!", HttpStatus.OK);
+		}else {
+			return new ResponseEntity<String>("Greska pri izmeni rezervacije!", HttpStatus.CONFLICT);
 		}
 			
 	}

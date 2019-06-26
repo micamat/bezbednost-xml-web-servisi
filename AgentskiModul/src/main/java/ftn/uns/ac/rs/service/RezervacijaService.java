@@ -22,6 +22,7 @@ import ftn.uns.ac.rs.model.RezervisaneSobe;
 import ftn.uns.ac.rs.model.RezervisaneSobeDTO;
 import ftn.uns.ac.rs.model.ShowRezervacijaDTO;
 import ftn.uns.ac.rs.model.ShowRezervisaneSobeDTO;
+import ftn.uns.ac.rs.model.UpdateRezervisaneSobeDTO;
 import ftn.uns.ac.rs.repository.KorisnikRepository;
 import ftn.uns.ac.rs.repository.RezervacijaRepository;
 import ftn.uns.ac.rs.repository.SmestajRepository;
@@ -76,6 +77,15 @@ public class RezervacijaService {
 		return rezervacijaRepository.findAll().stream().filter(x -> smestajId.equals(x.getSmestaj().getId())).map(this::convertToDTO).collect(Collectors.toList());
 	}
 	
+	public boolean update(UpdateRezervisaneSobeDTO updateRezervisaneSobeDTO) {
+		Rezervacija rezervacija = rezervacijaRepository.findById(updateRezervisaneSobeDTO.getIdRezervacija()).orElse(null);
+		
+			
+		
+		RezervisaneSobe rezervisaneSobe = new RezervisaneSobe();
+		return false;
+	}
+	
 	public boolean add(RezervacijaDTO rezervacijaDTO) {
 		ThreadContext.put("user", "A");
 		rezervacijaDTO.setId(null);
@@ -91,7 +101,7 @@ public class RezervacijaService {
 
 				RezervisaneSobe rezervisaneSobe = new RezervisaneSobe();
 				rezervisaneSobe.setId(null);
-				rezervisaneSobe.setCena(rezervisaneSobeDTO.getCena());
+				rezervisaneSobe.setCena(0);
 				rezervisaneSobe.setRezervacija(rezervacijaRepository.findById(rezervacija.getId()).orElse(null));
 				rezervisaneSobe.setSoba(sobaRepository.findById(rezervisaneSobeDTO.getIdSoba()).orElse(null));
 				rezervisaneSobe.setStatusRezervacije(rezervisaneSobeDTO.getStatusRezervacije());
@@ -114,7 +124,12 @@ public class RezervacijaService {
 		rezervacijaDTO.setBrojSoba(rezervacija.getBrojSoba());
 		rezervacijaDTO.setCena(rezervacija.getCena());
 		rezervacijaDTO.setNazivSmestaj(rezervacija.getSmestaj().getNaziv());
-		rezervacijaDTO.setImePrezimeKorisnik(rezervacija.getKorisnik().getKorisnickoIme());
+		if (rezervacija.getKorisnik() == null) {
+			rezervacijaDTO.setImePrezimeKorisnik(null);
+		} else {
+			rezervacijaDTO.setImePrezimeKorisnik(rezervacija.getKorisnik().getKorisnickoIme());
+		}
+		
 		List<ShowRezervisaneSobeDTO> rsDTO = new ArrayList<ShowRezervisaneSobeDTO>();
 		for (RezervisaneSobe rezervisaneSobe : rezervacija.getRezervisaneSobe()) {
 			rsDTO.add(rezervisaneSobeService.convertToDTO(rezervisaneSobe));
@@ -132,7 +147,7 @@ public class RezervacijaService {
 		rezervacija.setDatumDo(rezervacijaDTO.getDatumDo());
 		rezervacija.setBrojSoba(rezervacijaDTO.getRezervisaneSobeDTO().size());
 		rezervacija.setCena(rezervacijaDTO.getCena());
-		rezervacija.setKorisnik(korisnikRepository.findById(rezervacijaDTO.getIdKorisnika()).orElse(null));
+		rezervacija.setKorisnik(null);
 		rezervacija.setSmestaj(smestajRepository.findById(rezervacijaDTO.getIdSmestaj()).orElse(null));
 		return rezervacija;
 	}
