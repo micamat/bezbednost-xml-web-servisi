@@ -111,9 +111,16 @@ export class AccommodationService {
     return this.http.get(SERVER_URL + "/rezervacija");
   }
   
-//srediti da vrati po idju rezervacije
-  getAllMessages(){
-    return this.http.get(SERVER_URL + "/poruka");
+  getAllMessages(id:any){
+    return this.http.get(SERVER_URL + "/poruka/rezervacija/" + id);
+  }
+
+  putPotvrdjeno(izmena : any){
+    return this.http.put(SERVER_URL + '/rezervacija',izmena,{responseType: 'text'});
+  }
+
+  getAllReservationRooms(id:any){
+    return this.http.get(SERVER_URL + "/rezervacija/" + id);
   }
   
 }
