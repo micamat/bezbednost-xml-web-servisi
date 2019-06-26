@@ -17,6 +17,7 @@ import org.apache.logging.log4j.MarkerManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import ftn.uns.ac.rs.config.Auth;
 import ftn.uns.ac.rs.config.SoapClientConfig;
 import ftn.uns.ac.rs.model.Agent;
 import ftn.uns.ac.rs.model.AgentDTO;
@@ -104,7 +105,7 @@ public class AgentService {
 		ProducerPort producerPort = producerPortService.getProducerPortSoap11();
 		System.out.println("2");
 		// autentifikacija pomocu sertifikata
-		authenticateClient(producerPort);
+		Auth.authenticateClient(producerPort);
 		AgentLoginRequest agentLoginRequest = new AgentLoginRequest();
 		AgentLoginResponse agentLoginResponse = new AgentLoginResponse();
 		System.out.println("3");
@@ -127,21 +128,7 @@ public class AgentService {
 		return null;
 	}
 	
-	private void authenticateClient(ProducerPort tempPort) {
-		Client client = ClientProxy.getClient(tempPort);
-		HTTPConduit httpConduit = (HTTPConduit) client.getConduit();
-		ftn.uns.ac.rs.config.SoapClientConfig soapClientConfig = new SoapClientConfig();
-		KeyManagerFactory keyManagerFactory = soapClientConfig.getKeyManagerFactory();
-		TrustManagerFactory trustManagerFactory = soapClientConfig.getTrustManagerFactory();
-		TLSClientParameters tslClientParameters = httpConduit.getTlsClientParameters();
-		if (tslClientParameters == null) {
-			tslClientParameters = new TLSClientParameters();
-		}
-		tslClientParameters.setTrustManagers(trustManagerFactory.getTrustManagers());
-		tslClientParameters.setKeyManagers(keyManagerFactory.getKeyManagers());
-		tslClientParameters.setDisableCNCheck(true);
-		httpConduit.setTlsClientParameters(tslClientParameters);
-	}
+	
 
 	private ShowAgentDTO convertToDTO(Agent agent) {
 		ShowAgentDTO agentDTO = new ShowAgentDTO();
