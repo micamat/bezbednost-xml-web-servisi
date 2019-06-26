@@ -21,6 +21,7 @@ import { CommentComponent } from './comment/comment.component';
 import { ReservationComponent } from './reservation/reservation.component';
 import { ReservationShowComponent } from './reservation-show/reservation-show.component';
 import { MessageComponent } from './message/message.component';
+import { ReservationRoomsComponent } from './reservation-rooms/reservation-rooms.component';
 
 @NgModule({
   declarations: [
@@ -42,6 +43,7 @@ import { MessageComponent } from './message/message.component';
     ReservationComponent,
     ReservationShowComponent,
     MessageComponent,
+    ReservationRoomsComponent,
   ],
   imports: [
     BrowserModule,

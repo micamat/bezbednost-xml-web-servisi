@@ -11,6 +11,14 @@ import { Router, ActivatedRoute } from '@angular/router';
 export class ReservationShowComponent implements OnInit {
 
   reservation : any;
+  potvrdjeno = { 
+    idRezervacija: 6, 
+    statusRezervacije: "Potvrdjeno" 
+ }
+ otkazano = { 
+  idRezervacija: 6, 
+  statusRezervacije: "Otkazano"
+}
   
   constructor(private _accommodationService : AccommodationService,
     private formBuilder:FormBuilder,
@@ -23,5 +31,28 @@ export class ReservationShowComponent implements OnInit {
         this.reservation = data;
     });
   }
+
+  potvrda(id:any){
+    this.potvrdjeno.idRezervacija = id;
+    this._accommodationService.putPotvrdjeno(this.potvrdjeno).subscribe(
+      data => {
+        this._accommodationService.getAllReservation().subscribe(
+          data => {
+            this.reservation = data;
+        });
+    });
+  }
+
+  otkaz(id:any){
+    this.otkazano.idRezervacija = id;
+    this._accommodationService.putPotvrdjeno(this.otkazano).subscribe(
+      data => {
+        this._accommodationService.getAllReservation().subscribe(
+          data => {
+            this.reservation = data;
+        });
+    });
+  }
+  
 
 }

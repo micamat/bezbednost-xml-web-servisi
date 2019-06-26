@@ -4,13 +4,13 @@ import { FormBuilder } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
-  selector: 'app-message',
-  templateUrl: './message.component.html',
-  styleUrls: ['./message.component.css']
+  selector: 'app-reservation-rooms',
+  templateUrl: './reservation-rooms.component.html',
+  styleUrls: ['./reservation-rooms.component.css']
 })
-export class MessageComponent implements OnInit {
+export class ReservationRoomsComponent implements OnInit {
 
-  message : any;
+  reservation : any;
   accommodationId : any;
   
   constructor(private _accommodationService : AccommodationService,
@@ -22,11 +22,11 @@ export class MessageComponent implements OnInit {
     this.activatedRoute.paramMap.subscribe(
       params => {
           this.accommodationId = params.get('id');
-          this._accommodationService.getAllMessages(this.accommodationId).subscribe(
+          this._accommodationService.getAllReservationRooms(this.accommodationId).subscribe(
             data => {
-              this.message = data;
+              this.reservation = data;
           })
         });
   }
-}
 
+}

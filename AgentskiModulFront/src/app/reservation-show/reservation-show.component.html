@@ -1,7 +1,7 @@
 <table class="table ml-2 mt-2">
     <thead style="background-color: #0074E1;">
       <tr>
-        <th scope="col" colspan="8" style="text-align: center; color: white">
+        <th scope="col" colspan="9" style="text-align: center; color: white">
           Reservations
         </th>
       </tr>
@@ -12,6 +12,7 @@
         <th scope="col">Start date</th>
         <th scope="col">End date</th>
         <th scope="col">Room number</th>
+        <th scope="col">Status</th>
         <th scope="col">Price</th>
         <th scope="col"></th>
       </tr>
@@ -25,19 +26,20 @@
         <td>{{item.datumOd}}</td>
         <td>{{item.datumDo}}</td>
         <td>{{item.brojSoba}}</td>
+        <td>{{item.showRezervisaneSobeDTO[0].nazivStatusRezervacije}}</td>
         <td *ngIf="item.cena != 0">{{item.cena}}</td>
         <td *ngIf="item.cena == 0"></td>
         <td>
             <a *ngIf="item.imePrezimeKorisnik" class="active" [routerLink]="['/reservation/message', item.id]">
               <img class="mr-2" src="/assets/img/message-2-32.png">
             </a>
-            <a *ngIf="item.imePrezimeKorisnik" class="active" [routerLink]="['/reservation/message', item.id]">
+            <a *ngIf="item.imePrezimeKorisnik && item.showRezervisaneSobeDTO[0].nazivStatusRezervacije == 'Rezervisano'" [routerLink]="'/reservation'" class="active" (click)="potvrda(item.id)">
               <img class="mr-2" src="/assets/img/approval-32.png">
             </a>
-            <a class="active" [routerLink]="['/reservation/message', item.id]">
+            <a *ngIf="item.showRezervisaneSobeDTO[0].nazivStatusRezervacije == 'Rezervisano' || item.showRezervisaneSobeDTO[0].nazivStatusRezervacije == 'Zauzeto'" [routerLink]="'/reservation'" class="active" (click)="otkaz(item.id)">
               <img class="mr-2" src="/assets/img/x-mark-3-32.png">
             </a>
-            <a class="active" [routerLink]="['/reservation/message', item.id]">
+            <a class="active" [routerLink]="['/reservation/rooms', item.id]">
               <img class="mr-2" src="/assets/img/invisible-32.png">
             </a>
         </td>

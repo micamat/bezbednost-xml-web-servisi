@@ -16,6 +16,7 @@ import { CommentComponent } from './comment/comment.component';
 import { ReservationComponent } from './reservation/reservation.component';
 import { ReservationShowComponent } from './reservation-show/reservation-show.component';
 import { MessageComponent } from './message/message.component';
+import { ReservationRoomsComponent } from './reservation-rooms/reservation-rooms.component';
 
 const routes: Routes = [
   {path : '', component: HomeComponent},
@@ -34,6 +35,7 @@ const routes: Routes = [
   {path : 'comment', component : CommentComponent},
   {path : 'reservation', component : ReservationShowComponent},
   {path : 'reservation/message/:id', component : MessageComponent},
+  {path : 'reservation/rooms/:id', component : ReservationRoomsComponent},
   
 ];
 
