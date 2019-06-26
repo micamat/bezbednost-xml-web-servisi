@@ -190,7 +190,7 @@
         <xs:complexType>
             <xs:sequence>
                 <xs:element name="idRezervacija" type="xs:long"/>
-                <xs:element ref="RezervisaneSobeDTO"/>
+                <xs:element name="statusRezervacije" type="xs:string"/>
             </xs:sequence>
         </xs:complexType>
     </xs:element>
