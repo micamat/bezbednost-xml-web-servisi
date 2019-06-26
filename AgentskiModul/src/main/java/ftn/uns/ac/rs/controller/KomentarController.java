@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import ftn.uns.ac.rs.model.Komentar;
 import ftn.uns.ac.rs.model.ShowKomentarDTO;
 import ftn.uns.ac.rs.service.KomentarService;
 
@@ -20,8 +19,6 @@ public class KomentarController {
 	@Autowired
 	private KomentarService komentarService;
 
-	
-	
 	@GetMapping
 	public ResponseEntity<List<ShowKomentarDTO>> getAll(){
 		if(komentarService.getAll() == null) {

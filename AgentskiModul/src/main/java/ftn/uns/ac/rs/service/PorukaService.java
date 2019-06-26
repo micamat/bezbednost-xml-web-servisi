@@ -59,6 +59,7 @@ public class PorukaService {
 		porukaDTO.setId(null);
 		try {
 			porukaRepository.save(convertToEntity(porukaDTO));
+			//createSync(porukaDTO);
 			logger.info(USER, "Poruka uspesno poslata");
 			return true;
 		} catch (Exception e) {

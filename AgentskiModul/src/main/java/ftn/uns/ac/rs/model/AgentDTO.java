@@ -26,6 +26,7 @@ import javax.xml.bind.annotation.XmlType;
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
  *       &lt;sequence&gt;
  *         &lt;element name="id" type="{http://www.w3.org/2001/XMLSchema}long"/&gt;
+ *         &lt;element name="korisnickoIme" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
  *         &lt;element name="lozinka" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
  *         &lt;element name="prethodnaLozinka" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
  *       &lt;/sequence&gt;

@@ -67,8 +67,6 @@ public class SobaService {
 		return getSmestajResponse.getId();
 	};
 	
-	
-	
 	public ShowSobaDTO getById(Long id) {
 		if(!sobaRepository.existsById(id)) {
 			return null;

@@ -64,16 +64,14 @@ public class AgentService {
 		
 		UpdateAgentRequest updateAgentRequest = new UpdateAgentRequest();
 		UpdateAgentResponse updateAgentResponse = new UpdateAgentResponse();
+		updateAgentRequest.setAgentDTO(agentDTO);
 		updateAgentResponse = producerPort.updateAgent(updateAgentRequest);
-		try {
-			Agent agent = agentRepository.findByKorisnickoIme(agentDTO.getKorisnickoIme());
-			agent.setToken(updateAgentResponse.getToken());
-			agentRepository.save(agent);
-			logger.info(USER, "Uspesno logovanje");
+		
+		if(updateAgentResponse.isSuccessful()) {
+			logger.info(USER, "Uspesno promenjena lozinka");
 			return true;
-		} catch (Exception e) {
-
-			logger.error(USER, "Greska prilikom logovanja: " + e.getMessage());
+		} else {
+			logger.warn(USER, "Lozinka nije promenjena");
 		}
 		return false;
 	};
@@ -90,44 +88,18 @@ public class AgentService {
 		return convertToDTO(agent);
 	}
 
-	public boolean update(AgentDTO agentDTO) {
-		ProducerPortService producerPortService = new ProducerPortService();
-		ProducerPort producerPort = producerPortService.getProducerPortSoap11();
-		
-		UpdateAgentRequest updateAgentRequest = new UpdateAgentRequest();
-		UpdateAgentResponse updateAgentResponse = new UpdateAgentResponse();
-		updateAgentResponse = producerPort.updateAgent(updateAgentRequest);
-		try {
-			Agent agent = agentRepository.findByKorisnickoIme(agentDTO.getKorisnickoIme());
-			agent.setToken(updateAgentResponse.getToken());
-			agentRepository.save(agent);
-			logger.info(USER, "Uspesno logovanje");
-			return true;
-		} catch (Exception e) {
-
-			logger.error(USER, "Greska prilikom logovanja: " + e.getMessage());
-		}
-		return false;
-	}
 
 	public boolean login(AgentLoginDTO agentLoginDTO) {
 
 		ProducerPortService producerPortService = new ProducerPortService();
-		System.out.println("A");
-
 		ProducerPort producerPort = producerPortService.getProducerPortSoap11();
 		
 		AgentLoginRequest agentLoginRequest = new AgentLoginRequest();
-		System.out.println("c");
 		AgentLoginResponse agentLoginResponse = new AgentLoginResponse();
-		System.out.println("v");
 
 		agentLoginRequest.setusername(agentLoginDTO.getUsername());
 		agentLoginRequest.setpassword(agentLoginDTO.getPassword());
-		System.out.println("b");
-
 		agentLoginResponse = producerPort.agentLogin(agentLoginRequest);
-		System.out.println("n");
 
 		try {
 			Agent agent = agentRepository.findByKorisnickoIme(agentLoginDTO.getUsername());

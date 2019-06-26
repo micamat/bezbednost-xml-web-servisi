@@ -37,21 +37,45 @@ import javax.xml.bind.annotation.XmlType;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
-    "token"
+    "id",
+    "successful"
 })
 @XmlRootElement(name = "UpdateAgentResponse")
 public class UpdateAgentResponse {
 
-    protected String token;
+	 	protected int id;
+	    @XmlElement(name = "Successful", defaultValue = "false")
+	    protected boolean successful;
 
-	public String getToken() {
-		return token;
-	}
+	    /**
+	     * Gets the value of the id property.
+	     * 
+	     */
+	    public int getId() {
+	        return id;
+	    }
 
-	public void setToken(String token) {
-		this.token = token;
-	}
+	    /**
+	     * Sets the value of the id property.
+	     * 
+	     */
+	    public void setId(int value) {
+	        this.id = value;
+	    }
 
-    
+	    /**
+	     * Gets the value of the successful property.
+	     * 
+	     */
+	    public boolean isSuccessful() {
+	        return successful;
+	    }
 
+	    /**
+	     * Sets the value of the successful property.
+	     * 
+	     */
+	    public void setSuccessful(boolean value) {
+	        this.successful = value;
+	    }
 }
