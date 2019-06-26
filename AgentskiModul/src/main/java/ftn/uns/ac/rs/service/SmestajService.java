@@ -137,7 +137,8 @@ public class SmestajService {
 		lokacija.setUlica(smestajDTO.getUlica());
 		lokacija.setIdKoordinate(smestajDTO.getId());
 		Long id = lokacijaService.add(lokacija);
-
+		lokacija.setId(id);
+		lokacija.setIdKoordinate(id);
 		Smestaj smestaj = new Smestaj();
 		smestaj.setId(id);
 		smestaj.setTipSmestaja(tipSmestajaRepository.findById(smestajDTO.getIdTipSmestaja()).orElse(null));
