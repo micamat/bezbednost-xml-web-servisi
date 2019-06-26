@@ -25,6 +25,7 @@ import ftn.uns.ac.rs.model.ShowRezervisaneSobeDTO;
 import ftn.uns.ac.rs.model.UpdateRezervisaneSobeDTO;
 import ftn.uns.ac.rs.repository.KorisnikRepository;
 import ftn.uns.ac.rs.repository.RezervacijaRepository;
+import ftn.uns.ac.rs.repository.RezervisaneSobeRepository;
 import ftn.uns.ac.rs.repository.SmestajRepository;
 import ftn.uns.ac.rs.repository.SobaRepository;
 
@@ -40,6 +41,10 @@ public class RezervacijaService {
 	@Autowired
 	private RezervacijaRepository rezervacijaRepository;
 	
+	
+
+	@Autowired
+	private RezervisaneSobeRepository rezervisaneSobeRepository;
 	@Autowired
 	private RezervisaneSobeService rezervisaneSobeService;
 	
@@ -78,11 +83,17 @@ public class RezervacijaService {
 	}
 	
 	public boolean update(UpdateRezervisaneSobeDTO updateRezervisaneSobeDTO) {
-		Rezervacija rezervacija = rezervacijaRepository.findById(updateRezervisaneSobeDTO.getIdRezervacija()).orElse(null);
+		try {
+			List<RezervisaneSobe> rezervisaneSobe = rezervisaneSobeRepository.findAll().stream().filter(x -> updateRezervisaneSobeDTO.getIdRezervacija().equals(x.getRezervacija().getId())).collect(Collectors.toList());
 		
-			
+			for (RezervisaneSobe rs : rezervisaneSobe) {
+				rs.setStatusRezervacije(updateRezervisaneSobeDTO.getStatusRezervacije());
+				rezervisaneSobeRepository.save(rs);
+			}
+			return true;
+		}catch (Exception e) {
 		
-		RezervisaneSobe rezervisaneSobe = new RezervisaneSobe();
+		}
 		return false;
 	}
 	
