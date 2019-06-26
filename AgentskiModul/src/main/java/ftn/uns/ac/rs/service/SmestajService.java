@@ -136,10 +136,10 @@ public class SmestajService {
 		lokacija.setGrad(smestajDTO.getGrad());
 		lokacija.setUlica(smestajDTO.getUlica());
 		lokacija.setIdKoordinate(smestajDTO.getId());
-		lokacijaService.add(lokacija);
+		Long id = lokacijaService.add(lokacija);
 
 		Smestaj smestaj = new Smestaj();
-		smestaj.setId(smestajDTO.getId());
+		smestaj.setId(id);
 		smestaj.setTipSmestaja(tipSmestajaRepository.findById(smestajDTO.getIdTipSmestaja()).orElse(null));
 		smestaj.setKategorijaSmestaja(kategorijaSmestajaRepository.findById(smestajDTO.getIdKategorijaSmestaja()).orElse(null));
 		smestaj.setLokacija(lokacija);

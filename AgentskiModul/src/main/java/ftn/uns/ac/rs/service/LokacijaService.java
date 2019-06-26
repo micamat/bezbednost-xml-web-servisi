@@ -58,10 +58,11 @@ public class LokacijaService {
 		return lokacijaRepository.findById(id).orElse(null);
 	}
 
-	public boolean add(Lokacija lokacija) {
+	public Long add(Lokacija lokacija) {
 		Koordinate koordinate = new Koordinate();
 		URL url;
 
+		Long id = null;
 		try {
 			// get URL content
 			String adresa = lokacija.getUlica().replace(" ", "+");
@@ -80,7 +81,7 @@ public class LokacijaService {
 					koordinate.setId(lokacija.getId());
 					koordinate.setDuzina(Float.parseFloat(niz[2].replace("]", "")));
 					koordinate.setSirina(Float.parseFloat(niz[1]));
-					koordinateService.add(koordinate);
+					id = koordinateService.add(koordinate);
 					// System.out.println(niz[2] + niz[1]);
 
 				}
@@ -95,16 +96,18 @@ public class LokacijaService {
 			e.printStackTrace();
 		}
 		try {
+			lokacija.setId(id);
+			lokacija.setIdKoordinate(id);
 			lokacija = lokacijaRepository.save(lokacija);
 
 			// createSync(lokacija);
 			logger.info(USER, "Uspesno sacuvana lokacija");
-			return true;
+			return id;
 		} catch (Exception e) {
 			logger.error(USER, "okacija nije sacuvana");
 		}
 			
-		return false;
+		return null;
 	}
 
 	/*
