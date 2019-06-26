@@ -122,5 +122,9 @@ export class AccommodationService {
   getAllReservationRooms(id:any){
     return this.http.get(SERVER_URL + "/rezervacija/" + id);
   }
+
+  login(user:any){
+    return this.http.post(SERVER_URL + '/agent',user,{responseType: 'text'});
+  }
   
 }
