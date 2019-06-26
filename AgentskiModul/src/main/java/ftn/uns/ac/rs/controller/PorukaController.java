@@ -22,13 +22,15 @@ public class PorukaController {
 	@Autowired
 	private PorukaService porukaService;
 
-	@GetMapping
-	public ResponseEntity<List<ShowPorukaDTO>> getAll(){
-		if(porukaService.getAll() == null) {
+
+	@GetMapping(value = "/rezervacija/{idRezervacija}")
+	public ResponseEntity<List<ShowPorukaDTO>> getAllByRezervacija(@PathVariable Long idRezervacija){
+		if(porukaService.getAllByRezervacija(idRezervacija) == null) {
 			return new ResponseEntity<List<ShowPorukaDTO>>(HttpStatus.NO_CONTENT);
 		}
-		return new ResponseEntity<List<ShowPorukaDTO>>(porukaService.getAll(), HttpStatus.OK);
+		return new ResponseEntity<List<ShowPorukaDTO>>(porukaService.getAllByRezervacija(idRezervacija), HttpStatus.OK);
 	}
+	
 	@GetMapping(value = "/{id}")
 	public ResponseEntity<ShowPorukaDTO> getById(@PathVariable Long id){
 		if(porukaService.getById(id) == null) {
@@ -46,4 +48,5 @@ public class PorukaController {
 		}
 			
 	}
+	
 }

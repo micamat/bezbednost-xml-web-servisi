@@ -1,0 +1,32 @@
+<table class="table ml-2 mt-2">
+    <thead style="background-color: #0074E1;">
+      <tr>
+        <th scope="col" colspan="7" style="text-align: center; color: white">
+          <div class="row">
+            <div class="col" style="float: right;"></div>
+            <div class="col">
+                <span class="d-inline">Rooms</span>
+            </div>
+            <div class="col"><a class="active" routerLink="../room/add">
+            </a></div>
+          </div>
+        </th>
+      </tr>
+      <tr style="color: white">
+        <th scope="col">#</th>
+        <th scope="col">Accommodation</th>
+        <th scope="col">Room</th>
+        <th scope="col">Status</th>
+        <th scope="col">Cena</th>
+      </tr>
+    </thead>
+    <tbody *ngIf="reservation" style="color: #0074E1">
+      <tr *ngFor="let item of reservation.showRezervisaneSobeDTO; let i = index">
+        <td scope="row">{{i+1}}</td>
+        <td>{{reservation.nazivSmestaj}}</td>
+        <td>{{item.nazivSoba}}</td>
+        <td>{{item.nazivStatusRezervacije}}</td>
+        <td>{{item.cena}}</td>
+      </tr>
+    </tbody>
+  </table>

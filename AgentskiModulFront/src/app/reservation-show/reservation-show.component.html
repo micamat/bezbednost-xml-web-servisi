@@ -1,0 +1,48 @@
+<table class="table ml-2 mt-2">
+    <thead style="background-color: #0074E1;">
+      <tr>
+        <th scope="col" colspan="9" style="text-align: center; color: white">
+          Reservations
+        </th>
+      </tr>
+      <tr style="color: white">
+        <th scope="col">#</th>
+        <th scope="col">Accommodation</th>
+        <th scope="col">User</th>
+        <th scope="col">Start date</th>
+        <th scope="col">End date</th>
+        <th scope="col">Room number</th>
+        <th scope="col">Status</th>
+        <th scope="col">Price</th>
+        <th scope="col"></th>
+      </tr>
+    </thead>
+    <tbody style="color: #0074E1">
+      <tr *ngFor="let item of reservation; let i = index">
+        <th scope="row">{{i+1}}</th>
+        <td>{{item.nazivSmestaj}}</td>
+        <td *ngIf="item.imePrezimeKorisnik">{{item.imePrezimeKorisnik}}</td>
+        <td *ngIf="!item.imePrezimeKorisnik">Agent</td>
+        <td>{{item.datumOd}}</td>
+        <td>{{item.datumDo}}</td>
+        <td>{{item.brojSoba}}</td>
+        <td>{{item.showRezervisaneSobeDTO[0].nazivStatusRezervacije}}</td>
+        <td *ngIf="item.cena != 0">{{item.cena}}</td>
+        <td *ngIf="item.cena == 0"></td>
+        <td>
+            <a *ngIf="item.imePrezimeKorisnik" class="active" [routerLink]="['/reservation/message', item.id]">
+              <img class="mr-2" src="/assets/img/message-2-32.png">
+            </a>
+            <a *ngIf="item.imePrezimeKorisnik && item.showRezervisaneSobeDTO[0].nazivStatusRezervacije == 'Rezervisano'" [routerLink]="'/reservation'" class="active" (click)="potvrda(item.id)">
+              <img class="mr-2" src="/assets/img/approval-32.png">
+            </a>
+            <a *ngIf="item.showRezervisaneSobeDTO[0].nazivStatusRezervacije == 'Rezervisano' || item.showRezervisaneSobeDTO[0].nazivStatusRezervacije == 'Zauzeto'" [routerLink]="'/reservation'" class="active" (click)="otkaz(item.id)">
+              <img class="mr-2" src="/assets/img/x-mark-3-32.png">
+            </a>
+            <a class="active" [routerLink]="['/reservation/rooms', item.id]">
+              <img class="mr-2" src="/assets/img/invisible-32.png">
+            </a>
+        </td>
+      </tr>
+    </tbody>
+  </table>

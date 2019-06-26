@@ -22,8 +22,10 @@ import ftn.uns.ac.rs.model.RezervisaneSobe;
 import ftn.uns.ac.rs.model.RezervisaneSobeDTO;
 import ftn.uns.ac.rs.model.ShowRezervacijaDTO;
 import ftn.uns.ac.rs.model.ShowRezervisaneSobeDTO;
+import ftn.uns.ac.rs.model.UpdateRezervisaneSobeDTO;
 import ftn.uns.ac.rs.repository.KorisnikRepository;
 import ftn.uns.ac.rs.repository.RezervacijaRepository;
+import ftn.uns.ac.rs.repository.RezervisaneSobeRepository;
 import ftn.uns.ac.rs.repository.SmestajRepository;
 import ftn.uns.ac.rs.repository.SobaRepository;
 
@@ -39,6 +41,10 @@ public class RezervacijaService {
 	@Autowired
 	private RezervacijaRepository rezervacijaRepository;
 	
+	
+
+	@Autowired
+	private RezervisaneSobeRepository rezervisaneSobeRepository;
 	@Autowired
 	private RezervisaneSobeService rezervisaneSobeService;
 	
@@ -76,6 +82,21 @@ public class RezervacijaService {
 		return rezervacijaRepository.findAll().stream().filter(x -> smestajId.equals(x.getSmestaj().getId())).map(this::convertToDTO).collect(Collectors.toList());
 	}
 	
+	public boolean update(UpdateRezervisaneSobeDTO updateRezervisaneSobeDTO) {
+		try {
+			List<RezervisaneSobe> rezervisaneSobe = rezervisaneSobeRepository.findAll().stream().filter(x -> updateRezervisaneSobeDTO.getIdRezervacija().equals(x.getRezervacija().getId())).collect(Collectors.toList());
+		
+			for (RezervisaneSobe rs : rezervisaneSobe) {
+				rs.setStatusRezervacije(updateRezervisaneSobeDTO.getStatusRezervacije());
+				rezervisaneSobeRepository.save(rs);
+			}
+			return true;
+		}catch (Exception e) {
+		
+		}
+		return false;
+	}
+	
 	public boolean add(RezervacijaDTO rezervacijaDTO) {
 		ThreadContext.put("user", "A");
 		rezervacijaDTO.setId(null);
@@ -91,13 +112,14 @@ public class RezervacijaService {
 
 				RezervisaneSobe rezervisaneSobe = new RezervisaneSobe();
 				rezervisaneSobe.setId(null);
-				rezervisaneSobe.setCena(rezervisaneSobeDTO.getCena());
+				rezervisaneSobe.setCena(0);
 				rezervisaneSobe.setRezervacija(rezervacijaRepository.findById(rezervacija.getId()).orElse(null));
 				rezervisaneSobe.setSoba(sobaRepository.findById(rezervisaneSobeDTO.getIdSoba()).orElse(null));
 				rezervisaneSobe.setStatusRezervacije(rezervisaneSobeDTO.getStatusRezervacije());
 				rezervisaneSobeService.add(rezervisaneSobe);
-				return true;
+				
 			}
+			return true;
 		} catch (Exception e){
 			logger.error(USER, "Neuspesno dodavanje rezervacije: " + e.getMessage());
 		}
@@ -113,7 +135,12 @@ public class RezervacijaService {
 		rezervacijaDTO.setBrojSoba(rezervacija.getBrojSoba());
 		rezervacijaDTO.setCena(rezervacija.getCena());
 		rezervacijaDTO.setNazivSmestaj(rezervacija.getSmestaj().getNaziv());
-		rezervacijaDTO.setImePrezimeKorisnik(rezervacija.getKorisnik().getKorisnickoIme());
+		if (rezervacija.getKorisnik() == null) {
+			rezervacijaDTO.setImePrezimeKorisnik(null);
+		} else {
+			rezervacijaDTO.setImePrezimeKorisnik(rezervacija.getKorisnik().getKorisnickoIme());
+		}
+		
 		List<ShowRezervisaneSobeDTO> rsDTO = new ArrayList<ShowRezervisaneSobeDTO>();
 		for (RezervisaneSobe rezervisaneSobe : rezervacija.getRezervisaneSobe()) {
 			rsDTO.add(rezervisaneSobeService.convertToDTO(rezervisaneSobe));
@@ -131,7 +158,7 @@ public class RezervacijaService {
 		rezervacija.setDatumDo(rezervacijaDTO.getDatumDo());
 		rezervacija.setBrojSoba(rezervacijaDTO.getRezervisaneSobeDTO().size());
 		rezervacija.setCena(rezervacijaDTO.getCena());
-		rezervacija.setKorisnik(korisnikRepository.findById(rezervacijaDTO.getIdKorisnika()).orElse(null));
+		rezervacija.setKorisnik(null);
 		rezervacija.setSmestaj(smestajRepository.findById(rezervacijaDTO.getIdSmestaj()).orElse(null));
 		return rezervacija;
 	}

@@ -98,6 +98,33 @@ export class AccommodationService {
   getAlUusluga(){
     return this.http.get(SERVER_URL + "/usluga");
   }
-  
 
+  getAllComments(){
+    return this.http.get(SERVER_URL + "/komentar");
+  }
+  
+  addReservation(reservation : any){
+    return this.http.post(SERVER_URL + '/rezervacija',reservation,{responseType: 'text'});
+  }
+
+  getAllReservation(){
+    return this.http.get(SERVER_URL + "/rezervacija");
+  }
+  
+  getAllMessages(id:any){
+    return this.http.get(SERVER_URL + "/poruka/rezervacija/" + id);
+  }
+
+  putPotvrdjeno(izmena : any){
+    return this.http.put(SERVER_URL + '/rezervacija',izmena,{responseType: 'text'});
+  }
+
+  getAllReservationRooms(id:any){
+    return this.http.get(SERVER_URL + "/rezervacija/" + id);
+  }
+
+  login(user:any){
+    return this.http.post(SERVER_URL + '/agent',user,{responseType: 'text'});
+  }
+  
 }

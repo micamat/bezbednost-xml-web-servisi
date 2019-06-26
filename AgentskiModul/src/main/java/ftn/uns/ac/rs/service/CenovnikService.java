@@ -74,7 +74,7 @@ public class CenovnikService {
 		ThreadContext.put("user", "A");
 		try {
 			Cenovnik cenovnik = cenovnikRepository.save(convertToEntity(cenovnikDTO));
-
+			//createSync(cenovnikDTO);
 			logger.info(USER,"Dodat cenovnik" + cenovnik.getId());
 			return true;
 

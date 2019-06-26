@@ -186,6 +186,14 @@
             </xs:sequence>
         </xs:complexType>
     </xs:element>
+     <xs:element name="UpdateRezervisaneSobeDTO">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="idRezervacija" type="xs:long"/>
+                <xs:element name="statusRezervacije" type="xs:string"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
     <xs:element name="GetAllRezervisaneSobeRequest">
         <xs:complexType>
         </xs:complexType>
@@ -197,10 +205,11 @@
             </xs:sequence>
         </xs:complexType>
     </xs:element>
+    
     <xs:element name="UpdateRezervisaneSobeRequest">
         <xs:complexType>
             <xs:sequence>
-                <xs:element ref="RezervisaneSobeDTO"/>
+                <xs:element ref="UpdateRezervisaneSobeDTO"/>
             </xs:sequence>
         </xs:complexType>
     </xs:element>
@@ -467,12 +476,7 @@
         </xs:complexType>
     </xs:element>
     <xs:element name="CreateSobneUslugeResponse">
-        <xs:complexType>
-            <xs:sequence>
-                <xs:element name="id" type="xs:int"/>
-                <xs:element default="false" name="Successful" type="xs:boolean"/>
-            </xs:sequence>
-        </xs:complexType>
+        
     </xs:element>
     <xs:element name="GetAllSobneUslugeRequest">
         <xs:complexType>
@@ -569,10 +573,26 @@
     <xs:element name="UpdateAgentResponse">
         <xs:complexType>
             <xs:sequence>
-                <xs:element name="token" type="xs:string"/>
+                <xs:element name="id" type="xs:int"/>
+                <xs:element default="false" name="Successful" type="xs:boolean"/>
             </xs:sequence>
         </xs:complexType>
     </xs:element>
+     <xs:element name="ValidateTokenRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="token" type="string"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="ValidateTokenResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element default="false" name="Successful" type="xs:boolean"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    
     <!-- ========================================KOMENTAR========================================= -->
     <xs:element name="Komentar">
         <xs:complexType>

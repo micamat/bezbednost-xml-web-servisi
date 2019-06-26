@@ -1,0 +1,29 @@
+<table class="table ml-2 mt-2">
+    <thead style="background-color: #0074E1;">
+      <tr>
+        <th scope="col" colspan="7" style="text-align: center; color: white">
+          Comments
+        </th>
+      </tr>
+      <tr style="color: white">
+        <th scope="col">#</th>
+        <th scope="col">Title</th>
+        <th scope="col">Text</th>
+        <th scope="col">Status</th>
+        <th scope="col">Creation date</th>
+        <th scope="col">User</th>
+        <th scope="col">Accommodation</th>
+      </tr>
+    </thead>
+    <tbody style="color: #0074E1">
+      <tr *ngFor="let item of comments; let i = index">
+        <th scope="row">{{i+1}}</th>
+        <td>{{item.naslov}}</td>
+        <td>{{item.tekst}}</td>
+        <td>{{item.statusKomentara}}</td>
+        <td>{{item.datumKreiranja}}</td>
+        <td>{{item.korisnickoImeKorisnik}}</td>
+        <td>{{item.nazivSmestaj}}</td>
+      </tr>
+    </tbody>
+  </table>

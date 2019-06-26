@@ -43,8 +43,8 @@ public class PorukaService {
 		return createPorukaResponse.getId();
 	};
 	
-	public List<ShowPorukaDTO> getAll(){ 
-		return porukaRepository.findAll().stream().map(this::convertToDTO).collect(Collectors.toList());
+	public List<ShowPorukaDTO> getAllByRezervacija(Long rezervacijaId) { 
+		return porukaRepository.findAll().stream().filter(x -> x.getRezervacija().getId().equals(rezervacijaId)).map(this::convertToDTO).collect(Collectors.toList());
 	};
 	
 	public ShowPorukaDTO getById(Long id) {
@@ -59,6 +59,7 @@ public class PorukaService {
 		porukaDTO.setId(null);
 		try {
 			porukaRepository.save(convertToEntity(porukaDTO));
+			//createSync(porukaDTO);
 			logger.info(USER, "Poruka uspesno poslata");
 			return true;
 		} catch (Exception e) {

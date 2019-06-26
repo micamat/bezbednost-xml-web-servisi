@@ -7,7 +7,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import ftn.uns.ac.rs.service.AgentService;
 import ftn.uns.ac.rs.service.KategorijaSmestajaService;
+import ftn.uns.ac.rs.service.KomentarService;
+import ftn.uns.ac.rs.service.KorisnikService;
 import ftn.uns.ac.rs.service.TipSmestajaService;
 import ftn.uns.ac.rs.service.TipSobeService;
 import ftn.uns.ac.rs.service.UslugaService;
@@ -27,6 +30,15 @@ public class SyncAllController {
 	@Autowired
 	UslugaService uslugaService = new UslugaService();
 	
+	@Autowired
+	AgentService agentService = new AgentService();
+	
+	@Autowired
+	KomentarService komentarService = new KomentarService();
+	
+	@Autowired
+	KorisnikService korisnikService = new KorisnikService();
+	
 	@GetMapping
 	public ResponseEntity<String> getAllSync(){
 		try {
@@ -34,6 +46,9 @@ public class SyncAllController {
 			tipSmestajaService.getAllSync();
 			tipSobeService.getAllSync();
 			uslugaService.getAllSync();
+			agentService.getAllSync();
+			komentarService.getAllSync();
+			korisnikService.getAllSync();
 			return new ResponseEntity<String>("Podaci uspesno sinhronizovani!", HttpStatus.OK);
 			
 		}catch(Exception e){

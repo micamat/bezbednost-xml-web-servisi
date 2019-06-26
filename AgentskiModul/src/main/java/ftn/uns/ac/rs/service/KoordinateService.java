@@ -47,7 +47,6 @@ public class KoordinateService {
 	
 	
 	public boolean add(Koordinate koordinate) {
-		System.out.println(koordinate.getId());
 		koordinate = koordinateRepository.save(koordinate);
 		if(koordinate != null) {
 			//createSync(koordinate);

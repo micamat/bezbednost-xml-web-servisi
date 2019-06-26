@@ -1,0 +1,98 @@
+<table class="table ml-2 mt-2">
+    <thead style="background-color: #0074E1;">
+      <tr>
+        <th scope="col" colspan="7" style="text-align: center; color: white">
+          <div class="row">
+            <div class="col">
+                <span class="d-inline">Rooms reservation</span>
+            </div>
+          </div>
+        </th>
+      </tr>
+      <tr>
+          <th scope="col" colspan="7" style="text-align: center; color: white">
+              <form class="mt-4" [formGroup]="reservationForm" (ngSubmit)="onSubmit($event)" novalidate>
+                           
+            <div class="row">
+                <div class="col-5">
+                    <div class="form-group">
+                        <div class="row">
+                          <div class="col-4">
+                            <label>Start date:</label>
+                          </div>
+                          <div class="col-8">
+                              <div class="input-group mb-2">
+                                  <div class="input-group-prepend">
+                                    <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                                  </div>
+                                  <input class="form-control " formControlName="datumDo" [ngClass]="{ 'is-invalid': submitted && f.datumDo.errors }"
+                                  >
+                                  <!-- OVDE FALI  OWL DATE PICKER -->
+                              </div>
+                          </div>
+                        </div>
+                        <div *ngIf="submitted && f.datumDo.errors" class="invalid-feedback">
+                            <div *ngIf="f.datumDo.errors.required">Username is required</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-5">
+                    <div class="form-group">
+                        <div class="row">
+                          <div class="col-4">
+                            <label>End date:</label>
+                          </div>
+                          <div class="col-8">
+                              <div class="input-group mb-2">
+                                  <div class="input-group-prepend">
+                                    <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                                  </div>
+                                  <input class="form-control " formControlName="datumOd" [ngClass]="{ 'is-invalid': submitted && f.datumOd.errors }"
+                                  >
+                                  <!-- OVDE FALI  OWL DATE PICKER -->
+                              </div>
+                          </div>
+                        </div>
+                        <div *ngIf="submitted && f.datumOd.errors" class="invalid-feedback">
+                            <div *ngIf="f.datumOd.errors.required">Username is required</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-2">
+                    <button class="btn btn-lg btn-outline-primary btn-block" style="background: 0074E1; color: white; border: 1px solid #ffffff;" type="submit"  >
+                        Book
+                    </button>
+                </div>
+            </div>
+            </form>
+          </th>
+        </tr>
+      <tr style="color: white">
+        <th scope="col">#</th>
+        <th scope="col">Name</th>
+        <th scope="col">Description</th>
+        <th scope="col">Service</th>
+        <th scope="col">Type</th>
+        <th scope="col">Accommodation</th>
+        <th scope="col"><input type="checkbox" class="form-check-input" (change)="selectAll($event)" id="exampleCheck1">
+          <label class="form-check-label" for="exampleCheck1">Select all</label></th>
+      </tr>
+    </thead>
+    <tbody style="color: #0074E1">
+      <tr *ngFor="let item of rooms; let i = index">
+        <td scope="row">{{i+1}}</td>
+        <td>{{item.naziv}}</td>
+        <td>{{item.opis}}</td>
+        <td>
+          <div *ngFor="let item of item.usluga">
+              {{item.naziv}},
+          </div>
+        </td>
+        <td>{{item.nazivTipSobe}}</td>
+        <td>{{item.nazivSmestaj}}</td>
+        <td>
+                <input type="checkbox" class="form-check-input" [checked]="multiSelect" (change)="onChange($event,item.id)">
+        </td>
+      </tr>
+    </tbody>
+  </table>

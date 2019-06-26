@@ -9,17 +9,19 @@ import { LoginComponent } from './login/login.component';
 import { FormGroup, ReactiveFormsModule , FormsModule} from '@angular/forms';
 import { AccommodationComponent } from './accommodation/accommodation.component';
 import { RoomComponent } from './room/room.component';
-import { OcupationComponent } from './ocupation/ocupation.component';
 import { PricelistComponent } from './pricelist/pricelist.component';
 import { AccommodationAddComponent } from './accommodation-add/accommodation-add.component';
 import { HttpClientModule } from '@angular/common/http';
 import { AccommodationChangeComponent } from './accommodation-change/accommodation-change.component';
 import { RoomAddComponent } from './room-add/room-add.component';
 import { RoomChangeComponent } from './room-change/room-change.component';
-import { OcupationAddComponent } from './ocupation-add/ocupation-add.component';
-import { OcupationChangeComponent } from './ocupation-change/ocupation-change.component';
 import { PricelistAddComponent } from './pricelist-add/pricelist-add.component';
 import { PricelistChangeComponent } from './pricelist-change/pricelist-change.component';
+import { CommentComponent } from './comment/comment.component';
+import { ReservationComponent } from './reservation/reservation.component';
+import { ReservationShowComponent } from './reservation-show/reservation-show.component';
+import { MessageComponent } from './message/message.component';
+import { ReservationRoomsComponent } from './reservation-rooms/reservation-rooms.component';
 
 @NgModule({
   declarations: [
@@ -30,16 +32,18 @@ import { PricelistChangeComponent } from './pricelist-change/pricelist-change.co
     HomeComponent,
     AccommodationComponent,
     RoomComponent,
-    OcupationComponent,
     PricelistComponent,
     AccommodationAddComponent,
     AccommodationChangeComponent,
     RoomAddComponent,
     RoomChangeComponent,
-    OcupationAddComponent,
-    OcupationChangeComponent,
     PricelistAddComponent,
     PricelistChangeComponent,
+    CommentComponent,
+    ReservationComponent,
+    ReservationShowComponent,
+    MessageComponent,
+    ReservationRoomsComponent,
   ],
   imports: [
     BrowserModule,
