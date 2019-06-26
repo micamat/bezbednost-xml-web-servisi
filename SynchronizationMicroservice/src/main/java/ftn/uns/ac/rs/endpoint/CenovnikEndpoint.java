@@ -9,7 +9,20 @@ public class CenovnikEndpoint {
 	@Autowired
 	CenovnikService cenovnikService;
 	
+<<<<<<< HEAD
 	@ResponsePayload
+=======
+	//TODO: OVDE U GetAllSmestajResponse dodati setSuccessful za povratnu infoooo...
+	@ResponsePayload
+	@PayloadRoot(namespace = NAMESPACE, localPart = "GetAllCenovnikRequest")
+	public GetAllCenovnikResponse getAll(@RequestPayload final GetAllCenovnikRequest input) {
+		GetAllCenovnikResponse response = new GetAllCenovnikResponse();
+		response.setCenovnikDTO(cenovnikService.getAll());
+		return response;
+	}
+	
+	/*@ResponsePayload
+>>>>>>> 147187d6c5a3737c2907e5a56e61306e217af6eb
 	@PayloadRoot(namespace = NAMESPACE, localPart = "CreateCenovnikRequest")
 	public CreateCenovnikResponse create(@RequestPayload final CreateCenovnikRequest input) {
 		CreateCenovnikResponse response = new CreateCenovnikResponse();

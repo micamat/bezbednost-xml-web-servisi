@@ -35,6 +35,6 @@ public class SoapWebServiceConfig extends WsConfigurerAdapter {
 	
 	@Bean
 	public XsdSchema megatravelSchema() {
-		return new SimpleXsdSchema(new ClassPathResource("xsd/MegaTravel.xsd"));
+		return new SimpleXsdSchema(new ClassPathResource("xsd/Agentski.xsd"));
 	}
 }

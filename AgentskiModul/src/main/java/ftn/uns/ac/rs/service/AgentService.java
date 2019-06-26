@@ -3,6 +3,13 @@ package ftn.uns.ac.rs.service;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import javax.net.ssl.KeyManagerFactory;
+import javax.net.ssl.TrustManagerFactory;
+
+import org.apache.cxf.configuration.jsse.TLSClientParameters;
+import org.apache.cxf.endpoint.Client;
+import org.apache.cxf.frontend.ClientProxy;
+import org.apache.cxf.transport.http.HTTPConduit;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.Marker;
@@ -10,6 +17,7 @@ import org.apache.logging.log4j.MarkerManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import ftn.uns.ac.rs.config.SoapClientConfig;
 import ftn.uns.ac.rs.model.Agent;
 import ftn.uns.ac.rs.model.AgentDTO;
 import ftn.uns.ac.rs.model.AgentLoginDTO;
@@ -92,19 +100,24 @@ public class AgentService {
 	public String login(AgentLoginDTO agentLoginDTO) {
 
 		ProducerPortService producerPortService = new ProducerPortService();
+		System.out.println("1");
 		ProducerPort producerPort = producerPortService.getProducerPortSoap11();
-		
+		System.out.println("2");
+		// autentifikacija pomocu sertifikata
+		authenticateClient(producerPort);
 		AgentLoginRequest agentLoginRequest = new AgentLoginRequest();
 		AgentLoginResponse agentLoginResponse = new AgentLoginResponse();
-
+		System.out.println("3");
 		agentLoginRequest.setusername(agentLoginDTO.getUsername());
 		agentLoginRequest.setpassword(agentLoginDTO.getPassword());
 		agentLoginResponse = producerPort.agentLogin(agentLoginRequest);
-
+		System.out.println("4");
 		try {
-			Agent agent = agentRepository.findByKorisnickoIme(agentLoginDTO.getUsername());
-			agent.setToken(agentLoginResponse.getToken());
-			agentRepository.save(agent);
+			//Agent agent = agentRepository.findByKorisnickoIme(agentLoginDTO.getUsername());
+			System.out.println("5");
+			//agent.setToken(agentLoginResponse.getToken());
+			System.out.println("6");
+			//agentRepository.save(agent);
 			logger.info(USER, "Uspesno logovanje");
 			return agentLoginResponse.getToken();
 		} catch (Exception e) {
@@ -112,6 +125,22 @@ public class AgentService {
 			logger.error(USER, "Greska prilikom logovanja: " + e.getMessage());
 		}
 		return null;
+	}
+	
+	private void authenticateClient(ProducerPort tempPort) {
+		Client client = ClientProxy.getClient(tempPort);
+		HTTPConduit httpConduit = (HTTPConduit) client.getConduit();
+		ftn.uns.ac.rs.config.SoapClientConfig soapClientConfig = new SoapClientConfig();
+		KeyManagerFactory keyManagerFactory = soapClientConfig.getKeyManagerFactory();
+		TrustManagerFactory trustManagerFactory = soapClientConfig.getTrustManagerFactory();
+		TLSClientParameters tslClientParameters = httpConduit.getTlsClientParameters();
+		if (tslClientParameters == null) {
+			tslClientParameters = new TLSClientParameters();
+		}
+		tslClientParameters.setTrustManagers(trustManagerFactory.getTrustManagers());
+		tslClientParameters.setKeyManagers(keyManagerFactory.getKeyManagers());
+		tslClientParameters.setDisableCNCheck(true);
+		httpConduit.setTlsClientParameters(tslClientParameters);
 	}
 
 	private ShowAgentDTO convertToDTO(Agent agent) {

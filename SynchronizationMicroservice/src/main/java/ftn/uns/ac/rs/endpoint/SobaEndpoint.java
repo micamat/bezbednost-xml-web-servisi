@@ -18,7 +18,7 @@ public class SobaEndpoint {
 		return response;
 	}
 	
-	@ResponsePayload
+	/*@ResponsePayload
 	@PayloadRoot(namespace = NAMESPACE, localPart = "CreateSobaRequest")
 	public CreateSobaResponse create(@RequestPayload final CreateSobaRequest input) {
 		CreateSobaResponse response = new CreateSobaResponse();

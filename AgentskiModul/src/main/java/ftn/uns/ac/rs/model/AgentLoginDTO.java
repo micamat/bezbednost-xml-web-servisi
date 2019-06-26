@@ -48,8 +48,15 @@ public class AgentLoginDTO {
     @XmlElement(required = true)
     protected String password;
 
+    AgentLoginDTO(){}
 
-    /**
+    public AgentLoginDTO(String username, String password) {
+		super();
+		this.username = username;
+		this.password = password;
+	}
+
+	/**
      * Gets the value of the lozinka property.
      * 
      * @return

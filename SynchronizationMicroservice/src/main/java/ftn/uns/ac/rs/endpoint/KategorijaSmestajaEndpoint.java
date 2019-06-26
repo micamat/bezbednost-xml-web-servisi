@@ -9,14 +9,7 @@ final String NAMESPACE = "http://rs.ac.uns.ftn/Model";
 	/*@Autowired
 	KategorijaSmestajaService kategorijaSmestajaService;
 	
-	//TODO: OVDE U GetAllSmestajResponse dodati setSuccessful za povratnu infoooo...
-	@ResponsePayload
-	@PayloadRoot(namespace = NAMESPACE, localPart = "GetAllKategorijaSmestajaRequest")
-	public GetAllKategorijaSmestajaResponse getAll(@RequestPayload final GetAllKategorijaSmestajaRequest input) {
-		GetAllKategorijaSmestajaResponse response = new GetAllKategorijaSmestajaResponse();
-		response.setKategorijaSmestajaDTO(kategorijaSmestajaService.getAll());
-		return response;
-	}
+
 	
 	@ResponsePayload
 	@PayloadRoot(namespace = NAMESPACE, localPart = "CreateKategorijaSmestajaRequest")
