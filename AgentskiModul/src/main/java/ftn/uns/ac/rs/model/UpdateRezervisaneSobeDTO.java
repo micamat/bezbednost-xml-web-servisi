@@ -19,7 +19,7 @@ import javax.xml.bind.annotation.XmlType;
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
  *       &lt;sequence&gt;
  *         &lt;element name="idRezervacija" type="{http://www.w3.org/2001/XMLSchema}long"/&gt;
- *         &lt;element ref="{http://www.w3.org/2001/XMLSchema}RezervisaneSobeDTO"/&gt;
+ *         &lt;element name="statusRezervacije" type="{http://www.w3.org/2001/XMLSchema}String"/&gt;
  *       &lt;/sequence&gt;
  *     &lt;/restriction&gt;
  *   &lt;/complexContent&gt;
@@ -31,14 +31,14 @@ import javax.xml.bind.annotation.XmlType;
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
     "idRezervacija",
-    "rezervisaneSobeDTO"
+    "statusRezervacije"
 })
 @XmlRootElement(name = "RezervisaneSobeDTO")
 public class UpdateRezervisaneSobeDTO {
 
     protected Long idRezervacija;
     @XmlElement(required = true)
-    protected List<RezervisaneSobeDTO> rezervisaneSobeDTO;
+    protected String statusRezervacije;
 
     /**
      * Gets the value of the id property.
@@ -64,8 +64,8 @@ public class UpdateRezervisaneSobeDTO {
      *     {@link String }
      *     
      */
-    public List<RezervisaneSobeDTO> getRezervisaneSobeDTO() {
-        return rezervisaneSobeDTO;
+    public String getStatusRezervacije() {
+        return statusRezervacije;
     }
 
     /**
@@ -76,7 +76,7 @@ public class UpdateRezervisaneSobeDTO {
      *     {@link String }
      *     
      */
-    public void setRezervisaneSobeDTO(List<RezervisaneSobeDTO> value) {
-        this.rezervisaneSobeDTO = value;
+    public void setStatusRezervacije(String value) {
+        this.statusRezervacije = value;
     }
 }
