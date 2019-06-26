@@ -89,7 +89,7 @@ public class AgentService {
 	}
 
 
-	public boolean login(AgentLoginDTO agentLoginDTO) {
+	public String login(AgentLoginDTO agentLoginDTO) {
 
 		ProducerPortService producerPortService = new ProducerPortService();
 		ProducerPort producerPort = producerPortService.getProducerPortSoap11();
@@ -106,12 +106,12 @@ public class AgentService {
 			agent.setToken(agentLoginResponse.getToken());
 			agentRepository.save(agent);
 			logger.info(USER, "Uspesno logovanje");
-			return true;
+			return agentLoginResponse.getToken();
 		} catch (Exception e) {
 
 			logger.error(USER, "Greska prilikom logovanja: " + e.getMessage());
 		}
-		return false;
+		return null;
 	}
 
 	private ShowAgentDTO convertToDTO(Agent agent) {

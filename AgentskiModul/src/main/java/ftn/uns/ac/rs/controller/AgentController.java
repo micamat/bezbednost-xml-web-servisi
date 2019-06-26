@@ -52,10 +52,11 @@ public class AgentController {
 	
 	@PostMapping
 	public ResponseEntity<String> login(@RequestBody AgentLoginDTO agentDTO){
-		if(agentService.login(agentDTO)) {
-			return new ResponseEntity<String>("Agent je uspesno logovan!", HttpStatus.CREATED);
+		String string = agentService.login(agentDTO);
+		if(string != null) {
+			return new ResponseEntity<String>(string, HttpStatus.OK);
 		}else {
-			return new ResponseEntity<String>("Greska pri logovanju agenta!", HttpStatus.CONFLICT);
+			return new ResponseEntity<String>(string, HttpStatus.CONFLICT);
 		}
 	}
 }

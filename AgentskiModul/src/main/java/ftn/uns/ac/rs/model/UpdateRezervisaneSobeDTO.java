@@ -19,7 +19,7 @@ import javax.xml.bind.annotation.XmlType;
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
  *       &lt;sequence&gt;
  *         &lt;element name="idRezervacija" type="{http://www.w3.org/2001/XMLSchema}long"/&gt;
- *         &lt;element name="statusRezervacije" type="{http://www.w3.org/2001/XMLSchema}String"/&gt;
+ *         &lt;element name="statusRezervacije" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
  *       &lt;/sequence&gt;
  *     &lt;/restriction&gt;
  *   &lt;/complexContent&gt;

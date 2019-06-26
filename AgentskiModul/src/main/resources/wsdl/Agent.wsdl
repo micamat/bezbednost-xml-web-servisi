@@ -585,6 +585,22 @@
             </xs:sequence>
         </xs:complexType>
     </xs:element>
+    
+     <xs:element name="ValidateTokenRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="token" type="string"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="ValidateTokenResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element default="false" name="Successful" type="xs:boolean"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    
     <!-- ========================================KOMENTAR========================================= -->
     <xs:element name="Komentar">
         <xs:complexType>
