@@ -22,6 +22,7 @@ public class PorukaController {
 	@Autowired
 	private PorukaService porukaService;
 
+
 	@GetMapping(value = "/rezervacija/{idRezervacija}")
 	public ResponseEntity<List<ShowPorukaDTO>> getAllByRezervacija(@PathVariable Long idRezervacija){
 		if(porukaService.getAllByRezervacija(idRezervacija) == null) {
@@ -29,6 +30,7 @@ public class PorukaController {
 		}
 		return new ResponseEntity<List<ShowPorukaDTO>>(porukaService.getAllByRezervacija(idRezervacija), HttpStatus.OK);
 	}
+	
 	@GetMapping(value = "/{id}")
 	public ResponseEntity<ShowPorukaDTO> getById(@PathVariable Long id){
 		if(porukaService.getById(id) == null) {
@@ -46,4 +48,5 @@ public class PorukaController {
 		}
 			
 	}
+	
 }

@@ -86,7 +86,7 @@ export class ReservationComponent implements OnInit {
   onSubmit(event:any) {
     this.submitted = true;
     this.reservation = this.reservationForm.getRawValue();
-    this.reservation.idKorisnika =  1;
+    //this.reservation.idKorisnika =  1;
     this.reservation.idSmestaj = this.accommodationId;
     this.reservation.rezervisaneSobeDTO = this.roomL;
     
