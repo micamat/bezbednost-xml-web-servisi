@@ -1,11 +1,5 @@
 package ftn.uns.ac.rs.service;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.UnsupportedEncodingException;
-import java.util.Base64;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -81,6 +75,7 @@ public class SmestajService {
 		ThreadContext.put("userId", "3ss");
 		try {
 			smestaj = smestajRepository.save(convertToEntity(smestajDTO));
+			createSync(smestajDTO);
 			logger.info(USER, "Dodat smestaj" + smestaj.getId());
 			return true;
 
