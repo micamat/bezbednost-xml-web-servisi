@@ -81,7 +81,7 @@ public class Smestaj {
     @XmlElement(required = true)
     protected String opis;
     @XmlElement(required = true)
-    @Column(columnDefinition = "varchar(max)")
+    @Column(columnDefinition = "longblob")
     protected String slika;
     protected int kapacitet;
     @OneToOne(optional = false)

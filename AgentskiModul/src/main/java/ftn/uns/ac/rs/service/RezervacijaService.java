@@ -96,8 +96,9 @@ public class RezervacijaService {
 				rezervisaneSobe.setSoba(sobaRepository.findById(rezervisaneSobeDTO.getIdSoba()).orElse(null));
 				rezervisaneSobe.setStatusRezervacije(rezervisaneSobeDTO.getStatusRezervacije());
 				rezervisaneSobeService.add(rezervisaneSobe);
-				return true;
+				
 			}
+			return true;
 		} catch (Exception e){
 			logger.error(USER, "Neuspesno dodavanje rezervacije: " + e.getMessage());
 		}

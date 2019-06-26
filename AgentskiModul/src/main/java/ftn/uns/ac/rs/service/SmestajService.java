@@ -127,7 +127,6 @@ public class SmestajService {
 		smestajDTO.setGrad(smestaj.getLokacija().getGrad());
 		smestajDTO.setUlica(smestaj.getLokacija().getUlica());
 		smestajDTO.setBroj(smestaj.getLokacija().getBroj());
-
 		smestajDTO.setSlika(smestaj.getSlika());
 		
 		return smestajDTO;

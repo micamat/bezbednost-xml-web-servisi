@@ -186,6 +186,14 @@
             </xs:sequence>
         </xs:complexType>
     </xs:element>
+     <xs:element name="UpdateRezervisaneSobeDTO">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="idRezervacija" type="xs:long"/>
+                <xs:element ref="RezervisaneSobeDTO"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
     <xs:element name="GetAllRezervisaneSobeRequest">
         <xs:complexType>
         </xs:complexType>
@@ -197,10 +205,11 @@
             </xs:sequence>
         </xs:complexType>
     </xs:element>
+    
     <xs:element name="UpdateRezervisaneSobeRequest">
         <xs:complexType>
             <xs:sequence>
-                <xs:element ref="RezervisaneSobeDTO"/>
+                <xs:element ref="UpdateRezervisaneSobeDTO"/>
             </xs:sequence>
         </xs:complexType>
     </xs:element>
