@@ -14,7 +14,7 @@ import ftn.uns.ac.rs.repository.TipSobeRepository;
 
 @Service
 public class CenovnikService {
-	
+	/*
 	@Autowired
 	private SmestajRepository smestajRepo;
 	
@@ -65,5 +65,5 @@ public class CenovnikService {
 		c.setSmestaj(smestajRepo.findById(cenovnik.getIdSmestaj()).get());
 		c.setTipSobe(tipSobaRepo.findById(cenovnik.getIdTipSobe()).get());
 		return c;
-	}
+	}*/
 }

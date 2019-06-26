@@ -21,7 +21,9 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -29,6 +31,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import ftn.uns.ac.rs.AuthMicroservice.security.config.JwtConfig;
+import ftn.uns.ac.rs.AuthMicroservice.security.model.Korisnik;
+import ftn.uns.ac.rs.AuthMicroservice.security.model.KorisnikDTO;
 import ftn.uns.ac.rs.AuthMicroservice.security.model.UserCredentials;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -41,6 +45,9 @@ public class JwtUsernameAndPasswordAuthenticationFilter extends UsernamePassword
 	AuthenticationManager authManager;
 	@Autowired
 	JwtConfig jwtConfig;
+	
+	@Autowired
+	KorisnikService korisnikService;
 	
 	/**
 	 * Konstruktor
@@ -58,7 +65,6 @@ public class JwtUsernameAndPasswordAuthenticationFilter extends UsernamePassword
 	@Override
 	public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response)
 			throws AuthenticationException {
-		System.out.println("NA REDU JE PROVERAAAAAA");
 		try {
 			
 			// Uzimanje kredencijala iz zahteva
@@ -98,6 +104,21 @@ public class JwtUsernameAndPasswordAuthenticationFilter extends UsernamePassword
 	@PostMapping("/prijava")
 	public ResponseEntity<String> prijava(@RequestParam String username, @RequestParam String password){
 		return new ResponseEntity<String>(signin(username, password), HttpStatus.OK);
+	}
+	
+	@PostMapping("/register")
+	public ResponseEntity<Korisnik> save(@RequestBody KorisnikDTO korisnik){
+		return new ResponseEntity<Korisnik>(korisnikService.save(korisnik), HttpStatus.OK);
+	}
+	
+	@GetMapping("/proba")
+	public String proba() {
+		return "Success";
+	}
+	
+	@GetMapping("/validate")
+	public Boolean validate() {
+		return true;
 	}
 	
 	private String signin(String username, String password) {
