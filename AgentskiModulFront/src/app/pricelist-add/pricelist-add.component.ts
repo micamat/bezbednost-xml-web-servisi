@@ -28,7 +28,8 @@ export class PricelistAddComponent implements OnInit {
         idTipSobe:['',Validators.compose([Validators.required, Validators.pattern('[a-z.A-Z 0-9!]+')])],  
         datumDo:['',Validators.compose([Validators.required, Validators.pattern('[a-z.-A-Z 0-9!]+')])],
         datumOd:['',Validators.compose([Validators.required, Validators.pattern('[a-z.-A-Z 0-9!]+')])],
-        cena:['',Validators.compose([Validators.required, Validators.pattern('[.0-9!]+')])]
+        cena:['',Validators.compose([Validators.required, Validators.pattern('[.0-9!]+')])],
+        brojDanaZaOtkazivanje:['',Validators.compose([Validators.required, Validators.pattern('[a-z.-A-Z 0-9!]+')])]
       });
       
       this._accommodationService.getAllAccommodation().subscribe(
@@ -48,8 +49,6 @@ export class PricelistAddComponent implements OnInit {
     this.submitted = true;
     this.temp = this.pricelistAdd.getRawValue();
     this.price = this.temp;
-    this.price.idSmestaj = this.temp.idSmestaj.split(".",1)[0];
-    this.price.idTipSobe = this.temp.idTipSobe.split(".",1)[0];
     
     this._accommodationService.addPrice(this.price).subscribe(
       data => {

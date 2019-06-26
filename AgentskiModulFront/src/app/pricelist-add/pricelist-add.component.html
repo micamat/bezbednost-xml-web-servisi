@@ -12,7 +12,7 @@
                       <div class="col-8">
                          <select class="form-control" formControlName="idSmestaj" [ngClass]="{ 'is-invalid': submitted && f.idSmestaj.errors }" >
                               <option></option>
-                              <option *ngFor="let item of accommodationsL; let i = index">{{item.id}}.{{item.naziv}}</option>
+                              <option *ngFor="let item of accommodationsL; let i = index" [ngValue] = "item.id">{{item.naziv}}</option>
                           </select>
                           <div *ngIf="submitted && f.idSmestaj.errors">
                               <div style="color:red;">Category is incorect!</div>
@@ -28,7 +28,7 @@
                       <div class="col-8">
                          <select class="form-control" formControlName="idTipSobe" [ngClass]="{ 'is-invalid': submitted && f.idTipSobe.errors }" >
                               <option></option>
-                              <option *ngFor="let item of sobaTypeL; let i = index">{{item.id}}.{{item.naziv}}</option>
+                              <option *ngFor="let item of sobaTypeL; let i = index" [ngValue] = "item.id">{{item.naziv}}</option>
                           </select>
                           <div *ngIf="submitted && f.idTipSobe.errors">
                               <div style="color:red;">Type is incorect!</div>
@@ -91,6 +91,20 @@
                 </div>
             </div>
         </div>
+        <div class="form-group">
+                <div class="row">
+                    <div class="col-4">
+                        <label>Withdrawal</label>
+                    </div>
+                    <div class="col-8">
+                        <input type="text" formControlName="brojDanaZaOtkazivanje" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.brojDanaZaOtkazivanje.errors }" />
+    
+                        <div *ngIf="submitted && f.brojDanaZaOtkazivanje.errors">
+                            <div style="color:red;">name is incorect!</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
               <div class="form-group">
                 <div class="row">
                     <div class="col-6">
