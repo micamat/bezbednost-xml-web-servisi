@@ -29,6 +29,7 @@ public class PorukaController {
 		}
 		return new ResponseEntity<List<ShowPorukaDTO>>(porukaService.getAll(), HttpStatus.OK);
 	}
+	
 	@GetMapping(value = "/{id}")
 	public ResponseEntity<ShowPorukaDTO> getById(@PathVariable Long id){
 		if(porukaService.getById(id) == null) {
@@ -46,4 +47,5 @@ public class PorukaController {
 		}
 			
 	}
+	
 }
