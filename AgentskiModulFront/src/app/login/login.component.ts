@@ -4,6 +4,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { HttpHeaders } from '@angular/common/http';
 import { HomeComponent } from '../home/home.component';
 import { NavbarComponent } from '../navbar/navbar.component';
+import { AccommodationService } from '../services/accommodation.service';
 
 
 @Component({
@@ -18,8 +19,10 @@ export class LoginComponent implements OnInit {
   user: any;
   public isLoged:boolean=false;
   us:any;
+  token: any;
 
   constructor(
+    private _accommodationService : AccommodationService,
     private formBuilder:FormBuilder,
     private router:Router,
     private activatedRoute: ActivatedRoute) { }
@@ -34,7 +37,14 @@ export class LoginComponent implements OnInit {
   get f() { return this.SingIn.controls; }
 
   onSubmit(event:any) {
-    
+    this.submitted = true;
+    this.user = this.SingIn.getRawValue();
+
+    this._accommodationService.login(this.user).subscribe(
+      data => {
+        this.token = data;
+        console.log(this.token);
+    });
   }
 
 
