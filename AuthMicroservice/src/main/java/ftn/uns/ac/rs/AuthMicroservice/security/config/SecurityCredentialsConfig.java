@@ -4,7 +4,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
-import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -14,7 +13,6 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
-import ftn.uns.ac.rs.AuthMicroservice.security.config.JwtConfig;
 import ftn.uns.ac.rs.AuthMicroservice.security.service.JwtUsernameAndPasswordAuthenticationFilter;
 
 @EnableWebSecurity
@@ -32,8 +30,9 @@ public class SecurityCredentialsConfig extends WebSecurityConfigurerAdapter {
 				.authenticationEntryPoint((req, rsp, e) -> rsp.sendError(HttpServletResponse.SC_UNAUTHORIZED)).and()
 				.addFilter(new JwtUsernameAndPasswordAuthenticationFilter(authenticationManager(), jwtConfig))
 				.authorizeRequests()
-				.antMatchers("/auth/validate/**").hasAnyAuthority("CREATE_SMESTAJ", "GET_SMESTAJ", "CREATE_SOBA", "GET_SOBA")
-				.antMatchers("/auth/prijava**").permitAll()
+				.antMatchers("/prijava**").permitAll()
+				.antMatchers("/validate").permitAll()
+				.antMatchers("/signin").permitAll()
 				.anyRequest().authenticated();
 	}
 
