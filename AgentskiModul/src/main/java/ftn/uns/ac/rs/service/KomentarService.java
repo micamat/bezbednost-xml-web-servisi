@@ -10,10 +10,9 @@ import ftn.uns.ac.rs.model.GetAllKomentarRequest;
 import ftn.uns.ac.rs.model.GetAllKomentarResponse;
 import ftn.uns.ac.rs.model.Komentar;
 import ftn.uns.ac.rs.model.KomentarDTO;
-import ftn.uns.ac.rs.model.Poruka;
-import ftn.uns.ac.rs.model.PorukaDTO;
 import ftn.uns.ac.rs.model.ProducerPort;
 import ftn.uns.ac.rs.model.ProducerPortService;
+import ftn.uns.ac.rs.model.ShowKomentarDTO;
 import ftn.uns.ac.rs.repository.KomentarRepository;
 import ftn.uns.ac.rs.repository.KorisnikRepository;
 import ftn.uns.ac.rs.repository.SmestajRepository;
@@ -54,15 +53,15 @@ public class KomentarService {
 		return getAllKomentarResponse.getKomentarDTO();
 	};
 	
-	public List<Komentar> getAll(){ 
-		return komentarRepository.findAll().stream().collect(Collectors.toList());
+	public List<ShowKomentarDTO> getAll(){ 
+		return komentarRepository.findAll().stream().map(this::convertToDTO).collect(Collectors.toList());
 	};
 	
-	public Komentar getById(Long id) {
+	public ShowKomentarDTO getById(Long id) {
 		if(!komentarRepository.existsById(id)) {
 			return null;
 		}
-		return komentarRepository.findById(id).orElse(null);
+		return komentarRepository.findById(id).map(this::convertToDTO).orElse(null);
 	}
 	
 	private Komentar convertToEntity(KomentarDTO komentarDTO) {
@@ -75,5 +74,17 @@ public class KomentarService {
 		komentar.setStatusKomentara(komentarDTO.getStatusKomentara());
 		komentar.setTekst(komentarDTO.getTekst());
 		return komentar;
+	}
+	
+	private ShowKomentarDTO convertToDTO(Komentar komentar) {
+		ShowKomentarDTO komentarDTO = new ShowKomentarDTO();
+		komentarDTO.setId(komentar.getId());
+		komentarDTO.setDatumKreiranja(komentar.getDatumKreiranja());
+		komentarDTO.setKorisnickoImeKorisnik(komentar.getKorisnik().getKorisnickoIme());
+		komentarDTO.setNaslov(komentar.getNaslov());
+		komentarDTO.setNazivSmestaj(komentar.getSmestaj().getNaziv());
+		komentarDTO.setStatusKomentara(komentar.getStatusKomentara());
+		komentarDTO.setTekst(komentar.getTekst());
+		return komentarDTO;
 	}
 }

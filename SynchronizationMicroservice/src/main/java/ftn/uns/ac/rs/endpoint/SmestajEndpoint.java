@@ -34,7 +34,7 @@ public class SmestajEndpoint {
 		return response;
 	}
 	
-	@ResponsePayload
+	/*@ResponsePayload
 	@PayloadRoot(namespace = NAMESPACE, localPart = "CreateSmestajRequest")
 	public CreateSmestajResponse create(@RequestPayload final CreateSmestajRequest input) {
 		CreateSmestajResponse response = new CreateSmestajResponse();
@@ -55,7 +55,7 @@ public class SmestajEndpoint {
 			response.setSuccessful(true);
 		}
 		return response;
-	}
+	}*/
 	
 	
 	

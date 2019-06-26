@@ -6,11 +6,10 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import ftn.uns.ac.rs.model.KategorijaSmestaja;
 import ftn.uns.ac.rs.model.Smestaj;
 import ftn.uns.ac.rs.model.SmestajDTO;
+import ftn.uns.ac.rs.repository.AgentRepository;
 import ftn.uns.ac.rs.repository.KategorijaSmestajaRepository;
-import ftn.uns.ac.rs.repository.LokacijaRepository;
 import ftn.uns.ac.rs.repository.SmestajRepository;
 import ftn.uns.ac.rs.repository.TipSmestajaRepository;
 
@@ -21,9 +20,6 @@ public class SmestajService {
 	
 	@Autowired
 	private KategorijaSmestajaRepository kategorijaSmestajaRepository;
-	
-	@Autowired
-	private LokacijaRepository lokacijaRepository;
 	
 	@Autowired
 	private TipSmestajaRepository tipSmestajaRepository;
@@ -52,11 +48,16 @@ public class SmestajService {
 		SmestajDTO dto = new SmestajDTO();
 		dto.setId(smestaj.getId());
 		dto.setIdKategorijaSmestaja(smestaj.getKategorijaSmestaja().getId());
-		dto.setIdLokacija(smestaj.getLokacija().getId());
 		dto.setIdTipSmestaja(smestaj.getTipSmestaja().getId());
 		dto.setNaziv(smestaj.getNaziv());
 		dto.setOpis(smestaj.getOpis());
 		dto.setSlika(smestaj.getSlika());
+		/*dto.setBroj(smestaj.getLokacija().getBroj());
+		dto.setDrzava(smestaj.getLokacija().getDrzava());
+		dto.setGrad(smestaj.getLokacija().getGrad());
+		dto.setIdAgent(smestaj.getAgent().getId());
+		dto.setIdKategorijaSmestaja(smestaj.getKategorijaSmestaja().getId());
+		dto.setKapacitet(smestaj.getKapacitet());*/
 		return dto;
 	}
 	
@@ -66,8 +67,10 @@ public class SmestajService {
 		sm.setOpis(smestaj.getOpis());
 		sm.setSlika(smestaj.getSlika());
 		sm.setKategorijaSmestaja(kategorijaSmestajaRepository.findById(smestaj.getIdKategorijaSmestaja()).get());
-		sm.setLokacija(lokacijaRepository.findById(smestaj.getIdLokacija()).get());
 		sm.setTipSmestaja(tipSmestajaRepository.findById(smestaj.getIdTipSmestaja()).get());
+		/*sm.setAgent(agentRepo.findById(smestaj.getIdAgent()).get());
+		sm.setKapacitet(smestaj.getKapacitet());*/
+		// TODO: setovati lokaciju
 		return sm;
 	}
 }

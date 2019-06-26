@@ -29,7 +29,7 @@ public class KoordinateEndpoint {
 		return response;
 	}
 	
-	@ResponsePayload
+	/*@ResponsePayload
 	@PayloadRoot(namespace = NAMESPACE, localPart = "CreateKoordinateRequest")
 	public CreateKoordinateResponse create(@RequestPayload final CreateKoordinateRequest input) {
 		CreateKoordinateResponse response = new CreateKoordinateResponse();
@@ -46,5 +46,5 @@ public class KoordinateEndpoint {
 			response.setSuccessful(true);
 		}
 		return response;
-	}
+	}*/
 }

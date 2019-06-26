@@ -6,11 +6,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import ftn.uns.ac.rs.model.Koordinate;
-import ftn.uns.ac.rs.model.KoordinateDTO;
 import ftn.uns.ac.rs.model.Lokacija;
 import ftn.uns.ac.rs.model.LokacijaDTO;
-import ftn.uns.ac.rs.repository.KoordinateRepository;
 import ftn.uns.ac.rs.repository.LokacijaRepository;
 
 @Service
@@ -18,9 +15,6 @@ public class LokacijaService {
 
 	@Autowired
 	private LokacijaRepository lokacijaRepo;
-
-	@Autowired
-	private KoordinateRepository koordinateRepository;
 	
 	
 	public List<LokacijaDTO> getAll(){
@@ -50,7 +44,7 @@ public class LokacijaService {
 		dto.setDrzava(lokacija.getDrzava());
 		dto.setUlica(lokacija.getUlica());
 		dto.setBroj(lokacija.getBroj());
-		dto.setIdKoordinate(lokacija.getKoordinate().getId());
+		//dto.setIdKoordinate(lokacija.getIdKoordinate());
 		return dto;
 	}
 	
@@ -61,7 +55,7 @@ public class LokacijaService {
 		l.setDrzava(lokacija.getDrzava());
 		l.setUlica(lokacija.getUlica());
 		l.setBroj(lokacija.getBroj());
-		l.setKoordinate(koordinateRepository.findById(lokacija.getIdKoordinate()).get());
+		//l.setIdKoordinate(lokacija.getIdKoordinate());
 		return l;
 	}
 }

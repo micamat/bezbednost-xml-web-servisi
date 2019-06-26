@@ -20,13 +20,13 @@ public class TipSobeEndpoint {
 	@Autowired
 	TipSobeService TipSobeService;
 	
-	@ResponsePayload
+	/*@ResponsePayload
 	@PayloadRoot(namespace = NAMESPACE, localPart = "GetAllTipSobeRequest")
 	public GetAllTipSobeResponse getAll(@RequestPayload final GetAllTipSobeRequest input) {
 		GetAllTipSobeResponse response = new GetAllTipSobeResponse();
 		response.setTipSobeDTO(TipSobeService.getAll());
 		return response;
-	}
+	}*/
 	
 	@ResponsePayload
 	@PayloadRoot(namespace = NAMESPACE, localPart = "CreateTipSobeRequest")

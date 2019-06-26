@@ -493,7 +493,7 @@
                 <xs:element name="ime" type="xs:string"/>
                 <xs:element name="prezime" type="xs:string"/>
                 <xs:element name="adresa" type="xs:string"/>
-                <xs:element name="poslovniMaticniBroj" type="xs:integer"/>
+                <xs:element name="poslovniMaticniBroj" type="xs:string"/>
                 <xs:element name="korisnickoIme" type="xs:string"/>
                 <xs:element name="email" type="xs:string"/>
                 <xs:element name="token" type="xs:string"/>
@@ -508,7 +508,7 @@
                 <xs:element name="ime" type="xs:string"/>
                 <xs:element name="prezime" type="xs:string"/>
                 <xs:element name="adresa" type="xs:string"/>
-                <xs:element name="poslovniMaticniBroj" type="xs:integer"/>
+                <xs:element name="poslovniMaticniBroj" type="xs:string"/>
                 <xs:element name="korisnickoIme" type="xs:string"/>
                 <xs:element name="email" type="xs:string"/>
             </xs:sequence>
@@ -534,6 +534,10 @@
     </xs:element>
     <xs:element name="AgentLoginRequest">
         <xs:complexType>
+        <xs:sequence>
+                <xs:element name="username" type="xs:string"/>
+                <xs:element name="password" type="xs:string"/>
+            </xs:sequence>
         </xs:complexType>
     </xs:element>
     <xs:element name="AgentLoginResponse">

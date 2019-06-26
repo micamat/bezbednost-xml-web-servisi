@@ -20,13 +20,13 @@ public class UslugaEndpoint {
 	@Autowired
 	UslugaService UslugaService;
 	
-	@ResponsePayload
+	/*@ResponsePayload
 	@PayloadRoot(namespace = NAMESPACE, localPart = "GetAllUslugaRequest")
 	public GetAllUslugaResponse getAll(@RequestPayload final GetAllUslugaRequest input) {
 		GetAllUslugaResponse response = new GetAllUslugaResponse();
 		response.setUslugaDTO(UslugaService.getAll());
 		return response;
-	}
+	}*/
 	
 	@ResponsePayload
 	@PayloadRoot(namespace = NAMESPACE, localPart = "CreateUslugaRequest")

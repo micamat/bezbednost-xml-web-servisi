@@ -29,7 +29,7 @@ final String NAMESPACE = "http://rs.ac.uns.ftn/Model";
 		return response;
 	}
 	
-	@ResponsePayload
+	/*@ResponsePayload
 	@PayloadRoot(namespace = NAMESPACE, localPart = "CreateLokacijaRequest")
 	public CreateLokacijaResponse create(@RequestPayload final CreateLokacijaRequest input) {
 		CreateLokacijaResponse response = new CreateLokacijaResponse();
@@ -49,5 +49,5 @@ final String NAMESPACE = "http://rs.ac.uns.ftn/Model";
 			response.setSuccessful(true);
 		}
 		return response;
-	}
+	}*/
 }

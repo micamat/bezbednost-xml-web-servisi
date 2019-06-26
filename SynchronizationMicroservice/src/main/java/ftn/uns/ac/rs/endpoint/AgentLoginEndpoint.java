@@ -21,7 +21,7 @@ public class AgentLoginEndpoint {
 	@PayloadRoot(namespace = NAMESPACE, localPart = "AgentLoginRequest")
 	public AgentLoginResponse getAll(@RequestPayload final AgentLoginRequest input) {
 		AgentLoginResponse response = new AgentLoginResponse();
-		String token = restTemplate.postForObject("http://localhost:8765/auth/prijava?username=" + input.getusername() + "&password=" + input.getpassword(), null, String.class);
+		String token = restTemplate.postForObject("https://localhost:8765/auth/prijava?username=" + input.getusername() + "&password=" + input.getpassword(), null, String.class);
 		response.setToken(token);
 		return response;
 	}

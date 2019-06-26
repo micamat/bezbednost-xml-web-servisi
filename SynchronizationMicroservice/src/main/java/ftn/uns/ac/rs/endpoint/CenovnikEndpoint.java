@@ -29,7 +29,7 @@ public class CenovnikEndpoint {
 		return response;
 	}
 	
-	@ResponsePayload
+	/*@ResponsePayload
 	@PayloadRoot(namespace = NAMESPACE, localPart = "CreateCenovnikRequest")
 	public CreateCenovnikResponse create(@RequestPayload final CreateCenovnikRequest input) {
 		CreateCenovnikResponse response = new CreateCenovnikResponse();
@@ -49,7 +49,7 @@ public class CenovnikEndpoint {
 			response.setSuccessful(true);
 		}
 		return response;
-	}
+	}*/
 	
 	
 }
