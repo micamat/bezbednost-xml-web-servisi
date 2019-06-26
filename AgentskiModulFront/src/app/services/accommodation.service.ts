@@ -98,6 +98,22 @@ export class AccommodationService {
   getAlUusluga(){
     return this.http.get(SERVER_URL + "/usluga");
   }
-  
 
+  getAllComments(){
+    return this.http.get(SERVER_URL + "/komentar");
+  }
+  
+  addReservation(reservation : any){
+    return this.http.post(SERVER_URL + '/rezervacija',reservation,{responseType: 'text'});
+  }
+
+  getAllReservation(){
+    return this.http.get(SERVER_URL + "/rezervacija");
+  }
+  
+//srediti da vrati po idju rezervacije
+  getAllMessages(){
+    return this.http.get(SERVER_URL + "/poruka");
+  }
+  
 }

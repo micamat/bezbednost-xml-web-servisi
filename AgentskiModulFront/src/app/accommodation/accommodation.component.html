@@ -32,8 +32,11 @@
             <a class="active" [routerLink]="['/accommodation/change', item.id]">
               <img class="mr-2" src="/assets/img/edit-9-32.png">
             </a>
-            <a class="active" (click)="delete(item.id)" [routerLink]="'/accommodation'">
+            <a class="active mr-2" (click)="delete(item.id)" [routerLink]="'/accommodation'">
               <img src="/assets/img/x-mark-4-32.png">
+            </a>
+            <a class="active" [routerLink]="['/accommodation/reservation', item.id]">
+              <img src="/assets/img/today-32.png">
             </a>
           </td>
       </tr>
