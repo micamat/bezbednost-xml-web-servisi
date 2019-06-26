@@ -581,7 +581,7 @@
      <xs:element name="ValidateTokenRequest">
         <xs:complexType>
             <xs:sequence>
-                <xs:element name="token" type="string"/>
+                <xs:element name="token" type="xs:string"/>
             </xs:sequence>
         </xs:complexType>
     </xs:element>
@@ -628,8 +628,8 @@
                 <xs:element name="tekst" type="xs:string"/>
                 <xs:element name="statusKomentara" type="xs:string"/>
                 <xs:element name="datumKreiranja" type="xs:dateTime"/>
-                <xs:element name="nazivSmestaj" type="string"/>
-                <xs:element name="korisnickoImeKorisnik" type="string"/>
+                <xs:element name="nazivSmestaj" type="xs:string"/>
+                <xs:element name="korisnickoImeKorisnik" type="xs:string"/>
             </xs:all>
         </xs:complexType>
     </xs:element>

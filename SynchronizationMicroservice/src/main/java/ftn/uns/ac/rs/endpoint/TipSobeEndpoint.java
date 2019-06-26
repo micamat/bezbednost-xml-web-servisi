@@ -1,21 +1,10 @@
 package ftn.uns.ac.rs.endpoint;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ws.server.endpoint.annotation.Endpoint;
-import org.springframework.ws.server.endpoint.annotation.PayloadRoot;
-import org.springframework.ws.server.endpoint.annotation.RequestPayload;
-import org.springframework.ws.server.endpoint.annotation.ResponsePayload;
-
-import ftn.uns.ac.rs.model.CreateTipSobeRequest;
-import ftn.uns.ac.rs.model.CreateTipSobeResponse;
-import ftn.uns.ac.rs.model.GetAllTipSobeRequest;
-import ftn.uns.ac.rs.model.GetAllTipSobeResponse;
-import ftn.uns.ac.rs.model.TipSobeDTO;
-import ftn.uns.ac.rs.service.TipSobeService;
 
 @Endpoint
 public class TipSobeEndpoint {
-	final String NAMESPACE = "http://rs.ac.uns.ftn/Model";
+	/*final String NAMESPACE = "http://rs.ac.uns.ftn/Model";
 	
 	@Autowired
 	TipSobeService TipSobeService;
@@ -45,5 +34,5 @@ public class TipSobeEndpoint {
 			response.setSuccessful(true);
 		}
 		return response;
-	}
+	}*/
 }
