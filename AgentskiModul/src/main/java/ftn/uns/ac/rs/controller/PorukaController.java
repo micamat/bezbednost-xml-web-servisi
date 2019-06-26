@@ -22,7 +22,8 @@ public class PorukaController {
 	@Autowired
 	private PorukaService porukaService;
 
-	@GetMapping(value = "{idRezervacija}")
+
+	@GetMapping(value = "/rezervacija/{idRezervacija}")
 	public ResponseEntity<List<ShowPorukaDTO>> getAllByRezervacija(@PathVariable Long idRezervacija){
 		if(porukaService.getAllByRezervacija(idRezervacija) == null) {
 			return new ResponseEntity<List<ShowPorukaDTO>>(HttpStatus.NO_CONTENT);
