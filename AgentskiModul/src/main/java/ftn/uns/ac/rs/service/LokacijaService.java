@@ -78,7 +78,7 @@ public class LokacijaService {
 			while ((inputLine = br.readLine()) != null) {
 				if (inputLine.contains("INITIALIZATION_STATE")) {
 					String[] niz = inputLine.split(",");
-					koordinate.setId(lokacija.getId());
+					koordinate.setId(null);
 					koordinate.setDuzina(Float.parseFloat(niz[2].replace("]", "")));
 					koordinate.setSirina(Float.parseFloat(niz[1]));
 					id = koordinateService.add(koordinate);
@@ -102,7 +102,7 @@ public class LokacijaService {
 
 			// createSync(lokacija);
 			logger.info(USER, "Uspesno sacuvana lokacija");
-			return id;
+			return lokacija.getId();
 		} catch (Exception e) {
 			logger.error(USER, "okacija nije sacuvana");
 		}

@@ -130,12 +130,12 @@ public class SmestajService {
 	private Smestaj convertToEntity(SmestajDTO smestajDTO) {
 		Lokacija lokacija = new Lokacija();
 		
-		lokacija.setId(smestajDTO.getId());
+		lokacija.setId(null);
 		lokacija.setBroj(smestajDTO.getBroj());
 		lokacija.setDrzava(smestajDTO.getDrzava());
 		lokacija.setGrad(smestajDTO.getGrad());
 		lokacija.setUlica(smestajDTO.getUlica());
-		lokacija.setIdKoordinate(smestajDTO.getId());
+		lokacija.setIdKoordinate(null);
 		Long id = lokacijaService.add(lokacija);
 		lokacija.setId(id);
 		lokacija.setIdKoordinate(id);
