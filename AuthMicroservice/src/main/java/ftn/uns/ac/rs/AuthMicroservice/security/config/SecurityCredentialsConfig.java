@@ -32,8 +32,9 @@ public class SecurityCredentialsConfig extends WebSecurityConfigurerAdapter {
 				.authenticationEntryPoint((req, rsp, e) -> rsp.sendError(HttpServletResponse.SC_UNAUTHORIZED)).and()
 				.addFilter(new JwtUsernameAndPasswordAuthenticationFilter(authenticationManager(), jwtConfig))
 				.authorizeRequests()
-				.antMatchers("/**").permitAll()
-		 		.anyRequest().authenticated();
+				.antMatchers("/auth/validate/**").hasAnyAuthority("CREATE_SMESTAJ", "GET_SMESTAJ", "CREATE_SOBA", "GET_SOBA")
+				.antMatchers("/auth/prijava**").permitAll()
+				.anyRequest().authenticated();
 	}
 
 	@Override

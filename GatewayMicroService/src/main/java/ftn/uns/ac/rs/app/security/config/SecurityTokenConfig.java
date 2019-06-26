@@ -31,8 +31,9 @@ public class SecurityTokenConfig extends WebSecurityConfigurerAdapter {
 		   .addFilterAfter(new JwtTokenAuthenticationFilter(jwtConfig), UsernamePasswordAuthenticationFilter.class)
 		.authorizeRequests()
 		   //.antMatchers(HttpMethod.POST, jwtConfig.getUri()).permitAll()
-		   .antMatchers("/**").permitAll()
-		   .anyRequest().authenticated(); 
+			.antMatchers("/auth/validate/**").hasAnyAuthority("CREATE_SMESTAJ", "GET_SMESTAJ", "CREATE_SOBA", "GET_SOBA")
+			.antMatchers("/auth/prijava**").permitAll()
+			.anyRequest().authenticated(); 
 	}
 	
 	@Bean
