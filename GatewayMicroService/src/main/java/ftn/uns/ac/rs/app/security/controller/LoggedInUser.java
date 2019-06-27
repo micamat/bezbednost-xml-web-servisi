@@ -1,7 +1,7 @@
 package ftn.uns.ac.rs.app.security.controller;
 
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -16,5 +16,20 @@ public class LoggedInUser {
 			e.printStackTrace();
 		}
 		return false;
+	}
+	
+	@PostMapping("/validate")
+	public Boolean validate() {
+		try {
+			if(SecurityContextHolder.getContext().getAuthentication().getName() != "anonymousUser") {
+				return true;
+			}
+			else {
+				return false;
+			}
+		}catch(Exception e) {
+			return false;
+		}
+		
 	}
 }

@@ -29,7 +29,7 @@ final String NAMESPACE = "http://rs.ac.uns.ftn/Model";
 		headers.set("Authorization", "Bearer "+ input.getToken());
 
 		HttpEntity<String> entity = new HttpEntity<String>(null, headers);
-		Boolean isValid = restTemplate.postForObject("https://localhost:8765/auth/validate", entity, Boolean.class);
+		Boolean isValid = restTemplate.postForObject("https://localhost:8765/validate", entity, Boolean.class);
 		response.setSuccessful(isValid);
 		return response;
 	}
