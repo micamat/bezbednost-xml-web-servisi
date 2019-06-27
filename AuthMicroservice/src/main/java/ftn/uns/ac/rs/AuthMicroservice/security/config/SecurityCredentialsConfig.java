@@ -33,6 +33,8 @@ public class SecurityCredentialsConfig extends WebSecurityConfigurerAdapter {
 				.antMatchers("/prijava**").permitAll()
 				.antMatchers("/signin").permitAll()
 				.antMatchers("/odjava").permitAll()
+				.antMatchers("/registerKorisnik").permitAll()
+				.antMatchers("/registerAgent").permitAll()
 				.anyRequest().authenticated();
 	}
 

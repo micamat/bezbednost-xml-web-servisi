@@ -12,11 +12,14 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import ftn.uns.ac.rs.AuthMicroservice.security.model.Agent;
+
 //import com.eureka.common.security.JwtConfig;
 
 import ftn.uns.ac.rs.AuthMicroservice.security.model.Korisnik;
 import ftn.uns.ac.rs.AuthMicroservice.security.model.KorisnikDTO;
 import ftn.uns.ac.rs.AuthMicroservice.security.model.Permisija;
+import ftn.uns.ac.rs.AuthMicroservice.security.repository.AgentRepository;
 import ftn.uns.ac.rs.AuthMicroservice.security.repository.KorisnikRepository;
 import ftn.uns.ac.rs.AuthMicroservice.security.repository.UlogaRepository;
 
@@ -24,6 +27,9 @@ import ftn.uns.ac.rs.AuthMicroservice.security.repository.UlogaRepository;
 public class KorisnikService implements UserDetailsService {
 	@Autowired
 	KorisnikRepository korisnikRepo;
+	
+	@Autowired
+	AgentRepository agentRepo;
 
 	@Autowired
 	UlogaRepository ulogaRepo;
@@ -43,14 +49,21 @@ public class KorisnikService implements UserDetailsService {
 				}
 			}
 			authorities = authorities.substring(0, authorities.length() - 1);
-			System.out.println("authorities: " + authorities);
 			List<GrantedAuthority> grantedAuthorities = AuthorityUtils.commaSeparatedStringToAuthorityList(authorities);
 			// "User" klasu sadrzi Spring i tu klasu vraca UserDetailsService, a koristi se
 			// pri verifikaciji od strane authManagera
 			return new User(korisnik.getKorisnickoIme(), korisnik.getSifra(), grantedAuthorities);
 		}
+		else {
+			Agent agent = agentRepo.findByKorisnickoIme(username);
+			if(agent != null) {
+				String authorities = "AGENT";
+				List<GrantedAuthority> grantedAuthorities = AuthorityUtils.commaSeparatedStringToAuthorityList(authorities);
+				return new User(agent.getKorisnickoIme(), agent.getLozinka(), grantedAuthorities);
+			}
+		}
 
-		throw new UsernameNotFoundException("Korisnik: " + username + " nije pronadjen");
+		throw new UsernameNotFoundException("Korisnik ili agent: " + username + " nije pronadjen");
 	}
 
 
