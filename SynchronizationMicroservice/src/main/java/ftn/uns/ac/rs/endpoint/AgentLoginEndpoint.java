@@ -1,6 +1,13 @@
 package ftn.uns.ac.rs.endpoint;
 
+import java.util.Arrays;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.ws.server.endpoint.annotation.Endpoint;
 import org.springframework.ws.server.endpoint.annotation.PayloadRoot;
@@ -8,8 +15,10 @@ import org.springframework.ws.server.endpoint.annotation.RequestPayload;
 import org.springframework.ws.server.endpoint.annotation.ResponsePayload;
 
 import ftn.uns.ac.rs.model.AgentDTO;
+import ftn.uns.ac.rs.model.AgentLoginDTO;
 import ftn.uns.ac.rs.model.AgentLoginRequest;
 import ftn.uns.ac.rs.model.AgentLoginResponse;
+import ftn.uns.ac.rs.model.LoggedUser;
 import ftn.uns.ac.rs.model.UpdateAgentRequest;
 import ftn.uns.ac.rs.model.UpdateAgentResponse;
 import ftn.uns.ac.rs.service.AgentService;
@@ -27,11 +36,18 @@ public class AgentLoginEndpoint {
 	@ResponsePayload
 	@PayloadRoot(namespace = NAMESPACE, localPart = "AgentLoginRequest")
 	public AgentLoginResponse getAll(@RequestPayload final AgentLoginRequest input) {
-		System.out.println("STIGO DOVDE :)");
-		AgentLoginResponse response = new AgentLoginResponse();
-		String token = restTemplate.postForObject("https://localhost:8765/auth/prijava?username=" + input.getusername() + "&password=" + input.getpassword(), null, String.class);
-		response.setToken(token);
-		return response;
+		RestTemplate restTemplate = new RestTemplate();
+		AgentLoginDTO agent = new AgentLoginDTO(input.getusername(), input.getpassword());
+		
+		//HttpHeaders headers = new HttpHeaders();
+		//headers.setContentType(MediaType.APPLICATION_JSON);
+		//headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
+		HttpEntity<AgentLoginDTO> requestEntity = new HttpEntity<>(agent, null);
+
+		AgentLoginResponse loggedUser = restTemplate.postForObject("http://localhost:8765/auth/prijava", requestEntity, AgentLoginResponse.class);
+		System.out.println("da vidimo: " + loggedUser.getUsername() + ", token: " + loggedUser.getToken());
+		
+		return loggedUser;
 	}
 	
 	@ResponsePayload

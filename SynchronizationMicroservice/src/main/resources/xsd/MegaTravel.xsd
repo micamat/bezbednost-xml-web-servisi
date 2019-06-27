@@ -638,6 +638,15 @@
         </xs:complexType>
     </xs:element>
     
+    <xs:element name="LoggedUser">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="token" type="xs:string"/>
+                <xs:element name="username" type="xs:string"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    
     <!-- ========================================KOMENTAR========================================= -->
     <xs:element name="Komentar">
         <xs:complexType>

@@ -30,7 +30,7 @@ public class SecurityTokenConfig extends WebSecurityConfigurerAdapter {
 		.authorizeRequests()
 		   //.antMatchers(HttpMethod.POST, jwtConfig.getUri()).permitAll()
 			.antMatchers("/validate").hasAuthority("AGENT")
-			.antMatchers("/auth/prijava**").permitAll()
+			.antMatchers("/auth/prijava").permitAll()
 			.antMatchers("/auth/signin").permitAll()
 			.antMatchers("/auth/registerAgent").permitAll()
 			.antMatchers("/auth/registerKorisnik").permitAll()

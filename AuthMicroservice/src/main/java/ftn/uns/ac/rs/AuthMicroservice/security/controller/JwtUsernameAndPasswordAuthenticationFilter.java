@@ -35,6 +35,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import ftn.uns.ac.rs.AuthMicroservice.security.config.JwtConfig;
 import ftn.uns.ac.rs.AuthMicroservice.security.model.Agent;
+import ftn.uns.ac.rs.AuthMicroservice.security.model.AgentLoginDTO;
 import ftn.uns.ac.rs.AuthMicroservice.security.model.Korisnik;
 import ftn.uns.ac.rs.AuthMicroservice.security.model.KorisnikDTO;
 import ftn.uns.ac.rs.AuthMicroservice.security.model.LoggedUser;
@@ -112,8 +113,8 @@ public class JwtUsernameAndPasswordAuthenticationFilter extends UsernamePassword
 	}
 	
 	@PostMapping("/prijava")
-	public ResponseEntity<LoggedUser> prijava(@RequestParam String username, @RequestParam String password){
-		return new ResponseEntity<LoggedUser>(signin(username, password), HttpStatus.OK);
+	public LoggedUser prijava(@RequestBody AgentLoginDTO dto){
+		return signin(dto.getusername(), dto.getpassword());
 	}
 	
 	@PostMapping("/registerKorisnik")
@@ -127,6 +128,7 @@ public class JwtUsernameAndPasswordAuthenticationFilter extends UsernamePassword
 	}
 	
 	private LoggedUser signin(String username, String password) {
+		System.out.println("POGODIO GA!!!");
 		LoggedUser loggedUser = new LoggedUser();
 		
 		UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(username, password, Collections.emptyList());
