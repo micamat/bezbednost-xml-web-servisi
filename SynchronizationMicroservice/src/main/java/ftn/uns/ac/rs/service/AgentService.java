@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import ftn.uns.ac.rs.model.Agent;
+import ftn.uns.ac.rs.model.AgentDTO;
 import ftn.uns.ac.rs.model.ShowAgentDTO;
 import ftn.uns.ac.rs.repository.AgentRepository;
 
@@ -30,6 +31,17 @@ public class AgentService {
 			dtos.add(as);
 		}
 		return dtos;
+	}
+	
+	public int update(AgentDTO d) {
+		Agent a = agentRepository.findById(d.getId()).get();
+		if(d.getPrethodnaLozinka().equals(a.getLozinka())){
+			a.setLozinka(d.getLozinka());
+			Agent ar = agentRepository.save(a);
+			return ar.getId().intValue();
+		}else {
+			return -1;
+		}
 	}
 
 }
