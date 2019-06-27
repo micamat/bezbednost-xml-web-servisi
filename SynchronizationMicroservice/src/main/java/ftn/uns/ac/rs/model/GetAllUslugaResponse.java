@@ -75,4 +75,10 @@ public class GetAllUslugaResponse {
         return this.usluga;
     }
 
+	public void setUsluga(List<Usluga> usluga) {
+		this.usluga = usluga;
+	}
+    
+    
+
 }

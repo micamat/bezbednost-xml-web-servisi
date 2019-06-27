@@ -313,7 +313,7 @@ public class Smestaj {
      * 
      * @return
      *     possible object is
-     *     {@link Agent }
+     *     {@link AgentSync }
      *     
      */
     public Agent getAgent() {
@@ -325,7 +325,7 @@ public class Smestaj {
      * 
      * @param value
      *     allowed object is
-     *     {@link Agent }
+     *     {@link AgentSync }
      *     
      */
     public void setAgent(Agent value) {

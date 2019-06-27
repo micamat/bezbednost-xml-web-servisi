@@ -237,11 +237,11 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link GetRezervacijaRequest }
+     * Create an instance of {@link GetAllRezervacijaRequest }
      * 
      */
-    public GetRezervacijaRequest createGetRezervacijaRequest() {
-        return new GetRezervacijaRequest();
+    public GetAllRezervacijaRequest createGetRezervacijaRequest() {
+        return new GetAllRezervacijaRequest();
     }
 
     /**

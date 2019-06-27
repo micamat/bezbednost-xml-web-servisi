@@ -27,7 +27,7 @@ import javax.xml.bind.annotation.XmlType;
  *   &lt;complexContent&gt;
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
  *       &lt;sequence&gt;
- *         &lt;element ref="{http://rs.ac.uns.ftn/Model}Korisnik" maxOccurs="unbounded" minOccurs="0"/&gt;
+ *         &lt;element ref="{http://rs.ac.uns.ftn/Model}KorisnikDTO" maxOccurs="unbounded" minOccurs="0"/&gt;
  *       &lt;/sequence&gt;
  *     &lt;/restriction&gt;
  *   &lt;/complexContent&gt;
@@ -44,7 +44,7 @@ import javax.xml.bind.annotation.XmlType;
 public class GetAllKorisnikResponse {
 
     @XmlElement(name = "Korisnik")
-    protected List<Korisnik> korisnik;
+    protected List<KorisnikDTO> korisnik;
 
     /**
      * Gets the value of the korisnik property.
@@ -64,15 +64,21 @@ public class GetAllKorisnikResponse {
      * 
      * <p>
      * Objects of the following type(s) are allowed in the list
-     * {@link Korisnik }
+     * {@link KorisnikDTO }
      * 
      * 
      */
-    public List<Korisnik> getKorisnik() {
+    public List<KorisnikDTO> getKorisnik() {
         if (korisnik == null) {
-            korisnik = new ArrayList<Korisnik>();
+            korisnik = new ArrayList<KorisnikDTO>();
         }
         return this.korisnik;
     }
+
+	public void setKorisnik(List<KorisnikDTO> korisnik) {
+		this.korisnik = korisnik;
+	}
+    
+    
 
 }

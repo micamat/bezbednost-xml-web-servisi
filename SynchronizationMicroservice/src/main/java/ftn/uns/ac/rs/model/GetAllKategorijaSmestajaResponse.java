@@ -75,4 +75,9 @@ public class GetAllKategorijaSmestajaResponse {
         return this.kategorijaSmestaja;
     }
 
+	public void setKategorijaSmestaja(List<KategorijaSmestaja> kategorijaSmestaja) {
+		this.kategorijaSmestaja = kategorijaSmestaja;
+	}
+
+    
 }

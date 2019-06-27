@@ -32,8 +32,8 @@ import javax.xml.bind.annotation.XmlType;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "")
-@XmlRootElement(name = "GetRezervacijaRequest")
-public class GetRezervacijaRequest {
+@XmlRootElement(name = "GetAllRezervacijaRequest")
+public class GetAllRezervacijaRequest {
 
 
 }

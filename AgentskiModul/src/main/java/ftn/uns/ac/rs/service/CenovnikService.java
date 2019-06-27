@@ -1,7 +1,6 @@
 package ftn.uns.ac.rs.service;
 
 import java.util.List;
-
 import java.util.stream.Collectors;
 
 import org.apache.logging.log4j.LogManager;
@@ -12,6 +11,7 @@ import org.apache.logging.log4j.ThreadContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import ftn.uns.ac.rs.config.Auth;
 import ftn.uns.ac.rs.model.Cenovnik;
 import ftn.uns.ac.rs.model.CenovnikDTO;
 import ftn.uns.ac.rs.model.CreateCenovnikRequest;
@@ -47,7 +47,8 @@ public class CenovnikService {
 	public int createSync(CenovnikDTO cenovnikDTO){
 		ProducerPortService producerPortService = new ProducerPortService();
 		ProducerPort producerPort = producerPortService.getProducerPortSoap11();
-		
+
+		Auth.authenticateClient(producerPort);
 		CreateCenovnikRequest createCenovnikRequest = new CreateCenovnikRequest();
 		createCenovnikRequest.setCenovnikDTO(cenovnikDTO);
 		
@@ -74,7 +75,8 @@ public class CenovnikService {
 		ThreadContext.put("user", "A");
 		try {
 			Cenovnik cenovnik = cenovnikRepository.save(convertToEntity(cenovnikDTO));
-			//createSync(cenovnikDTO);
+			cenovnikDTO.setId(cenovnik.getId());
+			createSync(cenovnikDTO);
 			logger.info(USER,"Dodat cenovnik" + cenovnik.getId());
 			return true;
 

@@ -21,12 +21,6 @@ public class KoordinateController {
 	@Autowired
 	private KoordinateService koordinateService;
 	
-	@PostMapping(value = "createSync")
-	public ResponseEntity<Integer> createSync(@RequestBody Koordinate koordinateDTO){
-		
-		return new ResponseEntity<Integer>(koordinateService.createSync(koordinateDTO), HttpStatus.OK);
-	}
-	
 	
 	@GetMapping(value = "/{id}")
 	public ResponseEntity<Koordinate> getById(@PathVariable Long id){

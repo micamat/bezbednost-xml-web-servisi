@@ -3,13 +3,6 @@ package ftn.uns.ac.rs.service;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import javax.net.ssl.KeyManagerFactory;
-import javax.net.ssl.TrustManagerFactory;
-
-import org.apache.cxf.configuration.jsse.TLSClientParameters;
-import org.apache.cxf.endpoint.Client;
-import org.apache.cxf.frontend.ClientProxy;
-import org.apache.cxf.transport.http.HTTPConduit;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.Marker;
@@ -17,7 +10,7 @@ import org.apache.logging.log4j.MarkerManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import ftn.uns.ac.rs.config.SoapClientConfig;
+import ftn.uns.ac.rs.config.Auth;
 import ftn.uns.ac.rs.model.Agent;
 import ftn.uns.ac.rs.model.AgentDTO;
 import ftn.uns.ac.rs.model.AgentLoginDTO;
@@ -45,6 +38,7 @@ public class AgentService {
 		ProducerPortService producerPortService = new ProducerPortService();
 		ProducerPort producerPort = producerPortService.getProducerPortSoap11();
 
+		Auth.authenticateClient(producerPort);
 		GetAllAgentRequest getAllAgentRequest = new GetAllAgentRequest();
 		GetAllAgentResponse getAllAgentResponse = producerPort.getAllAgent(getAllAgentRequest);
 
@@ -69,7 +63,8 @@ public class AgentService {
 	public boolean updateSync(AgentDTO agentDTO) {
 		ProducerPortService producerPortService = new ProducerPortService();
 		ProducerPort producerPort = producerPortService.getProducerPortSoap11();
-		
+
+		Auth.authenticateClient(producerPort);
 		UpdateAgentRequest updateAgentRequest = new UpdateAgentRequest();
 		UpdateAgentResponse updateAgentResponse = new UpdateAgentResponse();
 		updateAgentRequest.setAgentDTO(agentDTO);
@@ -102,9 +97,10 @@ public class AgentService {
 		ProducerPortService producerPortService = new ProducerPortService();
 		System.out.println("1");
 		ProducerPort producerPort = producerPortService.getProducerPortSoap11();
+		Auth.authenticateClient(producerPort);
 		System.out.println("2");
 		// autentifikacija pomocu sertifikata
-		authenticateClient(producerPort);
+		Auth.authenticateClient(producerPort);
 		AgentLoginRequest agentLoginRequest = new AgentLoginRequest();
 		AgentLoginResponse agentLoginResponse = new AgentLoginResponse();
 		System.out.println("3");
@@ -127,21 +123,7 @@ public class AgentService {
 		return null;
 	}
 	
-	private void authenticateClient(ProducerPort tempPort) {
-		Client client = ClientProxy.getClient(tempPort);
-		HTTPConduit httpConduit = (HTTPConduit) client.getConduit();
-		ftn.uns.ac.rs.config.SoapClientConfig soapClientConfig = new SoapClientConfig();
-		KeyManagerFactory keyManagerFactory = soapClientConfig.getKeyManagerFactory();
-		TrustManagerFactory trustManagerFactory = soapClientConfig.getTrustManagerFactory();
-		TLSClientParameters tslClientParameters = httpConduit.getTlsClientParameters();
-		if (tslClientParameters == null) {
-			tslClientParameters = new TLSClientParameters();
-		}
-		tslClientParameters.setTrustManagers(trustManagerFactory.getTrustManagers());
-		tslClientParameters.setKeyManagers(keyManagerFactory.getKeyManagers());
-		tslClientParameters.setDisableCNCheck(true);
-		httpConduit.setTlsClientParameters(tslClientParameters);
-	}
+	
 
 	private ShowAgentDTO convertToDTO(Agent agent) {
 		ShowAgentDTO agentDTO = new ShowAgentDTO();

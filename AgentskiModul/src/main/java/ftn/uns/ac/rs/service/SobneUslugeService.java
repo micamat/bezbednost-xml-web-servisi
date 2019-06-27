@@ -1,22 +1,11 @@
 package ftn.uns.ac.rs.service;
 
-import java.util.List;
-import java.util.stream.Collectors;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import ftn.uns.ac.rs.model.CreateSobaRequest;
-import ftn.uns.ac.rs.model.CreateSobaResponse;
-import ftn.uns.ac.rs.model.ProducerPort;
-import ftn.uns.ac.rs.model.ProducerPortService;
-import ftn.uns.ac.rs.model.ShowSobaDTO;
-import ftn.uns.ac.rs.model.Soba;
-import ftn.uns.ac.rs.model.SobaDTO;
 import ftn.uns.ac.rs.repository.SmestajRepository;
 import ftn.uns.ac.rs.repository.SobaRepository;
 import ftn.uns.ac.rs.repository.SobneUslugeRepository;
-import ftn.uns.ac.rs.repository.TipSobeRepository;
 
 @Service
 public class SobneUslugeService {

@@ -75,4 +75,10 @@ public class GetAllTipSmestajaResponse {
         return this.tipSmestaja;
     }
 
+	public void setTipSmestaja(List<TipSmestaja> tipSmestaja) {
+		this.tipSmestaja = tipSmestaja;
+	}
+    
+    
+
 }

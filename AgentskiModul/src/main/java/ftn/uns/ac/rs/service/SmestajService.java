@@ -11,6 +11,7 @@ import org.apache.logging.log4j.ThreadContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import ftn.uns.ac.rs.config.Auth;
 import ftn.uns.ac.rs.model.CreateSmestajRequest;
 import ftn.uns.ac.rs.model.CreateSmestajResponse;
 import ftn.uns.ac.rs.model.Lokacija;
@@ -54,7 +55,7 @@ public class SmestajService {
 	public int createSync(SmestajDTO smestajDTO){
 		ProducerPortService producerPortService = new ProducerPortService();
 		ProducerPort producerPort = producerPortService.getProducerPortSoap11();
-		
+		Auth.authenticateClient(producerPort);
 		CreateSmestajRequest getSmestajRequest = new CreateSmestajRequest();
 		getSmestajRequest.setSmestajDTO(smestajDTO);
 		CreateSmestajResponse getSmestajResponse = producerPort.createSmestaj(getSmestajRequest);
@@ -75,6 +76,7 @@ public class SmestajService {
 		ThreadContext.put("userId", "3ss");
 		try {
 			smestaj = smestajRepository.save(convertToEntity(smestajDTO));
+			smestajDTO.setId(smestaj.getId());
 			createSync(smestajDTO);
 			logger.info(USER, "Dodat smestaj" + smestaj.getId());
 			return true;

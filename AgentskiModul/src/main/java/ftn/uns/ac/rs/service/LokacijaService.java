@@ -40,17 +40,7 @@ public class LokacijaService {
 	public List<Lokacija> getAll() {
 		return lokacijaRepository.findAll().stream().collect(Collectors.toList());
 	};
-
-	public int createSync(Lokacija lokacija) {
-		ProducerPortService producerPortService = new ProducerPortService();
-		ProducerPort producerPort = producerPortService.getProducerPortSoap11();
-
-		CreateLokacijaRequest createLokacijaRequest = new CreateLokacijaRequest();
-		createLokacijaRequest.setLokacija(lokacija);
-		CreateLokacijaResponse createLokacijaResponse = producerPort.createLokacija(createLokacijaRequest);
-		return createLokacijaResponse.getId();
-	};
-
+	
 	public Lokacija getById(Long id) {
 		if (!lokacijaRepository.existsById(id)) {
 			return null;
@@ -82,11 +72,7 @@ public class LokacijaService {
 					koordinate.setDuzina(Float.parseFloat(niz[2].replace("]", "")));
 					koordinate.setSirina(Float.parseFloat(niz[1]));
 					id = koordinateService.add(koordinate);
-					// System.out.println(niz[2] + niz[1]);
-
 				}
-				// System.out.println(inputLine);
-
 			}
 			br.close();
 
@@ -99,8 +85,6 @@ public class LokacijaService {
 			lokacija.setId(id);
 			lokacija.setIdKoordinate(id);
 			lokacija = lokacijaRepository.save(lokacija);
-
-			// createSync(lokacija);
 			logger.info(USER, "Uspesno sacuvana lokacija");
 			return lokacija.getId();
 		} catch (Exception e) {
@@ -109,12 +93,6 @@ public class LokacijaService {
 			
 		return null;
 	}
-
-	/*
-	 * public Lokacija add(Lokacija lokacija) { lokacija.setId(lokacija.getId());
-	 * Lokacija l = lokacijaRepository.save(lokacija); if(l != null) { return l; }
-	 * return null; }
-	 */
 
 	public boolean delete(Long id) {
 		ThreadContext.put("user", "AS");
