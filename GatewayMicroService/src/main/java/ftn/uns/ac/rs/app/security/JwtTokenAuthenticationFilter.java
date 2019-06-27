@@ -69,6 +69,7 @@ public class JwtTokenAuthenticationFilter extends  OncePerRequestFilter {
 				 
 				 // 6. Authenticate the user
 				 // Now, user is authenticated
+				 // OVO JE JAAAAKO BITNO. BEZ TOG NEMA AUTORIZACIJE :D 
 				 SecurityContextHolder.getContext().setAuthentication(auth);
 			}
 			

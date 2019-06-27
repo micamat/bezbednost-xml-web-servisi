@@ -58,10 +58,6 @@ public class KorisnikService implements UserDetailsService {
 	public Korisnik save(KorisnikDTO korisnik) {
 		return korisnikRepo.save(dtoToKorisnik(korisnik));
 	}
-	
-	public void logout() {
-		SecurityContextHolder.clearContext();
-	}
 
 	private Korisnik dtoToKorisnik(KorisnikDTO dto) {
 		Korisnik k = new Korisnik();

@@ -29,9 +29,11 @@ public class SecurityTokenConfig extends WebSecurityConfigurerAdapter {
 		   .addFilterAfter(new JwtTokenAuthenticationFilter(jwtConfig), UsernamePasswordAuthenticationFilter.class)
 		.authorizeRequests()
 		   //.antMatchers(HttpMethod.POST, jwtConfig.getUri()).permitAll()
-			.antMatchers("/auth/validate").hasAuthority("AGENT")
+			.antMatchers("/auth/odjava").hasAnyAuthority("USER", "ADMIN", "AGENT")
 			.antMatchers("/auth/prijava**").permitAll()
 			.antMatchers("/auth/signin").permitAll()
+			.antMatchers("/odjava").permitAll()
+			//.antMatchers("/auth/validate").hasAnyAuthority("USER")
 			.anyRequest().authenticated();
 	}
 	

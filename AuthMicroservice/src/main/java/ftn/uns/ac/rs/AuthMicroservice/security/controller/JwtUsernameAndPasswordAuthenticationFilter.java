@@ -1,4 +1,4 @@
-package ftn.uns.ac.rs.AuthMicroservice.security.service;
+package ftn.uns.ac.rs.AuthMicroservice.security.controller;
 
 import java.io.IOException;
 import java.sql.Date;
@@ -9,6 +9,8 @@ import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import javax.servlet.http.HttpSessionContext;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -18,11 +20,12 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -33,7 +36,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import ftn.uns.ac.rs.AuthMicroservice.security.config.JwtConfig;
 import ftn.uns.ac.rs.AuthMicroservice.security.model.Korisnik;
 import ftn.uns.ac.rs.AuthMicroservice.security.model.KorisnikDTO;
+import ftn.uns.ac.rs.AuthMicroservice.security.model.LoggedUser;
 import ftn.uns.ac.rs.AuthMicroservice.security.model.UserCredentials;
+import ftn.uns.ac.rs.AuthMicroservice.security.service.KorisnikService;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 
@@ -96,14 +101,14 @@ public class JwtUsernameAndPasswordAuthenticationFilter extends UsernamePassword
 			.setExpiration(new Date(now + jwtConfig.getExpiration() * 1000))  // in milliseconds
 			.signWith(SignatureAlgorithm.HS512, jwtConfig.getSecret().getBytes())
 			.compact();
-		
+
 		// postavljanje tokena u header odgovora 
 		response.addHeader(jwtConfig.getHeader(), jwtConfig.getPrefix() + token);
 	}
 	
 	@PostMapping("/prijava")
-	public ResponseEntity<String> prijava(@RequestParam String username, @RequestParam String password){
-		return new ResponseEntity<String>(signin(username, password), HttpStatus.OK);
+	public ResponseEntity<LoggedUser> prijava(@RequestParam String username, @RequestParam String password){
+		return new ResponseEntity<LoggedUser>(signin(username, password), HttpStatus.OK);
 	}
 	
 	@PostMapping("/register")
@@ -111,17 +116,14 @@ public class JwtUsernameAndPasswordAuthenticationFilter extends UsernamePassword
 		return new ResponseEntity<Korisnik>(korisnikService.save(korisnik), HttpStatus.OK);
 	}
 	
-	@GetMapping("/proba")
-	public String proba() {
-		return "Success";
-	}
-	
 	@PostMapping("/validate")
 	public Boolean validate() {
 		return true;
 	}
 	
-	private String signin(String username, String password) {
+	private LoggedUser signin(String username, String password) {
+		LoggedUser loggedUser = new LoggedUser();
+		
 		UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(username, password, Collections.emptyList());
 		Authentication authentication = authManager.authenticate(authToken);
 		SecurityContextHolder.getContext().setAuthentication(authentication);
@@ -136,7 +138,9 @@ public class JwtUsernameAndPasswordAuthenticationFilter extends UsernamePassword
 			.signWith(SignatureAlgorithm.HS512, jwtConfig.getSecret().getBytes())
 			.compact();
 		
-		return token;
+		loggedUser.setToken(token);
+		loggedUser.setUsername(username);
+		return loggedUser;
 	}
 	
 	@Override

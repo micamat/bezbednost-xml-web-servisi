@@ -13,7 +13,7 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
-import ftn.uns.ac.rs.AuthMicroservice.security.service.JwtUsernameAndPasswordAuthenticationFilter;
+import ftn.uns.ac.rs.AuthMicroservice.security.controller.JwtUsernameAndPasswordAuthenticationFilter;
 
 @EnableWebSecurity
 public class SecurityCredentialsConfig extends WebSecurityConfigurerAdapter {
@@ -31,8 +31,8 @@ public class SecurityCredentialsConfig extends WebSecurityConfigurerAdapter {
 				.addFilter(new JwtUsernameAndPasswordAuthenticationFilter(authenticationManager(), jwtConfig))
 				.authorizeRequests()
 				.antMatchers("/prijava**").permitAll()
-				.antMatchers("/validate").permitAll()
 				.antMatchers("/signin").permitAll()
+				.antMatchers("/odjava").permitAll()
 				.anyRequest().authenticated();
 	}
 
