@@ -1,11 +1,21 @@
 package ftn.uns.ac.rs.service;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import ftn.uns.ac.rs.model.Soba;
+import ftn.uns.ac.rs.model.SobaDTO;
+import ftn.uns.ac.rs.model.SobneUsluge;
+import ftn.uns.ac.rs.repository.SmestajRepository;
+import ftn.uns.ac.rs.repository.SobaRepository;
+import ftn.uns.ac.rs.repository.SobneUslugeRepository;
+import ftn.uns.ac.rs.repository.TipSobeRepository;
+import ftn.uns.ac.rs.repository.UslugaRepository;
 
 @Service
 public class SobaService {
 	
-	/*@Autowired
+	@Autowired
 	private SobaRepository sobaRepository;
 	
 	@Autowired
@@ -13,45 +23,33 @@ public class SobaService {
 	
 	@Autowired 
 	private TipSobeRepository tipSobeRepo;
+
+	@Autowired 
+	private UslugaRepository uslugaRepo;
 	
-	
-	public List<SobaDTO> getAll(){
-		List<SobaDTO> dtos = new ArrayList<>();
-		for(Soba s : sobaRepository.findAll()) {
-			dtos.add(sobaToDTO(s));
-		}
-		return dtos;
-	}
+	@Autowired 
+	private SobneUslugeRepository sobUslRepo;
 	
 	public int create(SobaDTO p){
-		Soba sm = sobaToEntity(p);
-		int id = -1;
-		Soba s = sobaRepository.save(sm);
-		if(s == null) {
-			return id;
+		Soba s  = new Soba();
+		s.setId(p.getId());
+		s.setNaziv(p.getNaziv());
+		s.setOpis(p.getOpis());
+		s.setSmestaj(smestajRepository.findById(p.getIdSmestaj()).get());
+		s.setTipSobe(tipSobeRepo.findById(p.getIdTipSobe()).get());
+		Soba n = sobaRepository.save(s);
+		
+		for (Long i : p.getIdUsluga()) {
+			SobneUsluge sob = new SobneUsluge();
+			sob.setSoba(n);
+			sob.setUsluga(uslugaRepo.findById(i).get());
+			sobUslRepo.save(sob);
 		}
-		else {
-			return (int)s.getId();
+		
+		if(n != null) {
+			return n.getId().intValue();
+		}else {
+			return -1;
 		}
 	}
-	
-	private SobaDTO sobaToDTO(Soba soba) {
-		SobaDTO dto = new SobaDTO();
-		dto.setId(soba.getId());
-		dto.setNaziv(soba.getNaziv());
-		dto.setOpis(soba.getOpis());
-		dto.setIdSmestaj(soba.getSmestaj().getId());
-		dto.setIdTipSobe(soba.getTipSobe().getId());
-		return dto;
-	}
-	
-	private Soba sobaToEntity(SobaDTO soba) {
-		Soba s = new Soba();
-		s.setId(soba.getId());
-		s.setNaziv(soba.getNaziv());
-		s.setOpis(soba.getOpis());
-		s.setSmestaj(smestajRepository.findById(soba.getIdSmestaj()).get());
-		s.setTipSobe(tipSobeRepo.findById(soba.getIdTipSobe()).get());
-		return s;
-	}*/
 }

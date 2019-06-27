@@ -45,11 +45,6 @@ public class SmestajService {
 	private KoordinateRepository koordinateRepo;
 	
 	public int create(SmestajDTO p){
-		System.out.println("dasd");
-		System.out.println(p.getGrad() + " adf " + p.getUlica());
-		System.out.println(p.getIdKategorijaSmestaja() + " adf " + p.getNaziv());
-		System.out.println(p.getSlika() + " adf " + p.getOpis());
-		System.out.println(p.getIdAgent() + " adf " + p.getIdTipSmestaja());
 		Lokacija l = new Lokacija();
 		l.setIdKoordinate(p.getId());
 		l.setBroj(p.getBroj());
@@ -57,16 +52,12 @@ public class SmestajService {
 		l.setGrad(p.getGrad());
 		l.setUlica(p.getUlica());
 		l.setId(p.getId());
-		System.out.println("dadasdsd");
 		add(l);
-		System.out.println("daasfsd");
 		
 		lokacijaRepository.save(l);
-		System.out.println("daadasfasdfsfsd");
 		Smestaj sm = smestajToEntity(p);
 		int id = -1;
 		Smestaj s = smestajRepo.save(sm);
-		System.out.println("daa64538465sfsd");
 		if(s == null){
 			return id;
 		}else {
@@ -87,7 +78,6 @@ public class SmestajService {
 			System.out.println(lokacija.getGrad() + " " + lokacija.getUlica());
 			String a = "https://www.google.com/maps/place/" + adresa + ',' + grad;
 			url = new URL(a);
-			System.out.println("USAO SAM SIGURNO");
 			URLConnection conn = url.openConnection();
 			System.out.println(conn.getURL());
 			// open the stream and put it into BufferedReader
@@ -111,10 +101,8 @@ public class SmestajService {
 
 		} catch (MalformedURLException e) {
 			e.printStackTrace();
-			System.out.println("USAO SAM SIGURNO u prvi");
 		} catch (IOException e) {
 			e.printStackTrace();
-			System.out.println("USAO SAM SIGURNO u drugi");
 		}
 		try {
 			lokacija = lokacijaRepository.save(lokacija);
@@ -123,7 +111,6 @@ public class SmestajService {
 			//logger.info(USER, "Uspesno sacuvana lokacija");
 			return true;
 		} catch (Exception e) {
-			System.out.println("USAO SAM SIGURNO u trecic");
 			//logger.error(USER, "okacija nije sacuvana");
 		}
 			

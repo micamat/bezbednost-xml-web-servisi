@@ -21,18 +21,14 @@ public class SmestajEndpoint {
 	@ResponsePayload
 	@PayloadRoot(namespace = NAMESPACE, localPart = "CreateSmestajRequest")
 	public CreateSmestajResponse create(@RequestPayload final CreateSmestajRequest input) {
-		System.out.println("STAVI NESTO BILO STA ? !!!");
 		System.out.println(input.getSmestajDTO().getGrad() + " fa " + input.getSmestajDTO().getUlica());
 		System.out.println(input.getSmestajDTO().getIdKategorijaSmestaja() + " fa " + input.getSmestajDTO().getNaziv());
 		System.out.println(input.getSmestajDTO().getSlika() + " fa " + input.getSmestajDTO().getOpis());
 		System.out.println(input.getSmestajDTO().getIdAgent() + " fa " + input.getSmestajDTO().getIdTipSmestaja());
 		CreateSmestajResponse response = new CreateSmestajResponse();
-		System.out.println("STAVI NESTO ");
 		
 		SmestajDTO sdto = input.getSmestajDTO();
-		System.out.println("STAVI  !!!");
 		int id = smestajService.create(sdto);
-		System.out.println("STAVI NESTO  !!!");
 		if(id == -1) {
 			response.setSuccessful(false);
 		}
