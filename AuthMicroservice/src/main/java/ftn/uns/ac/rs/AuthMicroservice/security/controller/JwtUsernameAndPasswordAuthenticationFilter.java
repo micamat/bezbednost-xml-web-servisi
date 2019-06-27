@@ -34,10 +34,12 @@ import org.springframework.web.bind.annotation.RestController;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import ftn.uns.ac.rs.AuthMicroservice.security.config.JwtConfig;
+import ftn.uns.ac.rs.AuthMicroservice.security.model.Agent;
 import ftn.uns.ac.rs.AuthMicroservice.security.model.Korisnik;
 import ftn.uns.ac.rs.AuthMicroservice.security.model.KorisnikDTO;
 import ftn.uns.ac.rs.AuthMicroservice.security.model.LoggedUser;
 import ftn.uns.ac.rs.AuthMicroservice.security.model.UserCredentials;
+import ftn.uns.ac.rs.AuthMicroservice.security.service.AgentService;
 import ftn.uns.ac.rs.AuthMicroservice.security.service.KorisnikService;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -53,6 +55,9 @@ public class JwtUsernameAndPasswordAuthenticationFilter extends UsernamePassword
 	
 	@Autowired
 	KorisnikService korisnikService;
+	
+	@Autowired
+	AgentService agentService;
 	
 	/**
 	 * Konstruktor
@@ -111,14 +116,14 @@ public class JwtUsernameAndPasswordAuthenticationFilter extends UsernamePassword
 		return new ResponseEntity<LoggedUser>(signin(username, password), HttpStatus.OK);
 	}
 	
-	@PostMapping("/register")
-	public ResponseEntity<Korisnik> save(@RequestBody KorisnikDTO korisnik){
+	@PostMapping("/registerKorisnik")
+	public ResponseEntity<Korisnik> saveKorisnik(@RequestBody KorisnikDTO korisnik){
 		return new ResponseEntity<Korisnik>(korisnikService.save(korisnik), HttpStatus.OK);
 	}
 	
-	@PostMapping("/validate")
-	public Boolean validate() {
-		return true;
+	@PostMapping("/registerAgent")
+	public ResponseEntity<Agent> saveAgent(@RequestBody Agent agent){
+		return new ResponseEntity<Agent>(agentService.save(agent), HttpStatus.OK);
 	}
 	
 	private LoggedUser signin(String username, String password) {
