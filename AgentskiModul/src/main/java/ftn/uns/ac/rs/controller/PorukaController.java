@@ -10,11 +10,13 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import ftn.uns.ac.rs.model.PorukaDTO;
 import ftn.uns.ac.rs.model.ShowPorukaDTO;
 import ftn.uns.ac.rs.service.PorukaService;
+import ftn.uns.ac.rs.service.ValidationService;
 
 @RestController
 @RequestMapping("/poruka")
@@ -40,11 +42,17 @@ public class PorukaController {
 	}
 	
 	@PostMapping
-	public ResponseEntity<String> add(@RequestBody PorukaDTO porukaDTO){
-		if(porukaService.add(porukaDTO)) {
-			return new ResponseEntity<String>("Smestaj je uspesno dodat!", HttpStatus.OK);
-		}else {
-			return new ResponseEntity<String>("Greska pri dodavanju smestaja!", HttpStatus.CONFLICT);
+	public ResponseEntity<String> add(@RequestParam String token, @RequestBody PorukaDTO porukaDTO){
+		if (ValidationService.validate(token)) {
+
+			if(porukaService.add(porukaDTO)) {
+				return new ResponseEntity<String>("Smestaj je uspesno dodat!", HttpStatus.OK);
+			}else {
+				return new ResponseEntity<String>("Greska pri dodavanju smestaja!", HttpStatus.CONFLICT);
+			}
+		} else {
+			return new ResponseEntity<String>("Validacija tokena neuspesna", HttpStatus.CONFLICT);
+
 		}
 			
 	}

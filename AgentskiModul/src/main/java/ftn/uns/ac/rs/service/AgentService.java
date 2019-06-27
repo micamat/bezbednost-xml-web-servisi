@@ -18,6 +18,7 @@ import ftn.uns.ac.rs.model.AgentLoginRequest;
 import ftn.uns.ac.rs.model.AgentLoginResponse;
 import ftn.uns.ac.rs.model.GetAllAgentRequest;
 import ftn.uns.ac.rs.model.GetAllAgentResponse;
+import ftn.uns.ac.rs.model.LoggedUser;
 import ftn.uns.ac.rs.model.ProducerPort;
 import ftn.uns.ac.rs.model.ProducerPortService;
 import ftn.uns.ac.rs.model.ShowAgentDTO;
@@ -92,22 +93,17 @@ public class AgentService {
 	}
 
 
-	public String login(AgentLoginDTO agentLoginDTO) {
+	public LoggedUser login(AgentLoginDTO agentLoginDTO) {
 
 		ProducerPortService producerPortService = new ProducerPortService();
-		System.out.println("1");
 		ProducerPort producerPort = producerPortService.getProducerPortSoap11();
-		Auth.authenticateClient(producerPort);
-		System.out.println("2");
 		// autentifikacija pomocu sertifikata
 		Auth.authenticateClient(producerPort);
 		AgentLoginRequest agentLoginRequest = new AgentLoginRequest();
 		AgentLoginResponse agentLoginResponse = new AgentLoginResponse();
-		System.out.println("3");
 		agentLoginRequest.setusername(agentLoginDTO.getUsername());
 		agentLoginRequest.setpassword(agentLoginDTO.getPassword());
 		agentLoginResponse = producerPort.agentLogin(agentLoginRequest);
-		System.out.println("4");
 		try {
 			//Agent agent = agentRepository.findByKorisnickoIme(agentLoginDTO.getUsername());
 			System.out.println("5");
@@ -115,7 +111,10 @@ public class AgentService {
 			System.out.println("6");
 			//agentRepository.save(agent);
 			logger.info(USER, "Uspesno logovanje");
-			return agentLoginResponse.getToken();
+			LoggedUser loggedUser = new LoggedUser();
+			loggedUser.setToken(agentLoginResponse.getToken());
+			loggedUser.setUsername(agentLoginResponse.getUsername());
+			return loggedUser;
 		} catch (Exception e) {
 
 			logger.error(USER, "Greska prilikom logovanja: " + e.getMessage());

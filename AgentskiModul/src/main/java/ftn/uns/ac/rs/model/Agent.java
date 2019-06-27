@@ -58,7 +58,6 @@ import javax.xml.bind.annotation.XmlType;
     "poslovniMaticniBroj",
     "korisnickoIme",
     "email",
-    "token",
     "smestaj"
 })
 @XmlRootElement(name = "Agent")
@@ -78,8 +77,6 @@ public class Agent {
     protected String korisnickoIme;
     @XmlElement(required = true)
     protected String email;
-    @XmlElement(required = true)
-    protected String token;
     @XmlElement(name = "Smestaj", required = true)
     @OneToMany(mappedBy = "agent")
     protected List<Smestaj> smestaj;
@@ -280,14 +277,5 @@ public class Agent {
 	public void setSmestaj(List<Smestaj> smestaj) {
 		this.smestaj = smestaj;
 	}
-
-	public String getToken() {
-		return token;
-	}
-
-	public void setToken(String token) {
-		this.token = token;
-	}
-	
 
 }

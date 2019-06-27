@@ -144,4 +144,12 @@ public interface ProducerPort {
 	public GetAllRezervisaneSobeResponse getAllRezervisaneSobe(
 
 			@WebParam(partName = "GetAllRezervisaneSobeRequest", name = "GetAllRezervisaneSobeRequest", targetNamespace = "http://rs.ac.uns.ftn/Model") GetAllRezervisaneSobeRequest getAllRezervisaneSobeRequest);
+	
+	@WebMethod(operationName = "ValidateToken")
+	@WebResult(name = "ValidateTokenResponse", targetNamespace = "http://rs.ac.uns.ftn/Model", partName = "ValidateTokenResponse")
+	public ValidateTokenResponse validateToken(
+
+			@WebParam(partName = "ValidateTokenRequest", name = "ValidateTokenRequest", targetNamespace = "http://rs.ac.uns.ftn/Model") ValidateTokenRequest validateTokenRequest);
+
+
 }

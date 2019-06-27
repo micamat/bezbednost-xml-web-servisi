@@ -11,12 +11,14 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import ftn.uns.ac.rs.model.RezervacijaDTO;
 import ftn.uns.ac.rs.model.ShowRezervacijaDTO;
 import ftn.uns.ac.rs.model.UpdateRezervisaneSobeDTO;
 import ftn.uns.ac.rs.service.RezervacijaService;
+import ftn.uns.ac.rs.service.ValidationService;
 
 @RestController
 @RequestMapping("/rezervacija")
@@ -50,12 +52,19 @@ public class RezervacijaController {
 	}
 	
 	@PutMapping
-	public ResponseEntity<String> update(@RequestBody UpdateRezervisaneSobeDTO updateRezervisaneSobeDTO){
-		if(rezervacijaService.update(updateRezervisaneSobeDTO)) {
-			return new ResponseEntity<String>("Rezervacija je uspesno izmenjena!", HttpStatus.OK);
-		}else {
-			return new ResponseEntity<String>("Greska pri izmeni rezervacije!", HttpStatus.CONFLICT);
+	public ResponseEntity<String> update(@RequestParam String token, @RequestBody UpdateRezervisaneSobeDTO updateRezervisaneSobeDTO){
+		if (ValidationService.validate(token)) {
+			if(rezervacijaService.update(updateRezervisaneSobeDTO)) {
+				return new ResponseEntity<String>("Rezervacija je uspesno izmenjena!", HttpStatus.OK);
+			}else {
+				return new ResponseEntity<String>("Greska pri izmeni rezervacije!", HttpStatus.CONFLICT);
+			}
+		} else {
+			return new ResponseEntity<String>("Validacija tokena neuspesna!", HttpStatus.CONFLICT);
+
 		}
+		
+		
 			
 	}
 }

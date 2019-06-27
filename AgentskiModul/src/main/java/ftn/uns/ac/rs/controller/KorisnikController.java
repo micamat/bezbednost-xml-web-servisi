@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import ftn.uns.ac.rs.model.Komentar;
 import ftn.uns.ac.rs.model.Korisnik;
 import ftn.uns.ac.rs.service.KorisnikService;
 
