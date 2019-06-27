@@ -6,6 +6,7 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import ftn.uns.ac.rs.config.Auth;
 import ftn.uns.ac.rs.model.GetAllKorisnikRequest;
 import ftn.uns.ac.rs.model.GetAllKorisnikResponse;
 import ftn.uns.ac.rs.model.Korisnik;
@@ -21,7 +22,8 @@ public class KorisnikService {
 	public List<Korisnik> getAllSync(){
 		ProducerPortService producerPortService = new ProducerPortService();
 		ProducerPort producerPort = producerPortService.getProducerPortSoap11();
-		
+
+		Auth.authenticateClient(producerPort);
 		GetAllKorisnikRequest getKorisnikRequest = new GetAllKorisnikRequest();
 		GetAllKorisnikResponse getKorisnikResponse = producerPort.getAllKorisnik(getKorisnikRequest);
 		

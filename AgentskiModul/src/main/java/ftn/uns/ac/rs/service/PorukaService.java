@@ -10,8 +10,11 @@ import org.apache.logging.log4j.MarkerManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import ftn.uns.ac.rs.config.Auth;
 import ftn.uns.ac.rs.model.CreatePorukaRequest;
 import ftn.uns.ac.rs.model.CreatePorukaResponse;
+import ftn.uns.ac.rs.model.GetAllPorukaRequest;
+import ftn.uns.ac.rs.model.GetAllPorukaResponse;
 import ftn.uns.ac.rs.model.Poruka;
 import ftn.uns.ac.rs.model.PorukaDTO;
 import ftn.uns.ac.rs.model.ProducerPort;
@@ -33,10 +36,33 @@ public class PorukaService {
 	private static final Marker USER = MarkerManager
 			   .getMarker("USER");
 	
+	public List<PorukaDTO> getAllSync(){
+		ProducerPortService producerPortService = new ProducerPortService();
+		ProducerPort producerPort = producerPortService.getProducerPortSoap11();
+
+		Auth.authenticateClient(producerPort);
+		GetAllPorukaRequest getAllPorukaRequest = new GetAllPorukaRequest();
+		GetAllPorukaResponse getAllPorukaResponse = new GetAllPorukaResponse();
+		
+		try {
+			getAllPorukaResponse = producerPort.getAllPoruka(getAllPorukaRequest);
+
+			logger.info(USER, "Uspesna sinhronizacija poruka");
+		} catch (Exception e) {
+			logger.error(USER, "Neuspesna sinhronizacija poruka: " + e.getMessage());
+		}
+		
+		for (PorukaDTO poruka : getAllPorukaResponse.getPorukaDTO()) {
+			porukaRepository.save(convertToEntity(poruka));
+		}
+		
+		return getAllPorukaResponse.getPorukaDTO();
+	};
 	public int createSync(PorukaDTO porukaDTO){
 		ProducerPortService producerPortService = new ProducerPortService();
 		ProducerPort producerPort = producerPortService.getProducerPortSoap11();
-		
+
+		Auth.authenticateClient(producerPort);
 		CreatePorukaRequest createPorukaRequest = new CreatePorukaRequest();
 		createPorukaRequest.setPorukaDTO(porukaDTO);
 		CreatePorukaResponse createPorukaResponse = producerPort.createPoruka(createPorukaRequest);
@@ -59,7 +85,7 @@ public class PorukaService {
 		porukaDTO.setId(null);
 		try {
 			porukaRepository.save(convertToEntity(porukaDTO));
-			//createSync(porukaDTO);
+			createSync(porukaDTO);
 			logger.info(USER, "Poruka uspesno poslata");
 			return true;
 		} catch (Exception e) {

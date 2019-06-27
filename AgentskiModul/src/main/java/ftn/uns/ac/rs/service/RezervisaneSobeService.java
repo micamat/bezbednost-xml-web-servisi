@@ -10,6 +10,7 @@ import org.apache.logging.log4j.MarkerManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import ftn.uns.ac.rs.config.Auth;
 import ftn.uns.ac.rs.model.ProducerPort;
 import ftn.uns.ac.rs.model.ProducerPortService;
 import ftn.uns.ac.rs.model.RezervisaneSobe;
@@ -17,11 +18,7 @@ import ftn.uns.ac.rs.model.RezervisaneSobeDTO;
 import ftn.uns.ac.rs.model.ShowRezervisaneSobeDTO;
 import ftn.uns.ac.rs.model.UpdateRezervisaneSobeRequest;
 import ftn.uns.ac.rs.model.UpdateRezervisaneSobeResponse;
-import ftn.uns.ac.rs.repository.KorisnikRepository;
-import ftn.uns.ac.rs.repository.RezervacijaRepository;
 import ftn.uns.ac.rs.repository.RezervisaneSobeRepository;
-import ftn.uns.ac.rs.repository.SmestajRepository;
-import ftn.uns.ac.rs.repository.SobaRepository;
 
 @Service
 public class RezervisaneSobeService {
@@ -36,7 +33,8 @@ public class RezervisaneSobeService {
 	public int createSync(RezervisaneSobeDTO rezervisaneSobeDTO){
 		ProducerPortService producerPortService = new ProducerPortService();
 		ProducerPort producerPort = producerPortService.getProducerPortSoap11();
-		
+
+		Auth.authenticateClient(producerPort);
 		UpdateRezervisaneSobeRequest updateRezervisaneSobeRequest = new UpdateRezervisaneSobeRequest();
 		updateRezervisaneSobeRequest.setRezervisaneSobeDTO(rezervisaneSobeDTO);
 		UpdateRezervisaneSobeResponse updateRezervisaneSobeResponse = producerPort.updateRezervisaneSobe(updateRezervisaneSobeRequest);

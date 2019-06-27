@@ -144,7 +144,7 @@
             </xs:sequence>
         </xs:complexType>
     </xs:element>
-    <xs:element name="GetRezervacijaRequest">
+    <xs:element name="GetAllRezervacijaRequest">
         <xs:complexType>
         </xs:complexType>
     </xs:element>

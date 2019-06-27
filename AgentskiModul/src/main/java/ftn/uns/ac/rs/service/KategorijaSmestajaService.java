@@ -6,6 +6,7 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import ftn.uns.ac.rs.config.Auth;
 import ftn.uns.ac.rs.model.GetAllKategorijaSmestajaRequest;
 import ftn.uns.ac.rs.model.GetAllKategorijaSmestajaResponse;
 import ftn.uns.ac.rs.model.KategorijaSmestaja;
@@ -28,7 +29,8 @@ public class KategorijaSmestajaService {
 	public List<KategorijaSmestaja> getAllSync(){
 		ProducerPortService producerPortService = new ProducerPortService();
 		ProducerPort producerPort = producerPortService.getProducerPortSoap11();
-		
+
+		Auth.authenticateClient(producerPort);
 		GetAllKategorijaSmestajaRequest getAllKategorijaSmestajaRequest = new GetAllKategorijaSmestajaRequest();
 		GetAllKategorijaSmestajaResponse getAllKategorijaSmestajaResponse = producerPort.getAllKategorijaSmestaja(getAllKategorijaSmestajaRequest);
 		

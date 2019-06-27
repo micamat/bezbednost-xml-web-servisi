@@ -6,6 +6,7 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import ftn.uns.ac.rs.config.Auth;
 import ftn.uns.ac.rs.model.GetAllKomentarRequest;
 import ftn.uns.ac.rs.model.GetAllKomentarResponse;
 import ftn.uns.ac.rs.model.Komentar;
@@ -31,7 +32,8 @@ public class KomentarService {
 	public List<KomentarDTO> getAllSync(){
 		ProducerPortService producerPortService = new ProducerPortService();
 		ProducerPort producerPort = producerPortService.getProducerPortSoap11();
-		
+
+		Auth.authenticateClient(producerPort);
 		GetAllKomentarRequest getAllKomentarRequest = new GetAllKomentarRequest();
 		GetAllKomentarResponse getAllKomentarResponse = producerPort.getAllKomentar(getAllKomentarRequest);
 		
