@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import ftn.uns.ac.rs.model.AgentDTO;
@@ -18,6 +19,7 @@ import ftn.uns.ac.rs.model.AgentLoginDTO;
 import ftn.uns.ac.rs.model.LoggedUser;
 import ftn.uns.ac.rs.model.ShowAgentDTO;
 import ftn.uns.ac.rs.service.AgentService;
+import ftn.uns.ac.rs.service.ValidationService;
 
 @RestController
 @RequestMapping("/agent")
@@ -42,13 +44,17 @@ public class AgentController {
 	}
 	
 	@PutMapping
-	public ResponseEntity<String> update(@RequestBody AgentDTO agentDTO){
-		if(agentService.updateSync(agentDTO)) {
-			return new ResponseEntity<String>("Agent je uspesno azuriran!", HttpStatus.CREATED);
-		}else {
-			return new ResponseEntity<String>("Greska pri azuriranju agenta!", HttpStatus.CONFLICT);
-		}
+	public ResponseEntity<String> update(@RequestParam String token, @RequestBody AgentDTO agentDTO){
+		if (ValidationService.validate(token)) {
+			if(agentService.updateSync(agentDTO)) {
+				return new ResponseEntity<String>("Agent je uspesno azuriran!", HttpStatus.CREATED);
+			}else {
+				return new ResponseEntity<String>("Greska pri azuriranju agenta!", HttpStatus.CONFLICT);
+			}
+		} else {
+			return new ResponseEntity<String>("Validacija tokena neuspesna!", HttpStatus.CONFLICT);
 			
+		}
 	}
 	
 	@PostMapping

@@ -11,11 +11,13 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import ftn.uns.ac.rs.model.ShowSmestajDTO;
 import ftn.uns.ac.rs.model.SmestajDTO;
 import ftn.uns.ac.rs.service.SmestajService;
+import ftn.uns.ac.rs.service.ValidationService;
 
 @RestController
 @RequestMapping("/smestaj")
@@ -40,11 +42,17 @@ public class SmestajController {
 	}
 	
 	@PostMapping
-	public ResponseEntity<String> add(@RequestBody SmestajDTO smestajDTO){
-		if(smestajService.add(smestajDTO)) {
-			return new ResponseEntity<String>("Smestaj je uspesno dodat!", HttpStatus.OK);
-		}else {
-			return new ResponseEntity<String>("Greska pri dodavanju smestaja!", HttpStatus.CONFLICT);
+	public ResponseEntity<String> add(@RequestParam String token, @RequestBody SmestajDTO smestajDTO){
+		if (ValidationService.validate(token)) {
+
+			if(smestajService.add(smestajDTO)) {
+				return new ResponseEntity<String>("Smestaj je uspesno dodat!", HttpStatus.OK);
+			}else {
+				return new ResponseEntity<String>("Greska pri dodavanju smestaja!", HttpStatus.CONFLICT);
+			}
+		} else {
+			return new ResponseEntity<String>("Validacija tokena neuspesna!", HttpStatus.CONFLICT);
+
 		}
 			
 	}

@@ -11,11 +11,13 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import ftn.uns.ac.rs.model.CenovnikDTO;
 import ftn.uns.ac.rs.model.ShowCenovnikDTO;
 import ftn.uns.ac.rs.service.CenovnikService;
+import ftn.uns.ac.rs.service.ValidationService;
 
 @RestController
 @RequestMapping("/cenovnik")
@@ -49,11 +51,17 @@ public class CenovnikController {
 	}
 	
 	@PostMapping
-	public ResponseEntity<String> add(@RequestBody CenovnikDTO cenovnikDTO){
-		if(cenovnikService.add(cenovnikDTO)) {
-			return new ResponseEntity<String>("Cenovnik je uspesno dodat!", HttpStatus.CREATED);
-		}else {
-			return new ResponseEntity<String>("Greska pri dodavanju cenovnika!", HttpStatus.CONFLICT);
+	public ResponseEntity<String> add(@RequestParam String token, @RequestBody CenovnikDTO cenovnikDTO){
+		if (ValidationService.validate(token)) {
+				
+			if(cenovnikService.add(cenovnikDTO)) {
+				return new ResponseEntity<String>("Cenovnik je uspesno dodat!", HttpStatus.CREATED);
+			}else {
+				return new ResponseEntity<String>("Greska pri dodavanju cenovnika!", HttpStatus.CONFLICT);
+			}
+		} else {
+
+			return new ResponseEntity<String>("Validacija tokena neuspesna!", HttpStatus.CONFLICT);
 		}
 			
 	}
