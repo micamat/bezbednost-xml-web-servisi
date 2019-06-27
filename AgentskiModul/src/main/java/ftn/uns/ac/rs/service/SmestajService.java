@@ -76,6 +76,7 @@ public class SmestajService {
 		ThreadContext.put("userId", "3ss");
 		try {
 			smestaj = smestajRepository.save(convertToEntity(smestajDTO));
+			smestajDTO.setId(smestaj.getId());
 			createSync(smestajDTO);
 			logger.info(USER, "Dodat smestaj" + smestaj.getId());
 			return true;

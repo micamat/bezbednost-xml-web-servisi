@@ -10,6 +10,7 @@ import org.apache.logging.log4j.MarkerManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import ftn.uns.ac.rs.config.Auth;
 import ftn.uns.ac.rs.model.GetAllUslugaRequest;
 import ftn.uns.ac.rs.model.GetAllUslugaResponse;
 import ftn.uns.ac.rs.model.ProducerPort;
@@ -30,7 +31,8 @@ public class UslugaService {
 	public List<Usluga> getAllSync(){
 		ProducerPortService producerPortService = new ProducerPortService();
 		ProducerPort producerPort = producerPortService.getProducerPortSoap11();
-		
+
+		Auth.authenticateClient(producerPort);
 		GetAllUslugaRequest getUslugaRequest = new GetAllUslugaRequest();
 		GetAllUslugaResponse getUslugaResponse = new GetAllUslugaResponse();
 		try {

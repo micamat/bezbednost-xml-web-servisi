@@ -8,16 +8,15 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.Marker;
 import org.apache.logging.log4j.MarkerManager;
-import org.apache.logging.log4j.ThreadContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import ftn.uns.ac.rs.config.Auth;
 import ftn.uns.ac.rs.model.CreateSobaRequest;
 import ftn.uns.ac.rs.model.CreateSobaResponse;
 import ftn.uns.ac.rs.model.ProducerPort;
 import ftn.uns.ac.rs.model.ProducerPortService;
 import ftn.uns.ac.rs.model.ShowSobaDTO;
-import ftn.uns.ac.rs.model.Smestaj;
 import ftn.uns.ac.rs.model.Soba;
 import ftn.uns.ac.rs.model.SobaDTO;
 import ftn.uns.ac.rs.model.SobneUsluge;
@@ -59,7 +58,8 @@ public class SobaService {
 	public int createSync(SobaDTO sobaDTO){
 		ProducerPortService producerPortService = new ProducerPortService();
 		ProducerPort producerPort = producerPortService.getProducerPortSoap11();
-		
+
+		Auth.authenticateClient(producerPort);
 		CreateSobaRequest getSobaRequest = new CreateSobaRequest();
 		getSobaRequest.setSobaDTO(sobaDTO);
 		
@@ -99,7 +99,8 @@ public class SobaService {
 			sobneUslugeRepository.save(sobneUsluge);
 		}
 		if(soba != null) {
-			//createSync(sobaDTO);
+			sobaDTO.setId(soba.getId());
+			createSync(sobaDTO);
 			return true;
 		}
 		return false;

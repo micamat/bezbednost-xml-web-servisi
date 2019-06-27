@@ -10,6 +10,7 @@ import org.apache.logging.log4j.MarkerManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import ftn.uns.ac.rs.config.Auth;
 import ftn.uns.ac.rs.model.GetAllTipSobeRequest;
 import ftn.uns.ac.rs.model.GetAllTipSobeResponse;
 import ftn.uns.ac.rs.model.ProducerPort;
@@ -28,7 +29,8 @@ public class TipSobeService {
 	public List<TipSobe> getAllSync(){
 		ProducerPortService producerPortService = new ProducerPortService();
 		ProducerPort producerPort = producerPortService.getProducerPortSoap11();
-		
+
+		Auth.authenticateClient(producerPort);
 		GetAllTipSobeRequest getTipSobeRequest = new GetAllTipSobeRequest();
 		GetAllTipSobeResponse getTipSobeResponse = new GetAllTipSobeResponse();
 		

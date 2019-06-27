@@ -12,6 +12,7 @@ import org.apache.logging.log4j.ThreadContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import ftn.uns.ac.rs.config.Auth;
 import ftn.uns.ac.rs.model.CreateRezervacijaRequest;
 import ftn.uns.ac.rs.model.CreateRezervacijaResponse;
 import ftn.uns.ac.rs.model.ProducerPort;
@@ -59,7 +60,8 @@ public class RezervacijaService {
 	public int createSync(RezervacijaDTO rezervaicijaDTO){
 		ProducerPortService producerPortService = new ProducerPortService();
 		ProducerPort producerPort = producerPortService.getProducerPortSoap11();
-		
+
+		Auth.authenticateClient(producerPort);
 		CreateRezervacijaRequest getRezervacijaRequest = new CreateRezervacijaRequest();
 		getRezervacijaRequest.setRezervacijaDTO(rezervaicijaDTO);
 		CreateRezervacijaResponse getZauzeceResponse = producerPort.createRezervacija(getRezervacijaRequest);
@@ -90,6 +92,7 @@ public class RezervacijaService {
 				rs.setStatusRezervacije(updateRezervisaneSobeDTO.getStatusRezervacije());
 				rezervisaneSobeRepository.save(rs);
 			}
+			
 			return true;
 		}catch (Exception e) {
 		
@@ -119,6 +122,8 @@ public class RezervacijaService {
 				rezervisaneSobeService.add(rezervisaneSobe);
 				
 			}
+			rezervacijaDTO.setId(rezervacija.getId());
+			createSync(rezervacijaDTO);
 			return true;
 		} catch (Exception e){
 			logger.error(USER, "Neuspesno dodavanje rezervacije: " + e.getMessage());

@@ -31,13 +31,6 @@ public class LokacijaController {
 		return new ResponseEntity<List<Lokacija>>(lokacijaService.getAll(), HttpStatus.OK);
 	}
 	
-	@PostMapping(value = "createSync")
-	public ResponseEntity<Integer> createSync(@RequestBody Lokacija lokacija){
-		
-		return new ResponseEntity<Integer>(lokacijaService.createSync(lokacija), HttpStatus.OK);
-	}
-	
-	
 	@GetMapping(value = "/{id}")
 	public ResponseEntity<Lokacija> getById(@PathVariable Long id){
 		if(lokacijaService.getById(id) == null) {

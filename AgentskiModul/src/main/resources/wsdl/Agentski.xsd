@@ -144,7 +144,7 @@
             </xs:sequence>
         </xs:complexType>
     </xs:element>
-    <xs:element name="GetRezervacijaRequest">
+    <xs:element name="GetAllRezervacijaRequest">
         <xs:complexType>
         </xs:complexType>
     </xs:element>
@@ -559,7 +559,7 @@
     <xs:element name="GetAllAgentResponse">
         <xs:complexType>
             <xs:sequence>
-                <xs:element minOccurs="0" maxOccurs="unbounded" ref="Agent"/>
+                <xs:element minOccurs="0" maxOccurs="unbounded" ref="ShowAgentDTO"/>
             </xs:sequence>
         </xs:complexType>
     </xs:element>
