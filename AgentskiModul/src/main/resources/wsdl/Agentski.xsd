@@ -501,7 +501,6 @@
                 <xs:element name="poslovniMaticniBroj" type="xs:integer"/>
                 <xs:element name="korisnickoIme" type="xs:string"/>
                 <xs:element name="email" type="xs:string"/>
-                <xs:element name="token" type="xs:string"/>
                 <xs:element ref="Smestaj" maxOccurs="unbounded"/>
             </xs:sequence>
         </xs:complexType>

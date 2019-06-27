@@ -508,7 +508,6 @@
                 <xs:element name="poslovniMaticniBroj" type="xs:integer"/>
                 <xs:element name="korisnickoIme" type="xs:string"/>
                 <xs:element name="email" type="xs:string"/>
-                <xs:element name="token" type="xs:string"/>
                 <xs:element ref="Smestaj" maxOccurs="unbounded"/>
             </xs:sequence>
         </xs:complexType>
@@ -566,7 +565,7 @@
     <xs:element name="GetAllAgentResponse">
         <xs:complexType>
             <xs:sequence>
-                <xs:element minOccurs="0" maxOccurs="unbounded" ref="Agent"/>
+                <xs:element minOccurs="0" maxOccurs="unbounded" ref="ShowAgentDTO"/>
             </xs:sequence>
         </xs:complexType>
     </xs:element>
@@ -741,6 +740,10 @@
         <wsdl:part element="tns:GetAllTipSmestajaResponse" name="GetAllTipSmestajaResponse"
         > </wsdl:part>
     </wsdl:message>
+    <wsdl:message name="GetAllAgentResponse">
+        <wsdl:part element="tns:GetAllAgentResponse" name="GetAllAgentResponse"
+        > </wsdl:part>
+    </wsdl:message>
     
     <wsdl:message name="CreateLokacijaResponse">
         <wsdl:part element="tns:CreateLokacijaResponse" name="CreateLokacijaResponse"> </wsdl:part>
@@ -752,6 +755,9 @@
     
     <wsdl:message name="GetAllRezervisaneSobeRequest">
         <wsdl:part element="tns:GetAllRezervisaneSobeRequest" name="GetAllRezervisaneSobeRequest"> </wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="GetAllAgentRequest">
+        <wsdl:part element="tns:GetAllAgentRequest" name="GetAllAgentRequest"> </wsdl:part>
     </wsdl:message>
     
     <wsdl:message name="GetAllRezervisaneSobeResponse">
@@ -776,6 +782,19 @@
     </wsdl:message>
    <wsdl:message name="CreateSmestajResponse">
         <wsdl:part element="tns:CreateSmestajResponse" name="CreateSmestajResponse"> </wsdl:part>
+    </wsdl:message>
+    
+     <wsdl:message name="GetAllKomentarRequest">
+        <wsdl:part element="tns:GetAllKomentarRequest" name="GetAllKomentarRequest"> </wsdl:part>
+    </wsdl:message>
+   <wsdl:message name="GetAllKomentarResponse">
+        <wsdl:part element="tns:GetAllKomentarResponse" name="GetAllKomentarResponse"> </wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="GetAllKorisnikRequest">
+        <wsdl:part element="tns:GetAllKorisnikRequest" name="GetAllKorisnikRequest"> </wsdl:part>
+    </wsdl:message>
+   <wsdl:message name="GetAllKorisnikResponse">
+        <wsdl:part element="tns:GetAllKorisnikResponse" name="GetAllKorisnikResponse"> </wsdl:part>
     </wsdl:message>
     <wsdl:message name="GetAllTipSobeResponse">
         <wsdl:part element="tns:GetAllTipSobeResponse" name="GetAllTipSobeResponse"> </wsdl:part>
@@ -849,6 +868,12 @@
             <wsdl:output message="tns:AgentLoginResponse" name="AgentLoginResponse"
             > </wsdl:output>
         </wsdl:operation>
+        
+        <wsdl:operation name="GetAllAgent">
+            <wsdl:input message="tns:GetAllAgentRequest" name="GetAllAgentRequest"> </wsdl:input>
+            <wsdl:output message="tns:GetAllAgentResponse" name="GetAllAgentResponse"
+            > </wsdl:output>
+        </wsdl:operation>
         <wsdl:operation name="UpdateAgent">
             <wsdl:input message="tns:UpdateAgentRequest" name="UpdateAgentRequest"> </wsdl:input>
             <wsdl:output message="tns:UpdateAgentResponse" name="UpdateAgentResponse"
@@ -878,6 +903,16 @@
         <wsdl:operation name="GetAllTipSobe">
             <wsdl:input message="tns:GetAllTipSobeRequest" name="GetAllTipSobeRequest"> </wsdl:input>
             <wsdl:output message="tns:GetAllTipSobeResponse" name="GetAllTipSobeResponse"
+            > </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="GetAllKomentar">
+            <wsdl:input message="tns:GetAllKomentarRequest" name="GetAllKomentarRequest"> </wsdl:input>
+            <wsdl:output message="tns:GetAllKomentarResponse" name="GetAllKomentarResponse"
+            > </wsdl:output>
+        </wsdl:operation>
+         <wsdl:operation name="GetAllKorisnik">
+            <wsdl:input message="tns:GetAllKorisnikRequest" name="GetAllKorisnikRequest"> </wsdl:input>
+            <wsdl:output message="tns:GetAllKorisnikResponse" name="GetAllKorisnikResponse"
             > </wsdl:output>
         </wsdl:operation>
         <wsdl:operation name="GetAllUsluga">
@@ -927,6 +962,24 @@
                 <soap:body use="literal"/>
             </wsdl:input>
             <wsdl:output name="GetAllRezervisaneSobeResponse">
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+          <wsdl:operation name="GetAllKomentar">
+            <soap:operation soapAction=""/>
+            <wsdl:input name="GetAllKomentarRequest">
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output name="GetAllKomentarResponse">
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+          <wsdl:operation name="GetAllKorisnik">
+            <soap:operation soapAction=""/>
+            <wsdl:input name="GetAllKorisnikRequest">
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output name="GetAllKorisnikResponse">
                 <soap:body use="literal"/>
             </wsdl:output>
         </wsdl:operation>
@@ -1000,6 +1053,15 @@
                 <soap:body use="literal"/>
             </wsdl:input>
             <wsdl:output name="GetAllUslugaResponse">
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="GetAllAgent">
+            <soap:operation soapAction=""/>
+            <wsdl:input name="GetAllAgentRequest">
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output name="GetAllAgentResponse">
                 <soap:body use="literal"/>
             </wsdl:output>
         </wsdl:operation>

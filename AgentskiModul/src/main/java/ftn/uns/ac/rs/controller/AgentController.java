@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import ftn.uns.ac.rs.model.AgentDTO;
 import ftn.uns.ac.rs.model.AgentLoginDTO;
+import ftn.uns.ac.rs.model.LoggedUser;
 import ftn.uns.ac.rs.model.ShowAgentDTO;
 import ftn.uns.ac.rs.service.AgentService;
 
@@ -51,12 +52,12 @@ public class AgentController {
 	}
 	
 	@PostMapping
-	public ResponseEntity<String> login(@RequestBody AgentLoginDTO agentDTO){
-		String string = agentService.login(agentDTO);
-		if(string != null) {
-			return new ResponseEntity<String>(string, HttpStatus.OK);
+	public ResponseEntity<LoggedUser> login(@RequestBody AgentLoginDTO agentDTO){
+		LoggedUser loggedUser = agentService.login(agentDTO);
+		if(loggedUser != null) {
+			return new ResponseEntity<LoggedUser>(loggedUser, HttpStatus.OK);
 		}else {
-			return new ResponseEntity<String>(string, HttpStatus.CONFLICT);
+			return new ResponseEntity<LoggedUser>(loggedUser, HttpStatus.CONFLICT);
 		}
 	}
 }

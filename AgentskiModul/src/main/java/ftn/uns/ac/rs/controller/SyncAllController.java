@@ -50,9 +50,9 @@ public class SyncAllController {
 			tipSmestajaService.getAllSync();
 			tipSobeService.getAllSync();
 			uslugaService.getAllSync();
-			//agentService.getAllSync();
+			agentService.getAllSync();
 			komentarService.getAllSync();
-			//korisnikService.getAllSync();
+			korisnikService.getAllSync();
 			//porukaService.getAllSync();
 			return new ResponseEntity<String>("Podaci uspesno sinhronizovani!", HttpStatus.OK);
 			
