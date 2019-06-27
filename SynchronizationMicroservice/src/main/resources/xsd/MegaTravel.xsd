@@ -35,7 +35,7 @@
                 <xs:element name="sifra" type="xs:string"/>
                 <xs:element name="aktivan" type="xs:boolean"/>
                 <xs:element name="korisnickoIme" type="xs:string"/>
-                <xs:element ref="Uloga" minOccurs="1" maxOccurs="1"></xs:element>
+                <!-- xs:element ref="Uloga" minOccurs="1" maxOccurs="1"></xs:element>  -->
             </xs:sequence>
         </xs:complexType>
     </xs:element>
@@ -44,14 +44,7 @@
         <xs:complexType>
             <xs:all>
                 <xs:element name="id" type="xs:long"/>
-                <xs:element name="ime" type="xs:string"/>
-                <xs:element name="prezime" type="xs:string"/>
-                <xs:element name="email" type="xs:string"/>
-                <xs:element name="telefon" type="xs:string"/>
-                <xs:element name="sifra" type="xs:string"/>
-                <xs:element name="aktivan" type="xs:boolean"/>
                 <xs:element name="korisnickoIme" type="xs:string"/>
-                <xs:element name="idUloga" type="xs:long"/>
             </xs:all>
         </xs:complexType>
     </xs:element>
@@ -196,7 +189,7 @@
             </xs:sequence>
         </xs:complexType>
     </xs:element>
-    <xs:element name="GetRezervacijaRequest">
+    <xs:element name="GetAllRezervacijaRequest">
         <xs:complexType>
         </xs:complexType>
     </xs:element>
@@ -401,6 +394,20 @@
             </xs:sequence>
         </xs:complexType>
     </xs:element>
+    <xs:element name="Agent">
+        <xs:complexType>
+            <xs:all>
+                <xs:element name="id" type="xs:ID"/>
+                <xs:element name="ime" type="xs:string"/>
+                <xs:element name="prezime" type="xs:string"/>
+                <xs:element name="adresa" type="xs:string"/>
+                <xs:element name="poslovniMaticniBroj" type="xs:integer"/>
+                <xs:element name="korisnickoIme" type="xs:string"/>
+                <xs:element name="email" type="xs:string"/>
+                <xs:element name="lozinka" type="xs:string"/>
+            </xs:all>
+        </xs:complexType>
+    </xs:element>
     <xs:element name="SmestajDTO">
         <xs:complexType>
             <xs:sequence>
@@ -543,21 +550,6 @@
     </xs:element>
     <!-- =========================================AGENT=========================================== -->
     
-    <xs:element name="Agent">
-        <xs:complexType>
-            <xs:sequence>
-                <xs:element name="id" type="xs:long"/>
-                <xs:element name="ime" type="xs:string"/>
-                <xs:element name="prezime" type="xs:string"/>
-                <xs:element name="adresa" type="xs:string"/>
-                <xs:element name="poslovniMaticniBroj" type="xs:integer"/>
-                <xs:element name="korisnickoIme" type="xs:string"/>
-                <xs:element name="email" type="xs:string"/>
-                <xs:element name="token" type="xs:string"/>
-                <xs:element ref="Smestaj" maxOccurs="unbounded"/>
-            </xs:sequence>
-        </xs:complexType>
-    </xs:element>
     <xs:element name="ShowAgentDTO">
         <xs:complexType>
             <xs:sequence>
@@ -611,7 +603,7 @@
     <xs:element name="GetAllAgentResponse">
         <xs:complexType>
             <xs:sequence>
-                <xs:element minOccurs="0" maxOccurs="unbounded" ref="Agent"/>
+                <xs:element minOccurs="0" maxOccurs="unbounded" ref="ShowAgentDTO"/>
             </xs:sequence>
         </xs:complexType>
     </xs:element>
@@ -705,7 +697,7 @@
     <xs:element name="GetAllKorisnikResponse">
         <xs:complexType>
             <xs:sequence>
-                <xs:element minOccurs="0" maxOccurs="unbounded" ref="Korisnik"/>
+                <xs:element minOccurs="0" maxOccurs="unbounded" ref="KorisnikDTO"/>
             </xs:sequence>
         </xs:complexType>
     </xs:element>

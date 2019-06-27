@@ -75,4 +75,9 @@ public class GetAllKomentarResponse {
         return this.komentarDTO;
     }
 
+	public void setKomentarDTO(List<KomentarDTO> komentarDTO) {
+		this.komentarDTO = komentarDTO;
+	}
+
+    
 }

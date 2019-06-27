@@ -75,4 +75,10 @@ public class GetAllAgentResponse {
         return this.agent;
     }
 
+	public void setAgent(List<ShowAgentDTO> agent) {
+		this.agent = agent;
+	}
+    
+    
+
 }

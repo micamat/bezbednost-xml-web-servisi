@@ -101,7 +101,7 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link Agent }
+     * Create an instance of {@link AgentSync }
      * 
      */
     public Agent createAgent() {
@@ -237,11 +237,11 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link GetRezervacijaRequest }
+     * Create an instance of {@link GetAllRezervacijaRequest }
      * 
      */
-    public GetRezervacijaRequest createGetRezervacijaRequest() {
-        return new GetRezervacijaRequest();
+    public GetAllRezervacijaRequest createGetAllRezervacijaRequest() {
+        return new GetAllRezervacijaRequest();
     }
 
     /**

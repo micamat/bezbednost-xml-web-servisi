@@ -75,4 +75,10 @@ public class GetAllRezervacijaResponse {
         return this.rezervacija;
     }
 
+	public void setRezervacija(List<Rezervacija> rezervacija) {
+		this.rezervacija = rezervacija;
+	}
+    
+    
+
 }
