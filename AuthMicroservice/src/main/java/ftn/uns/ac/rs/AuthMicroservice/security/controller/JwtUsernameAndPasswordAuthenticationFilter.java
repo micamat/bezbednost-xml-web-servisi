@@ -9,8 +9,6 @@ import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-import javax.servlet.http.HttpSessionContext;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -20,12 +18,10 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -113,8 +109,11 @@ public class JwtUsernameAndPasswordAuthenticationFilter extends UsernamePassword
 	}
 	
 	@PostMapping("/prijava")
-	public LoggedUser prijava(@RequestBody AgentLoginDTO dto){
-		return signin(dto.getusername(), dto.getpassword());
+	public ResponseEntity<LoggedUser> prijava(@RequestBody AgentLoginDTO dto){
+		//String[] kredencijali = dto.split(" ");
+		//LoggedUser user = signin(kredencijali[0], kredencijali[1]);
+		//return user.getUsername() + " " + user.getToken();
+		return new ResponseEntity<LoggedUser>(signin(dto.getusername(), dto.getpassword()), HttpStatus.OK);
 	}
 	
 	@PostMapping("/registerKorisnik")
@@ -132,6 +131,7 @@ public class JwtUsernameAndPasswordAuthenticationFilter extends UsernamePassword
 		LoggedUser loggedUser = new LoggedUser();
 		
 		UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(username, password, Collections.emptyList());
+		System.out.println("za proveru:" + authToken + "kraj");
 		Authentication authentication = authManager.authenticate(authToken);
 		SecurityContextHolder.getContext().setAuthentication(authentication);
 		
