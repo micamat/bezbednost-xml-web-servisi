@@ -39,9 +39,6 @@ public class AgentLoginEndpoint {
 		RestTemplate restTemplate = new RestTemplate();
 		AgentLoginDTO agent = new AgentLoginDTO(input.getusername(), input.getpassword());
 		
-		//HttpHeaders headers = new HttpHeaders();
-		//headers.setContentType(MediaType.APPLICATION_JSON);
-		//headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
 		HttpEntity<AgentLoginDTO> requestEntity = new HttpEntity<>(agent, null);
 
 		AgentLoginResponse loggedUser = restTemplate.postForObject("http://localhost:8765/auth/prijava", requestEntity, AgentLoginResponse.class);
