@@ -600,6 +600,20 @@
             </xs:sequence>
         </xs:complexType>
     </xs:element>
+     <xs:element name="AgentLogoutRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="username" type="xs:string"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="AgentLogoutResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element default="false" name="Successful" type="xs:boolean"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
     
     <!-- ========================================KOMENTAR========================================= -->
     <xs:element name="Komentar">

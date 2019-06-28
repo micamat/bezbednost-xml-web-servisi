@@ -151,5 +151,11 @@ public interface ProducerPort {
 
 			@WebParam(partName = "ValidateTokenRequest", name = "ValidateTokenRequest", targetNamespace = "http://rs.ac.uns.ftn/Model") ValidateTokenRequest validateTokenRequest);
 
+	@WebMethod(operationName = "AgentLogout")
+	@WebResult(name = "AgentLogoutResponse", targetNamespace = "http://rs.ac.uns.ftn/Model", partName = "AgentLogoutResponse")
+	public AgentLogoutResponse agentLogout(
+
+			@WebParam(partName = "AgentLogoutRequest", name = "AgentLogoutRequest", targetNamespace = "http://rs.ac.uns.ftn/Model") AgentLogoutRequest agentLogoutRequest);
+
 
 }

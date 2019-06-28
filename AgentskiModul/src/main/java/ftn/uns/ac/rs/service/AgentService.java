@@ -17,6 +17,8 @@ import ftn.uns.ac.rs.model.AgentDTO;
 import ftn.uns.ac.rs.model.AgentLoginDTO;
 import ftn.uns.ac.rs.model.AgentLoginRequest;
 import ftn.uns.ac.rs.model.AgentLoginResponse;
+import ftn.uns.ac.rs.model.AgentLogoutRequest;
+import ftn.uns.ac.rs.model.AgentLogoutResponse;
 import ftn.uns.ac.rs.model.GetAllAgentRequest;
 import ftn.uns.ac.rs.model.GetAllAgentResponse;
 import ftn.uns.ac.rs.model.LoggedUser;
@@ -137,6 +139,37 @@ public class AgentService {
 		return null;
 	}
 	
+	public boolean logout(String username) {
+		if (username  == null) {
+			return false;
+		}
+		ProducerPortService producerPortService = new ProducerPortService();
+		ProducerPort producerPort = producerPortService.getProducerPortSoap11();
+		// autentifikacija pomocu sertifikata
+		Auth.authenticateClient(producerPort);
+		AgentLogoutRequest agentLogoutRequest = new AgentLogoutRequest();
+		AgentLogoutResponse agentLogoutResponse = new AgentLogoutResponse();
+		agentLogoutRequest.setusername(username);
+		
+		try {
+
+			agentLogoutResponse = producerPort.agentLogout(agentLogoutRequest);
+			ThreadContext.put("user", username);
+			if (!agentLogoutResponse.isSuccessful()) {
+
+				logger.error(USER, "Agent nije izlogovan");
+				return false;
+			}else {
+
+				logger.info(USER, "Uspesno izlogovan");
+				return true;
+			}
+		} catch (Exception e) {
+
+			logger.error(USER, "Greska prilikom izlogovanja: " + e.getMessage());
+		}
+		return false;
+	}
 	
 
 	private ShowAgentDTO convertToDTO(Agent agent) {

@@ -66,4 +66,13 @@ public class AgentController {
 			return new ResponseEntity<LoggedUser>(loggedUser, HttpStatus.CONFLICT);
 		}
 	}
+	
+	@PutMapping("/logout")
+	public ResponseEntity<Boolean> logout(@RequestParam String username){
+		if(agentService.logout(username)) {
+			return new ResponseEntity<Boolean>(true, HttpStatus.OK);
+		}else {
+			return new ResponseEntity<Boolean>(false, HttpStatus.CONFLICT);
+		}
+	}
 }
