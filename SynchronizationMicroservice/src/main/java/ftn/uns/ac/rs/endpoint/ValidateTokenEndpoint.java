@@ -23,6 +23,7 @@ final String NAMESPACE = "http://rs.ac.uns.ftn/Model";
 	@ResponsePayload
 	@PayloadRoot(namespace = NAMESPACE, localPart = "ValidateTokenRequest")
 	public ValidateTokenResponse validateToken(@RequestPayload final ValidateTokenRequest input) {
+		System.out.println("usao u endpoint za validaciju tokena");
 		ValidateTokenResponse response = new ValidateTokenResponse();
 		HttpHeaders headers = new HttpHeaders();
 		headers.setContentType(MediaType.APPLICATION_JSON);

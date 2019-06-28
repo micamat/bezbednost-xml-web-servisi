@@ -49,6 +49,7 @@ public class AgentLoginEndpoint {
 		response.setUsername(user.getUsername());
 		response.setToken(user.getToken());
 		System.out.println("dsad " + response.getToken());
+		System.out.println("ispisi molim te: " + response.getUsername());
 		return response;
 	}
 

@@ -1,4 +1,4 @@
-package ftn.uns.ac.rs.security;
+package adminski.modul.app.security;
 
 import java.io.IOException;
 import java.sql.Date;
@@ -28,6 +28,7 @@ import org.springframework.web.bind.annotation.RestController;
 //import com.eureka.common.security.JwtConfig;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import adminski.modul.app.model.Admin;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 
@@ -41,7 +42,7 @@ public class JwtUsernameAndPasswordAuthenticationFilter extends UsernamePassword
 	JwtConfig jwtConfig;
 	
 	@Autowired
-	KorisnikService korisnikService;
+	AdminService korisnikService;
 	
 	/**
 	 * Konstruktor
@@ -101,8 +102,8 @@ public class JwtUsernameAndPasswordAuthenticationFilter extends UsernamePassword
 	}
 	
 	@PostMapping("/registerKorisnik")
-	public ResponseEntity<Korisnik> saveKorisnik(@RequestBody KorisnikDTO korisnik){
-		return new ResponseEntity<Korisnik>(korisnikService.save(korisnik), HttpStatus.OK);
+	public ResponseEntity<Admin> saveKorisnik(@RequestBody Admin korisnik){
+		return new ResponseEntity<Admin>(korisnikService.save(korisnik), HttpStatus.OK);
 	}
 	
 	private LoggedUser signin(String username, String password) {
