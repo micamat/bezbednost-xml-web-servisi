@@ -43,10 +43,11 @@ public class AgentController {
 		return new ResponseEntity<ShowAgentDTO>(agentService.getById(id), HttpStatus.OK);
 	}
 	
-	@PutMapping
-	public ResponseEntity<String> update(@RequestParam("token") String token, @RequestBody AgentDTO agentDTO){
+	@PutMapping("{token}")
+	public ResponseEntity<String> update(@PathVariable String token, @RequestBody AgentDTO agentDTO){
 		if (ValidationService.validate(token)) {
 			if(agentService.updateSync(agentDTO)) {
+				System.out.println("update kontorler: " + agentDTO.getKorisnickoIme());
 				return new ResponseEntity<String>("Agent je uspesno azuriran!", HttpStatus.CREATED);
 			}else {
 				return new ResponseEntity<String>("Greska pri azuriranju agenta!", HttpStatus.CONFLICT);

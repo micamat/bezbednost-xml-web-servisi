@@ -17,7 +17,7 @@ public class AgentskiModulApplication {
 	}
 	
 	//za resavanje Cross-Origin Resource Sharing(CORS)
-		/*@Bean
+		@Bean
 		public CorsFilter corsFilter() {
 		UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
 		CorsConfiguration config = new CorsConfiguration();
@@ -31,6 +31,6 @@ public class AgentskiModulApplication {
 		config.addAllowedMethod("DELETE");
 		source.registerCorsConfiguration("/**", config);
 		return new CorsFilter(source);
-		}*/
+		}
 
 }

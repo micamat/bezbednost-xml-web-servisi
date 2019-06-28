@@ -1140,7 +1140,7 @@
     </wsdl:binding>
     <wsdl:service name="ProducerPortService">
         <wsdl:port binding="tns:ProducerPortSoap11" name="ProducerPortSoap11">
-            <soap:address location="https://localhost:8002/ws"/>
+            <soap:address location="http://localhost:8002/ws"/>
         </wsdl:port>
     </wsdl:service>
 </wsdl:definitions>
