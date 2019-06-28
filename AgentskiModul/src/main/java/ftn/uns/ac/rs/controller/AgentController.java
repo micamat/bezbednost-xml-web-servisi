@@ -44,7 +44,7 @@ public class AgentController {
 	}
 	
 	@PutMapping
-	public ResponseEntity<String> update(@RequestParam String token, @RequestBody AgentDTO agentDTO){
+	public ResponseEntity<String> update(@RequestParam("token") String token, @RequestBody AgentDTO agentDTO){
 		if (ValidationService.validate(token)) {
 			if(agentService.updateSync(agentDTO)) {
 				return new ResponseEntity<String>("Agent je uspesno azuriran!", HttpStatus.CREATED);
@@ -64,6 +64,15 @@ public class AgentController {
 			return new ResponseEntity<LoggedUser>(loggedUser, HttpStatus.OK);
 		}else {
 			return new ResponseEntity<LoggedUser>(loggedUser, HttpStatus.CONFLICT);
+		}
+	}
+	
+	@PutMapping("/logout")
+	public ResponseEntity<Boolean> logout(@RequestParam String username){
+		if(agentService.logout(username)) {
+			return new ResponseEntity<Boolean>(true, HttpStatus.OK);
+		}else {
+			return new ResponseEntity<Boolean>(false, HttpStatus.CONFLICT);
 		}
 	}
 }

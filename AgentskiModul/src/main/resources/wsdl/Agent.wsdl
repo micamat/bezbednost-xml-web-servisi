@@ -608,6 +608,20 @@
             </xs:sequence>
         </xs:complexType>
     </xs:element>
+     <xs:element name="AgentLogoutRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="username" type="xs:string"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="AgentLogoutResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element default="false" name="Successful" type="xs:boolean"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
     
     <!-- ========================================KOMENTAR========================================= -->
     <xs:element name="Komentar">
@@ -832,7 +846,15 @@
         <wsdl:part element="tns:AgentLoginResponse" name="AgentLoginResponse"
         > </wsdl:part>
     </wsdl:message>
+    <wsdl:message name="AgentLogoutResponse">
+        <wsdl:part element="tns:AgentLogoutResponse" name="AgentLogoutResponse"
+        > </wsdl:part>
+    </wsdl:message>
     
+    <wsdl:message name="AgentLogoutRequest">
+        <wsdl:part element="tns:AgentLogoutRequest" name="AgentLogoutRequest"
+        > </wsdl:part>
+    </wsdl:message>
     <wsdl:message name="UpdateAgentRequest">
         <wsdl:part element="tns:UpdateAgentRequest" name="UpdateAgentRequest"
         > </wsdl:part>
@@ -847,6 +869,14 @@
     </wsdl:message>
     <wsdl:message name="CreateSobneUslugeResponse">
         <wsdl:part element="tns:CreateSobneUslugeResponse" name="CreateSobneUslugeResponse"
+        > </wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="ValidateTokenResponse">
+        <wsdl:part element="tns:ValidateTokenResponse" name="ValidateTokenResponse"
+        > </wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="ValidateTokenRequest">
+        <wsdl:part element="tns:ValidateTokenRequest" name="ValidateTokenRequest"
         > </wsdl:part>
     </wsdl:message>
     
@@ -877,7 +907,11 @@
             <wsdl:output message="tns:AgentLoginResponse" name="AgentLoginResponse"
             > </wsdl:output>
         </wsdl:operation>
-        
+        <wsdl:operation name="AgentLogout">
+            <wsdl:input message="tns:AgentLogoutRequest" name="AgentLogoutRequest"> </wsdl:input>
+            <wsdl:output message="tns:AgentLogoutResponse" name="AgentLogoutResponse"
+            > </wsdl:output>
+        </wsdl:operation>
         <wsdl:operation name="GetAllAgent">
             <wsdl:input message="tns:GetAllAgentRequest" name="GetAllAgentRequest"> </wsdl:input>
             <wsdl:output message="tns:GetAllAgentResponse" name="GetAllAgentResponse"
@@ -934,6 +968,13 @@
             <wsdl:output message="tns:CreateSobneUslugeResponse" name="CreateSobneUslugeResponse"
             > </wsdl:output>
         </wsdl:operation>
+        
+        <wsdl:operation name="ValidateToken">
+            <wsdl:input message="tns:ValidateTokenRequest" name="ValidateTokenRequest"> </wsdl:input>
+            <wsdl:output message="tns:ValidateTokenResponse" name="ValidateTokenResponse"
+            > </wsdl:output>
+        </wsdl:operation>
+        
     </wsdl:portType>
     <wsdl:binding name="ProducerPortSoap11" type="tns:ProducerPort">
         <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
@@ -1002,6 +1043,17 @@
                 <soap:body use="literal"/>
             </wsdl:output>
         </wsdl:operation>
+        
+           
+        <wsdl:operation name="AgentLogout">
+            <soap:operation soapAction=""/>
+            <wsdl:input name=AgentLogoutRequest">
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output name="AgentLogoutResponse">
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
         <wsdl:operation name="UpdateAgent">
             <soap:operation soapAction=""/>
             <wsdl:input name="UpdateAgentRequest">
@@ -1056,6 +1108,17 @@
                 <soap:body use="literal"/>
             </wsdl:output>
         </wsdl:operation>
+        
+        <wsdl:operation name="ValidateToken">
+            <soap:operation soapAction=""/>
+            <wsdl:input name="ValidateTokenRequest">
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output name="ValidateTokenResponse">
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        
         <wsdl:operation name="GetAllUsluga">
             <soap:operation soapAction=""/>
             <wsdl:input name="GetAllUslugaRequest">

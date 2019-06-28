@@ -1,4 +1,4 @@
-package ftn.uns.ac.rs.AuthMicroservice.security.controller;
+package ftn.uns.ac.rs.security;
 
 import java.io.IOException;
 import java.sql.Date;
@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.authentication.UserCredentials;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -18,26 +19,15 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 //import com.eureka.common.security.JwtConfig;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import ftn.uns.ac.rs.AuthMicroservice.security.config.JwtConfig;
-import ftn.uns.ac.rs.AuthMicroservice.security.model.Agent;
-import ftn.uns.ac.rs.AuthMicroservice.security.model.AgentLoginDTO;
-import ftn.uns.ac.rs.AuthMicroservice.security.model.Korisnik;
-import ftn.uns.ac.rs.AuthMicroservice.security.model.KorisnikDTO;
-import ftn.uns.ac.rs.AuthMicroservice.security.model.LoggedUser;
-import ftn.uns.ac.rs.AuthMicroservice.security.model.UserCredentials;
-import ftn.uns.ac.rs.AuthMicroservice.security.service.AgentService;
-import ftn.uns.ac.rs.AuthMicroservice.security.service.KorisnikService;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 
@@ -52,9 +42,6 @@ public class JwtUsernameAndPasswordAuthenticationFilter extends UsernamePassword
 	
 	@Autowired
 	KorisnikService korisnikService;
-	
-	@Autowired
-	AgentService agentService;
 	
 	/**
 	 * Konstruktor
@@ -108,25 +95,20 @@ public class JwtUsernameAndPasswordAuthenticationFilter extends UsernamePassword
 		response.addHeader(jwtConfig.getHeader(), jwtConfig.getPrefix() + token);
 	}
 	
-	@PostMapping("/prijava")
+	/*@PostMapping("/prijava")
 	public ResponseEntity<LoggedUser> prijava(@RequestBody AgentLoginDTO dto){
 		//String[] kredencijali = dto.split(" ");
 		//LoggedUser user = signin(kredencijali[0], kredencijali[1]);
 		//return user.getUsername() + " " + user.getToken();
 		return new ResponseEntity<LoggedUser>(signin(dto.getusername(), dto.getpassword()), HttpStatus.OK);
-	}
+	}*/
 	
 	@PostMapping("/registerKorisnik")
 	public ResponseEntity<Korisnik> saveKorisnik(@RequestBody KorisnikDTO korisnik){
 		return new ResponseEntity<Korisnik>(korisnikService.save(korisnik), HttpStatus.OK);
 	}
 	
-	@PostMapping("/registerAgent")
-	public ResponseEntity<Agent> saveAgent(@RequestBody Agent agent){
-		return new ResponseEntity<Agent>(agentService.save(agent), HttpStatus.OK);
-	}
-	
-	private LoggedUser signin(String username, String password) {
+	/*private LoggedUser signin(String username, String password) {
 		try {
 			LoggedUser loggedUser = new LoggedUser();
 			
@@ -153,7 +135,7 @@ public class JwtUsernameAndPasswordAuthenticationFilter extends UsernamePassword
 			return null;
 		}
 		
-	}
+	}*/
 	
 	@Override
 	@Autowired

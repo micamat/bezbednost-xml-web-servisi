@@ -14,6 +14,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.client.RestTemplate;
 
 @SpringBootApplication
@@ -27,7 +28,7 @@ public class SynchronizationMicroserviceApplication {
 	public RestTemplate getRestTemplate() {
 	    RestTemplate restTemplate = new RestTemplate();
 	    
-	    KeyStore keyStore;
+	    /*KeyStore keyStore;
 	    HttpComponentsClientHttpRequestFactory requestFactory = null;
 	    try {
 	    	keyStore = KeyStore.getInstance("jks");
@@ -53,7 +54,12 @@ public class SynchronizationMicroserviceApplication {
 	    }catch (Exception e) {
 	    	System.out.println("IZUZETAK PRI KREIRANJU RestTemplate-a");
 			e.printStackTrace();
-		}
+		}*/
 	    return restTemplate;
+	}
+	
+	@Bean
+	public BCryptPasswordEncoder passwordEncoder() {
+		return new BCryptPasswordEncoder();
 	}
 }

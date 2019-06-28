@@ -12,7 +12,7 @@ import javax.net.ssl.KeyManagerFactory;
 import javax.net.ssl.TrustManagerFactory;
 
 public class SoapClientConfig {
-	public KeyManagerFactory getKeyManagerFactory() {
+	/*public KeyManagerFactory getKeyManagerFactory() {
 		InputStream inputStream = null;
 		KeyStore ts = null;
 		KeyManagerFactory keyManagerFactory = null;
@@ -55,5 +55,5 @@ public class SoapClientConfig {
 			}
 		}
 		return trustManagerFactory;
-	}
+	}*/
 }

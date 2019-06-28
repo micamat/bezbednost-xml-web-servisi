@@ -15,7 +15,7 @@ public class Auth {
 	
 	
 	public static void authenticateClient(ProducerPort tempPort) {
-		Client client = ClientProxy.getClient(tempPort);
+		/*Client client = ClientProxy.getClient(tempPort);
 		HTTPConduit httpConduit = (HTTPConduit) client.getConduit();
 		ftn.uns.ac.rs.config.SoapClientConfig soapClientConfig = new SoapClientConfig();
 		KeyManagerFactory keyManagerFactory = soapClientConfig.getKeyManagerFactory();
@@ -27,6 +27,6 @@ public class Auth {
 		tslClientParameters.setTrustManagers(trustManagerFactory.getTrustManagers());
 		tslClientParameters.setKeyManagers(keyManagerFactory.getKeyManagers());
 		tslClientParameters.setDisableCNCheck(true);
-		httpConduit.setTlsClientParameters(tslClientParameters);
+		httpConduit.setTlsClientParameters(tslClientParameters);*/
 	}
 }

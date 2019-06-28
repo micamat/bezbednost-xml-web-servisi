@@ -29,7 +29,7 @@ public class SecurityTokenConfig extends WebSecurityConfigurerAdapter {
 		   .addFilterAfter(new JwtTokenAuthenticationFilter(jwtConfig), UsernamePasswordAuthenticationFilter.class)
 		.authorizeRequests()
 		   //.antMatchers(HttpMethod.POST, jwtConfig.getUri()).permitAll()
-			.antMatchers("/validate").hasAuthority("AGENT")
+			.antMatchers("/validate").permitAll()
 			.antMatchers("/auth/prijava").permitAll()
 			.antMatchers("/auth/signin").permitAll()
 			.antMatchers("/auth/registerAgent").permitAll()
