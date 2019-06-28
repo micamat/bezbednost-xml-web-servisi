@@ -62,6 +62,9 @@ public class AgentService {
 	};
 
 	public boolean updateSync(AgentDTO agentDTO) {
+		if (agentDTO.getKorisnickoIme() == null || agentDTO.getLozinka() == null || agentDTO.getPrethodnaLozinka() == null) {
+			return false;
+		}
 		ProducerPortService producerPortService = new ProducerPortService();
 		ProducerPort producerPort = producerPortService.getProducerPortSoap11();
 
@@ -94,7 +97,9 @@ public class AgentService {
 
 
 	public LoggedUser login(AgentLoginDTO agentLoginDTO) {
-
+		if (agentLoginDTO.getUsername() == null || agentLoginDTO.getPassword() == null) {
+			return null;
+		}
 		ProducerPortService producerPortService = new ProducerPortService();
 		ProducerPort producerPort = producerPortService.getProducerPortSoap11();
 		// autentifikacija pomocu sertifikata
@@ -105,14 +110,10 @@ public class AgentService {
 		agentLoginRequest.setpassword(agentLoginDTO.getPassword());
 		agentLoginResponse = producerPort.agentLogin(agentLoginRequest);
 		try {
-			//Agent agent = agentRepository.findByKorisnickoIme(agentLoginDTO.getUsername());
-			System.out.println("5");
-			//agent.setToken(agentLoginResponse.getToken());
-			System.out.println("6");
-			//agentRepository.save(agent);
 			logger.info(USER, "Uspesno logovanje");
 			LoggedUser loggedUser = new LoggedUser();
 			loggedUser.setToken(agentLoginResponse.getToken());
+			System.out.println(loggedUser.getToken());
 			loggedUser.setUsername(agentLoginResponse.getUsername());
 			return loggedUser;
 		} catch (Exception e) {

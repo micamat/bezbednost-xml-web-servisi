@@ -59,6 +59,7 @@ public class KorisnikService implements UserDetailsService {
 			if(agent != null) {
 				String authorities = "AGENT";
 				List<GrantedAuthority> grantedAuthorities = AuthorityUtils.commaSeparatedStringToAuthorityList(authorities);
+				System.out.println("granted authorities: " + grantedAuthorities);
 				return new User(agent.getKorisnickoIme(), agent.getLozinka(), grantedAuthorities);
 			}
 		}

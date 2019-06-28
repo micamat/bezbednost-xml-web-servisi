@@ -72,6 +72,9 @@ public class SmestajService {
 	
 	
 	public boolean add(SmestajDTO smestajDTO) {
+		if (smestajDTO.getBroj() == null || smestajDTO.getDrzava() == null || smestajDTO.getGrad() == null || smestajDTO.getIdAgent() == null || smestajDTO.getIdKategorijaSmestaja() == null || smestajDTO.getIdTipSmestaja() == null || smestajDTO.getKapacitet() == 0 || smestajDTO.getNaziv() == null || smestajDTO.getSlika() == null || smestajDTO.getUlica() == null) {
+			return false;
+		}
 		Smestaj smestaj = new Smestaj();
 		ThreadContext.put("userId", "3ss");
 		try {

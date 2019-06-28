@@ -49,6 +49,9 @@ public class LokacijaService {
 	}
 
 	public Long add(Lokacija lokacija) {
+		if (lokacija.getBroj() == null || lokacija.getDrzava() == null || lokacija.getGrad() == null || lokacija.getUlica() == null) {
+			return null;
+		}
 		Koordinate koordinate = new Koordinate();
 		URL url;
 

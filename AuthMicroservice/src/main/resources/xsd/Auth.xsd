@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified"
-    targetNamespace="http://AuthMicroservice.rs.ac.uns.ftn/security/Model"
-    xmlns="http://AuthMicroservice.rs.ac.uns.ftn/security/Model">
+    targetNamespace="http://rs.ac.uns.ftn/Model"
+    xmlns="http://rs.ac.uns.ftn/Model">
     
     <!-- ================================KORISNIK============================================= -->
     <xs:element name="Permisija">

@@ -42,4 +42,5 @@ public class SecurityTokenConfig extends WebSecurityConfigurerAdapter {
   	public JwtConfig jwtConfig() {
     	   return new JwtConfig();
   	}
+	
 }

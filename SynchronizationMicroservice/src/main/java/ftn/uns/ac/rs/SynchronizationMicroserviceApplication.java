@@ -48,7 +48,6 @@ public class SynchronizationMicroserviceApplication {
 	    	requestFactory = new HttpComponentsClientHttpRequestFactory(httpClient);
 	    	requestFactory.setReadTimeout(Integer.valueOf(10000));
 	    	requestFactory.setConnectTimeout(Integer.valueOf(10000));
-	    	System.out.println("DOSO DOVDE");
 	    	restTemplate.setRequestFactory(requestFactory);
 	    	
 	    }catch (Exception e) {

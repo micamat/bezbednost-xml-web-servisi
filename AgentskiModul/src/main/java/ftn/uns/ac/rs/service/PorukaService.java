@@ -82,6 +82,9 @@ public class PorukaService {
 	}
 	
 	public boolean add(PorukaDTO porukaDTO) {
+		if (porukaDTO.getDatum() == null || porukaDTO.getIdRezervacije() == null || porukaDTO.getNaslov() == null || porukaDTO.getSadrzaj() == null) {
+			return false;
+		}
 		porukaDTO.setId(null);
 		try {
 			porukaRepository.save(convertToEntity(porukaDTO));

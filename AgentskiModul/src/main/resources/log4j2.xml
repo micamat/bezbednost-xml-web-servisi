@@ -3,26 +3,31 @@
   <Appenders>
     <Console name="ConsoleUser" target="SYSTEM_OUT">
     	<Filters>
-<!--     		<ThresholdFilter level="WARN" onMatch="ACCEPT" onMismatch="NEUTRAL"/> -->
-<!--         	<ThresholdFilter level="ERROR" onMatch="ACCEPT" onMismatch="NEUTRAL"/>	 -->
-			<MarkerFilter marker="USER" onMatch="ACCEPT" onMismatch="DENY"/>
+    		<MarkerFilter marker="USER" onMatch="ACCEPT" onMismatch="DENY"/>
         	<ThresholdFilter level="INFO" onMatch="ACCEPT" onMismatch="DENY"/>
        	</Filters>
       <PatternLayout pattern="%d{yyyy-MMM-dd HH:mm:ss.SSS} [%t] %-5level %logger{36} User: %-20X{userId} - %msg%n"/>
     </Console>
     <Console name="ConsoleApp" target="SYSTEM_OUT">
-    <Filters>
-<!--     		<ThresholdFilter level="WARN" onMatch="ACCEPT" onMismatch="NEUTRAL"/> -->
-<!--         	<ThresholdFilter level="ERROR" onMatch="ACCEPT" onMismatch="NEUTRAL"/>	 -->
-			<MarkerFilter marker="USER" onMatch="DENY" onMismatch="NEUTRAL"/>
-        	<ThresholdFilter level="INFO" onMatch="ACCEPT" onMismatch="DENY"/>
-       	</Filters>
-      <PatternLayout pattern="%d{yyyy-MMM-dd HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>
+    	<Filters>
+    		<MarkerFilter marker="USER" onMatch="DENY" onMismatch="NEUTRAL"/>
+      	 	<ThresholdFilter level="INFO" onMatch="ACCEPT" onMismatch="DENY"/>
+   		</Filters>
+   		<PatternLayout pattern="%d{yyyy-MMM-dd HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>
     </Console>
+    <JDBC name="MySQLDatabase" tableName="app_logs">
+         <ConnectionFactory
+            class="ftn.uns.ac.rs.config.DatabaseLoggingConfig" method="getDatabaseConnection" />
+         <Column name="id" pattern="%u" />
+         <Column name="date" isEventTimestamp="true" />
+         <Column name="logger" pattern="%logger" />
+         <Column name="level" pattern="%level" />
+         <Column name="message" pattern="%m" />
+         <Column name="user" pattern="%-20X{userId}"/>
+      </JDBC>
     <RollingFile name="File" fileName="./logs/agentskiModul.log" immediateFlush="true" append="true" locking="true"
         filePattern="./logs/agentskiModul-%d{HH MM-dd-yyyy}-%i.log">
 		<Filters>
-			<MarkerFilter marker="USER" onMatch="ACCEPT" onMismatch="DENY"/>
 			<ThresholdFilter level="INFO" onMatch="ACCEPT" onMismatch="DENY"/>
 		</Filters>
     	<PatternLayout pattern="%d{yyyy-MMM-dd HH:mm:ss} [%t] %-5level %logger{36} User: %-20X{userId} - %msg%n"/>
@@ -34,8 +39,7 @@
 	<RollingFile name="CriticalFile" fileName="./logs/agentskiModul_critical.log" immediateFlush="true" append="true" locking="true"
         filePattern="./logs/agentskiModul_critical-%d{HH MM-dd-yyyy}-%i.log">
         <Filters>
-			<ThresholdFilter level="WARN" onMatch="ACCEPT" onMismatch="NEUTRAL"/>
-			<MarkerFilter marker="USER" onMatch="ACCEPT" onMismatch="DENY"/>
+			<ThresholdFilter level="WARN" onMatch="ACCEPT" onMismatch="DENY"/>
         </Filters>
     	<PatternLayout pattern="%d{yyyy-MMM-dd HH:mm:ss.SSS} [%t] %-5level %logger{36} User: %-20X{userId} - %msg%n"/>
     	<Policies>              
@@ -43,14 +47,18 @@
            <SizeBasedTriggeringPolicy size="100 KB" /> 
         </Policies>
     </RollingFile>
-  </Appenders>
-  <Loggers>
-    <Root level="debug">
-      <AppenderRef ref="ConsoleUser"/>
-            <AppenderRef ref="ConsoleApp"/>
-      
+    <Failover name="FailoverAppender" primary="MySQLDatabase">
+    <Failovers>
       <AppenderRef ref="File"/>
       <AppenderRef ref="CriticalFile"/>
+    </Failovers>
+</Failover>
+  </Appenders>
+  <Loggers>
+    <Root level="info">
+       <AppenderRef ref="FailoverAppender"/>
+    	<AppenderRef ref="ConsoleApp" />
+        <AppenderRef ref="ConsoleUser" />
     </Root>
   </Loggers>
 </Configuration>
