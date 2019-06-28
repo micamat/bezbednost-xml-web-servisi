@@ -7,6 +7,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.Marker;
 import org.apache.logging.log4j.MarkerManager;
+import org.apache.logging.log4j.ThreadContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -72,13 +73,18 @@ public class AgentService {
 		UpdateAgentRequest updateAgentRequest = new UpdateAgentRequest();
 		UpdateAgentResponse updateAgentResponse = new UpdateAgentResponse();
 		updateAgentRequest.setAgentDTO(agentDTO);
-		updateAgentResponse = producerPort.updateAgent(updateAgentRequest);
-		
-		if(updateAgentResponse.isSuccessful()) {
-			logger.info(USER, "Uspesno promenjena lozinka");
-			return true;
-		} else {
-			logger.warn(USER, "Lozinka nije promenjena");
+		try {
+
+			updateAgentResponse = producerPort.updateAgent(updateAgentRequest);
+			ThreadContext.put("user", agentDTO.getKorisnickoIme());
+			if(updateAgentResponse.isSuccessful()) {
+				logger.info(USER, "Uspesno promenjena lozinka");
+				return true;
+			} else {
+				logger.warn(USER, "Lozinka nije promenjena");
+			}
+		}catch (Exception e) {
+			logger.error(USER, "Greska prilikom izmene lozinke: " + e.getMessage());
 		}
 		return false;
 	};
@@ -112,10 +118,10 @@ public class AgentService {
 
 			agentLoginResponse = producerPort.agentLogin(agentLoginRequest);
 			LoggedUser loggedUser = new LoggedUser();
-
+			ThreadContext.put("user", agentLoginDTO.getUsername());
 			if (agentLoginResponse.getToken() == null || agentLoginResponse.getUsername() == null) {
 
-				logger.error(USER, "Agent: " + agentLoginDTO.getUsername() + " neuspesno logovan");
+				logger.error(USER, "Agent neuspesno logovan");
 				return null;
 			}else {
 				loggedUser.setToken(agentLoginResponse.getToken());
