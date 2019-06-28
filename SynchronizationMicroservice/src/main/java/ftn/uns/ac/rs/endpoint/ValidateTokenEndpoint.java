@@ -30,6 +30,7 @@ final String NAMESPACE = "http://rs.ac.uns.ftn/Model";
 
 		HttpEntity<String> entity = new HttpEntity<String>(null, headers);
 		Boolean isValid = restTemplate.postForObject("https://localhost:8765/validate", entity, Boolean.class);
+		System.out.println("sta je isValid: " + isValid);
 		response.setSuccessful(isValid);
 		return response;
 	}

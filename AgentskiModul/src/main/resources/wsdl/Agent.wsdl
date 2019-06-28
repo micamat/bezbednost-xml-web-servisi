@@ -849,6 +849,14 @@
         <wsdl:part element="tns:CreateSobneUslugeResponse" name="CreateSobneUslugeResponse"
         > </wsdl:part>
     </wsdl:message>
+    <wsdl:message name="ValidateTokenResponse">
+        <wsdl:part element="tns:ValidateTokenResponse" name="ValidateTokenResponse"
+        > </wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="ValidateTokenRequest">
+        <wsdl:part element="tns:ValidateTokenRequest" name="ValidateTokenRequest"
+        > </wsdl:part>
+    </wsdl:message>
     
     
     <wsdl:message name="AgentLoginRequest">
@@ -934,6 +942,13 @@
             <wsdl:output message="tns:CreateSobneUslugeResponse" name="CreateSobneUslugeResponse"
             > </wsdl:output>
         </wsdl:operation>
+        
+        <wsdl:operation name="ValidateToken">
+            <wsdl:input message="tns:ValidateTokenRequest" name="ValidateTokenRequest"> </wsdl:input>
+            <wsdl:output message="tns:ValidateTokenResponse" name="ValidateTokenResponse"
+            > </wsdl:output>
+        </wsdl:operation>
+        
     </wsdl:portType>
     <wsdl:binding name="ProducerPortSoap11" type="tns:ProducerPort">
         <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
@@ -1056,6 +1071,17 @@
                 <soap:body use="literal"/>
             </wsdl:output>
         </wsdl:operation>
+        
+        <wsdl:operation name="ValidateToken">
+            <soap:operation soapAction=""/>
+            <wsdl:input name="ValidateTokenRequest">
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output name="ValidateTokenResponse">
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        
         <wsdl:operation name="GetAllUsluga">
             <soap:operation soapAction=""/>
             <wsdl:input name="GetAllUslugaRequest">

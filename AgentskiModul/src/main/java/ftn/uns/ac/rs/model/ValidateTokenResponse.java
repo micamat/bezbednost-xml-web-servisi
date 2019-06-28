@@ -29,7 +29,7 @@ import javax.xml.bind.annotation.XmlType;
 @XmlType(name = "", propOrder = {
     "successful"
 })
-@XmlRootElement(name = "UpdateRezervisaneSobeResponse")
+@XmlRootElement(name = "ValidateTokenResponse")
 public class ValidateTokenResponse {
 
     @XmlElement(name = "Successful", defaultValue = "false")

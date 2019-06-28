@@ -14,6 +14,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.client.RestTemplate;
 
 @SpringBootApplication
@@ -55,5 +56,10 @@ public class SynchronizationMicroserviceApplication {
 			e.printStackTrace();
 		}
 	    return restTemplate;
+	}
+	
+	@Bean
+	public BCryptPasswordEncoder passwordEncoder() {
+		return new BCryptPasswordEncoder();
 	}
 }

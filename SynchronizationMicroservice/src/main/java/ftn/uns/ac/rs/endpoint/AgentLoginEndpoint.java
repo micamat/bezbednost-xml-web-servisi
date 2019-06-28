@@ -52,7 +52,6 @@ public class AgentLoginEndpoint {
 	@PayloadRoot(namespace = NAMESPACE, localPart = "UpdateAgentRequest")
 	public UpdateAgentResponse update(@RequestPayload final UpdateAgentRequest input) {
 		UpdateAgentResponse response = new UpdateAgentResponse();
-
 		AgentDTO d = input.getAgentDTO();
 		int id = agentService.update(d);
 		if (id == -1) {

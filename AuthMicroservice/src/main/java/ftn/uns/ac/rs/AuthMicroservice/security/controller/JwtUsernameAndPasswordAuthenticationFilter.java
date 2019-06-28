@@ -127,27 +127,32 @@ public class JwtUsernameAndPasswordAuthenticationFilter extends UsernamePassword
 	}
 	
 	private LoggedUser signin(String username, String password) {
-		System.out.println("POGODIO GA!!!");
-		LoggedUser loggedUser = new LoggedUser();
+		try {
+			LoggedUser loggedUser = new LoggedUser();
+			
+			UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(username, password, Collections.emptyList());
+			System.out.println("za proveru:" + authToken + "kraj");
+			Authentication authentication = authManager.authenticate(authToken);
+			SecurityContextHolder.getContext().setAuthentication(authentication);
+			
+			Long now = System.currentTimeMillis();
+			String token = Jwts.builder()
+				.setSubject(authentication.getName())
+				.claim("authorities", authentication.getAuthorities().stream()
+					.map(GrantedAuthority::getAuthority).collect(Collectors.toList()))
+				.setIssuedAt(new Date(now))
+				.setExpiration(new Date(now + jwtConfig.getExpiration() * 1000))  // in milliseconds
+				.signWith(SignatureAlgorithm.HS512, jwtConfig.getSecret().getBytes())
+				.compact();
+			
+			loggedUser.setToken(token);
+			loggedUser.setUsername(username);
+			return loggedUser;
+		}catch (Exception e) {
+			System.out.println("neuspesna autentifikacija");
+			return null;
+		}
 		
-		UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(username, password, Collections.emptyList());
-		System.out.println("za proveru:" + authToken + "kraj");
-		Authentication authentication = authManager.authenticate(authToken);
-		SecurityContextHolder.getContext().setAuthentication(authentication);
-		
-		Long now = System.currentTimeMillis();
-		String token = Jwts.builder()
-			.setSubject(authentication.getName())
-			.claim("authorities", authentication.getAuthorities().stream()
-				.map(GrantedAuthority::getAuthority).collect(Collectors.toList()))
-			.setIssuedAt(new Date(now))
-			.setExpiration(new Date(now + jwtConfig.getExpiration() * 1000))  // in milliseconds
-			.signWith(SignatureAlgorithm.HS512, jwtConfig.getSecret().getBytes())
-			.compact();
-		
-		loggedUser.setToken(token);
-		loggedUser.setUsername(username);
-		return loggedUser;
 	}
 	
 	@Override

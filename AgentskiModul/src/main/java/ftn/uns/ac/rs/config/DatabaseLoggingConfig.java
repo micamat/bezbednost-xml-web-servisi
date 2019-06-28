@@ -46,7 +46,7 @@ public class DatabaseLoggingConfig {
 
        Properties properties = new Properties();
        properties.setProperty("user", "root");
-       properties.setProperty("password", "rootPassword");
+       properties.setProperty("password", "admin");
 
        GenericObjectPool<PoolableConnection> pool = new GenericObjectPool<PoolableConnection>();
        DriverManagerConnectionFactory connectionFactory = new DriverManagerConnectionFactory(
