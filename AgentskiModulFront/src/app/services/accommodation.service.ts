@@ -45,7 +45,7 @@ export class AccommodationService {
   }
 
   addRoom(room : any){
-      return this.http.post(SERVER_URL + '/soba',room,{responseType: 'text'});
+      return this.http.post(SERVER_URL + '/soba/'+ this.tandu.token,room,{responseType: 'text'});
   }
 
   getAllTypeRooms(){
@@ -69,7 +69,7 @@ export class AccommodationService {
   }
 
   addOcupation(ocupation : any){
-    return this.http.post(SERVER_URL + '/zauzece',ocupation,{responseType: 'text'});
+    return this.http.post(SERVER_URL + '/zauzece/'+ this.tandu.token,ocupation,{responseType: 'text'});
   }
 
   getOcupation(id:any){
@@ -85,7 +85,7 @@ export class AccommodationService {
   }
 
   addPrice(price : any){
-    return this.http.post(SERVER_URL + '/cenovnik',price,{responseType: 'text'});
+    return this.http.post(SERVER_URL + '/cenovnik/'+ this.tandu.token,price,{responseType: 'text'});
   }
 
   deletePrice(id:any){
@@ -105,7 +105,7 @@ export class AccommodationService {
   }
   
   addReservation(reservation : any){
-    return this.http.post(SERVER_URL + '/rezervacija',reservation,{responseType: 'text'});
+    return this.http.post(SERVER_URL + '/rezervacija/'+ this.tandu.token,reservation,{responseType: 'text'});
   }
 
   getAllReservation(){
@@ -117,7 +117,7 @@ export class AccommodationService {
   }
 
   putPotvrdjeno(izmena : any){
-    return this.http.put(SERVER_URL + '/rezervacija',izmena,{responseType: 'text'});
+    return this.http.put(SERVER_URL + '/rezervacija/'+ this.tandu.token,izmena,{responseType: 'text'});
   }
 
   getAllReservationRooms(id:any){
