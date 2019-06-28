@@ -44,7 +44,7 @@ public class AgentController {
 	}
 	
 	@PutMapping
-	public ResponseEntity<String> update(@RequestParam String token, @RequestBody AgentDTO agentDTO){
+	public ResponseEntity<String> update(@RequestParam("token") String token, @RequestBody AgentDTO agentDTO){
 		if (ValidationService.validate(token)) {
 			if(agentService.updateSync(agentDTO)) {
 				return new ResponseEntity<String>("Agent je uspesno azuriran!", HttpStatus.CREATED);

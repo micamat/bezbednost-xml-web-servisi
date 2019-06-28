@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import ftn.uns.ac.rs.model.Agent;
@@ -16,6 +17,9 @@ public class AgentService {
 	
 	@Autowired
 	private AgentRepository agentRepository;
+	
+	@Autowired
+	private BCryptPasswordEncoder encoder;
 	
 	public List<ShowAgentDTO> getAll(){
 		List<ShowAgentDTO> dtos = new ArrayList<ShowAgentDTO>();
@@ -34,9 +38,9 @@ public class AgentService {
 	}
 	
 	public int update(AgentDTO d) {
-		Agent a = agentRepository.findById(d.getId()).get();
-		if(d.getPrethodnaLozinka().equals(a.getLozinka())){
-			a.setLozinka(d.getLozinka());
+		Agent a = agentRepository.findByKorisnickoIme(d.getKorisnickoIme());
+		if(encoder.matches(d.getPrethodnaLozinka(), a.getLozinka())){
+			a.setLozinka(encoder.encode(d.getLozinka()));
 			Agent ar = agentRepository.save(a);
 			return ar.getId().intValue();
 		}else {
