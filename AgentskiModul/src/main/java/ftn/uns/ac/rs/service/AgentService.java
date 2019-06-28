@@ -108,14 +108,22 @@ public class AgentService {
 		AgentLoginResponse agentLoginResponse = new AgentLoginResponse();
 		agentLoginRequest.setusername(agentLoginDTO.getUsername());
 		agentLoginRequest.setpassword(agentLoginDTO.getPassword());
-		agentLoginResponse = producerPort.agentLogin(agentLoginRequest);
 		try {
-			logger.info(USER, "Uspesno logovanje");
+
+			agentLoginResponse = producerPort.agentLogin(agentLoginRequest);
 			LoggedUser loggedUser = new LoggedUser();
-			loggedUser.setToken(agentLoginResponse.getToken());
-			System.out.println(loggedUser.getToken());
-			loggedUser.setUsername(agentLoginResponse.getUsername());
-			return loggedUser;
+
+			if (agentLoginResponse.getToken() == null || agentLoginResponse.getUsername() == null) {
+
+				logger.error(USER, "Agent: " + agentLoginDTO.getUsername() + " neuspesno logovan");
+				return null;
+			}else {
+				loggedUser.setToken(agentLoginResponse.getToken());
+				loggedUser.setUsername(agentLoginResponse.getUsername());
+
+				logger.info(USER, "Uspesno logovanje");
+				return loggedUser;
+			}
 		} catch (Exception e) {
 
 			logger.error(USER, "Greska prilikom logovanja: " + e.getMessage());
