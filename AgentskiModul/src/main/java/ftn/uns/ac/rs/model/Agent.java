@@ -61,48 +61,48 @@ import javax.xml.bind.annotation.XmlType;
     "smestaj"
 })
 @XmlRootElement(name = "Agent")
-@Entity
-public class Agent {
-    @Id
-    protected Long id;
-    @XmlElement(required = true)
-    protected String ime;
-    @XmlElement(required = true)
-    protected String prezime;
-    @XmlElement(required = true)
-    protected String adresa;
-    @XmlElement(required = true)
-    protected int poslovniMaticniBroj;
-    @XmlElement(required = true)
-    protected String korisnickoIme;
-    @XmlElement(required = true)
-    protected String email;
-    @XmlElement(name = "Smestaj", required = true)
-    @OneToMany(mappedBy = "agent")
-    protected List<Smestaj> smestaj;
-
-    /**
-     * Gets the value of the id property.
-     * 
-     */
-    public long getId() {
-        return id;
-    }
-
-    /**
-     * Sets the value of the id property.
-     * 
-     */
-    public void setId(long value) {
-        this.id = value;
-    }
-
-    /**
-     * Gets the value of the ime property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
+	@Entity
+	public class Agent {
+	    @Id
+	    protected Long id;
+	    @XmlElement(required = true)
+	    protected String ime;
+	    @XmlElement(required = true)
+	    protected String prezime;
+	    @XmlElement(required = true)
+	    protected String adresa;
+	    @XmlElement(required = true)
+	    protected int poslovniMaticniBroj;
+	    @XmlElement(required = true)
+	    protected String korisnickoIme;
+	    @XmlElement(required = true)
+	    protected String email;
+	    @XmlElement(name = "Smestaj", required = true)
+	    @OneToMany(mappedBy = "agent")
+	    protected List<Smestaj> smestaj;
+	
+	    /**
+	     * Gets the value of the id property.
+	     * 
+	     */
+	    public long getId() {
+	        return id;
+	    }
+	
+	    /**
+	     * Sets the value of the id property.
+	     * 
+	     */
+	    public void setId(long value) {
+	        this.id = value;
+	    }
+	
+	    /**
+	     * Gets the value of the ime property.
+	     * 
+	     * @return
+	     *     possible object is
+	     *     {@link String }
      *     
      */
     public String getIme() {

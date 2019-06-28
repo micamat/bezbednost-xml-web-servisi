@@ -113,6 +113,7 @@ public class AgentService {
 			logger.info(USER, "Uspesno logovanje");
 			LoggedUser loggedUser = new LoggedUser();
 			loggedUser.setToken(agentLoginResponse.getToken());
+			System.out.println(loggedUser.getToken());
 			loggedUser.setUsername(agentLoginResponse.getUsername());
 			return loggedUser;
 		} catch (Exception e) {
