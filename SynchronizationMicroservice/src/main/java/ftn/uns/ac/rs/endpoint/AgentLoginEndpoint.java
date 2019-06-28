@@ -10,6 +10,7 @@ import org.springframework.ws.server.endpoint.annotation.PayloadRoot;
 import org.springframework.ws.server.endpoint.annotation.RequestPayload;
 import org.springframework.ws.server.endpoint.annotation.ResponsePayload;
 
+import ftn.uns.ac.rs.configuration.Username;
 import ftn.uns.ac.rs.model.AgentDTO;
 import ftn.uns.ac.rs.model.AgentLoginDTO;
 import ftn.uns.ac.rs.model.AgentLoginRequest;
@@ -44,6 +45,11 @@ public class AgentLoginEndpoint {
 		headers.setContentType(MediaType.APPLICATION_JSON);
 		HttpEntity<AgentLoginDTO> requestBody = new HttpEntity<AgentLoginDTO>(agent, headers);
 		LoggedUser user = restTemplate.postForObject(URL, requestBody, LoggedUser.class);
+		if (user != null) {
+			Username.setLoggedUser(user.getUsername());
+		} else {
+			Username.setLoggedUser(null);
+		}
 		response.setUsername(user.getUsername());
 		response.setToken(user.getToken());
 		return response;

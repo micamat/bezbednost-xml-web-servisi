@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import ftn.uns.ac.rs.config.Auth;
+import ftn.uns.ac.rs.config.Username;
 import ftn.uns.ac.rs.model.CreateRezervacijaRequest;
 import ftn.uns.ac.rs.model.CreateRezervacijaResponse;
 import ftn.uns.ac.rs.model.ProducerPort;
@@ -105,7 +106,7 @@ public class RezervacijaService {
 
 			return false;
 		}
-		ThreadContext.put("user", "A");
+		ThreadContext.put("user", Username.getLoggedUser());
 		rezervacijaDTO.setId(null);
 		float cena = 0;
 		for (RezervisaneSobeDTO rsDTO : rezervacijaDTO.getRezervisaneSobeDTO()) {

@@ -1047,7 +1047,7 @@
            
         <wsdl:operation name="AgentLogout">
             <soap:operation soapAction=""/>
-            <wsdl:input name=AgentLogoutRequest">
+            <wsdl:input name="AgentLogoutRequest">
                 <soap:body use="literal"/>
             </wsdl:input>
             <wsdl:output name="AgentLogoutResponse">

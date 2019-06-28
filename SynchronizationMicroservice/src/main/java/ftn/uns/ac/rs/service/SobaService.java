@@ -1,5 +1,9 @@
 package ftn.uns.ac.rs.service;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.Marker;
+import org.apache.logging.log4j.MarkerManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -29,7 +33,10 @@ public class SobaService {
 	
 	@Autowired 
 	private SobneUslugeRepository sobUslRepo;
+	private Logger logger = LogManager.getLogger();
 	
+	private static final Marker USER = MarkerManager
+			   .getMarker("USER");
 	public int create(SobaDTO p){
 		Soba s  = new Soba();
 		s.setId(p.getId());
@@ -37,19 +44,28 @@ public class SobaService {
 		s.setOpis(p.getOpis());
 		s.setSmestaj(smestajRepository.findById(p.getIdSmestaj()).get());
 		s.setTipSobe(tipSobeRepo.findById(p.getIdTipSobe()).get());
-		Soba n = sobaRepository.save(s);
-		
-		for (Long i : p.getIdUsluga()) {
-			SobneUsluge sob = new SobneUsluge();
-			sob.setSoba(n);
-			sob.setUsluga(uslugaRepo.findById(i).get());
-			sobUslRepo.save(sob);
-		}
-		
-		if(n != null) {
-			return n.getId().intValue();
-		}else {
+		try {
+			Soba n = sobaRepository.save(s);
+
+			for (Long i : p.getIdUsluga()) {
+				SobneUsluge sob = new SobneUsluge();
+				sob.setSoba(n);
+				sob.setUsluga(uslugaRepo.findById(i).get());
+				sobUslRepo.save(sob);
+			}
+			if(n != null) {
+				logger.info(USER, "Soba uspesno upisana u bazu");
+				return n.getId().intValue();
+			}else {
+				logger.error(USER, "Greska prilikom upisa sobe u bazu: ");
+				return -1;
+			}
+		}catch (Exception e) {
+			// TODO: handle exception
+			logger.error(USER, "Greska prilikom upisa sobe u bazu: " + e.getMessage());
 			return -1;
 		}
+		
+		
 	}
 }

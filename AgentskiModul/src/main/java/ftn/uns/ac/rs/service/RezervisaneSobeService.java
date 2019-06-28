@@ -7,10 +7,12 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.Marker;
 import org.apache.logging.log4j.MarkerManager;
+import org.apache.logging.log4j.ThreadContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import ftn.uns.ac.rs.config.Auth;
+import ftn.uns.ac.rs.config.Username;
 import ftn.uns.ac.rs.model.ProducerPort;
 import ftn.uns.ac.rs.model.ProducerPortService;
 import ftn.uns.ac.rs.model.RezervisaneSobe;
@@ -58,6 +60,8 @@ public class RezervisaneSobeService {
 	}
 	
 	public boolean add(RezervisaneSobe rezervisaneSobe) {
+		ThreadContext.put("user", Username.getLoggedUser());
+
 		try {
 			rezervisaneSobe = rezervisaneSobeRepository.save(rezervisaneSobe);
 			logger.info(USER, "Soba " + rezervisaneSobe.getSoba().getId() + " uspesno rezervisana");

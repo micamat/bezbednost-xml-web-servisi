@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import ftn.uns.ac.rs.config.Auth;
+import ftn.uns.ac.rs.config.Username;
 import ftn.uns.ac.rs.model.CreateSmestajRequest;
 import ftn.uns.ac.rs.model.CreateSmestajResponse;
 import ftn.uns.ac.rs.model.Lokacija;
@@ -76,7 +77,7 @@ public class SmestajService {
 			return false;
 		}
 		Smestaj smestaj = new Smestaj();
-		ThreadContext.put("userId", "3ss");
+		ThreadContext.put("user", Username.getLoggedUser());
 		try {
 			smestaj = smestajRepository.save(convertToEntity(smestajDTO));
 			smestajDTO.setId(smestaj.getId());
@@ -92,7 +93,7 @@ public class SmestajService {
 	
 	public boolean delete(Long id) {
 		Smestaj s = new Smestaj();
-		ThreadContext.put("user", "Ads");
+		ThreadContext.put("user", Username.getLoggedUser());
 		try {
 			s = smestajRepository.findById(id).orElse(null);
 		}catch (Exception e) {

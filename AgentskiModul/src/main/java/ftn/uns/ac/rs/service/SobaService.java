@@ -8,10 +8,12 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.Marker;
 import org.apache.logging.log4j.MarkerManager;
+import org.apache.logging.log4j.ThreadContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import ftn.uns.ac.rs.config.Auth;
+import ftn.uns.ac.rs.config.Username;
 import ftn.uns.ac.rs.model.CreateSobaRequest;
 import ftn.uns.ac.rs.model.CreateSobaResponse;
 import ftn.uns.ac.rs.model.ProducerPort;
@@ -86,6 +88,8 @@ public class SobaService {
 		}
 		sobaDTO.setId(sobaDTO.getId());
 		Soba soba = new Soba();
+		ThreadContext.put("user", Username.getLoggedUser());
+
 		try {
 			soba = sobaRepository.save(convertToEntity(sobaDTO));
 			logger.info(USER, "Soba " + soba.getId() + " uspesno dodata");
@@ -114,6 +118,8 @@ public class SobaService {
 	
 	
 	public boolean delete(Long id) {
+		ThreadContext.put("user", Username.getLoggedUser());
+
 		if(sobaRepository.existsById(id)) {
 			try {
 				sobaRepository.deleteById(id);
