@@ -101,6 +101,10 @@ public class RezervacijaService {
 	}
 	
 	public boolean add(RezervacijaDTO rezervacijaDTO) {
+		if (rezervacijaDTO.getDatumDo() == null || rezervacijaDTO.getCena() != 0 || rezervacijaDTO.getIdKorisnika() != null || rezervacijaDTO.getDatumOd() == null || rezervacijaDTO.getIdSmestaj() == null || rezervacijaDTO.getRezervisaneSobeDTO().isEmpty()) {
+
+			return false;
+		}
 		ThreadContext.put("user", "A");
 		rezervacijaDTO.setId(null);
 		float cena = 0;

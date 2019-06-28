@@ -81,6 +81,9 @@ public class SobaService {
 	
 	
 	public boolean add(SobaDTO sobaDTO) {
+		if (sobaDTO.getIdSmestaj() == null || sobaDTO.getIdTipSobe() == null || sobaDTO.getNaziv() == null) {
+			return false;
+		}
 		sobaDTO.setId(sobaDTO.getId());
 		Soba soba = new Soba();
 		try {
@@ -89,13 +92,16 @@ public class SobaService {
 		} catch (Exception e) {
 			logger.error(USER, "Neuspesno dodavanje sobe: " + e.getMessage());
 		}
-		System.out.println(sobaDTO.getIdUsluga());
+		
 		for (Long idUsluga : sobaDTO.getIdUsluga()) {
-			System.out.println(idUsluga);
 			SobneUsluge sobneUsluge = new SobneUsluge();
 			sobneUsluge.setId(null);
 			sobneUsluge.setSoba(soba);
-			sobneUsluge.setUsluga(uslugaRepository.findById(idUsluga).orElse(null));
+			try {
+				sobneUsluge.setUsluga(uslugaRepository.findById(idUsluga).orElse(null));
+			} catch (Exception e) {
+				logger.error(USER, "Usluga nije pronadjena u bazi: " + e.getMessage());
+			}
 			sobneUslugeRepository.save(sobneUsluge);
 		}
 		if(soba != null) {

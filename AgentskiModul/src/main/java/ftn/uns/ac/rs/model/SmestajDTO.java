@@ -25,7 +25,7 @@ import javax.xml.bind.annotation.XmlType;
  *   &lt;complexContent&gt;
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
  *       &lt;sequence&gt;
- *         &lt;element name="id" type="{http://www.w3.org/2001/XMLSchema}long"/&gt;
+ *         &lt;element name="id" type="{http://www.w3.org/2001/XMLSchema}Long"/&gt;
  *         &lt;element name="naziv" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
  *         &lt;element name="opis" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
  *         &lt;element name="slika" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
@@ -34,9 +34,9 @@ import javax.xml.bind.annotation.XmlType;
  *         &lt;element name="grad" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
  *         &lt;element name="ulica" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
  *         &lt;element name="broj" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
- *         &lt;element name="idTipSmestaja" type="{http://www.w3.org/2001/XMLSchema}long"/&gt;
- *         &lt;element name="idKategorijaSmestaja" type="{http://www.w3.org/2001/XMLSchema}long"/&gt;
- *         &lt;element name="idAgent" type="{http://www.w3.org/2001/XMLSchema}long"/&gt;
+ *         &lt;element name="idTipSmestaja" type="{http://www.w3.org/2001/XMLSchema}Long"/&gt;
+ *         &lt;element name="idKategorijaSmestaja" type="{http://www.w3.org/2001/XMLSchema}Long"/&gt;
+ *         &lt;element name="idAgent" type="{http://www.w3.org/2001/XMLSchema}Long"/&gt;
  *       &lt;/sequence&gt;
  *     &lt;/restriction&gt;
  *   &lt;/complexContent&gt;
@@ -63,7 +63,7 @@ import javax.xml.bind.annotation.XmlType;
 @XmlRootElement(name = "SmestajDTO")
 public class SmestajDTO {
 
-    protected long id;
+    protected Long id;
     @XmlElement(required = true)
     protected String naziv;
     @XmlElement(required = true)
@@ -80,15 +80,15 @@ public class SmestajDTO {
     protected String ulica;
     @XmlElement(required = true)
     protected String broj;
-    protected long idTipSmestaja;
-    protected long idKategorijaSmestaja;
-    protected long idAgent;
+    protected Long idTipSmestaja;
+    protected Long idKategorijaSmestaja;
+    protected Long idAgent;
 
     /**
      * Gets the value of the id property.
      * 
      */
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
@@ -96,7 +96,7 @@ public class SmestajDTO {
      * Sets the value of the id property.
      * 
      */
-    public void setId(long value) {
+    public void setId(Long value) {
         this.id = value;
     }
 
@@ -288,7 +288,7 @@ public class SmestajDTO {
      * Gets the value of the idTipSmestaja property.
      * 
      */
-    public long getIdTipSmestaja() {
+    public Long getIdTipSmestaja() {
         return idTipSmestaja;
     }
 
@@ -296,7 +296,7 @@ public class SmestajDTO {
      * Sets the value of the idTipSmestaja property.
      * 
      */
-    public void setIdTipSmestaja(long value) {
+    public void setIdTipSmestaja(Long value) {
         this.idTipSmestaja = value;
     }
 
@@ -304,7 +304,7 @@ public class SmestajDTO {
      * Gets the value of the idKategorijaSmestaja property.
      * 
      */
-    public long getIdKategorijaSmestaja() {
+    public Long getIdKategorijaSmestaja() {
         return idKategorijaSmestaja;
     }
 
@@ -312,7 +312,7 @@ public class SmestajDTO {
      * Sets the value of the idKategorijaSmestaja property.
      * 
      */
-    public void setIdKategorijaSmestaja(long value) {
+    public void setIdKategorijaSmestaja(Long value) {
         this.idKategorijaSmestaja = value;
     }
 
@@ -320,7 +320,7 @@ public class SmestajDTO {
      * Gets the value of the idAgent property.
      * 
      */
-    public long getIdAgent() {
+    public Long getIdAgent() {
         return idAgent;
     }
 
@@ -328,7 +328,7 @@ public class SmestajDTO {
      * Sets the value of the idAgent property.
      * 
      */
-    public void setIdAgent(long value) {
+    public void setIdAgent(Long value) {
         this.idAgent = value;
     }
 

@@ -70,6 +70,9 @@ public class CenovnikService {
 	
 	
 	public boolean add(CenovnikDTO cenovnikDTO) {
+		if (cenovnikDTO.getIdTipSobe() == null || cenovnikDTO.getIdSmestaj() == null || cenovnikDTO.getDatumDo() == null || cenovnikDTO.getDatumOd() == null || cenovnikDTO.getCena() == 0) {
+				return false;
+			}
 		cenovnikDTO.setId(cenovnikDTO.getId());
 
 		ThreadContext.put("user", "A");
@@ -77,7 +80,7 @@ public class CenovnikService {
 			Cenovnik cenovnik = cenovnikRepository.save(convertToEntity(cenovnikDTO));
 			cenovnikDTO.setId(cenovnik.getId());
 			createSync(cenovnikDTO);
-			logger.info(USER,"Dodat cenovnik" + cenovnik.getId());
+			logger.info(USER,"Dodat cenovnik " + cenovnik.getId());
 			return true;
 
 		} catch (Exception e) {

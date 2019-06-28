@@ -27,12 +27,12 @@ import javax.xml.bind.annotation.XmlType;
  *   &lt;complexContent&gt;
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
  *       &lt;sequence&gt;
- *         &lt;element name="id" type="{http://www.w3.org/2001/XMLSchema}long"/&gt;
+ *         &lt;element name="id" type="{http://www.w3.org/2001/XMLSchema}Long"/&gt;
  *         &lt;element name="naziv" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
  *         &lt;element name="opis" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
- *         &lt;element name="idTipSobe" type="{http://www.w3.org/2001/XMLSchema}long"/&gt;
- *         &lt;element name="idSmestaj" type="{http://www.w3.org/2001/XMLSchema}long"/&gt;
- *         &lt;element name="idUsluga" type="{http://www.w3.org/2001/XMLSchema}long" maxOccurs="unbounded"/&gt;
+ *         &lt;element name="idTipSobe" type="{http://www.w3.org/2001/XMLSchema}Long"/&gt;
+ *         &lt;element name="idSmestaj" type="{http://www.w3.org/2001/XMLSchema}Long"/&gt;
+ *         &lt;element name="idUsluga" type="{http://www.w3.org/2001/XMLSchema}Long" maxOccurs="unbounded"/&gt;
  *       &lt;/sequence&gt;
  *     &lt;/restriction&gt;
  *   &lt;/complexContent&gt;
@@ -53,13 +53,13 @@ import javax.xml.bind.annotation.XmlType;
 @XmlRootElement(name = "SobaDTO")
 public class SobaDTO {
 
-    protected long id;
+    protected Long id;
     @XmlElement(required = true)
     protected String naziv;
     @XmlElement(required = true)
     protected String opis;
-    protected long idTipSobe;
-    protected long idSmestaj;
+    protected Long idTipSobe;
+    protected Long idSmestaj;
     @XmlElement(type = Long.class)
     protected List<Long> idUsluga;
 
@@ -67,7 +67,7 @@ public class SobaDTO {
      * Gets the value of the id property.
      * 
      */
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
@@ -75,7 +75,7 @@ public class SobaDTO {
      * Sets the value of the id property.
      * 
      */
-    public void setId(long value) {
+    public void setId(Long value) {
         this.id = value;
     }
 
@@ -131,7 +131,7 @@ public class SobaDTO {
      * Gets the value of the idTipSobe property.
      * 
      */
-    public long getIdTipSobe() {
+    public Long getIdTipSobe() {
         return idTipSobe;
     }
 
@@ -139,7 +139,7 @@ public class SobaDTO {
      * Sets the value of the idTipSobe property.
      * 
      */
-    public void setIdTipSobe(long value) {
+    public void setIdTipSobe(Long value) {
         this.idTipSobe = value;
     }
 
@@ -147,7 +147,7 @@ public class SobaDTO {
      * Gets the value of the idSmestaj property.
      * 
      */
-    public long getIdSmestaj() {
+    public Long getIdSmestaj() {
         return idSmestaj;
     }
 
@@ -155,7 +155,7 @@ public class SobaDTO {
      * Sets the value of the idSmestaj property.
      * 
      */
-    public void setIdSmestaj(long value) {
+    public void setIdSmestaj(Long value) {
         this.idSmestaj = value;
     }
 

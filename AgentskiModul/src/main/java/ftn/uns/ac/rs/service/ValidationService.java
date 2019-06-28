@@ -8,6 +8,9 @@ import ftn.uns.ac.rs.model.ValidateTokenResponse;
 
 public class ValidationService {
 	public static boolean validate(String token) {
+		if (token == null) {
+			return false;
+		}
 		ProducerPortService producerPortService = new ProducerPortService();
 		ProducerPort producerPort = producerPortService.getProducerPortSoap11();
 		// autentifikacija pomocu sertifikata
