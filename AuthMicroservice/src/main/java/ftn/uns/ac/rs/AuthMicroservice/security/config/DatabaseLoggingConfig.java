@@ -1,4 +1,4 @@
-package ftn.uns.ac.rs.config;
+package ftn.uns.ac.rs.AuthMicroservice.security.config;
 
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -46,11 +46,11 @@ public class DatabaseLoggingConfig {
 
        Properties properties = new Properties();
        properties.setProperty("user", "root");
-       properties.setProperty("password", "rootPassword");
+       properties.setProperty("password", "root");
 
        GenericObjectPool<PoolableConnection> pool = new GenericObjectPool<PoolableConnection>();
        DriverManagerConnectionFactory connectionFactory = new DriverManagerConnectionFactory(
-               "jdbc:mysql://localhost:3306/agentska?createDatabaseIfNotExist=true&allowPublicKeyRetrieval=true&useSSL=false&useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC", properties
+               "jdbc:mysql://localhost:3306/backend?createDatabaseIfNotExist=true&allowPublicKeyRetrieval=true&useSSL=false&useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC", properties
        );
        new PoolableConnectionFactory(connectionFactory, pool, null, "SELECT 1", 3, false, false, Connection.TRANSACTION_READ_COMMITTED);
        this.dataSource = new PoolingDataSource(pool);

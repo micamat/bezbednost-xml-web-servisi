@@ -5,7 +5,6 @@ import { HttpHeaders } from '@angular/common/http';
 import { HomeComponent } from '../home/home.component';
 import { NavbarComponent } from '../navbar/navbar.component';
 import { AccommodationService } from '../services/accommodation.service';
-import { Shared } from '../services/Token';
 
 
 @Component({
@@ -19,14 +18,14 @@ export class LoginComponent implements OnInit {
   submitted = false;
   user: any;
   public isLoged:boolean=false;
+  us:any;
   uAt: any;
 
   constructor(
     private _accommodationService : AccommodationService,
     private formBuilder:FormBuilder,
     private router:Router,
-    private activatedRoute: ActivatedRoute,
-    private tandu: Shared) { }
+    private activatedRoute: ActivatedRoute) { }
 
   ngOnInit() {
       this.SingIn = this.formBuilder.group({
@@ -43,12 +42,11 @@ export class LoginComponent implements OnInit {
 
     this._accommodationService.login(this.user).subscribe(
       data => {
-        this.uAt = JSON.parse(data);
-        this.tandu.token = this.uAt.token;
-        this.tandu.username = this.uAt.username;
-        localStorage.setItem('token',this.uAt.token);
-        localStorage.setItem('username',this.uAt.username);
-        this.router.navigateByUrl("");
+        this.uAt = data;
+        console.log(this.uAt);
+        if(this.uAt){
+            localStorage.setItem('ulogovani', JSON.stringify({ token: this.uAt.token, username: this.uAt.username }));
+        }
         
     });
   }

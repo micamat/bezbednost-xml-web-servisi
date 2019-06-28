@@ -11,6 +11,7 @@ import org.apache.logging.log4j.ThreadContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import ftn.uns.ac.rs.config.Username;
 import ftn.uns.ac.rs.config.Auth;
 import ftn.uns.ac.rs.model.Agent;
 import ftn.uns.ac.rs.model.AgentDTO;
@@ -28,6 +29,7 @@ import ftn.uns.ac.rs.model.ShowAgentDTO;
 import ftn.uns.ac.rs.model.UpdateAgentRequest;
 import ftn.uns.ac.rs.model.UpdateAgentResponse;
 import ftn.uns.ac.rs.repository.AgentRepository;
+
 
 @Service
 public class AgentService {
@@ -118,11 +120,12 @@ public class AgentService {
 		AgentLoginResponse agentLoginResponse = new AgentLoginResponse();
 		agentLoginRequest.setusername(agentLoginDTO.getUsername());
 		agentLoginRequest.setpassword(agentLoginDTO.getPassword());
+		ThreadContext.put("user", agentLoginDTO.getUsername());
+
 		try {
 
 			agentLoginResponse = producerPort.agentLogin(agentLoginRequest);
 			LoggedUser loggedUser = new LoggedUser();
-			ThreadContext.put("user", agentLoginDTO.getUsername());
 			if (agentLoginResponse.getToken() == null || agentLoginResponse.getUsername() == null) {
 
 				logger.error(USER, "Agent neuspesno logovan");
@@ -130,7 +133,7 @@ public class AgentService {
 			}else {
 				loggedUser.setToken(agentLoginResponse.getToken());
 				loggedUser.setUsername(agentLoginResponse.getUsername());
-
+				Username.setLoggedUser(loggedUser.getUsername());
 				logger.info(USER, "Uspesno logovanje");
 				return loggedUser;
 			}
