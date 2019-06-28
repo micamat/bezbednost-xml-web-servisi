@@ -1,13 +1,14 @@
 import { Injectable } from '@angular/core';
 import { SERVER_URL } from '../app.constant';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
+import { Shared } from './Token';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AccommodationService {
 
-  constructor(private http:HttpClient){
+  constructor(private http:HttpClient,private tandu: Shared){
 
   }
 
@@ -20,7 +21,7 @@ export class AccommodationService {
   }
 
   addAccommmodation(accommodation : any){
-    return this.http.post(SERVER_URL + '/smestaj',accommodation,{responseType: 'text'});
+    return this.http.post(SERVER_URL + '/smestaj/'+ this.tandu.token,accommodation,{responseType: 'text'});
   }
 
   getAllAccommodation(){
@@ -125,6 +126,10 @@ export class AccommodationService {
 
   login(user:any){
     return this.http.post(SERVER_URL + '/agent',user,{responseType: 'text'});
+  }
+
+  changePass(user:any){
+    return this.http.put(SERVER_URL + '/agent/'+ this.tandu.token,user,{responseType: 'text'});
   }
   
 }

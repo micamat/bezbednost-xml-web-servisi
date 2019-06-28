@@ -29,7 +29,7 @@ public class AgentLoginEndpoint {
 	@Autowired
 	AgentService agentService;
 
-	static final String URL = "https://localhost:8765/auth/prijava";
+	static final String URL = "http://localhost:8765/auth/prijava";
 
 	@ResponsePayload
 	@PayloadRoot(namespace = NAMESPACE, localPart = "AgentLoginRequest")
@@ -38,7 +38,9 @@ public class AgentLoginEndpoint {
 		AgentLoginDTO agent = new AgentLoginDTO(input.getusername(), input.getpassword());
 		
 		AgentLoginResponse response = new AgentLoginResponse();
-
+		
+		System.out.println("Jel tu neka greska ?");
+		
 		HttpHeaders headers = new HttpHeaders();
 		headers.add("Accept", MediaType.APPLICATION_JSON_VALUE);
 		headers.setContentType(MediaType.APPLICATION_JSON);
@@ -46,6 +48,7 @@ public class AgentLoginEndpoint {
 		LoggedUser user = restTemplate.postForObject(URL, requestBody, LoggedUser.class);
 		response.setUsername(user.getUsername());
 		response.setToken(user.getToken());
+		System.out.println("dsad " + response.getToken());
 		return response;
 	}
 

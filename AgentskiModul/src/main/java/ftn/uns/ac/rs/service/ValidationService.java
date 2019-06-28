@@ -18,9 +18,10 @@ public class ValidationService {
 		ValidateTokenRequest validateTokenRequest = new ValidateTokenRequest();
 		ValidateTokenResponse validateTokenResponse = new ValidateTokenResponse();
 		validateTokenRequest.setToken(token);
-
+		System.out.println(token);
+		System.out.println("PRE");
 		validateTokenResponse = producerPort.validateToken(validateTokenRequest);
-		
+		System.out.println("POSLE");
 		if(validateTokenResponse.isSuccessful()) {
 			return true;
 		}

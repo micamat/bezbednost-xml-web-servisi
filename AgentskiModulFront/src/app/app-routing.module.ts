@@ -18,6 +18,7 @@ import { ReservationShowComponent } from './reservation-show/reservation-show.co
 import { MessageComponent } from './message/message.component';
 import { ReservationRoomsComponent } from './reservation-rooms/reservation-rooms.component';
 import { ProfilComponent } from './profil/profil.component';
+import { PasswordChangeComponent } from './password-change/password-change.component';
 
 const routes: Routes = [
   {path : '', component: HomeComponent},
@@ -37,7 +38,8 @@ const routes: Routes = [
   {path : 'reservation', component : ReservationShowComponent},
   {path : 'reservation/message/:id', component : MessageComponent},
   {path : 'reservation/rooms/:id', component : ReservationRoomsComponent},
-  {path : 'profil', component: ProfilComponent}
+  {path : 'profil', component: ProfilComponent},
+  {path : 'change', component: PasswordChangeComponent}
   
 ];
 

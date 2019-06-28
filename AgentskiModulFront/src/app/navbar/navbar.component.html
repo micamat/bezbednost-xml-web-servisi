@@ -6,32 +6,32 @@
               </a>
             </li>
           
-        <li class="nav-item mt-3 ml-4">
+        <li *ngIf="tandu.username != 'undefined'" class="nav-item mt-3 ml-4">
           <a class="nav-link active" [routerLink]="'/accommodation'">
               <img src="/assets/img/home-24.png" >
             Accommodation
           </a>
         </li>
-        <li class="nav-item ml-4">
+        <li *ngIf="tandu.username != 'undefined'" class="nav-item ml-4">
             <a class="nav-link active" [routerLink]="'/room'">
                 <img src="/assets/img/hotel-24.png" >
               Rooms
             </a>
           </li>
-          <li class="nav-item ml-4">
+          <li *ngIf="tandu.username != 'undefined'" class="nav-item ml-4">
               <a class="nav-link active" [routerLink]="'/pricelist'">
                   <img src="/assets/img/literature-24.png">
                 Pricelist
               </a>
             </li>
-            <li class="nav-item ml-4">
+            <li *ngIf="tandu.username != 'undefined'" class="nav-item ml-4">
                 <a class="nav-link active" [routerLink]="'/comment'">
                     <img src="/assets/img/comments-24.png">
                   Comments
                 </a>
               </li>
             
-          <li class="nav-item ml-4">
+          <li *ngIf="tandu.username != 'undefined'" class="nav-item ml-4">
               <a class="nav-link active" [routerLink]="'/reservation'">
                   <img src="/assets/img/calendar-24.png" >
                 Reservation
@@ -40,18 +40,18 @@
             
       </ul>
       <ul class="nav" style="bottom: 0px; position: fixed;">
-          <li *ngIf="true" class="nav-item ml-3">
+          <li *ngIf="tandu.username != 'undefined'" class="nav-item ml-3">
             <div class="inline row">
                 <a class="nav-link inline ml-3" [routerLink]="'/profil'">
-                  <p>Dejan <img src="/assets/img/user-24.png" height="24" width="24"></p>
+                  <p>{{tandu.username}}<img src="/assets/img/user-24.png" height="24" width="24"></p>
                 </a>
-                <a class="nav-link" [routerLink]="'/'" >
+                <a class="nav-link" [routerLink]="'/'" (click)="logout()">
                   Log out
                 </a>
             </div>
           </li>
-          <li *ngIf="false" class="nav-item">
-              <a class="nav-link" [routerLink]="'/login'">
+          <li *ngIf="tandu.username == 'undefined'" class="nav-item">
+              <a class="nav-link ml-5" [routerLink]="'/login'">
                 Sign in
               </a>
           </li>

@@ -23,6 +23,8 @@ import { ReservationShowComponent } from './reservation-show/reservation-show.co
 import { MessageComponent } from './message/message.component';
 import { ReservationRoomsComponent } from './reservation-rooms/reservation-rooms.component';
 import { ProfilComponent } from './profil/profil.component';
+import { Shared } from './services/Token';
+import { PasswordChangeComponent } from './password-change/password-change.component';
 
 @NgModule({
   declarations: [
@@ -46,6 +48,7 @@ import { ProfilComponent } from './profil/profil.component';
     MessageComponent,
     ReservationRoomsComponent,
     ProfilComponent,
+    PasswordChangeComponent,
   ],
   imports: [
     BrowserModule,
@@ -53,7 +56,7 @@ import { ProfilComponent } from './profil/profil.component';
     ReactiveFormsModule,
     HttpClientModule,
   ],
-  providers: [],
+  providers: [ Shared ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

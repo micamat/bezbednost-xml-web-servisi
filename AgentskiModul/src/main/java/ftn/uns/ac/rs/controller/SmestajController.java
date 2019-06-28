@@ -41,8 +41,8 @@ public class SmestajController {
 		return new ResponseEntity<ShowSmestajDTO>(smestajService.getById(id), HttpStatus.OK);
 	}
 	
-	@PostMapping
-	public ResponseEntity<String> add(@RequestParam String token, @RequestBody SmestajDTO smestajDTO){
+	@PostMapping(value = "/{token}")
+	public ResponseEntity<String> add(@PathVariable String token, @RequestBody SmestajDTO smestajDTO){
 		if (ValidationService.validate(token)) {
 
 			if(smestajService.add(smestajDTO)) {

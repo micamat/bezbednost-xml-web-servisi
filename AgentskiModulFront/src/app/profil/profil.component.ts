@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Shared } from '../services/Token';
 
 @Component({
   selector: 'app-profil',
@@ -7,7 +8,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ProfilComponent implements OnInit {
 
-  constructor() { }
+  constructor(private tandu: Shared) { }
 
   ngOnInit() {
   }

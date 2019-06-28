@@ -108,10 +108,11 @@ public class AgentService {
 		if (agentLoginDTO.getUsername() == null || agentLoginDTO.getPassword() == null) {
 			return null;
 		}
+		System.out.println(agentLoginDTO.getUsername() + " asdufhsdiufhsdoiufh");
 		ProducerPortService producerPortService = new ProducerPortService();
 		ProducerPort producerPort = producerPortService.getProducerPortSoap11();
 		// autentifikacija pomocu sertifikata
-		Auth.authenticateClient(producerPort);
+		//Auth.authenticateClient(producerPort);
 		AgentLoginRequest agentLoginRequest = new AgentLoginRequest();
 		AgentLoginResponse agentLoginResponse = new AgentLoginResponse();
 		agentLoginRequest.setusername(agentLoginDTO.getUsername());
@@ -133,7 +134,7 @@ public class AgentService {
 				return loggedUser;
 			}
 		} catch (Exception e) {
-
+			e.printStackTrace();
 			logger.error(USER, "Greska prilikom logovanja: " + e.getMessage());
 		}
 		return null;

@@ -1047,7 +1047,7 @@
            
         <wsdl:operation name="AgentLogout">
             <soap:operation soapAction=""/>
-            <wsdl:input name=AgentLogoutRequest">
+            <wsdl:input name="AgentLogoutRequest">
                 <soap:body use="literal"/>
             </wsdl:input>
             <wsdl:output name="AgentLogoutResponse">
@@ -1140,7 +1140,7 @@
     </wsdl:binding>
     <wsdl:service name="ProducerPortService">
         <wsdl:port binding="tns:ProducerPortSoap11" name="ProducerPortSoap11">
-            <soap:address location="https://localhost:8002/ws"/>
+            <soap:address location="http://localhost:8002/ws"/>
         </wsdl:port>
     </wsdl:service>
 </wsdl:definitions>
