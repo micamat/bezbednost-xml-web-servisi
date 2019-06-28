@@ -36,6 +36,7 @@ public class AgentLoginEndpoint {
 	public AgentLoginResponse getAll(@RequestPayload final AgentLoginRequest input) {
 		RestTemplate restTemplate = new RestTemplate();
 		AgentLoginDTO agent = new AgentLoginDTO(input.getusername(), input.getpassword());
+		
 		AgentLoginResponse response = new AgentLoginResponse();
 
 		HttpHeaders headers = new HttpHeaders();
