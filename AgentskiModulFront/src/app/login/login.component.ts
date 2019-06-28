@@ -19,7 +19,7 @@ export class LoginComponent implements OnInit {
   user: any;
   public isLoged:boolean=false;
   us:any;
-  token: any;
+  uAt: any;
 
   constructor(
     private _accommodationService : AccommodationService,
@@ -42,8 +42,12 @@ export class LoginComponent implements OnInit {
 
     this._accommodationService.login(this.user).subscribe(
       data => {
-        this.token = data;
-        console.log(this.token);
+        this.uAt = data;
+        console.log(this.uAt);
+        if(this.uAt){
+            localStorage.setItem('ulogovani', JSON.stringify({ token: this.uAt.token, username: this.uAt.username }));
+        }
+        
     });
   }
 
