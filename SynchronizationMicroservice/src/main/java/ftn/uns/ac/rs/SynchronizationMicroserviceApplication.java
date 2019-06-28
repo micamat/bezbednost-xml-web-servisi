@@ -28,7 +28,7 @@ public class SynchronizationMicroserviceApplication {
 	public RestTemplate getRestTemplate() {
 	    RestTemplate restTemplate = new RestTemplate();
 	    
-	    KeyStore keyStore;
+	    /*KeyStore keyStore;
 	    HttpComponentsClientHttpRequestFactory requestFactory = null;
 	    try {
 	    	keyStore = KeyStore.getInstance("jks");
@@ -54,7 +54,7 @@ public class SynchronizationMicroserviceApplication {
 	    }catch (Exception e) {
 	    	System.out.println("IZUZETAK PRI KREIRANJU RestTemplate-a");
 			e.printStackTrace();
-		}
+		}*/
 	    return restTemplate;
 	}
 	
