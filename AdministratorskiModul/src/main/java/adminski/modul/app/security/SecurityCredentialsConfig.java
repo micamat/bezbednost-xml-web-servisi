@@ -1,4 +1,4 @@
-package ftn.uns.ac.rs.security;
+package adminski.modul.app.security;
 
 import javax.servlet.http.HttpServletResponse;
 

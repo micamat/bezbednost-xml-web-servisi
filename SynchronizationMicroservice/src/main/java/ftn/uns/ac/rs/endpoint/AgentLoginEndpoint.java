@@ -29,7 +29,7 @@ public class AgentLoginEndpoint {
 	@Autowired
 	AgentService agentService;
 
-	static final String URL = "https://localhost:8765/auth/prijava";
+	static final String URL = "http://localhost:8765/auth/prijava";
 
 	@ResponsePayload
 	@PayloadRoot(namespace = NAMESPACE, localPart = "AgentLoginRequest")
@@ -46,6 +46,7 @@ public class AgentLoginEndpoint {
 		LoggedUser user = restTemplate.postForObject(URL, requestBody, LoggedUser.class);
 		response.setUsername(user.getUsername());
 		response.setToken(user.getToken());
+		System.out.println("ispisi molim te: " + response.getUsername());
 		return response;
 	}
 

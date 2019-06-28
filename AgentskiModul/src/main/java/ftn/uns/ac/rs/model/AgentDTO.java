@@ -127,4 +127,10 @@ public class AgentDTO {
         this.prethodnaLozinka = value;
     }
 
+	@Override
+	public String toString() {
+		return "AgentDTO [id=" + id + ", korisnickoIme=" + korisnickoIme + ", lozinka=" + lozinka
+				+ ", prethodnaLozinka=" + prethodnaLozinka + "]";
+	}
+
 }

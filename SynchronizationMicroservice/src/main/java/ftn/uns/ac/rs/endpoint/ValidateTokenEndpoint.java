@@ -23,13 +23,14 @@ final String NAMESPACE = "http://rs.ac.uns.ftn/Model";
 	@ResponsePayload
 	@PayloadRoot(namespace = NAMESPACE, localPart = "ValidateTokenRequest")
 	public ValidateTokenResponse validateToken(@RequestPayload final ValidateTokenRequest input) {
+		System.out.println("usao u endpoint za validaciju tokena");
 		ValidateTokenResponse response = new ValidateTokenResponse();
 		HttpHeaders headers = new HttpHeaders();
 		headers.setContentType(MediaType.APPLICATION_JSON);
 		headers.set("Authorization", "Bearer "+ input.getToken());
 
 		HttpEntity<String> entity = new HttpEntity<String>(null, headers);
-		Boolean isValid = restTemplate.postForObject("https://localhost:8765/validate", entity, Boolean.class);
+		Boolean isValid = restTemplate.postForObject("http://localhost:8765/validate", entity, Boolean.class);
 		System.out.println("sta je isValid: " + isValid);
 		response.setSuccessful(isValid);
 		return response;

@@ -62,6 +62,7 @@ public class AgentService {
 	};
 
 	public boolean updateSync(AgentDTO agentDTO) {
+		System.out.println(agentDTO);
 		if (agentDTO.getKorisnickoIme() == null || agentDTO.getLozinka() == null || agentDTO.getPrethodnaLozinka() == null) {
 			return false;
 		}
