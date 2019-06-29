@@ -3,16 +3,10 @@ package ftn.uns.ac.rs.service;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-import org.apache.logging.log4j.Marker;
-import org.apache.logging.log4j.MarkerManager;
-import org.apache.logging.log4j.ThreadContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import ftn.uns.ac.rs.config.Auth;
-import ftn.uns.ac.rs.config.Username;
 import ftn.uns.ac.rs.model.CreatePorukaRequest;
 import ftn.uns.ac.rs.model.CreatePorukaResponse;
 import ftn.uns.ac.rs.model.GetAllPorukaRequest;
@@ -33,10 +27,10 @@ public class PorukaService {
 	@Autowired
 	private RezervacijaRepository rezervacijaRepository;
 	
-	private Logger logger = LogManager.getLogger();
+	//private Logger logger = LogManager.getLogger();
 	
-	private static final Marker USER = MarkerManager
-			   .getMarker("USER");
+	//private static final Marker USER = MarkerManager
+			   //.getMarker("USER");
 	
 	public List<PorukaDTO> getAllSync(){
 		ProducerPortService producerPortService = new ProducerPortService();
@@ -45,14 +39,14 @@ public class PorukaService {
 		Auth.authenticateClient(producerPort);
 		GetAllPorukaRequest getAllPorukaRequest = new GetAllPorukaRequest();
 		GetAllPorukaResponse getAllPorukaResponse = new GetAllPorukaResponse();
-		ThreadContext.put("user", Username.getLoggedUser());
+		//ThreadContext.put("user", Username.getLoggedUser());
 
 		try {
 			getAllPorukaResponse = producerPort.getAllPoruka(getAllPorukaRequest);
 
-			logger.info(USER, "Uspesna sinhronizacija poruka");
+			//logger.info(USER, "Uspesna sinhronizacija poruka");
 		} catch (Exception e) {
-			logger.error(USER, "Neuspesna sinhronizacija poruka: " + e.getMessage());
+			//logger.error(USER, "Neuspesna sinhronizacija poruka: " + e.getMessage());
 		}
 		
 		for (PorukaDTO poruka : getAllPorukaResponse.getPorukaDTO()) {
@@ -89,16 +83,16 @@ public class PorukaService {
 			return false;
 		}
 		porukaDTO.setId(null);
-		ThreadContext.put("user", Username.getLoggedUser());
+		//ThreadContext.put("user", Username.getLoggedUser());
 
 		try {
 			porukaRepository.save(convertToEntity(porukaDTO));
 			createSync(porukaDTO);
-			logger.info(USER, "Poruka uspesno poslata");
+			//logger.info(USER, "Poruka uspesno poslata");
 			return true;
 		} catch (Exception e) {
 
-			logger.info(USER, "Poruka nije poslata");
+			//logger.info(USER, "Poruka nije poslata");
 		}
 		return false;
 	}

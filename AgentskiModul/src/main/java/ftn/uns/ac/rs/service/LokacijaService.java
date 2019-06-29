@@ -9,21 +9,11 @@ import java.net.URLConnection;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-import org.apache.logging.log4j.Marker;
-import org.apache.logging.log4j.MarkerManager;
-import org.apache.logging.log4j.ThreadContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import ftn.uns.ac.rs.config.Username;
-import ftn.uns.ac.rs.model.CreateLokacijaRequest;
-import ftn.uns.ac.rs.model.CreateLokacijaResponse;
 import ftn.uns.ac.rs.model.Koordinate;
 import ftn.uns.ac.rs.model.Lokacija;
-import ftn.uns.ac.rs.model.ProducerPort;
-import ftn.uns.ac.rs.model.ProducerPortService;
 import ftn.uns.ac.rs.repository.LokacijaRepository;
 
 @Service
@@ -35,8 +25,8 @@ public class LokacijaService {
 	@Autowired
 	KoordinateService koordinateService;
 
-	private Logger logger = LogManager.getLogger();
-	private static final Marker USER = MarkerManager.getMarker("USER");
+	//private Logger logger = LogManager.getLogger();
+	//private static final Marker USER = MarkerManager.getMarker("USER");
 
 	public List<Lokacija> getAll() {
 		return lokacijaRepository.findAll().stream().collect(Collectors.toList());
@@ -84,35 +74,35 @@ public class LokacijaService {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		ThreadContext.put("user", Username.getLoggedUser());
+		//ThreadContext.put("user", Username.getLoggedUser());
 
 		try {
 			lokacija.setId(id);
 			lokacija.setIdKoordinate(id);
 			lokacija = lokacijaRepository.save(lokacija);
-			logger.info(USER, "Uspesno sacuvana lokacija");
+			//logger.info(USER, "Uspesno sacuvana lokacija");
 			return lokacija.getId();
 		} catch (Exception e) {
-			logger.error(USER, "okacija nije sacuvana");
+			//logger.error(USER, "okacija nije sacuvana");
 		}
 			
 		return null;
 	}
 
 	public boolean delete(Long id) {
-		ThreadContext.put("user", Username.getLoggedUser());
+		//ThreadContext.put("user", Username.getLoggedUser());
 		if (lokacijaRepository.existsById(id)) {
 			try {
 				lokacijaRepository.deleteById(id);
-				logger.info(USER, "Lokacija" + id + "obrisana");
+				//logger.info(USER, "Lokacija" + id + "obrisana");
 			} catch (Exception e) {
-				logger.error(USER, "Greska prilikom brisanja lokacije " + id + ": " + e.getMessage());
+				//logger.error(USER, "Greska prilikom brisanja lokacije " + id + ": " + e.getMessage());
 			}
 			koordinateService.delete(id);
 			return true;
 		} else {
 
-			logger.warn(USER, "Lokacija " + id + "ne postoji u bazi");
+			//logger.warn(USER, "Lokacija " + id + "ne postoji u bazi");
 		}
 		return false;
 	}
