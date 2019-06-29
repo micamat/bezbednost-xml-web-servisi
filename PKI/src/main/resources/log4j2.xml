@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="WARN">
+  <Appenders>
+    <Console name="ConsoleUser" target="SYSTEM_OUT">
+    	<Filters>
+    		<MarkerFilter marker="USER" onMatch="ACCEPT" onMismatch="DENY"/>
+        	<ThresholdFilter level="INFO" onMatch="ACCEPT" onMismatch="NEUTRAL"/>
+       	</Filters>
+      <PatternLayout pattern="%d{yyyy-MMM-dd HH:mm:ss.SSS} [%t] %-5level %logger{36} User: %X{user} - %msg%n"/>
+    </Console>
+    <Console name="ConsoleApp" target="SYSTEM_OUT">
+    	<Filters>
+    		<MarkerFilter marker="USER" onMatch="DENY" onMismatch="NEUTRAL"/>
+      	 	<ThresholdFilter level="INFO" onMatch="ACCEPT" onMismatch="NEUTRAL"/>
+   		</Filters>
+   		<PatternLayout pattern="%d{yyyy-MMM-dd HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>
+    </Console>
+    <JDBC name="MySQLDatabase" tableName="app_logs">
+         <ConnectionFactory
+            class="ftn.uns.ac.rs.config.DatabaseLoggingConfig" method="getDatabaseConnection" />
+         <Column name="id" pattern="%u" />
+         <Column name="date" isEventTimestamp="true" />
+         <Column name="logger" pattern="%logger" />
+         <Column name="level" pattern="%level" />
+         <Column name="message" pattern="%m" />
+         <Column name="user" pattern="%-20X{user}"/>
+      </JDBC>
+    <RollingFile name="File" fileName="./logs/pki.log" immediateFlush="true" append="true" locking="true"
+        filePattern="./logs/pki-%d{HH MM-dd-yyyy}-%i.log">
+		<Filters>
+			<ThresholdFilter level="INFO" onMatch="ACCEPT" onMismatch="DENY"/>
+		</Filters>
+    	<PatternLayout pattern="%d{yyyy-MMM-dd HH:mm:ss} [%t] %-5level %logger{36} User: %X{user} - %msg%n"/>
+    	<Policies>              
+            <TimeBasedTriggeringPolicy interval="1" modulate="true"/>
+            <SizeBasedTriggeringPolicy size="250 KB" /> 
+        </Policies>
+    </RollingFile>
+	<RollingFile name="CriticalFile" fileName="./logs/pki_critical.log" immediateFlush="true" append="true" locking="true"
+        filePattern="./logs/pki_critical-%d{HH MM-dd-yyyy}-%i.log">
+        <Filters>
+			<ThresholdFilter level="WARN" onMatch="ACCEPT" onMismatch="DENY"/>
+        </Filters>
+    	<PatternLayout pattern="%d{yyyy-MMM-dd HH:mm:ss.SSS} [%t] %-5level %logger{36} User: %X{user} - %msg%n"/>
+    	<Policies>              
+            <TimeBasedTriggeringPolicy interval="1" modulate="true"/>
+           <SizeBasedTriggeringPolicy size="100 KB" /> 
+        </Policies>
+    </RollingFile>
+    <Failover name="FailoverAppender" primary="File">
+    <Failovers>
+      <AppenderRef ref="MySQLDatabase"/>
+    </Failovers>
+</Failover>
+  </Appenders>
+  <Loggers>
+    <Root level="info">
+       <AppenderRef ref="FailoverAppender"/>
+      <AppenderRef ref="CriticalFile"/>
+    	<AppenderRef ref="ConsoleApp" />
+        <AppenderRef ref="ConsoleUser" />
+    </Root>
+  </Loggers>
+</Configuration>

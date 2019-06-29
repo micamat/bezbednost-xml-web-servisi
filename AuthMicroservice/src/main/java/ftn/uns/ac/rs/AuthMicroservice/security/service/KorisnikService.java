@@ -13,6 +13,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import ftn.uns.ac.rs.AuthMicroservice.security.model.Agent;
+import ftn.uns.ac.rs.AuthMicroservice.security.model.AgentDTO;
 
 //import com.eureka.common.security.JwtConfig;
 
@@ -70,6 +71,17 @@ public class KorisnikService implements UserDetailsService {
 
 	public Korisnik save(KorisnikDTO korisnik) {
 		return korisnikRepo.save(dtoToKorisnik(korisnik));
+	}
+	
+	public int update(AgentDTO d) {
+		Korisnik a = korisnikRepo.findByKorisnickoIme(d.getKorisnickoIme());
+		if(encoder.matches(d.getPrethodnaLozinka(), a.getSifra())){
+			a.setSifra(encoder.encode(d.getLozinka()));
+			Korisnik ar = korisnikRepo.save(a);
+			return ar.getId().intValue();
+		}else {
+			return -1;
+		}
 	}
 
 	private Korisnik dtoToKorisnik(KorisnikDTO dto) {

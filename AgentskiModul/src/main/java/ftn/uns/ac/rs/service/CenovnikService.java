@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import ftn.uns.ac.rs.config.Auth;
+import ftn.uns.ac.rs.config.Username;
 import ftn.uns.ac.rs.model.Cenovnik;
 import ftn.uns.ac.rs.model.CenovnikDTO;
 import ftn.uns.ac.rs.model.CreateCenovnikRequest;
@@ -75,7 +76,7 @@ public class CenovnikService {
 			}
 		cenovnikDTO.setId(cenovnikDTO.getId());
 
-		ThreadContext.put("user", "A");
+		ThreadContext.put("user", Username.getLoggedUser());
 		try {
 			Cenovnik cenovnik = cenovnikRepository.save(convertToEntity(cenovnikDTO));
 			cenovnikDTO.setId(cenovnik.getId());
@@ -92,6 +93,8 @@ public class CenovnikService {
 	}
 	
 	public boolean delete(Long id) {
+		ThreadContext.put("user", Username.getLoggedUser());
+
 		if(cenovnikRepository.existsById(id)) {
 			try {
 				cenovnikRepository.deleteById(id);

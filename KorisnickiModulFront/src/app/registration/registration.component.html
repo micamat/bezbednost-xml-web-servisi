@@ -3,16 +3,16 @@
       <div class="col-md-3"></div>
       <div class="col-6">
           <h1 class="h3 mb-3 font-weight-normal mt-3">Registration</h1>
-          <form class="mt-4" [formGroup]="SingIn" (ngSubmit)="onSubmit($event)" novalidate>
+          <form class="mt-4" [formGroup]="RegisterIn" (ngSubmit)="onSubmit($event)" novalidate>
               <div class="form-group">
                   <div class="row">
                       <div class="col-4">
                           <label>Name</label>
                       </div>
                       <div class="col-8">
-                          <input type="text" formControlName="name" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.name.errors }" />
+                          <input type="text" formControlName="ime" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.ime.errors }" />
 
-                          <div *ngIf="submitted && f.name.errors">
+                          <div *ngIf="submitted && f.ime.errors">
                               <div style="color:red;">name is incorect!</div>
                           </div>
                       </div>
@@ -24,22 +24,9 @@
                           <label>Surname</label>
                       </div>
                       <div class="col-8">
-                          <input type="text" formControlName="surname" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.surname.errors }" />
-                          <div *ngIf="submitted && f.surname.errors">
+                          <input type="text" formControlName="prezime" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.prezime.errors }" />
+                          <div *ngIf="submitted && f.prezime.errors">
                               <div style="color:red;">Surname is incorect!</div>
-                          </div>
-                      </div>
-                  </div>
-              </div>
-              <div class="form-group">
-                  <div class="row">
-                      <div class="col-4">
-                          <label>Address</label>
-                      </div>
-                      <div class="col-8">
-                          <input type="text" formControlName="address" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.address.errors }" />
-                          <div *ngIf="submitted && f.address.errors">
-                              <div style="color:red;">Address is incorect!</div>
                           </div>
                       </div>
                   </div>
@@ -52,7 +39,20 @@
                       <div class="col-8">
                           <input type="text" formControlName="email" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.email.errors }" />
                           <div *ngIf="submitted && f.email.errors">
-                              <div style="color:red;">Email is incorect!</div>
+                              <div style="color:red;">E-mail is incorect!</div>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+              <div class="form-group">
+                  <div class="row">
+                      <div class="col-4">
+                          <label>Phone</label>
+                      </div>
+                      <div class="col-8">
+                          <input type="text" formControlName="telefon" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.telefon.errors }" />
+                          <div *ngIf="submitted && f.telefon.errors">
+                              <div style="color:red;">Phone is incorect!</div>
                           </div>
                       </div>
                   </div>
@@ -63,8 +63,8 @@
                           <label>Username</label>
                       </div>
                       <div class="col-8">
-                          <input type="text" formControlName="username" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.username.errors }" />
-                          <div *ngIf="submitted && f.username.errors">
+                          <input type="text" formControlName="korisnickoIme" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.korisnickoIme.errors }" />
+                          <div *ngIf="submitted && f.korisnickoIme.errors">
                               <div style="color:red;">Username is incorect!</div>
                           </div>
                       </div>
@@ -76,22 +76,9 @@
                           <label>Password</label>
                       </div>
                       <div class="col-8">
-                          <input type="text" formControlName="password" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.password.errors }" />
-                          <div *ngIf="submitted && f.password.errors">
+                          <input type="password" formControlName="sifra" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.sifra.errors }" />
+                          <div *ngIf="submitted && f.sifra.errors">
                               <div style="color:red;">Password is incorect!</div>
-                          </div>
-                      </div>
-                  </div>
-              </div>
-              <div class="form-group">
-                  <div class="row">
-                      <div class="col-4">
-                          <label>Confirm Password</label>
-                      </div>
-                      <div class="col-8">
-                          <input type="text" formControlName="confirmPassword" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.confirmPassword.errors }" />
-                          <div *ngIf="submitted && f.confirmPassword.errors">
-                              <div style="color:red;">Confirm password is incorect!</div>
                           </div>
                       </div>
                   </div>

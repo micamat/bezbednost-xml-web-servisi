@@ -1,5 +1,10 @@
 package ftn.uns.ac.rs.endpoint;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.Marker;
+import org.apache.logging.log4j.MarkerManager;
+import org.apache.logging.log4j.ThreadContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -10,6 +15,7 @@ import org.springframework.ws.server.endpoint.annotation.PayloadRoot;
 import org.springframework.ws.server.endpoint.annotation.RequestPayload;
 import org.springframework.ws.server.endpoint.annotation.ResponsePayload;
 
+import ftn.uns.ac.rs.configuration.Username;
 import ftn.uns.ac.rs.model.AgentDTO;
 import ftn.uns.ac.rs.model.AgentLoginDTO;
 import ftn.uns.ac.rs.model.AgentLoginRequest;
@@ -29,6 +35,10 @@ public class AgentLoginEndpoint {
 	@Autowired
 	AgentService agentService;
 
+	private Logger logger = LogManager.getLogger();
+	
+	private static final Marker USER = MarkerManager
+			   .getMarker("USER");
 	static final String URL = "http://localhost:8765/auth/prijava";
 
 	@ResponsePayload
@@ -48,6 +58,14 @@ public class AgentLoginEndpoint {
 		LoggedUser user = restTemplate.postForObject(URL, requestBody, LoggedUser.class);
 		response.setUsername(user.getUsername());
 		response.setToken(user.getToken());
+		ThreadContext.put("user", user.getUsername());
+		if (user != null) {
+			Username.setLoggedUser(user.getUsername());
+			logger.info(USER, "Uspesno logovan agent");
+		} else {
+			logger.error(USER, "Greska prilikom logovanja");
+
+		}
 		System.out.println("dsad " + response.getToken());
 		System.out.println("ispisi molim te: " + response.getUsername());
 		return response;

@@ -7,10 +7,12 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.Marker;
 import org.apache.logging.log4j.MarkerManager;
+import org.apache.logging.log4j.ThreadContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import ftn.uns.ac.rs.config.Auth;
+import ftn.uns.ac.rs.config.Username;
 import ftn.uns.ac.rs.model.CreatePorukaRequest;
 import ftn.uns.ac.rs.model.CreatePorukaResponse;
 import ftn.uns.ac.rs.model.GetAllPorukaRequest;
@@ -43,7 +45,8 @@ public class PorukaService {
 		Auth.authenticateClient(producerPort);
 		GetAllPorukaRequest getAllPorukaRequest = new GetAllPorukaRequest();
 		GetAllPorukaResponse getAllPorukaResponse = new GetAllPorukaResponse();
-		
+		ThreadContext.put("user", Username.getLoggedUser());
+
 		try {
 			getAllPorukaResponse = producerPort.getAllPoruka(getAllPorukaRequest);
 
@@ -86,6 +89,8 @@ public class PorukaService {
 			return false;
 		}
 		porukaDTO.setId(null);
+		ThreadContext.put("user", Username.getLoggedUser());
+
 		try {
 			porukaRepository.save(convertToEntity(porukaDTO));
 			createSync(porukaDTO);

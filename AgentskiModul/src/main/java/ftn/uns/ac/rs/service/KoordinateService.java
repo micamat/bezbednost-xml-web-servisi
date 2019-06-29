@@ -8,6 +8,7 @@ import org.apache.logging.log4j.ThreadContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import ftn.uns.ac.rs.config.Username;
 import ftn.uns.ac.rs.model.Koordinate;
 import ftn.uns.ac.rs.repository.KoordinateRepository;
 
@@ -39,7 +40,7 @@ public class KoordinateService {
 	}
 	
 	public boolean delete(Long id) {
-		ThreadContext.put("user", "A");
+		ThreadContext.put("user", Username.getLoggedUser());
 		if(koordinateRepository.existsById(id)) {
 			koordinateRepository.deleteById(id);
 			logger.info(USER, "Koordinate " + id + "uspesno izbrisane");

@@ -9,9 +9,15 @@ import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.Marker;
+import org.apache.logging.log4j.MarkerManager;
+import org.apache.logging.log4j.ThreadContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import ftn.uns.ac.rs.configuration.Username;
 import ftn.uns.ac.rs.model.KategorijaSmestaja;
 import ftn.uns.ac.rs.model.Koordinate;
 import ftn.uns.ac.rs.model.Lokacija;
@@ -44,6 +50,11 @@ public class SmestajService {
 	@Autowired
 	private KoordinateRepository koordinateRepo;
 	
+	private Logger logger = LogManager.getLogger();
+	
+	private static final Marker USER = MarkerManager
+			   .getMarker("USER");
+	
 	public int create(SmestajDTO p){
 		Lokacija l = new Lokacija();
 		l.setIdKoordinate(p.getId());
@@ -57,12 +68,23 @@ public class SmestajService {
 		lokacijaRepository.save(l);
 		Smestaj sm = smestajToEntity(p);
 		int id = -1;
-		Smestaj s = smestajRepo.save(sm);
-		if(s == null){
+		ThreadContext.put("user", Username.getLoggedUser());
+		try {
+			Smestaj s = smestajRepo.save(sm);
+			if(s == null){
+				logger.error(USER, "Greska prilikom upisa smestaja u bazu");
+				return id;
+			}else {
+				logger.info(USER, "Smestaj uspesno upisan u bazu");
+				return s.getId().intValue();
+			}
+		}catch (Exception e) {
+			// TODO: handle exception
+			logger.error(USER, "Greska prilikom upisa smestaja u bazu: " + e.getMessage());
 			return id;
-		}else {
-			return s.getId().intValue();
 		}
+		
+		
 	}
 	
 	
