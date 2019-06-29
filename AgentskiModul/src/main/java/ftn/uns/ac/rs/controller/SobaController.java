@@ -50,8 +50,8 @@ public class SobaController {
 		return new ResponseEntity<List<ShowSobaDTO>>(sobaService.getBySmestaj(smestajId), HttpStatus.OK);
 	}
 	
-	@PostMapping
-	public ResponseEntity<String> add(@RequestParam String token, @RequestBody SobaDTO sobaDTO){
+	@PostMapping("{token}")
+	public ResponseEntity<String> add(@PathVariable String token, @RequestBody SobaDTO sobaDTO){
 		if (ValidationService.validate(token)) {
 
 			if(sobaService.add(sobaDTO)) {
