@@ -3,16 +3,10 @@ package ftn.uns.ac.rs.service;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-import org.apache.logging.log4j.Marker;
-import org.apache.logging.log4j.MarkerManager;
-import org.apache.logging.log4j.ThreadContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import ftn.uns.ac.rs.config.Auth;
-import ftn.uns.ac.rs.config.Username;
 import ftn.uns.ac.rs.model.CreateSmestajRequest;
 import ftn.uns.ac.rs.model.CreateSmestajResponse;
 import ftn.uns.ac.rs.model.Lokacija;
@@ -45,9 +39,9 @@ public class SmestajService {
 	private AgentRepository agentRepository;
 	
 
-	 private Logger logger = LogManager.getLogger();
-	 private static final Marker USER = MarkerManager
-			   .getMarker("USER");
+	 //private Logger logger = LogManager.getLogger();
+	 //private static final Marker USER = MarkerManager
+			   //.getMarker("USER");
 
 	public List<ShowSmestajDTO> getAll(){ 
 		return smestajRepository.findAll().stream().map(this::convertToDTO).collect(Collectors.toList());
@@ -77,41 +71,41 @@ public class SmestajService {
 			return false;
 		}
 		Smestaj smestaj = new Smestaj();
-		ThreadContext.put("user", Username.getLoggedUser());
+		//ThreadContext.put("user", Username.getLoggedUser());
 
 		try {		
-			ThreadContext.put("user", Username.getLoggedUser());
+			//ThreadContext.put("user", Username.getLoggedUser());
 
 
 			smestaj = smestajRepository.save(convertToEntity(smestajDTO));
 			smestajDTO.setId(smestaj.getId());
 			createSync(smestajDTO);
-			logger.info(USER, "Dodat smestaj" + smestaj.getId());
+			//logger.info(USER, "Dodat smestaj" + smestaj.getId());
 			return true;
 
 		} catch (Exception e) {
-			logger.error(USER, "Smestaj nije uspesno sacuvan u bazi");
+			//logger.error(USER, "Smestaj nije uspesno sacuvan u bazi");
 		}
 		return false;
 	}
 	
 	public boolean delete(Long id) {
 		Smestaj s = new Smestaj();
-		ThreadContext.put("user", Username.getLoggedUser());
+		//ThreadContext.put("user", Username.getLoggedUser());
 		try {
 			s = smestajRepository.findById(id).orElse(null);
 		}catch (Exception e) {
-			logger.warn(USER, "Smestaj " + id + " nije pronadjen");
+			//logger.warn(USER, "Smestaj " + id + " nije pronadjen");
 			return false;
 		}
 		
 		try {
 			smestajRepository.deleteById(id);
-			logger.info(USER, "Smestaj " + id + "obrisan");
+			//logger.info(USER, "Smestaj " + id + "obrisan");
 
 			return true;
 		} catch (Exception e) {
-			logger.error(USER, "Greska prilikom brisanja smestaja " + id + ": " + e.getMessage());
+			//logger.error(USER, "Greska prilikom brisanja smestaja " + id + ": " + e.getMessage());
 		}
 
 		lokacijaService.delete(id);

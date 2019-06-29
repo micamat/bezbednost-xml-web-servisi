@@ -9,8 +9,8 @@
 package ftn.uns.ac.rs.model;
 
 import java.math.BigInteger;
-import java.sql.Date;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.xml.bind.annotation.XmlAccessType;
@@ -19,6 +19,8 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlSchemaType;
 import javax.xml.bind.annotation.XmlType;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 
 /**
@@ -64,9 +66,11 @@ public class ShowRezervacijaDTO {
     protected Long id;
     @XmlElement(required = true)
     @XmlSchemaType(name = "dateTime")
+    @JsonFormat(pattern="yyyy-MM-dd")
     protected Date datumOd;
     @XmlElement(required = true)
     @XmlSchemaType(name = "dateTime")
+    @JsonFormat(pattern="yyyy-MM-dd")
     protected Date datumDo;
     protected float cena;
     @XmlElement(required = true)

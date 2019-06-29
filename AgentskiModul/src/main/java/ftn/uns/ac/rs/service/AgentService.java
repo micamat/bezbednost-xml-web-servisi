@@ -3,15 +3,9 @@ package ftn.uns.ac.rs.service;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-import org.apache.logging.log4j.Marker;
-import org.apache.logging.log4j.MarkerManager;
-import org.apache.logging.log4j.ThreadContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import ftn.uns.ac.rs.config.Username;
 import ftn.uns.ac.rs.config.Auth;
 import ftn.uns.ac.rs.model.Agent;
 import ftn.uns.ac.rs.model.AgentDTO;
@@ -36,9 +30,9 @@ public class AgentService {
 	@Autowired
 	private AgentRepository agentRepository;
 	
-	private Logger logger = LogManager.getLogger();
-	 private static final Marker USER = MarkerManager
-			   .getMarker("USER");
+	//private Logger logger = LogManager.getLogger();
+	 //private static final Marker USER = MarkerManager
+			   //.getMarker("USER");
 
 	public List<ShowAgentDTO> getAllSync() {
 		ProducerPortService producerPortService = new ProducerPortService();
@@ -81,15 +75,15 @@ public class AgentService {
 		try {
 
 			updateAgentResponse = producerPort.updateAgent(updateAgentRequest);
-			ThreadContext.put("user", agentDTO.getKorisnickoIme());
+			//ThreadContext.put("user", agentDTO.getKorisnickoIme());
 			if(updateAgentResponse.isSuccessful()) {
-				logger.info(USER, "Uspesno promenjena lozinka");
+				//logger.info(USER, "Uspesno promenjena lozinka");
 				return true;
 			} else {
-				logger.warn(USER, "Lozinka nije promenjena");
+				//logger.warn(USER, "Lozinka nije promenjena");
 			}
 		}catch (Exception e) {
-			logger.error(USER, "Greska prilikom izmene lozinke: " + e.getMessage());
+			//logger.error(USER, "Greska prilikom izmene lozinke: " + e.getMessage());
 		}
 		return false;
 	};
@@ -120,29 +114,29 @@ public class AgentService {
 		AgentLoginResponse agentLoginResponse = new AgentLoginResponse();
 		agentLoginRequest.setusername(agentLoginDTO.getUsername());
 		agentLoginRequest.setpassword(agentLoginDTO.getPassword());
-		ThreadContext.put("user", agentLoginDTO.getUsername());
+		//ThreadContext.put("user", agentLoginDTO.getUsername());
 
 		try {
-			ThreadContext.put("user", agentLoginDTO.getUsername());
+			//ThreadContext.put("user", agentLoginDTO.getUsername());
 
 			agentLoginResponse = producerPort.agentLogin(agentLoginRequest);
 			LoggedUser loggedUser = new LoggedUser();
 			if (agentLoginResponse.getToken() == null || agentLoginResponse.getUsername() == null) {
 
-				logger.error(USER, "Agent neuspesno logovan");
+				//logger.error(USER, "Agent neuspesno logovan");
 				return null;
 			}else {
 				loggedUser.setToken(agentLoginResponse.getToken());
 				loggedUser.setUsername(agentLoginResponse.getUsername());
-				Username.setLoggedUser(loggedUser.getUsername());
-				logger.info(USER, "Uspesno logovanje");
+				//Username.setLoggedUser(loggedUser.getUsername());
+				//logger.info(USER, "Uspesno logovanje");
 				return loggedUser;
 			}
 		} catch (Exception e) {
-			ThreadContext.put("user", agentLoginDTO.getUsername());
+			//ThreadContext.put("user", agentLoginDTO.getUsername());
 
 			e.printStackTrace();
-			logger.error(USER, "Greska prilikom logovanja: " + e.getMessage());
+			//logger.error(USER, "Greska prilikom logovanja: " + e.getMessage());
 		}
 		return null;
 	}
@@ -162,19 +156,19 @@ public class AgentService {
 		try {
 
 			agentLogoutResponse = producerPort.agentLogout(agentLogoutRequest);
-			ThreadContext.put("user", username);
+			//ThreadContext.put("user", username);
 			if (!agentLogoutResponse.isSuccessful()) {
 
-				logger.error(USER, "Agent nije izlogovan");
+				//logger.error(USER, "Agent nije izlogovan");
 				return false;
 			}else {
 
-				logger.info(USER, "Uspesno izlogovan");
+				//logger.info(USER, "Uspesno izlogovan");
 				return true;
 			}
 		} catch (Exception e) {
 
-			logger.error(USER, "Greska prilikom izlogovanja: " + e.getMessage());
+			//logger.error(USER, "Greska prilikom izlogovanja: " + e.getMessage());
 		}
 		return false;
 	}

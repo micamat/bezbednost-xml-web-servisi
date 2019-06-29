@@ -8,8 +8,8 @@
 
 package ftn.uns.ac.rs.model;
 
-import java.sql.Date;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.Entity;
@@ -26,6 +26,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlSchemaType;
 import javax.xml.bind.annotation.XmlType;
 import javax.xml.datatype.XMLGregorianCalendar;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 
 /**
@@ -76,9 +78,11 @@ public class Rezervacija {
     protected Long id;
     @XmlElement(required = true)
     @XmlSchemaType(name = "dateTime")
+    @JsonFormat(pattern="yyyy-MM-dd")
     protected Date datumOd;
     @XmlElement(required = true)
     @XmlSchemaType(name = "dateTime")
+    @JsonFormat(pattern="yyyy-MM-dd")
     protected Date datumDo;
     @XmlElement(required = true)
     @XmlSchemaType(name = "int")

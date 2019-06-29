@@ -4,16 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-import org.apache.logging.log4j.Marker;
-import org.apache.logging.log4j.MarkerManager;
-import org.apache.logging.log4j.ThreadContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import ftn.uns.ac.rs.config.Auth;
-import ftn.uns.ac.rs.config.Username;
 import ftn.uns.ac.rs.model.CreateRezervacijaRequest;
 import ftn.uns.ac.rs.model.CreateRezervacijaResponse;
 import ftn.uns.ac.rs.model.ProducerPort;
@@ -53,9 +47,9 @@ public class RezervacijaService {
 	@Autowired
 	private SobaRepository sobaRepository;
 	
-	private Logger logger = LogManager.getLogger();
-	 private static final Marker USER = MarkerManager
-			   .getMarker("USER");
+	//private Logger logger = LogManager.getLogger();
+	 //private static final Marker USER = MarkerManager
+			   //.getMarker("USER");
 	
 	
 	public int createSync(RezervacijaDTO rezervaicijaDTO){
@@ -106,7 +100,7 @@ public class RezervacijaService {
 
 			return false;
 		}
-		ThreadContext.put("user", Username.getLoggedUser());
+		//ThreadContext.put("user", Username.getLoggedUser());
 		rezervacijaDTO.setId(null);
 		float cena = 0;
 		for (RezervisaneSobeDTO rsDTO : rezervacijaDTO.getRezervisaneSobeDTO()) {
@@ -115,7 +109,7 @@ public class RezervacijaService {
 		rezervacijaDTO.setCena(cena);
 		try {
 			Rezervacija rezervacija = rezervacijaRepository.save(convertToEntity(rezervacijaDTO));
-			logger.info(USER, "Dodata rezervacija " + rezervacija.getId());
+			//logger.info(USER, "Dodata rezervacija " + rezervacija.getId());
 			for (RezervisaneSobeDTO rezervisaneSobeDTO : rezervacijaDTO.getRezervisaneSobeDTO()) {
 
 				RezervisaneSobe rezervisaneSobe = new RezervisaneSobe();
@@ -131,7 +125,7 @@ public class RezervacijaService {
 			createSync(rezervacijaDTO);
 			return true;
 		} catch (Exception e){
-			logger.error(USER, "Neuspesno dodavanje rezervacije: " + e.getMessage());
+			//logger.error(USER, "Neuspesno dodavanje rezervacije: " + e.getMessage());
 		}
 		return false;
 		
