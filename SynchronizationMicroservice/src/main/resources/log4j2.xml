@@ -25,8 +25,8 @@
          <Column name="message" pattern="%m" />
          <Column name="user" pattern="%-20X{user}"/>
       </JDBC>
-    <RollingFile name="File" fileName="./logs/agentskiModul.log" immediateFlush="true" append="true" locking="true"
-        filePattern="./logs/agentskiModul-%d{HH MM-dd-yyyy}-%i.log">
+    <RollingFile name="File" fileName="./logs/syncMicroservice.log" immediateFlush="true" append="true" locking="true"
+        filePattern="./logs/syncMicroservice-%d{HH MM-dd-yyyy}-%i.log">
 		<Filters>
 			<ThresholdFilter level="INFO" onMatch="ACCEPT" onMismatch="DENY"/>
 		</Filters>
@@ -36,8 +36,8 @@
             <SizeBasedTriggeringPolicy size="250 KB" /> 
         </Policies>
     </RollingFile>
-	<RollingFile name="CriticalFile" fileName="./logs/agentskiModul_critical.log" immediateFlush="true" append="true" locking="true"
-        filePattern="./logs/agentskiModul_critical-%d{HH MM-dd-yyyy}-%i.log">
+	<RollingFile name="CriticalFile" fileName="./logs/syncMicroservice_critical.log" immediateFlush="true" append="true" locking="true"
+        filePattern="./logs/syncMicroservice_critical-%d{HH MM-dd-yyyy}-%i.log">
         <Filters>
 			<ThresholdFilter level="WARN" onMatch="ACCEPT" onMismatch="DENY"/>
         </Filters>

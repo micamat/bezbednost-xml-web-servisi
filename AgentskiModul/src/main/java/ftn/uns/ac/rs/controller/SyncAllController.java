@@ -1,5 +1,10 @@
 package ftn.uns.ac.rs.controller;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.Marker;
+import org.apache.logging.log4j.MarkerManager;
+import org.apache.logging.log4j.ThreadContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -7,6 +12,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import ftn.uns.ac.rs.config.Username;
 import ftn.uns.ac.rs.service.AgentService;
 import ftn.uns.ac.rs.service.KategorijaSmestajaService;
 import ftn.uns.ac.rs.service.KomentarService;
@@ -43,8 +49,15 @@ public class SyncAllController {
 	@Autowired 
 	PorukaService porukaService = new PorukaService();
 	
+	private Logger logger = LogManager.getLogger();
+	
+	private static final Marker USER = MarkerManager
+			   .getMarker("USER");
+
+	
 	@GetMapping
 	public ResponseEntity<String> getAllSync(){
+		ThreadContext.put("user", Username.getLoggedUser());
 		try {
 			kategorijaSmestajaService.getAllSync();
 			tipSmestajaService.getAllSync();
@@ -54,10 +67,11 @@ public class SyncAllController {
 			komentarService.getAllSync();
 			korisnikService.getAllSync();
 			//porukaService.getAllSync();
+			logger.info(USER, "Uspesno sinhronizovani podaci");
 			return new ResponseEntity<String>("Podaci uspesno sinhronizovani!", HttpStatus.OK);
 			
 		}catch(Exception e){
-			e.printStackTrace();
+			logger.error(USER, "Podaci nisu sinhronizovani: " + e.getMessage());
 			return new ResponseEntity<String>("Greska pri sinhronizaciji!", HttpStatus.CONFLICT);		
 		}
 	}

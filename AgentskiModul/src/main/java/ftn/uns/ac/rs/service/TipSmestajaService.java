@@ -40,9 +40,9 @@ public class TipSmestajaService {
 		try {
 			getTipSmestajaResponse = producerPort.getAllTipSmestaja(getTipSmestajaRequest);
 
-			logger.info(USER, "Uspesna sinhronizacija Tipa sobe");
+			logger.info(USER, "Uspesna sinhronizacija Tipa smestaja");
 		} catch (Exception e) {
-			logger.error(USER, "Neuspesna sinhronizacija Tipa sobe: " + e.getMessage());
+			logger.error(USER, "Neuspesna sinhronizacija Tipa smestaja: " + e.getMessage());
 		}
 		
 		for (TipSmestaja tipSmestajaDTO : getTipSmestajaResponse.getTipSmestaja()) {
