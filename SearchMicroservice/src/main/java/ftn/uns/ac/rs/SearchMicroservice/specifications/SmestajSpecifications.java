@@ -14,26 +14,20 @@ import ftn.uns.ac.rs.SearchMicroservice.model.Smestaj;
 
 public class SmestajSpecifications {
 	
-	public static Specification<Smestaj> findByNazivLokacijaTipKategorija(String naziv, String drzava, String grad, String ulica, String tip, String kategorija){
+	public static Specification<Smestaj> findByLokacijaTipKategorija(String lokacija, String tip, String kategorija){
 		return new Specification<Smestaj>() {
 			private static final long serialVersionUID = 1L;
 			@Override
 			public Predicate toPredicate(Root<Smestaj> root, CriteriaQuery<?> query, CriteriaBuilder criteriaBuilder) {
 				final Collection<Predicate> predicates = new ArrayList<Predicate>();
-				if(naziv != null) {
-					final Predicate nazivPredicate = criteriaBuilder.like(root.get("naziv"), "%"+naziv+"%");
-					predicates.add(nazivPredicate);
-				}
-				if(drzava != null) {
-					final Predicate drzavaPredicate = criteriaBuilder.like(root.join("lokacija").get("drzava"), "%"+drzava+"%");
+				if(lokacija != null) {
+					final Predicate drzavaPredicate = criteriaBuilder.like(root.join("lokacija").get("drzava"), "%"+lokacija+"%");
 					predicates.add(drzavaPredicate);
-				}
-				if(grad != null) {
-					final Predicate gradPredicate = criteriaBuilder.like(root.join("lokacija").get("grad"), "%"+grad+"%");
+					
+					final Predicate gradPredicate = criteriaBuilder.like(root.join("lokacija").get("grad"), "%"+lokacija+"%");
 					predicates.add(gradPredicate);
-				}
-				if(ulica != null) {
-					final Predicate ulicaPredicate = criteriaBuilder.like(root.join("lokacija").get("ulica"), "%"+ulica+"%");
+					
+					final Predicate ulicaPredicate = criteriaBuilder.like(root.join("lokacija").get("ulica"), "%"+lokacija+"%");
 					predicates.add(ulicaPredicate);
 				}
 				if(tip != null) {
