@@ -56,6 +56,11 @@ public class AgentLoginEndpoint {
 		headers.setContentType(MediaType.APPLICATION_JSON);
 		HttpEntity<AgentLoginDTO> requestBody = new HttpEntity<AgentLoginDTO>(agent, headers);
 		LoggedUser user = restTemplate.postForObject(URL, requestBody, LoggedUser.class);
+		if (user != null) {
+			Username.setLoggedUser(user.getUsername());
+		} else {
+			Username.setLoggedUser(null);
+		}
 		response.setUsername(user.getUsername());
 		response.setToken(user.getToken());
 		ThreadContext.put("user", user.getUsername());

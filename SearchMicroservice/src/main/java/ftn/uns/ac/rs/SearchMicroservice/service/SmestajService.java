@@ -14,7 +14,7 @@ public class SmestajService {
 	@Autowired
 	SmestajRepository smestajRepo;
 	
-	public List<Smestaj> search(String naziv, String drzava, String grad, String ulica, String tip, String kategorija){
-		return smestajRepo.findAll(SmestajSpecifications.findByNazivLokacijaTipKategorija(naziv, drzava, grad, ulica, tip, kategorija));
+	public List<Smestaj> search(String lokacija, String tip, String kategorija){
+		return smestajRepo.findAll(SmestajSpecifications.findByLokacijaTipKategorija(lokacija, tip, kategorija));
 	}
 }

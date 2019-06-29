@@ -11,6 +11,8 @@ import org.springframework.web.filter.CorsFilter;
 public class AgentskiModulApplication {
 
 	public static void main(String[] args) {
+		
+		
 		SpringApplication.run(AgentskiModulApplication.class, args);
 	}
 	

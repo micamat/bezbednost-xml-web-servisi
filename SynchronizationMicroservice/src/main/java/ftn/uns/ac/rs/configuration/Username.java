@@ -1,6 +1,7 @@
 package ftn.uns.ac.rs.configuration;
 
 public class Username {
+
 	private static String username;
 	
 	public static void setLoggedUser(String username) {
@@ -8,6 +9,8 @@ public class Username {
 	}
 	
 	public static String getLoggedUser() {
-		return Username.username;
+
+		return username;
+
 	}
 }
