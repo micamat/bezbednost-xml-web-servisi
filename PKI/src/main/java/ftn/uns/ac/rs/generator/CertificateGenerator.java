@@ -6,6 +6,11 @@ import java.security.cert.CertificateEncodingException;
 import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.Marker;
+import org.apache.logging.log4j.MarkerManager;
+import org.apache.logging.log4j.ThreadContext;
 import org.bouncycastle.asn1.ASN1ObjectIdentifier;
 import org.bouncycastle.asn1.x509.BasicConstraints;
 import org.bouncycastle.cert.CertIOException;
@@ -19,8 +24,15 @@ import org.bouncycastle.operator.jcajce.JcaContentSignerBuilder;
 
 import ftn.uns.ac.rs.data.IssuerData;
 import ftn.uns.ac.rs.data.SubjectData;
+import ftn.uns.ac.rs.security.Username;
 
 public class CertificateGenerator {
+	
+
+	private Logger logger = LogManager.getLogger();
+	
+	private static final Marker USER = MarkerManager
+			   .getMarker("USER");
 	public CertificateGenerator() {}
 	
 	public X509Certificate generateCertificate(SubjectData subjectData, IssuerData issuerData, boolean isCa) throws CertIOException {
@@ -63,18 +75,24 @@ public class CertificateGenerator {
 			//Nakon toga je potrebno certHolder konvertovati u sertifikat, za sta se koristi certConverter
 			JcaX509CertificateConverter certConverter = new JcaX509CertificateConverter();
 			certConverter = certConverter.setProvider("BC");
-
+			ThreadContext.put("user", Username.getLoggedUser());
 			//Konvertuje objekat u sertifikat
+			logger.info(USER, "Generisan sertifikat");
 			return certConverter.getCertificate(certHolder);
 		} catch (CertificateEncodingException e) {
+			logger.error(USER, "Greska: " + e.getMessage());
 			e.printStackTrace();
 		} catch (IllegalArgumentException e) {
+			logger.error(USER, "Greska: " + e.getMessage());
 			e.printStackTrace();
 		} catch (IllegalStateException e) {
+			logger.error(USER, "Greska: " + e.getMessage());
 			e.printStackTrace();
 		} catch (OperatorCreationException e) {
+			logger.error(USER, "Greska: " + e.getMessage());
 			e.printStackTrace();
 		} catch (CertificateException e) {
+			logger.error(USER, "Greska: " + e.getMessage());
 			e.printStackTrace();
 		}
 		return null;

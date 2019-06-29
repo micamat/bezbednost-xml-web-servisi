@@ -1,4 +1,4 @@
-package ftn.uns.ac.rs.config;
+package ftn.uns.ac.rs.security;
 
 import java.sql.Connection;
 import java.sql.SQLException;

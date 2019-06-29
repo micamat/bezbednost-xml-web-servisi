@@ -17,6 +17,7 @@ import org.apache.logging.log4j.ThreadContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import ftn.uns.ac.rs.config.Username;
 import ftn.uns.ac.rs.model.CreateLokacijaRequest;
 import ftn.uns.ac.rs.model.CreateLokacijaResponse;
 import ftn.uns.ac.rs.model.Koordinate;
@@ -63,7 +64,6 @@ public class LokacijaService {
 			String a = "https://www.google.com/maps/place/" + adresa + ',' + grad;
 			url = new URL(a);
 			URLConnection conn = url.openConnection();
-			System.out.println(conn.getURL());
 			// open the stream and put it into BufferedReader
 			BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
 
@@ -84,6 +84,8 @@ public class LokacijaService {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		ThreadContext.put("user", Username.getLoggedUser());
+
 		try {
 			lokacija.setId(id);
 			lokacija.setIdKoordinate(id);
@@ -98,7 +100,7 @@ public class LokacijaService {
 	}
 
 	public boolean delete(Long id) {
-		ThreadContext.put("user", "AS");
+		ThreadContext.put("user", Username.getLoggedUser());
 		if (lokacijaRepository.existsById(id)) {
 			try {
 				lokacijaRepository.deleteById(id);
