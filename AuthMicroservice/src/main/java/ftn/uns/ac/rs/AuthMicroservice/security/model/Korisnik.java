@@ -65,7 +65,7 @@ public class Korisnik {
 
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    protected long id;
+    protected Long id;
     @XmlElement(required = true)
     protected String ime;
     @XmlElement(required = true)
@@ -87,7 +87,7 @@ public class Korisnik {
      * Gets the value of the id property.
      * 
      */
-    public long getId() {
+    public Long getId() {
         return id;
     }
 

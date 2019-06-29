@@ -11,6 +11,9 @@ import { FormGroup,ReactiveFormsModule } from '@angular/forms';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { DatePickerModule } from '@syncfusion/ej2-angular-calendars';
+import { Shared } from './services/Token';
+import { ProfilComponent } from './profil/profil.component';
+import { PasswordChangeComponent } from './password-change/password-change.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +21,9 @@ import { DatePickerModule } from '@syncfusion/ej2-angular-calendars';
     NavbarComponent,
     RegistrationComponent,
     LoginComponent,
-    HomeComponent
+    HomeComponent,
+    ProfilComponent,
+    PasswordChangeComponent
   ],
   imports: [
     BrowserModule,
@@ -28,7 +33,7 @@ import { DatePickerModule } from '@syncfusion/ej2-angular-calendars';
     DatePickerModule,
     HttpClientModule,
   ],
-  providers: [],
-  bootstrap: [AppComponent]
+  providers: [ Shared ],
+  bootstrap: [ AppComponent ]
 })
 export class AppModule { }

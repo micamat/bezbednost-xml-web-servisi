@@ -21,9 +21,10 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 //import com.eureka.common.security.JwtConfig;
@@ -31,6 +32,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import ftn.uns.ac.rs.AuthMicroservice.security.config.JwtConfig;
 import ftn.uns.ac.rs.AuthMicroservice.security.model.Agent;
+import ftn.uns.ac.rs.AuthMicroservice.security.model.AgentDTO;
 import ftn.uns.ac.rs.AuthMicroservice.security.model.AgentLoginDTO;
 import ftn.uns.ac.rs.AuthMicroservice.security.model.Korisnik;
 import ftn.uns.ac.rs.AuthMicroservice.security.model.KorisnikDTO;
@@ -116,6 +118,18 @@ public class JwtUsernameAndPasswordAuthenticationFilter extends UsernamePassword
 		return new ResponseEntity<LoggedUser>(signin(dto.getusername(), dto.getpassword()), HttpStatus.OK);
 	}
 	
+	@PutMapping("/changeKorisnik/{token}")
+	public ResponseEntity<String> updateKorisnik(@PathVariable String token,@RequestBody AgentDTO agent){
+		System.out.println("asfbhasdkjhfd");
+		int id = korisnikService.update(agent);
+		if (id == -1) {
+			return new ResponseEntity<String>("Uspenso izmenjena sifra", HttpStatus.CREATED);
+		} else {
+			return new ResponseEntity<String>("Neuspesno izmenjena sifra", HttpStatus.CONFLICT);
+		}
+		
+	}
+	
 	@PostMapping("/registerKorisnik")
 	public ResponseEntity<Korisnik> saveKorisnik(@RequestBody KorisnikDTO korisnik){
 		return new ResponseEntity<Korisnik>(korisnikService.save(korisnik), HttpStatus.OK);
@@ -123,6 +137,7 @@ public class JwtUsernameAndPasswordAuthenticationFilter extends UsernamePassword
 	
 	@PostMapping("/registerAgent")
 	public ResponseEntity<Agent> saveAgent(@RequestBody Agent agent){
+		System.out.println("asfdasdfsdf CUDNO !! ");
 		return new ResponseEntity<Agent>(agentService.save(agent), HttpStatus.OK);
 	}
 	
