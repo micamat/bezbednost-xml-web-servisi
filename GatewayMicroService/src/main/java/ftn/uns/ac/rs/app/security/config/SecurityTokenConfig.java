@@ -32,6 +32,7 @@ public class SecurityTokenConfig extends WebSecurityConfigurerAdapter {
 			.antMatchers("/validate").permitAll()
 			.antMatchers("/auth/prijava").permitAll()
 			.antMatchers("/auth/signin").permitAll()
+			.antMatchers("/auth/changeKorisnik/**").permitAll()
 			.antMatchers("/auth/registerAgent").permitAll()
 			.antMatchers("/auth/registerKorisnik").permitAll()
 			.antMatchers("/odjava").permitAll()

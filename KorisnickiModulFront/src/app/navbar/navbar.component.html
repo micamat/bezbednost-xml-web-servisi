@@ -15,12 +15,22 @@
       </ul>
   
       <ul class="nav navbar-nav ml-auto">
-        <li class="nav-item active">
+        <li *ngIf="tandu.username != 'undefined'" class="nav-item ml-3">
+            <div class="inline row">
+                <a class="nav-link inline ml-3" [routerLink]="'/profil'">
+                  <p>{{tandu.username}}<img src="/assets/img/user-24.png" height="24" width="24"></p>
+                </a>
+                <a class="nav-link" [routerLink]="'/'" (click)="logout()">
+                  Log out
+                </a>
+            </div>
+          </li>
+        <li *ngIf="tandu.username == 'undefined'" class="nav-item active">
           <a class="nav-link"  [routerLink]="'/register'">
             <img src="assets/img/check-mark-3-32.ico" height="22" class="d-inline-block align-top logo" > Register
         </a>
         </li>
-        <li class="nav-item active">
+        <li *ngIf="tandu.username == 'undefined'" class="nav-item active">
           <a class="nav-link"  [routerLink]="'/login'">
             <img src="assets/img/login-24.ico" height="22" class="d-inline-block align-top logo" > Login
         </a>

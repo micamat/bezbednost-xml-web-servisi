@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Shared } from '../services/Token';
 
 @Component({
   selector: 'app-navbar',
@@ -7,13 +8,19 @@ import { Component, OnInit } from '@angular/core';
 })
 export class NavbarComponent implements OnInit {
 
-  constructor() { }
+  constructor(private tandu: Shared) { }
 
   ngOnInit() {
+            this.tandu.username = localStorage.getItem('username');
+            this.tandu.token = localStorage.getItem('token');
   }
 
   logout(){
-    localStorage.clear();
+    localStorage.setItem('token', 'undefined');   
+    localStorage.setItem('username', 'undefined');
+    this.tandu.token = 'undefined';
+    this.tandu.username = 'undefined';
+    
   }
 
 

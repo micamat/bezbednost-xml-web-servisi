@@ -10,6 +10,10 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.Marker;
+import org.apache.logging.log4j.MarkerManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.authentication.UserCredentials;
 import org.springframework.http.HttpStatus;
@@ -42,6 +46,10 @@ public class JwtUsernameAndPasswordAuthenticationFilter extends UsernamePassword
 	
 	@Autowired
 	KorisnikService korisnikService;
+private Logger logger = LogManager.getLogger();
+	
+	private static final Marker USER = MarkerManager
+			   .getMarker("USER");
 	
 	/**
 	 * Konstruktor
@@ -129,8 +137,12 @@ public class JwtUsernameAndPasswordAuthenticationFilter extends UsernamePassword
 			
 			loggedUser.setToken(token);
 			loggedUser.setUsername(username);
+			Username.setLoggedUser(loggedUser.getUsername());
+			logger.info(USER, "Uspesno logovanje");
 			return loggedUser;
 		}catch (Exception e) {
+			logger.warn(USER, "Neuspesno logovanje");
+
 			System.out.println("neuspesna autentifikacija");
 			return null;
 		}

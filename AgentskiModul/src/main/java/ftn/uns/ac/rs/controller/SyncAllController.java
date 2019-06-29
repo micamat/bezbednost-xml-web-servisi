@@ -49,17 +49,27 @@ public class SyncAllController {
 	@Autowired 
 	PorukaService porukaService = new PorukaService();
 	
+<<<<<<< HEAD
 	
 
 	private static final Marker USER = MarkerManager
 			   .getMarker("USER");
 	private Logger logger = LogManager.getLogger();
+=======
+	private Logger logger = LogManager.getLogger();
+	
+	private static final Marker USER = MarkerManager
+			   .getMarker("USER");
+>>>>>>> 907c4764b63aed1c85b4606a5d32d3f98a614bde
 
 	
 	@GetMapping
 	public ResponseEntity<String> getAllSync(){
 		ThreadContext.put("user", Username.getLoggedUser());
+<<<<<<< HEAD
 
+=======
+>>>>>>> 907c4764b63aed1c85b4606a5d32d3f98a614bde
 		try {
 			kategorijaSmestajaService.getAllSync();
 			tipSmestajaService.getAllSync();
@@ -69,12 +79,20 @@ public class SyncAllController {
 			//komentarService.getAllSync();
 			//korisnikService.getAllSync();
 			//porukaService.getAllSync();
+<<<<<<< HEAD
 			logger.info(USER, "Podaci uspesno sinhronizovani");
 			return new ResponseEntity<String>("Podaci uspesno sinhronizovani!", HttpStatus.OK);
 			
 		}catch(Exception e){
 			logger.info(USER, "Greska prilikom sinhronizacije");
 
+=======
+			logger.info(USER, "Uspesno sinhronizovani podaci");
+			return new ResponseEntity<String>("Podaci uspesno sinhronizovani!", HttpStatus.OK);
+			
+		}catch(Exception e){
+			logger.error(USER, "Podaci nisu sinhronizovani: " + e.getMessage());
+>>>>>>> 907c4764b63aed1c85b4606a5d32d3f98a614bde
 			return new ResponseEntity<String>("Greska pri sinhronizaciji!", HttpStatus.CONFLICT);		
 		}
 	}

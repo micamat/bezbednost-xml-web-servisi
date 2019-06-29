@@ -123,6 +123,7 @@ public class AgentService {
 		ThreadContext.put("user", agentLoginDTO.getUsername());
 
 		try {
+			ThreadContext.put("user", agentLoginDTO.getUsername());
 
 			agentLoginResponse = producerPort.agentLogin(agentLoginRequest);
 			LoggedUser loggedUser = new LoggedUser();
@@ -138,6 +139,8 @@ public class AgentService {
 				return loggedUser;
 			}
 		} catch (Exception e) {
+			ThreadContext.put("user", agentLoginDTO.getUsername());
+
 			e.printStackTrace();
 			logger.error(USER, "Greska prilikom logovanja: " + e.getMessage());
 		}
