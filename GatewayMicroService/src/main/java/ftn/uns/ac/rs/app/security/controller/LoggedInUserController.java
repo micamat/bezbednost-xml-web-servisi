@@ -37,7 +37,6 @@ public class LoggedInUserController {
 	@PostMapping("/validate")
 	public Boolean validate(HttpServletRequest request) {
 		// preuzimanje headera zahteva
-		System.out.println("JA usao samo da pogledam !");
 		String header = request.getHeader(jwtConfig.getHeader());
 				
 				

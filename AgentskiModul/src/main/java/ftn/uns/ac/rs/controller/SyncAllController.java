@@ -49,29 +49,40 @@ public class SyncAllController {
 	@Autowired 
 	PorukaService porukaService = new PorukaService();
 	
-	private Logger logger = LogManager.getLogger();
+
 	
+
 	private static final Marker USER = MarkerManager
 			   .getMarker("USER");
+	private Logger logger = LogManager.getLogger();
+	
+	
+	
 
 	
 	@GetMapping
 	public ResponseEntity<String> getAllSync(){
 		ThreadContext.put("user", Username.getLoggedUser());
+
+
+
 		try {
 			kategorijaSmestajaService.getAllSync();
 			tipSmestajaService.getAllSync();
 			tipSobeService.getAllSync();
 			uslugaService.getAllSync();
 			agentService.getAllSync();
-			komentarService.getAllSync();
-			korisnikService.getAllSync();
+			//komentarService.getAllSync();
+			//korisnikService.getAllSync();
 			//porukaService.getAllSync();
-			logger.info(USER, "Uspesno sinhronizovani podaci");
+
+			logger.info(USER, "Podaci uspesno sinhronizovani");
 			return new ResponseEntity<String>("Podaci uspesno sinhronizovani!", HttpStatus.OK);
 			
+		
 		}catch(Exception e){
 			logger.error(USER, "Podaci nisu sinhronizovani: " + e.getMessage());
+
 			return new ResponseEntity<String>("Greska pri sinhronizaciji!", HttpStatus.CONFLICT);		
 		}
 	}

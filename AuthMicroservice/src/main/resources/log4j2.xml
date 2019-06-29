@@ -6,11 +6,7 @@
     		<MarkerFilter marker="USER" onMatch="ACCEPT" onMismatch="DENY"/>
         	<ThresholdFilter level="INFO" onMatch="ACCEPT" onMismatch="NEUTRAL"/>
        	</Filters>
-<<<<<<< HEAD
       <PatternLayout pattern="%d{yyyy-MMM-dd HH:mm:ss.SSS} [%t] %-5level %logger{36} User: %-20X{user} - %msg%n"/>
-=======
-      <PatternLayout pattern="%d{yyyy-MMM-dd HH:mm:ss.SSS} [%t] %-5level %logger{36} User: %X{user} - %msg%n"/>
->>>>>>> 907c4764b63aed1c85b4606a5d32d3f98a614bde
     </Console>
     <Console name="ConsoleApp" target="SYSTEM_OUT">
     	<Filters>
@@ -29,41 +25,23 @@
          <Column name="message" pattern="%m" />
          <Column name="user" pattern="%-20X{user}"/>
       </JDBC>
-<<<<<<< HEAD
     <RollingFile name="File" fileName="./logs/agentskiModul.log" immediateFlush="true" append="true" locking="true"
         filePattern="./logs/agentskiModul-%d{HH MM-dd-yyyy}-%i.log">
 		<Filters>
 			<ThresholdFilter level="INFO" onMatch="ACCEPT" onMismatch="DENY"/>
 		</Filters>
     	<PatternLayout pattern="%d{yyyy-MMM-dd HH:mm:ss} [%t] %-5level %logger{36} User: %-20X{user} - %msg%n"/>
-=======
-    <RollingFile name="File" fileName="./logs/syncMicroservice.log" immediateFlush="true" append="true" locking="true"
-        filePattern="./logs/syncMicroservice-%d{HH MM-dd-yyyy}-%i.log">
-		<Filters>
-			<ThresholdFilter level="INFO" onMatch="ACCEPT" onMismatch="DENY"/>
-		</Filters>
-    	<PatternLayout pattern="%d{yyyy-MMM-dd HH:mm:ss} [%t] %-5level %logger{36} User: %X{user} - %msg%n"/>
->>>>>>> 907c4764b63aed1c85b4606a5d32d3f98a614bde
     	<Policies>              
             <TimeBasedTriggeringPolicy interval="1" modulate="true"/>
             <SizeBasedTriggeringPolicy size="250 KB" /> 
         </Policies>
     </RollingFile>
-<<<<<<< HEAD
 	<RollingFile name="CriticalFile" fileName="./logs/agentskiModul_critical.log" immediateFlush="true" append="true" locking="true"
         filePattern="./logs/agentskiModul_critical-%d{HH MM-dd-yyyy}-%i.log">
         <Filters>
 			<ThresholdFilter level="WARN" onMatch="ACCEPT" onMismatch="DENY"/>
         </Filters>
     	<PatternLayout pattern="%d{yyyy-MMM-dd HH:mm:ss.SSS} [%t] %-5level %logger{36} User: %-20X{user} - %msg%n"/>
-=======
-	<RollingFile name="CriticalFile" fileName="./logs/syncMicroservice_critical.log" immediateFlush="true" append="true" locking="true"
-        filePattern="./logs/syncMicroservice_critical-%d{HH MM-dd-yyyy}-%i.log">
-        <Filters>
-			<ThresholdFilter level="WARN" onMatch="ACCEPT" onMismatch="DENY"/>
-        </Filters>
-    	<PatternLayout pattern="%d{yyyy-MMM-dd HH:mm:ss.SSS} [%t] %-5level %logger{36} User: %X{user} - %msg%n"/>
->>>>>>> 907c4764b63aed1c85b4606a5d32d3f98a614bde
     	<Policies>              
             <TimeBasedTriggeringPolicy interval="1" modulate="true"/>
            <SizeBasedTriggeringPolicy size="100 KB" /> 

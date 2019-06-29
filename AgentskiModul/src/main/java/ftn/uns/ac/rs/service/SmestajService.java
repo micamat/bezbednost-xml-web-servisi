@@ -78,8 +78,10 @@ public class SmestajService {
 		}
 		Smestaj smestaj = new Smestaj();
 		ThreadContext.put("user", Username.getLoggedUser());
+
 		try {		
 			ThreadContext.put("user", Username.getLoggedUser());
+
 
 			smestaj = smestajRepository.save(convertToEntity(smestajDTO));
 			smestajDTO.setId(smestaj.getId());

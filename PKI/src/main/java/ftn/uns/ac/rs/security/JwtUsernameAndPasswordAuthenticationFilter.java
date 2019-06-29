@@ -15,6 +15,7 @@ import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.Marker;
 import org.apache.logging.log4j.MarkerManager;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.authentication.UserCredentials;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -22,7 +23,6 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -103,22 +103,25 @@ private Logger logger = LogManager.getLogger();
 		response.addHeader(jwtConfig.getHeader(), jwtConfig.getPrefix() + token);
 	}
 	
-	@PostMapping("/prijava")
-	public ResponseEntity<LoggedUser> prijava(@RequestBody UserCredentials dto){
-		return new ResponseEntity<LoggedUser>(signin(dto.getUsername(), dto.getPassword()), HttpStatus.OK);
-	}
+	/*@PostMapping("/prijava")
+	public ResponseEntity<LoggedUser> prijava(@RequestBody AgentLoginDTO dto){
+		//String[] kredencijali = dto.split(" ");
+		//LoggedUser user = signin(kredencijali[0], kredencijali[1]);
+		//return user.getUsername() + " " + user.getToken();
+		return new ResponseEntity<LoggedUser>(signin(dto.getusername(), dto.getpassword()), HttpStatus.OK);
+	}*/
 	
 	@PostMapping("/registerKorisnik")
 	public ResponseEntity<Korisnik> saveKorisnik(@RequestBody KorisnikDTO korisnik){
 		return new ResponseEntity<Korisnik>(korisnikService.save(korisnik), HttpStatus.OK);
 	}
 	
-	private LoggedUser signin(String username, String password) {
+	/*private LoggedUser signin(String username, String password) {
 		try {
 			LoggedUser loggedUser = new LoggedUser();
 			
 			UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(username, password, Collections.emptyList());
-			//System.out.println("za proveru:" + authToken + "kraj");
+			System.out.println("za proveru:" + authToken + "kraj");
 			Authentication authentication = authManager.authenticate(authToken);
 			SecurityContextHolder.getContext().setAuthentication(authentication);
 			
@@ -144,7 +147,7 @@ private Logger logger = LogManager.getLogger();
 			return null;
 		}
 		
-	}
+	}*/
 	
 	@Override
 	@Autowired
