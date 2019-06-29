@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { AccommodationService } from '../services/accommodation.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Shared } from '../services/Token';
 import { UserService } from '../services/user.service';
