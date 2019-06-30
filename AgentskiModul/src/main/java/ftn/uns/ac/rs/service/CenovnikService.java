@@ -3,16 +3,10 @@ package ftn.uns.ac.rs.service;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-import org.apache.logging.log4j.Marker;
-import org.apache.logging.log4j.MarkerManager;
-import org.apache.logging.log4j.ThreadContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import ftn.uns.ac.rs.config.Auth;
-import ftn.uns.ac.rs.config.Username;
 import ftn.uns.ac.rs.model.Cenovnik;
 import ftn.uns.ac.rs.model.CenovnikDTO;
 import ftn.uns.ac.rs.model.CreateCenovnikRequest;
@@ -36,9 +30,9 @@ public class CenovnikService {
 	private CenovnikRepository cenovnikRepository;
 	
 
-	 private Logger logger = LogManager.getLogger();
-	 private static final Marker USER = MarkerManager
-			   .getMarker("USER");
+	 //private Logger logger = LogManager.getLogger();
+	 //private static final Marker USER = MarkerManager
+			   //.getMarker("USER");
 
 	public List<ShowCenovnikDTO> getAll(){ 
 		return cenovnikRepository.findAll().stream().map(this::convertToDTO).collect(Collectors.toList());
@@ -76,36 +70,36 @@ public class CenovnikService {
 			}
 		cenovnikDTO.setId(cenovnikDTO.getId());
 
-		ThreadContext.put("user", Username.getLoggedUser());
+		//ThreadContext.put("user", Username.getLoggedUser());
 		try {
 			Cenovnik cenovnik = cenovnikRepository.save(convertToEntity(cenovnikDTO));
 			cenovnikDTO.setId(cenovnik.getId());
 			createSync(cenovnikDTO);
-			logger.info(USER,"Dodat cenovnik " + cenovnik.getId());
+			//logger.info(USER,"Dodat cenovnik " + cenovnik.getId());
 			return true;
 
 		} catch (Exception e) {
 
-			logger.error(USER,"Greska prilikom upisa cenovnika u bazu: " + e.getMessage());
+			//logger.error(USER,"Greska prilikom upisa cenovnika u bazu: " + e.getMessage());
 		}
 		
 		return false;
 	}
 	
 	public boolean delete(Long id) {
-		ThreadContext.put("user", Username.getLoggedUser());
+		//ThreadContext.put("user", Username.getLoggedUser());
 
 		if(cenovnikRepository.existsById(id)) {
 			try {
 				cenovnikRepository.deleteById(id);
-				logger.info(USER, "Cenovnik " + id + " uspesno izbrisan");
+				//logger.info(USER, "Cenovnik " + id + " uspesno izbrisan");
 				return true;
 			}catch(Exception e) {
-				logger.error(USER, "Greska prilikom brisanja cenovnika " + id + ": " + e.getMessage());
+				//logger.error(USER, "Greska prilikom brisanja cenovnika " + id + ": " + e.getMessage());
 			}
 			
 		} else {
-			logger.warn(USER, "Cenovnik " + id + " nije pronadjen u bazi" );
+			//logger.warn(USER, "Cenovnik " + id + " nije pronadjen u bazi" );
 		}
 		return false;
 	}

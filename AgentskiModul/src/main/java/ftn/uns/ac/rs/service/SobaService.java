@@ -4,16 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-import org.apache.logging.log4j.Marker;
-import org.apache.logging.log4j.MarkerManager;
-import org.apache.logging.log4j.ThreadContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import ftn.uns.ac.rs.config.Auth;
-import ftn.uns.ac.rs.config.Username;
 import ftn.uns.ac.rs.model.CreateSobaRequest;
 import ftn.uns.ac.rs.model.CreateSobaResponse;
 import ftn.uns.ac.rs.model.ProducerPort;
@@ -47,10 +41,10 @@ public class SobaService {
 	@Autowired
 	private TipSobeRepository tipSobeRepository;
 	
-	private Logger logger = LogManager.getLogger();
+	//private Logger logger = LogManager.getLogger();
 	
-	private static final Marker USER = MarkerManager
-			   .getMarker("USER");
+	//private static final Marker USER = MarkerManager
+			   //.getMarker("USER");
 	
 
 	public List<ShowSobaDTO> getAll(){ 
@@ -88,13 +82,13 @@ public class SobaService {
 		}
 		sobaDTO.setId(sobaDTO.getId());
 		Soba soba = new Soba();
-		ThreadContext.put("user", Username.getLoggedUser());
+		//ThreadContext.put("user", Username.getLoggedUser());
 
 		try {
 			soba = sobaRepository.save(convertToEntity(sobaDTO));
-			logger.info(USER, "Soba " + soba.getId() + " uspesno dodata");
+			//logger.info(USER, "Soba " + soba.getId() + " uspesno dodata");
 		} catch (Exception e) {
-			logger.error(USER, "Neuspesno dodavanje sobe: " + e.getMessage());
+			//logger.error(USER, "Neuspesno dodavanje sobe: " + e.getMessage());
 		}
 		
 		for (Long idUsluga : sobaDTO.getIdUsluga()) {
@@ -104,7 +98,7 @@ public class SobaService {
 			try {
 				sobneUsluge.setUsluga(uslugaRepository.findById(idUsluga).orElse(null));
 			} catch (Exception e) {
-				logger.error(USER, "Usluga nije pronadjena u bazi: " + e.getMessage());
+				//logger.error(USER, "Usluga nije pronadjena u bazi: " + e.getMessage());
 			}
 			sobneUslugeRepository.save(sobneUsluge);
 		}
@@ -118,20 +112,20 @@ public class SobaService {
 	
 	
 	public boolean delete(Long id) {
-		ThreadContext.put("user", Username.getLoggedUser());
+		//ThreadContext.put("user", Username.getLoggedUser());
 
 		if(sobaRepository.existsById(id)) {
 			try {
 				sobaRepository.deleteById(id);
 
-				logger.info(USER, "Soba " + id + " uspesno obrisana");
+				//logger.info(USER, "Soba " + id + " uspesno obrisana");
 			} catch (Exception e) {
-				logger.error(USER, "Greska prilikom brisanja sobe " + id + ": " + e.getMessage());
+				//logger.error(USER, "Greska prilikom brisanja sobe " + id + ": " + e.getMessage());
 			}
 			
 			return true;
 		} else {
-			logger.warn(USER, "Soba " + id + " nije pronadjena");
+			//logger.warn(USER, "Soba " + id + " nije pronadjena");
 		}
 		return false;
 	}

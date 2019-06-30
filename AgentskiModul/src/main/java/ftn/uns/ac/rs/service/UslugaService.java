@@ -3,10 +3,6 @@ package ftn.uns.ac.rs.service;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-import org.apache.logging.log4j.Marker;
-import org.apache.logging.log4j.MarkerManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -23,9 +19,9 @@ public class UslugaService {
 	@Autowired
 	private UslugaRepository uslugaRepository;
 	
-	private Logger logger = LogManager.getLogger();
-	 private static final Marker USER = MarkerManager
-			   .getMarker("USER");
+	//private Logger logger = LogManager.getLogger();
+	 //private static final Marker USER = MarkerManager
+			   //.getMarker("USER");
 	
 	
 	public List<Usluga> getAllSync(){
@@ -38,9 +34,9 @@ public class UslugaService {
 		try {
 			getUslugaResponse = producerPort.getAllUsluga(getUslugaRequest);
 
-			logger.info(USER, "Uspesna sinhronizacija Usluga");
+			//logger.info(USER, "Uspesna sinhronizacija Usluga");
 		} catch (Exception e) {
-			logger.error(USER, "Neuspesna sinhronizacija Usluga: " + e.getMessage());
+			//logger.error(USER, "Neuspesna sinhronizacija Usluga: " + e.getMessage());
 		}
 		for (Usluga uslugaDTO : getUslugaResponse.getUsluga()) {
 			uslugaRepository.save(uslugaDTO);

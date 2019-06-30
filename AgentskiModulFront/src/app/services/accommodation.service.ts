@@ -105,7 +105,7 @@ export class AccommodationService {
   }
   
   addReservation(reservation : any){
-    return this.http.post(SERVER_URL + '/rezervacija/'+ this.tandu.token,reservation,{responseType: 'text'});
+    return this.http.post(SERVER_URL + '/rezervacija',reservation,{responseType: 'text'});
   }
 
   getAllReservation(){

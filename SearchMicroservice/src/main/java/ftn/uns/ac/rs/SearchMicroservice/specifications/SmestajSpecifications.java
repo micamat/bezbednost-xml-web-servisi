@@ -14,7 +14,7 @@ import ftn.uns.ac.rs.SearchMicroservice.model.Smestaj;
 
 public class SmestajSpecifications {
 	
-	public static Specification<Smestaj> findByLokacijaTipKategorija(String lokacija, String tip, String kategorija){
+	public static Specification<Smestaj> findByLokacijaTipKategorija(String lokacija, String tip, String kategorija, Integer kapacitet){
 		return new Specification<Smestaj>() {
 			private static final long serialVersionUID = 1L;
 			@Override
@@ -37,6 +37,10 @@ public class SmestajSpecifications {
 				if(kategorija != null) {
 					final Predicate katPredicate = criteriaBuilder.like(root.join("kategorijaSmestaja").get("naziv"), "%"+kategorija+"%");
 					predicates.add(katPredicate);
+				}
+				if(kapacitet != null) {
+					final Predicate kapPredicate = criteriaBuilder.greaterThanOrEqualTo(root.get("kapacitet"), kapacitet);
+					predicates.add(kapPredicate);
 				}
 				return criteriaBuilder.and(predicates.toArray(new Predicate[predicates.size()]));
 			}
