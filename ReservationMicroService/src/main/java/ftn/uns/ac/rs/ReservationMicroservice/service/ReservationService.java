@@ -5,7 +5,8 @@ import java.util.Date;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import ftn.uns.ac.rs.ReservationMicroservice.dto.ReservationDTO;
+import ftn.uns.ac.rs.ReservationMicroservice.dto.RezervacijaDTO;
+import ftn.uns.ac.rs.ReservationMicroservice.model.Cenovnik;
 import ftn.uns.ac.rs.ReservationMicroservice.model.IstorijaRezervacije;
 import ftn.uns.ac.rs.ReservationMicroservice.model.Rezervacija;
 import ftn.uns.ac.rs.ReservationMicroservice.model.StatusRezervacije;
@@ -33,13 +34,18 @@ public class ReservationService {
 	@Autowired
 	private IstorijaRezervacijeRepository ireRepo;
 	
-	public boolean add(ReservationDTO reservationDTO) {
+	public boolean add(RezervacijaDTO reservationDTO) {
 		Rezervacija rez = new Rezervacija();
-		rez.setDatumDo(reservationDTO.getDatumDo());
-		rez.setDatumOd(reservationDTO.getDatumOd());
-		rez.setCena(reservationDTO.getCena());
-		rez.setKorisnik(korRepo.findById(reservationDTO.getIdKorisnika()).get());
-		rez.setSoba(sobRepo.findById(reservationDTO.getIdSobe()).get());
+		int brSoba = 0;
+		for (Integer i : reservationDTO.getBrojSoba()) {
+			brSoba+=i;
+		}
+		rez.setBrojSoba(brSoba);
+		rez.setDatumDo(reservationDTO.getDatumTo());
+		rez.setDatumOd(reservationDTO.getDatumFrom());
+		//rez.setCena(reservationDTO.getCena());
+		//rez.setKorisnik(korRepo.findById(reservationDTO.getIdKorisnika()).get());
+		//rez.setSoba(sobRepo.findById(reservationDTO.getIdSobe()).get());
 		resRepo.save(rez);
 		
 		StatusRezervacije sre = sreRepo.findByStatus("Rezervisano");

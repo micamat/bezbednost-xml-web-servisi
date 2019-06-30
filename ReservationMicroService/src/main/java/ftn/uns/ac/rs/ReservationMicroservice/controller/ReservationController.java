@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import ftn.uns.ac.rs.ReservationMicroservice.dto.ReservationDTO;
+import ftn.uns.ac.rs.ReservationMicroservice.dto.RezervacijaDTO;
 import ftn.uns.ac.rs.ReservationMicroservice.model.Rezervacija;
 import ftn.uns.ac.rs.ReservationMicroservice.repository.ReservationRepository;
 import ftn.uns.ac.rs.ReservationMicroservice.service.ReservationService;
@@ -32,8 +32,8 @@ public class ReservationController {
 	}
 	
 	@PostMapping
-	public ResponseEntity<String> add(@RequestBody ReservationDTO reservationDTO){
-		if(reservationService.add(reservationDTO)) {
+	public ResponseEntity<String> add(@RequestBody RezervacijaDTO rezervacijaDTO){
+		if(reservationService.add(rezervacijaDTO)) {
 			return new ResponseEntity<String>("Smestaj je uspesno obrisan!", HttpStatus.OK);
 		}else {
 			return new ResponseEntity<String>("Smestaj nije pronadjen!", HttpStatus.NOT_FOUND);
