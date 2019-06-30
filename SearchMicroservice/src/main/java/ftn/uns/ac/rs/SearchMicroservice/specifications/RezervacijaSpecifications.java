@@ -28,8 +28,6 @@ public class RezervacijaSpecifications {
 					final Predicate endPred = criteriaBuilder.greaterThan(root.get("datumDo").as(Date.class), end);
 					predicates.add(endPred);
 				}
-				final Predicate slobodnaPred = criteriaBuilder.equal(root.join("statusSobe").get("naziv"), "slobodna");
-				predicates.add(slobodnaPred);
 				return criteriaBuilder.and(predicates.toArray(new Predicate[predicates.size()]));
 			}
 			

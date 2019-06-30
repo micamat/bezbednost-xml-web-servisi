@@ -1,20 +1,42 @@
-<form style="margin-top: 20px">
-  <div class="form-row" id="glavni">
+<form [formGroup]="searchForm" (ngSubmit)="onSubmit($event)"  style="margin-top: 20px">
+  <div class="row ml-2" id="glavni">
     <div class="" id="destination">
       <div class="input-group mb-3">
-        <div class="input-group-prepend">
-          <span class="input-group-text" id="basic-addon1">
-            <img src="assets/img/red car.ico" class="img-responsive" alt="Responsive image" width="18" height="18" />
-          </span>
-        </div>
-        <input type="text" class="form-control" placeholder="Destination" aria-label="Destination">
+        <input formControlName="drzava" type="text" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.drzava.errors }" placeholder="Country" aria-label="Destination">
+        <div *ngIf="submitted && f.drzava.errors">
+          <div style="color:red;">Location is incorect!</div>
+      </div>
       </div>
     </div>
+    <div class="" id="destination">
+      <div class="input-group mb-3">
+        <input formControlName="grad" type="text" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.grad.errors }" placeholder="Town" aria-label="Destination">
+        <div *ngIf="submitted && f.grad.errors">
+          <div style="color:red;">Location is incorect!</div>
+      </div>
+      </div>
+    </div>
+    <div class="" id="destination">
+      <div class="input-group mb-3">
+        <input formControlName="ulica" type="text" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.ulica.errors }" placeholder="Street" aria-label="Destination">
+        <div *ngIf="submitted && f.ulica.errors">
+          <div style="color:red;">Location is incorect!</div>
+      </div>
+      </div>
+    </div>
+    </div>
+    <div class="row ml-2" id="glavni">
     <div id="control_wrapperFrom">
-      <ejs-datepicker [value]='date' [min]='minDate' [max]='maxDate' placeholder="Check in" (renderDayCell)='onLoad($event)' cssClass='e-customStyle'></ejs-datepicker>
+      <ejs-datepicker formControlName="datumOd" [ngClass]="{ 'is-invalid': submitted && f.datumOd.errors }" [value]='date' [min]='minDate' [max]='maxDate' placeholder="Check in" (renderDayCell)='onLoad($event)' cssClass='e-customStyle'></ejs-datepicker>
+      <div *ngIf="submitted && f.datumOd.errors">
+          <div style="color:red;">Date from is incorect!</div>
+      </div>
     </div>
     <div id="control_wrapperTo">
-      <ejs-datepicker [value]='date' [min]='minDate' [max]='maxDate' placeholder="Check out" (renderDayCell)='onLoad($event)' cssClass='e-customStyle'></ejs-datepicker>
+      <ejs-datepicker formControlName="datumDo" [ngClass]="{ 'is-invalid': submitted && f.datumDo.errors }" [value]='date' [min]='minDate' [max]='maxDate' placeholder="Check out" (renderDayCell)='onLoad($event)' cssClass='e-customStyle'></ejs-datepicker>
+      <div *ngIf="submitted && f.datumOd.errors">
+        <div style="color:red;">Date to is incorect!</div>
+    </div>
     </div>
     <div class="col-2" id="person">
       <div class="input-group mb-3">
@@ -23,24 +45,30 @@
             <img src="assets/img/user-24.ico" class="img-responsive" alt="Responsive image" width="18" height="18" />
           </span>
         </div>
-        <input type="number" class="form-control"  min="1" placeholder="Persons" aria-label="Persons">
+        <input formControlName="brojOsoba" type="number" [ngClass]="{ 'is-invalid': submitted && f.brojOsoba.errors }" class="form-control"  min="1" placeholder="Persons" aria-label="Persons">
+        <div *ngIf="submitted && f.brojOsoba.errors">
+          <div style="color:red;">Number is incorect!</div>
+        </div>
       </div>
     </div>
     
   </div>
-  <div class="form-row" style="margin-top:20px">
-  <div class="form-group col-3">
+  <div class="row">
+  <div class="form-group col-3 ml-2">
       <!--<label for="exampleFormControlSelect1">Accommodation type</label>-->
-      <select class="form-control" name="type" id="type">
+      <select class="form-control" formControlName="tip" [ngClass]="{ 'is-invalid': submitted && f.brojOsoba.errors }" name="type" id="type">
           <option value="" selected disabled hidden>Accommodation type...</option>
-        <option value="hotel">Hotel</option>
-        <option value="bed">Bed&Breakfast</option>
-        <option value="apartman">Apartment</option>
+          <option value="hotel">Hotel</option>
+          <option value="bed">Bed&Breakfast</option>
+          <option value="apartman">Apartment</option>
       </select>
+      <div *ngIf="submitted && f.tip.errors">
+        <div style="color:red;">Tip is incorect!</div>
+      </div>
     </div>
     <div class="form-group ">
         <!--<label for="exampleFormControlSelect1">Accommodation type</label>-->
-        <select class="form-control" name="category" id="category">
+        <select class="form-control" formControlName="kategorija" name="category" [ngClass]="{ 'is-invalid': submitted && f.kategorija.errors }" id="category">
             <option value="" selected disabled hidden>Accommodation category...</option>
           <option value="uncategorized">Uncategorized</option>
           <option value="1">1 star</option>
@@ -49,10 +77,13 @@
           <option value="4">4 stars</option>
           <option value="5">5 stars</option>
         </select>
+        <div *ngIf="submitted && f.kategorija.errors">
+          <div style="color:red;">Category is incorect!</div>
+        </div>
       </div>
       <div class="form-group ">
           <!--<label for="exampleFormControlSelect1">Accommodation type</label>-->
-          <select multiple class="form-control" name="service" id="service">
+          <select multiple formControlName="usluge" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.usluge.errors }" name="service" id="service">
             <option value="" selected disabled hidden>Additional services...</option>
             <option value="parking">Parking</option>
             <option value="tv">TV</option>
@@ -67,17 +98,10 @@
             <option value="cancel">Free cancellation</option>
             <option value="pets">Pets</option>
           </select>
-        </div>
-        <div class="col-2" style="margin-left: 95px">
-            <div class="input-group mb-3">
-              <div class="input-group-prepend">
-                <span class="input-group-text" id="basic-addon1">
-                  <img src="assets/img/define-location-24.ico" class="img-responsive" alt="Responsive image" width="18" height="18" />
-                </span>
-              </div>
-              <input type="text" class="form-control" placeholder="Distance" aria-label="Distance">
-            </div>
+          <div *ngIf="submitted && f.usluge.errors">
+            <div style="color:red;">Additional services is incorect!</div>
           </div>
+        </div>
     </div>
     <div>
         <button class="btn btn-primary" type="submit" id="search">Search</button>

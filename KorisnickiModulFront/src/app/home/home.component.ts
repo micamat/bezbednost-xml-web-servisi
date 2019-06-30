@@ -1,5 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { addClass } from '@syncfusion/ej2-base';
+import { UserService } from '../services/user.service';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router, ActivatedRoute } from '@angular/router';
+import { Search } from '../services/search';
 
 @Component({
   selector: 'app-home',
@@ -10,11 +14,42 @@ export class HomeComponent implements OnInit {
 
   public minDate: Date = new Date("25/07/2018");
   public maxDate: Date = new Date("02/27/2028");
-  //public placeholder: string = "Choose a Date";
 
-  constructor() { }
+  searchForm:FormGroup;
+  submitted = false;
+  temp:any;
+
+  constructor(private _searchService : Search,
+    private formBuilder:FormBuilder,
+    private router:Router,
+    private activatedRoute: ActivatedRoute) { }
 
   ngOnInit() {
+    this.searchForm = this.formBuilder.group({
+      drzava:['',Validators.compose([Validators.required, Validators.pattern('[a-zA-Z 0-9!]+')])],
+      grad:['',Validators.compose([Validators.required, Validators.pattern('[a-zA-Z 0-9!]+')])],
+      ulica:['',Validators.compose([Validators.required, Validators.pattern('[a-zA-Z 0-9!]+')])],
+      datumOd:['',Validators.compose([Validators.required, null])],
+      datumDo:['',Validators.compose([Validators.required, null])],
+      brojOsoba:['',Validators.compose([Validators.required, Validators.pattern('[0-9!]+')])],
+      tip:['',Validators.compose([Validators.required, Validators.pattern('[a-zA-Z !]+')])],
+      kategorija:['',Validators.compose([Validators.required, Validators.pattern('[a-zA-Z 0-9!]+')])],
+      usluge:['',Validators.compose([Validators.required, Validators.pattern('[a-zA-Z 0-9!]+')])]
+    });
+  }
+
+  get f() { return this.searchForm.controls; }
+
+  onSubmit(event:any) {
+    this.submitted = true;
+    this.temp = this.searchForm.getRawValue();
+    console.log(this.temp);
+    this._searchService.search(this.temp).subscribe(
+      data => {
+        localStorage.setItem('search', data);
+        this.router.navigateByUrl("hotel");
+    });
+    
   }
 
   onLoad(args: any) {
