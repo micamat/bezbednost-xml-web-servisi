@@ -25,6 +25,8 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 
 /**
  * <p>Java class for anonymous complex type.
@@ -95,12 +97,14 @@ public class Smestaj {
     protected KategorijaSmestaja kategorijaSmestaja;
     @XmlElement(name = "Soba")
     @OneToMany(mappedBy = "smestaj")
+    @JsonIgnore
     protected List<Soba> soba;
     @XmlElement(name = "Agent", required = true)
     @ManyToOne(optional = false)
     protected Agent agent;
     @XmlElement(name = "Komentar")
     @OneToMany(mappedBy = "smestaj")
+    @JsonIgnore
     protected List<Komentar> komentar;
 
     /**
@@ -360,5 +364,10 @@ public class Smestaj {
         }
         return this.komentar;
     }
+
+	@Override
+	public String toString() {
+		return "Smestaj [id=" + id + "]";
+	}
 
 }

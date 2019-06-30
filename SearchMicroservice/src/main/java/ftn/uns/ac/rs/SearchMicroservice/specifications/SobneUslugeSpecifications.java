@@ -13,7 +13,7 @@ import org.springframework.data.jpa.domain.Specification;
 import ftn.uns.ac.rs.SearchMicroservice.model.SobneUsluge;
 
 public class SobneUslugeSpecifications {
-	public static Specification<SobneUsluge> findBySobaUsluga(Integer idSoba, Integer idUsluga){
+	public static Specification<SobneUsluge> findBySobaUsluga(Integer idSoba, String usluga){
 		return new Specification<SobneUsluge>() {
 			final Collection<Predicate> predicates = new ArrayList<Predicate>();
 			private static final long serialVersionUID = 1L;
@@ -23,8 +23,8 @@ public class SobneUslugeSpecifications {
 					final Predicate sobaPredicate = criteriaBuilder.equal(root.join("soba").get("id"), idSoba);
 					predicates.add(sobaPredicate);
 				}
-				if(idUsluga != null) {
-					final Predicate uslugaPredicate = criteriaBuilder.equal(root.join("usluga").get("id"), idUsluga);
+				if(usluga != "") {
+					final Predicate uslugaPredicate = criteriaBuilder.equal(root.join("usluga").get("naziv"), usluga);
 					predicates.add(uslugaPredicate);
 				}
 				return criteriaBuilder.and(predicates.toArray(new Predicate[predicates.size()]));
