@@ -1,5 +1,7 @@
 package adminski.modul.app.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,9 +13,13 @@ public class KorisnikService {
 	@Autowired
 	KorisnikRepository korisnikRepository;
 	
+	public List<Korisnik> getAll(){
+		return korisnikRepository.findAll();
+	}
+	
 	public boolean blockById(Long id) {
 		Korisnik entity = korisnikRepository.findById(id).orElse(null);
-		
+		System.out.println("blokira: " + id);
 		if (entity != null) {
 			entity.setAktivan(false);
 			korisnikRepository.save(entity);

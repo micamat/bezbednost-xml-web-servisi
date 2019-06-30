@@ -98,6 +98,10 @@ public class KorisnikService implements UserDetailsService {
 			return -1;
 		}
 	}
+	
+	public Korisnik getByUsername(String username) {
+		return korisnikRepo.findByKorisnickoIme(username);
+	}
 
 	private Korisnik dtoToKorisnik(KorisnikDTO dto) {
 		Korisnik k = new Korisnik();

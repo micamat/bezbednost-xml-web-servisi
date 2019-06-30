@@ -68,7 +68,7 @@ public class SearchService {
 		List<Smestaj> smestaji = smestajRepo.findAll(SmestajSpecifications.findByLokacijaTipKategorija(dto.getDrzava(),
 				dto.getGrad(), dto.getUlica(), dto.getTip(), dto.getKategorija(), dto.getBrojOsoba()));
 		System.out.println(smestaji);
-
+		
 		boolean datumi = false;
 		boolean usluge = false;
 		List<Smestaj> sviOsimUsluga = new ArrayList<Smestaj>();
@@ -118,9 +118,8 @@ public class SearchService {
 			List<SobneUsluge> sobneUsluge = new ArrayList<SobneUsluge>();
 			for (Smestaj sm : smestaji) {
 				for (Soba so : sm.getSoba()) {
-					if (dto.getUsluge() != null) {
-						for (String nazivUsluge : dto.getUsluge())
-							sobneUsluge.addAll(sobneUslugeRepo.findAll(SobneUslugeSpecifications.findBySobaUsluga(so.getId(), nazivUsluge)));
+					for(String su : dto.getUsluge()) {
+						sobneUsluge.addAll(sobneUslugeRepo.findAll(SobneUslugeSpecifications.findBySobaUsluga(so.getId(), su)));
 					}
 				}
 			}

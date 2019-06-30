@@ -19,6 +19,8 @@ import { AccommodationCategoryModifyComponent } from './accommodation-category-m
 import { AccessoryComponent } from './accessory/accessory.component';
 import { AccessoryAddComponent } from './accessory-add/accessory-add.component';
 import { AccessoryModifyComponent } from './accessory-modify/accessory-modify.component';
+import { CommentComponent } from './comment/comment.component';
+import { UserComponent } from './user/user.component';
 
 @NgModule({
   declarations: [
@@ -37,6 +39,8 @@ import { AccessoryModifyComponent } from './accessory-modify/accessory-modify.co
     AccessoryComponent,
     AccessoryAddComponent,
     AccessoryModifyComponent,
+    CommentComponent,
+    UserComponent,
   ],
   imports: [
     BrowserModule,

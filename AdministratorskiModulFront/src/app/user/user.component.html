@@ -1,0 +1,30 @@
+<table class="table ml-2 mt-2">
+  <thead style="background-color: #0074E1;">
+    <tr>
+    </tr>
+    <tr style="color: white">
+      <th scope="col">#</th>
+      <th scope="col">First name</th>
+      <th scope="col">Last name</th>
+      <th scope="col">Email address</th>
+      <th scope="col">Phone</th>
+      <th scope="col">Active</th>
+      <th scope="col"></th>
+    </tr>
+  </thead>
+  <tbody style="color: #0074E1">
+    <tr *ngFor="let item of users; let i = index">
+      <th scope="row">{{i+1}}</th>
+      <td>{{item.ime}}</td>
+      <td>{{item.prezime}}</td>
+      <td>{{item.email}}</td>
+      <td>{{item.telefon}}</td>
+      <td>{{item.aktivan}}</td>
+      <td>
+          <a class="active" (click)="block(item.id)" [routerLink]="'/user'">
+            <img src="/assets/img/x-mark-4-32.png">
+          </a>
+        </td>
+    </tr>
+  </tbody>
+</table>

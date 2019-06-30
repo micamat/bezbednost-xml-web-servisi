@@ -13,16 +13,12 @@ import org.springframework.data.jpa.domain.Specification;
 import ftn.uns.ac.rs.SearchMicroservice.model.Soba;
 
 public class SobaSpecifications {
-	public static Specification<Soba> findByTipSmestaj(String tip, Long idSmestaj){
+	public static Specification<Soba> findByTipSmestaj(Long idSmestaj){
 		return new Specification<Soba>() {
 			final Collection<Predicate> predicates = new ArrayList<Predicate>();
 			private static final long serialVersionUID = 1L;
 			@Override
 			public Predicate toPredicate(Root<Soba> root, CriteriaQuery<?> query, CriteriaBuilder criteriaBuilder) {
-				if(tip != null) {
-					final Predicate tipPredicate = criteriaBuilder.like(root.join("tipSobe").get("naziv"), "%"+tip+"%");
-					predicates.add(tipPredicate);
-				}
 				if(idSmestaj != null) {
 					final Predicate smestajPredicate = criteriaBuilder.equal(root.join("smestaj").get("id"), idSmestaj);
 					predicates.add(smestajPredicate);
