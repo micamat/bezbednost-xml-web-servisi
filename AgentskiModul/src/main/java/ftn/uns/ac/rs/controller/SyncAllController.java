@@ -12,6 +12,7 @@ import ftn.uns.ac.rs.service.KategorijaSmestajaService;
 import ftn.uns.ac.rs.service.KomentarService;
 import ftn.uns.ac.rs.service.KorisnikService;
 import ftn.uns.ac.rs.service.PorukaService;
+import ftn.uns.ac.rs.service.RezervacijaService;
 import ftn.uns.ac.rs.service.TipSmestajaService;
 import ftn.uns.ac.rs.service.TipSobeService;
 import ftn.uns.ac.rs.service.UslugaService;
@@ -43,6 +44,11 @@ public class SyncAllController {
 	@Autowired 
 	PorukaService porukaService = new PorukaService();
 	
+	@Autowired 
+	RezervacijaService rezervacijaService = new RezervacijaService();
+	
+
+	
 
 	
 
@@ -66,6 +72,7 @@ public class SyncAllController {
 			tipSobeService.getAllSync();
 			uslugaService.getAllSync();
 			agentService.getAllSync();
+			//rezervacijaService.getAllSync();
 			//komentarService.getAllSync();
 			//korisnikService.getAllSync();
 			//porukaService.getAllSync();
@@ -76,7 +83,7 @@ public class SyncAllController {
 		
 		}catch(Exception e){
 			//logger.error(USER, "Podaci nisu sinhronizovani: " + e.getMessage());
-
+			e.printStackTrace();
 			return new ResponseEntity<String>("Greska pri sinhronizaciji!", HttpStatus.CONFLICT);		
 		}
 	}

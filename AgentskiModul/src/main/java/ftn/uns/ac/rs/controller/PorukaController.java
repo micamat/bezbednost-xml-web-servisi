@@ -41,8 +41,8 @@ public class PorukaController {
 		return new ResponseEntity<ShowPorukaDTO>(porukaService.getById(id), HttpStatus.OK);
 	}
 	
-	@PostMapping
-	public ResponseEntity<String> add(@RequestParam String token, @RequestBody PorukaDTO porukaDTO){
+	@PostMapping(value = "/{token}")
+	public ResponseEntity<String> add(@PathVariable String token, @RequestBody PorukaDTO porukaDTO){
 		if (ValidationService.validate(token)) {
 
 			if(porukaService.add(porukaDTO)) {

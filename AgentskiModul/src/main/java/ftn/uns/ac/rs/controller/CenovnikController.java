@@ -50,8 +50,8 @@ public class CenovnikController {
 		return new ResponseEntity<List<ShowCenovnikDTO>>(cenovnikService.getBySmestaj(smestajId), HttpStatus.OK);
 	}
 	
-	@PostMapping
-	public ResponseEntity<String> add(@RequestParam String token, @RequestBody CenovnikDTO cenovnikDTO){
+	@PostMapping(value = "/{token}")
+	public ResponseEntity<String> add(@PathVariable String token, @RequestBody CenovnikDTO cenovnikDTO){
 		if (ValidationService.validate(token)) {
 				
 			if(cenovnikService.add(cenovnikDTO)) {

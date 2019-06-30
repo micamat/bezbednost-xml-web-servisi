@@ -147,7 +147,7 @@
             </xs:sequence>
         </xs:complexType>
     </xs:element>
-    <xs:element name="GetRezervacijaRequest">
+    <xs:element name="GetAllRezervacijaRequest">
         <xs:complexType>
         </xs:complexType>
     </xs:element>
@@ -767,6 +767,15 @@
         <wsdl:part element="tns:GetAllAgentResponse" name="GetAllAgentResponse"
         > </wsdl:part>
     </wsdl:message>
+    <wsdl:message name="GetAllRezervacijaResponse">
+        <wsdl:part element="tns:GetAllRezervacijaResponse" name="GetAllRezervacijaResponse"
+        > </wsdl:part>
+    </wsdl:message>
+    
+    <wsdl:message name="GetAllRezervacijaRequest">
+        <wsdl:part element="tns:GetAllRezervacijaRequest" name="GetAllRezervacijaRequest"
+        > </wsdl:part>
+    </wsdl:message>
     
     <wsdl:message name="CreateLokacijaResponse">
         <wsdl:part element="tns:CreateLokacijaResponse" name="CreateLokacijaResponse"> </wsdl:part>
@@ -896,6 +905,11 @@
             <wsdl:output message="tns:CreateLokacijaResponse" name="CreateLokacijaResponse"
             > </wsdl:output>
         </wsdl:operation>
+        <wsdl:operation name="GetAllRezervacija">
+            <wsdl:input message="tns:GetAllRezervacijaRequest" name="GetAllRezervacijaRequest"> </wsdl:input>
+            <wsdl:output message="tns:GetAllRezervacijaResponse" name="GetAllRezervacijaResponse"
+            > </wsdl:output>
+        </wsdl:operation>
         <wsdl:operation name="CreateCenovnik">
             <wsdl:input message="tns:CreateCenovnikRequest" name="CreateCenovnikRequest"> </wsdl:input>
             <wsdl:output message="tns:CreateCenovnikResponse" name="CreateCenovnikResponse"
@@ -993,6 +1007,16 @@
                 <soap:body use="literal"/>
             </wsdl:input>
             <wsdl:output name="CreateLokacijaResponse">
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        
+        <wsdl:operation name="GetAllRezervacija">
+            <soap:operation soapAction=""/>
+            <wsdl:input name="GetAllRezervacijaRequest">
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output name="GetAllRezervacijaResponse">
                 <soap:body use="literal"/>
             </wsdl:output>
         </wsdl:operation>

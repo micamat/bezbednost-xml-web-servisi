@@ -113,6 +113,13 @@ public interface ProducerPort {
 
 			@WebParam(partName = "GetAllPorukaRequest", name = "GetAllPorukaRequest", targetNamespace = "http://rs.ac.uns.ftn/Model") GetAllPorukaRequest getAllPorukaRequest);
 
+	@WebMethod(operationName = "GetAllRezervacija")
+	@WebResult(name = "GetAllRezervacijaResponse", targetNamespace = "http://rs.ac.uns.ftn/Model", partName = "GetAllRezervacijaResponse")
+	public GetAllRezervacijaResponse getAllRezervacija(
+
+			@WebParam(partName = "GetAllRezervacijaRequest", name = "GetAllRezervacijaRequest", targetNamespace = "http://rs.ac.uns.ftn/Model") GetAllRezervacijaRequest getAllRezervacijaRequest);
+
+	
 	@WebMethod(operationName = "CreateSobneUsluge")
 
 	@WebResult(name = "CreateSobneUslugeResponse", targetNamespace = "http://rs.ac.uns.ftn/Model", partName = "CreateSobneUslugeResponse")

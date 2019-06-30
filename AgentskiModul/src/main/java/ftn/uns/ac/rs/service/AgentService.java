@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import ftn.uns.ac.rs.config.Auth;
@@ -29,6 +31,30 @@ import ftn.uns.ac.rs.repository.AgentRepository;
 public class AgentService {
 	@Autowired
 	private AgentRepository agentRepository;
+	
+	@Autowired
+	KategorijaSmestajaService kategorijaSmestajaService = new KategorijaSmestajaService();
+	
+	@Autowired
+	TipSmestajaService tipSmestajaService = new TipSmestajaService();   
+	
+	@Autowired
+	TipSobeService tipSobeService = new TipSobeService();
+	
+	@Autowired
+	UslugaService uslugaService = new UslugaService();
+	
+	@Autowired
+	KomentarService komentarService = new KomentarService();
+	
+	@Autowired
+	KorisnikService korisnikService = new KorisnikService();
+	
+	@Autowired 
+	PorukaService porukaService = new PorukaService();
+	
+	@Autowired 
+	RezervacijaService rezervacijaService = new RezervacijaService();
 	
 	//private Logger logger = LogManager.getLogger();
 	 //private static final Marker USER = MarkerManager
@@ -130,6 +156,24 @@ public class AgentService {
 				loggedUser.setUsername(agentLoginResponse.getUsername());
 				//Username.setLoggedUser(loggedUser.getUsername());
 				//logger.info(USER, "Uspesno logovanje");
+				try {
+					kategorijaSmestajaService.getAllSync();
+					tipSmestajaService.getAllSync();
+					tipSobeService.getAllSync();
+					uslugaService.getAllSync();
+					getAllSync();
+					//rezervacijaService.getAllSync();
+					//komentarService.getAllSync();
+					//korisnikService.getAllSync();
+					//porukaService.getAllSync();
+
+					//logger.info(USER, "Podaci uspesno sinhronizovani");
+					
+				
+				}catch(Exception e){
+					//logger.error(USER, "Podaci nisu sinhronizovani: " + e.getMessage());
+					e.printStackTrace();
+				}
 				return loggedUser;
 			}
 		} catch (Exception e) {
@@ -167,6 +211,7 @@ public class AgentService {
 				return true;
 			}
 		} catch (Exception e) {
+			e.printStackTrace();
 
 			//logger.error(USER, "Greska prilikom izlogovanja: " + e.getMessage());
 		}

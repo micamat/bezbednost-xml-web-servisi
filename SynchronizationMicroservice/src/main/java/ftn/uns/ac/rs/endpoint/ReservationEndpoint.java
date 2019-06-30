@@ -22,6 +22,7 @@ final String NAMESPACE = "http://rs.ac.uns.ftn/Model";
 	public GetAllRezervacijaResponse getAll(@RequestPayload final GetAllRezervacijaRequest input) {
 		GetAllRezervacijaResponse response = new GetAllRezervacijaResponse();
 		response.setRezervacija(reservationService.getAll());
+		System.out.println(response.getRezervacija() + "ASDSDD");
 		return response;
 	}
 

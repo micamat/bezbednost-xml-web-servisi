@@ -8,14 +8,20 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import ftn.uns.ac.rs.config.Auth;
+import ftn.uns.ac.rs.model.Agent;
 import ftn.uns.ac.rs.model.CreateRezervacijaRequest;
 import ftn.uns.ac.rs.model.CreateRezervacijaResponse;
+import ftn.uns.ac.rs.model.GetAllAgentRequest;
+import ftn.uns.ac.rs.model.GetAllAgentResponse;
+import ftn.uns.ac.rs.model.GetAllRezervacijaRequest;
+import ftn.uns.ac.rs.model.GetAllRezervacijaResponse;
 import ftn.uns.ac.rs.model.ProducerPort;
 import ftn.uns.ac.rs.model.ProducerPortService;
 import ftn.uns.ac.rs.model.Rezervacija;
 import ftn.uns.ac.rs.model.RezervacijaDTO;
 import ftn.uns.ac.rs.model.RezervisaneSobe;
 import ftn.uns.ac.rs.model.RezervisaneSobeDTO;
+import ftn.uns.ac.rs.model.ShowAgentDTO;
 import ftn.uns.ac.rs.model.ShowRezervacijaDTO;
 import ftn.uns.ac.rs.model.ShowRezervisaneSobeDTO;
 import ftn.uns.ac.rs.model.UpdateRezervisaneSobeDTO;
@@ -51,7 +57,42 @@ public class RezervacijaService {
 	 //private static final Marker USER = MarkerManager
 			   //.getMarker("USER");
 	
+	public List<Rezervacija> getAllSync() {
+		ProducerPortService producerPortService = new ProducerPortService();
+		ProducerPort producerPort = producerPortService.getProducerPortSoap11();
+
+		Auth.authenticateClient(producerPort);
+		GetAllRezervacijaRequest getAllRezervacijaRequest = new GetAllRezervacijaRequest();
+		GetAllRezervacijaResponse getAllRezervacijaResponse = new GetAllRezervacijaResponse();
+		try {
+		getAllRezervacijaResponse = producerPort.getAllRezervacija(getAllRezervacijaRequest);
+		for (Rezervacija rezervacijaDTO : getAllRezervacijaResponse.getRezervacija()) {
+			rezervacijaRepository.save(rezervacijaDTO);
+			List<RezervisaneSobe> rezervisaneSobe = rezervacijaDTO.getRezervisaneSobe();
+			for (RezervisaneSobe rezSobe : rezervisaneSobe) {
+				rezervisaneSobeService.add(rezSobe);
+			}
+		}
+		for (Rezervacija rezervacija : rezervacijaRepository.findAll()) {
+			boolean exists = false;
+			for (Rezervacija rezervacijaDTO : getAllRezervacijaResponse.getRezervacija()) {
+				if (rezervacija.getId() == rezervacijaDTO.getId()) {
+					exists = true;
+					break;
+				}
+			}
+			if (!exists) {
+				rezervacijaRepository.deleteById(rezervacija.getId());
+			}
+		}}catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+			
+		}
 	
+		return getAllRezervacijaResponse.getRezervacija();
+	};
+
 	public int createSync(RezervacijaDTO rezervaicijaDTO){
 		ProducerPortService producerPortService = new ProducerPortService();
 		ProducerPort producerPort = producerPortService.getProducerPortSoap11();
@@ -96,7 +137,7 @@ public class RezervacijaService {
 	}
 	
 	public boolean add(RezervacijaDTO rezervacijaDTO) {
-		if (rezervacijaDTO.getDatumDo() == null || rezervacijaDTO.getCena() != 0 || rezervacijaDTO.getIdKorisnika() != null || rezervacijaDTO.getDatumOd() == null || rezervacijaDTO.getIdSmestaj() == null || rezervacijaDTO.getRezervisaneSobeDTO().isEmpty()) {
+		if (rezervacijaDTO.getDatumDo() == null || rezervacijaDTO.getCena() < 0 || rezervacijaDTO.getIdKorisnika() != null || rezervacijaDTO.getDatumOd() == null || rezervacijaDTO.getIdSmestaj() == null || rezervacijaDTO.getRezervisaneSobeDTO().isEmpty()) {
 
 			return false;
 		}
@@ -107,6 +148,19 @@ public class RezervacijaService {
 			cena += rsDTO.getCena();
 		}
 		rezervacijaDTO.setCena(cena);
+		getAllSync();
+		List<RezervisaneSobeDTO> rezSobe = rezervacijaDTO.getRezervisaneSobeDTO();
+		for (RezervisaneSobeDTO rezervisaneSobeDTO1 : rezSobe) {
+			List<RezervisaneSobe> rs = rezervisaneSobeRepository.findBySoba(sobaRepository.findById(rezervisaneSobeDTO1.getIdSoba()).orElse(null)).stream().collect(Collectors.toList());
+			for (RezervisaneSobe rezervisaneSobeDTO2 : rs) {
+				Rezervacija rezervacija = rezervisaneSobeDTO2.getRezervacija();
+				if (rezervacija.getDatumDo().before(rezervacijaDTO.getDatumOd()) || rezervacijaDTO.getDatumDo().before(rezervacija.getDatumOd())) {
+					continue;
+				} else {
+					return false;
+				}
+			}
+		}
 		try {
 			Rezervacija rezervacija = rezervacijaRepository.save(convertToEntity(rezervacijaDTO));
 			//logger.info(USER, "Dodata rezervacija " + rezervacija.getId());
@@ -122,7 +176,7 @@ public class RezervacijaService {
 				
 			}
 			rezervacijaDTO.setId(rezervacija.getId());
-			createSync(rezervacijaDTO);
+			//createSync(rezervacijaDTO);
 			return true;
 		} catch (Exception e){
 			//logger.error(USER, "Neuspesno dodavanje rezervacije: " + e.getMessage());

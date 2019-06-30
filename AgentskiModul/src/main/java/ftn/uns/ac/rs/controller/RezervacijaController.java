@@ -41,8 +41,8 @@ public class RezervacijaController {
 		return new ResponseEntity<ShowRezervacijaDTO>(rezervacijaService.getById(id), HttpStatus.OK);
 	}
 	
-	@PostMapping
-	public ResponseEntity<String> add(@RequestBody RezervacijaDTO rezervacijaDTO){
+	@PostMapping(value = "/{token}")
+	public ResponseEntity<String> add(@PathVariable String token, @RequestBody RezervacijaDTO rezervacijaDTO){
 		if(rezervacijaService.add(rezervacijaDTO)) {
 			return new ResponseEntity<String>("Rezervacija je uspesno dodata!", HttpStatus.OK);
 		}else {
