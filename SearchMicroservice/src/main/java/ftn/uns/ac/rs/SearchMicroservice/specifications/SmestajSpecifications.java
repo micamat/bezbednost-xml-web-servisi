@@ -14,20 +14,22 @@ import ftn.uns.ac.rs.SearchMicroservice.model.Smestaj;
 
 public class SmestajSpecifications {
 	
-	public static Specification<Smestaj> findByLokacijaTipKategorija(String lokacija, String tip, String kategorija, Integer kapacitet){
+	public static Specification<Smestaj> findByLokacijaTipKategorija(String drzava, String grad, String ulica, String tip, String kategorija, String kapacitet){
 		return new Specification<Smestaj>() {
 			private static final long serialVersionUID = 1L;
 			@Override
 			public Predicate toPredicate(Root<Smestaj> root, CriteriaQuery<?> query, CriteriaBuilder criteriaBuilder) {
 				final Collection<Predicate> predicates = new ArrayList<Predicate>();
-				if(lokacija != null) {
-					final Predicate drzavaPredicate = criteriaBuilder.like(root.join("lokacija").get("drzava"), "%"+lokacija+"%");
+				if(drzava != null) {
+					final Predicate drzavaPredicate = criteriaBuilder.like(root.join("lokacija").get("drzava"), "%"+drzava+"%");
 					predicates.add(drzavaPredicate);
-					
-					final Predicate gradPredicate = criteriaBuilder.like(root.join("lokacija").get("grad"), "%"+lokacija+"%");
+				}
+				if(grad != null) {
+					final Predicate gradPredicate = criteriaBuilder.like(root.join("lokacija").get("grad"), "%"+grad+"%");
 					predicates.add(gradPredicate);
-					
-					final Predicate ulicaPredicate = criteriaBuilder.like(root.join("lokacija").get("ulica"), "%"+lokacija+"%");
+				}
+				if(ulica != null) {
+					final Predicate ulicaPredicate = criteriaBuilder.like(root.join("lokacija").get("ulica"), "%"+ulica+"%");
 					predicates.add(ulicaPredicate);
 				}
 				if(tip != null) {
@@ -39,7 +41,7 @@ public class SmestajSpecifications {
 					predicates.add(katPredicate);
 				}
 				if(kapacitet != null) {
-					final Predicate kapPredicate = criteriaBuilder.greaterThanOrEqualTo(root.get("kapacitet"), kapacitet);
+					final Predicate kapPredicate = criteriaBuilder.greaterThanOrEqualTo(root.get("kapacitet"), Integer.parseInt(kapacitet));
 					predicates.add(kapPredicate);
 				}
 				return criteriaBuilder.and(predicates.toArray(new Predicate[predicates.size()]));
