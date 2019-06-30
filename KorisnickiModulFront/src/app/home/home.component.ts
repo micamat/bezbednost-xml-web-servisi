@@ -26,15 +26,15 @@ export class HomeComponent implements OnInit {
 
   ngOnInit() {
     this.searchForm = this.formBuilder.group({
-      drzava:['',Validators.compose([Validators.required, Validators.pattern('[a-zA-Z 0-9!]+')])],
-      grad:['',Validators.compose([Validators.required, Validators.pattern('[a-zA-Z 0-9!]+')])],
-      ulica:['',Validators.compose([Validators.required, Validators.pattern('[a-zA-Z 0-9!]+')])],
-      datumOd:['',Validators.compose([Validators.required, null])],
-      datumDo:['',Validators.compose([Validators.required, null])],
-      brojOsoba:['',Validators.compose([Validators.required, Validators.pattern('[0-9!]+')])],
-      tip:['',Validators.compose([Validators.required, Validators.pattern('[a-zA-Z !]+')])],
-      kategorija:['',Validators.compose([Validators.required, Validators.pattern('[a-zA-Z 0-9!]+')])],
-      usluge:['',Validators.compose([Validators.required, Validators.pattern('[a-zA-Z 0-9!]+')])]
+      drzava:['',Validators.compose([Validators.pattern('[a-zA-Z 0-9!]+')])],
+      grad:['',Validators.compose([Validators.pattern('[a-zA-Z 0-9!]+')])],
+      ulica:['',Validators.compose([Validators.pattern('[a-zA-Z 0-9!]+')])],
+      datumOd:['',Validators.compose([null])],
+      datumDo:['',Validators.compose([null])],
+      brojOsoba:['',Validators.compose([Validators.pattern('[0-9!]+')])],
+      tip:['',Validators.compose([Validators.pattern('[a-zA-Z !]+')])],
+      kategorija:['',Validators.compose([Validators.pattern('[a-zA-Z 0-9!]+')])],
+      usluge:['',Validators.compose([Validators.pattern('[a-zA-Z 0-9!]+')])]
     });
   }
 
@@ -44,9 +44,14 @@ export class HomeComponent implements OnInit {
     this.submitted = true;
     this.temp = this.searchForm.getRawValue();
     console.log(this.temp);
+    if(this.temp.usluge == ""){
+      console.log("sildbglhdfjbgjsd;bnfojl")
+      this.temp.usluge = null;
+    }
     this._searchService.search(this.temp).subscribe(
       data => {
         localStorage.setItem('search', data);
+        console.log(data);
         this.router.navigateByUrl("hotel");
     });
     

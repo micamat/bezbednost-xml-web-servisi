@@ -1,3 +1,20 @@
-<p>
-  hotels works!
-</p>
+<div *ngIf="smestaji" class="album py-5 bg-light" style="margin-left: 175px;">
+  <div class="container">
+    <div class="row">
+      <div *ngFor="let item of smestaji" class="col-md-4">
+        <div class="card mb-4 shadow-sm">
+          <img src="assets/img/Hotel.jpg" height="175" class="card-img-top">
+          <div class="card-body">
+              <h1>{{item.naziv}}</h1>
+              <h3>Kapacitet : {{item.kapacitet}}</h3>
+              <p>{{item.opis}}</p>
+              <div class="d-flex justify-content-between align-items-center">
+                  <div class="btn-group">
+                      <a [routerLink]="['/reservation', item.id]" class="btn btn-sm btn-outline-secondary" >See availability</a>
+                  </div>
+              </div>
+          </div>
+        </div>
+      </div>
+  </div>
+</div>

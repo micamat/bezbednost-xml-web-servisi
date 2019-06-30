@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -29,7 +30,7 @@ public class SmestajController {
 		return new ResponseEntity<List<Smestaj>>(repo.findAll(), HttpStatus.OK);
 	}
 	
-	@GetMapping
+	@PostMapping
 	public ResponseEntity<List<Smestaj>> search(@RequestBody SearchDTO dto){
 		return new ResponseEntity<List<Smestaj>>(smestajService.findSmestaj(dto), HttpStatus.OK);
 	}
