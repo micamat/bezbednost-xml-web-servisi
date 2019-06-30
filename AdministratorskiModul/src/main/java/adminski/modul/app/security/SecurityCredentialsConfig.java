@@ -28,10 +28,11 @@ public class SecurityCredentialsConfig extends WebSecurityConfigurerAdapter {
 				.authenticationEntryPoint((req, rsp, e) -> rsp.sendError(HttpServletResponse.SC_UNAUTHORIZED)).and()
 				.addFilter(new JwtUsernameAndPasswordAuthenticationFilter(authenticationManager(), jwtConfig))
 				.authorizeRequests()
-				.antMatchers("/prijava").permitAll()
+				.antMatchers("/**").permitAll()
+				/*.antMatchers("/prijava").permitAll()
 				.antMatchers("/signin").permitAll()
 				.antMatchers("/odjava").permitAll()
-				.antMatchers("/registerKorisnik").permitAll()
+				.antMatchers("/registerKorisnik").permitAll()*/
 				.anyRequest().authenticated();
 	}
 

@@ -1,0 +1,30 @@
+<table class="table ml-2 mt-2">
+  <thead style="background-color: #0074E1;">
+    <tr>
+    </tr>
+    <tr style="color: white">
+      <th scope="col">#</th>
+      <th scope="col">Naslov</th>
+      <th scope="col">Teskt</th>
+      <th scope="col">Status</th>
+      <th scope="col">Datum</th>
+      <th scope="col">Korisnik</th>
+      <th scope="col"></th>
+    </tr>
+  </thead>
+  <tbody style="color: #0074E1">
+    <tr *ngFor="let item of comments; let i = index">
+      <th scope="row">{{i+1}}</th>
+      <td>{{item.naslov}}</td>
+      <td>{{item.tekst}}</td>
+      <td>{{item.statusKomentara}}</td>
+      <td>{{item.datumKreiranja}}</td>
+      <td>{{item.korisnik.ime}}</td>
+      <td>
+          <a class="active" (click)="hideComment(item.id)" [routerLink]="'/comment'">
+            <img src="/assets/img/x-mark-4-32.png">
+          </a>
+        </td>
+    </tr>
+  </tbody>
+</table>

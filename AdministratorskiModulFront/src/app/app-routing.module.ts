@@ -13,6 +13,8 @@ import { AccommodationCategoryModifyComponent } from './accommodation-category-m
 import { AccessoryComponent } from './accessory/accessory.component';
 import { AccessoryAddComponent } from './accessory-add/accessory-add.component';
 import { AccessoryModifyComponent } from './accessory-modify/accessory-modify.component';
+import { CommentComponent } from './comment/comment.component';
+import { UserComponent } from './user/user.component';
 
 const routes: Routes = [
   {path: '', component: HomeComponent},
@@ -27,7 +29,9 @@ const routes: Routes = [
   {path: 'accommodation-category-modify/:id', component: AccommodationCategoryModifyComponent},
   {path: 'accessory', component: AccessoryComponent},
   {path: 'accessory-add', component: AccessoryAddComponent},
-  {path: 'accessory-modify/:id', component: AccessoryModifyComponent}
+  {path: 'accessory-modify/:id', component: AccessoryModifyComponent},
+  {path: 'comment', component: CommentComponent},
+  {path: 'user', component: UserComponent}
 ];
 
 @NgModule({

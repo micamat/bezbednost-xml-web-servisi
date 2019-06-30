@@ -1,6 +1,6 @@
 package adminski.modul.app.controller;
 
-import javax.servlet.http.HttpSession;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -25,6 +25,11 @@ public class KorisnikController {
 	
 	@Autowired
 	KorisnikService korisnikService;
+	
+	@GetMapping
+	public List<Korisnik> getAll(){
+		return korisnikService.getAll();
+	}
 	
 	@PreAuthorize("@authService.hasProtectedAccess()")
 	@GetMapping("block/{id}")

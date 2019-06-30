@@ -162,6 +162,8 @@ public class JwtUsernameAndPasswordAuthenticationFilter extends UsernamePassword
 			
 			loggedUser.setToken(token);
 			loggedUser.setUsername(username);
+			if(!korisnikService.getByUsername(username).isAktivan())
+				return null;
 			return loggedUser;
 		}catch (Exception e) {
 			System.out.println("neuspesna autentifikacija");

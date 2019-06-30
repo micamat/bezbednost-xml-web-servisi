@@ -22,6 +22,13 @@ public class KomentarService {
 		return komentarRepository.findById(id).orElse(null);
 	}
 	
+	public void hideComment(Long id) {
+		System.out.println("ID: " + id);
+		Komentar kom = komentarRepository.findById(id).get();
+		kom.setStatusKomentara("neodobren");
+		komentarRepository.save(kom);
+	}
+	
 	public boolean removeComment(Long id) {
 		Komentar komentar = getCommentById(id);
 		
