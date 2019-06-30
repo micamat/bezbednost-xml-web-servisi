@@ -1,1 +1,1 @@
-export const SERVER_URL = 'http://localhost:8765/auth';
+export const SERVER_URL = 'http://localhost:8765';
