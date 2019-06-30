@@ -176,7 +176,7 @@ public class RezervacijaService {
 				
 			}
 			rezervacijaDTO.setId(rezervacija.getId());
-			createSync(rezervacijaDTO);
+			//createSync(rezervacijaDTO);
 			return true;
 		} catch (Exception e){
 			//logger.error(USER, "Neuspesno dodavanje rezervacije: " + e.getMessage());
