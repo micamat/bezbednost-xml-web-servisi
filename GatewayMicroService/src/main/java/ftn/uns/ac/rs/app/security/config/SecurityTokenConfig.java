@@ -36,6 +36,7 @@ public class SecurityTokenConfig extends WebSecurityConfigurerAdapter {
 			.antMatchers("/auth/registerAgent").permitAll()
 			.antMatchers("/auth/registerKorisnik").permitAll()
 			.antMatchers("/odjava").permitAll()
+			.antMatchers("/search/smestaj").permitAll()
 			.anyRequest().authenticated();
 	}
 	

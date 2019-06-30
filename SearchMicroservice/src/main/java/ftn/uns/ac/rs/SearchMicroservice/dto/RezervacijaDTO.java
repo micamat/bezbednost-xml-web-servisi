@@ -6,7 +6,7 @@
 //
 
 
-package ftn.uns.ac.rs.SearchMicroservice.model;
+package ftn.uns.ac.rs.SearchMicroservice.dto;
 
 import java.sql.Date;
 import java.util.ArrayList;
@@ -18,6 +18,8 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlSchemaType;
 import javax.xml.bind.annotation.XmlType;
+
+import ftn.uns.ac.rs.SearchMicroservice.model.RezervisaneSobeDTO;
 
 
 /**

@@ -66,7 +66,7 @@ public class Soba {
 
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    protected long id;
+    protected int id;
     @XmlElement(required = true)
     protected String naziv;
     @XmlElement(required = true)
@@ -93,7 +93,7 @@ public class Soba {
      * Gets the value of the id property.
      * 
      */
-    public long getId() {
+    public int getId() {
         return id;
     }
 
@@ -101,7 +101,7 @@ public class Soba {
      * Sets the value of the id property.
      * 
      */
-    public void setId(long value) {
+    public void setId(int value) {
         this.id = value;
     }
 
@@ -231,8 +231,7 @@ public class Soba {
 
 	@Override
 	public String toString() {
-		return "Soba [id=" + id + ", naziv=" + naziv + ", opis=" + opis + ", slika=" + slika + ", tipSobe=" + tipSobe
-				+ ", smestaj=" + smestaj + ", sobneUsluge=" + sobneUsluge + "]";
+		return "Soba [id=" + id + "]";
 	}
 
     /**
