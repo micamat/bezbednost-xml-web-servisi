@@ -70,13 +70,13 @@ public class SearchService {
 		System.out.println(smestaji);
 		
 		boolean datumi = false;
+	
 		boolean usluge = false;
 		List<Smestaj> sviOsimUsluga = new ArrayList<Smestaj>();
 		List<Smestaj> saUslugama = new ArrayList<Smestaj>();
 		
 		if (dto.getDatumDo() != null && dto.getDatumOd() != null) {
 			datumi = true;
-			System.out.println("datumi: " + datumi);
 			List<Rezervacija> rezervacije = new ArrayList<Rezervacija>();
 			List<Smestaj> smestajiSaSlobodnimSobama = new ArrayList<Smestaj>();
 			
