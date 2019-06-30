@@ -44,12 +44,16 @@ export class HomeComponent implements OnInit {
     this.submitted = true;
     this.temp = this.searchForm.getRawValue();
     console.log(this.temp);
-    this.router.navigateByUrl("hotel");
-    /*this._searchService.search(this.temp).subscribe(
+    if(this.temp.usluge == ""){
+      console.log("sildbglhdfjbgjsd;bnfojl")
+      this.temp.usluge = null;
+    }
+    this._searchService.search(this.temp).subscribe(
       data => {
-        //localStorage.setItem('search', data);
+        localStorage.setItem('search', data);
+        console.log(data);
         this.router.navigateByUrl("hotel");
-    });*/
+    });
     
   }
 

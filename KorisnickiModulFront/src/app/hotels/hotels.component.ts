@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder } from '@angular/forms';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-hotels',
@@ -7,9 +9,22 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HotelsComponent implements OnInit {
 
-  constructor() { }
+  smestaji:any;
+  accommodationId : any;
+
+  constructor(
+    private formBuilder:FormBuilder,
+    private router:Router,
+    private activatedRoute: ActivatedRoute) { }
 
   ngOnInit() {
+    this.activatedRoute.paramMap.subscribe(
+      params => {
+          this.accommodationId = params.get('id');
+          
+        });
+    this.smestaji = JSON.parse(localStorage.getItem('search'));
+    console.log("sdkljbgsdfjkb " + this.smestaji);
   }
 
 }

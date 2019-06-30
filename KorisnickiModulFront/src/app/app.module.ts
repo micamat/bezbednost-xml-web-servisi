@@ -15,6 +15,7 @@ import { Shared } from './services/Token';
 import { ProfilComponent } from './profil/profil.component';
 import { PasswordChangeComponent } from './password-change/password-change.component';
 import { HotelsComponent } from './hotels/hotels.component';
+import { ReservationComponent } from './reservation/reservation.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import { HotelsComponent } from './hotels/hotels.component';
     HomeComponent,
     ProfilComponent,
     PasswordChangeComponent,
-    HotelsComponent
+    HotelsComponent,
+    ReservationComponent
   ],
   imports: [
     BrowserModule,

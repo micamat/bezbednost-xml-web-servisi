@@ -68,15 +68,15 @@ public class SearchService {
 		List<Smestaj> smestaji = smestajRepo.findAll(SmestajSpecifications.findByLokacijaTipKategorija(dto.getDrzava(),
 				dto.getGrad(), dto.getUlica(), dto.getTip(), dto.getKategorija(), dto.getBrojOsoba()));
 		System.out.println(smestaji);
-
-		boolean datumi = false;
+		
+		
+		/*boolean datumi = false;
 		boolean usluge = false;
 		List<Smestaj> sviOsimUsluga = new ArrayList<Smestaj>();
-		List<Smestaj> saUslugama = new ArrayList<Smestaj>();
+		List<Smestaj> saUslugama = new ArrayList<Smestaj>();*/
 		
-		if (dto.getDatumDo() != null && dto.getDatumOd() != null) {
+		/*if (dto.getDatumDo() != null && dto.getDatumOd() != null) {
 			datumi = true;
-			System.out.println("datumi: " + datumi);
 			List<Rezervacija> rezervacije = new ArrayList<Rezervacija>();
 			List<Smestaj> smestajiSaSlobodnimSobama = new ArrayList<Smestaj>();
 			
@@ -93,7 +93,7 @@ public class SearchService {
 						}
 					}
 				}
-			}*/
+			}
 			List<Soba> zauzeteSobe = new ArrayList<Soba>();
 			for(Rezervacija r : rezervacije) {
 				for(RezervisaneSobe s : r.getRezervisaneSobe()) {
@@ -110,9 +110,9 @@ public class SearchService {
 			sviOsimUsluga = overlap(smestaji, smestajiSaSlobodnimSobama);
 			
 			System.out.println(sviOsimUsluga);
-		}
+		}*/
 		
-		if(dto.getUsluge() != null) {
+		/*if(dto.getUsluge() != null) {
 			usluge = true;
 			System.out.println("usluge: " + usluge);
 			List<SobneUsluge> sobneUsluge = new ArrayList<SobneUsluge>();
@@ -131,9 +131,9 @@ public class SearchService {
 				}
 			}
 			System.out.println("saUslugama: " + saUslugama);
-		}
+		}*/
 		
-		if(datumi == true && usluge == false)
+		/*if(datumi == true && usluge == false)
 			return sviOsimUsluga;
 		else if(datumi == true && usluge == true) {
 			System.out.println("i datumi i usluge: " + overlap(sviOsimUsluga, saUslugama));
@@ -143,6 +143,7 @@ public class SearchService {
 			System.out.println("samo usluge: " + overlap(smestaji, saUslugama));
 			return overlap(smestaji, saUslugama);
 		}
-		else return smestaji;
+		else*/ 
+			return smestaji;
 	}
 }
