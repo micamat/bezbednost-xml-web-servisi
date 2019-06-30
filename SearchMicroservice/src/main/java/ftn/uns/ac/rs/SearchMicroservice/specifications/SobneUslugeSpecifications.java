@@ -23,7 +23,7 @@ public class SobneUslugeSpecifications {
 					final Predicate sobaPredicate = criteriaBuilder.equal(root.join("soba").get("id"), idSoba);
 					predicates.add(sobaPredicate);
 				}
-				if(usluga != null) {
+				if(usluga != "") {
 					final Predicate uslugaPredicate = criteriaBuilder.equal(root.join("usluga").get("naziv"), usluga);
 					predicates.add(uslugaPredicate);
 				}

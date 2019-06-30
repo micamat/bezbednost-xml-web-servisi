@@ -20,27 +20,27 @@ public class SmestajSpecifications {
 			@Override
 			public Predicate toPredicate(Root<Smestaj> root, CriteriaQuery<?> query, CriteriaBuilder criteriaBuilder) {
 				final Collection<Predicate> predicates = new ArrayList<Predicate>();
-				if(drzava != null) {
+				if(drzava != "") {
 					final Predicate drzavaPredicate = criteriaBuilder.like(root.join("lokacija").get("drzava"), "%"+drzava+"%");
 					predicates.add(drzavaPredicate);
 				}
-				if(grad != null) {
+				if(grad != "") {
 					final Predicate gradPredicate = criteriaBuilder.like(root.join("lokacija").get("grad"), "%"+grad+"%");
 					predicates.add(gradPredicate);
 				}
-				if(ulica != null) {
+				if(ulica != "") {
 					final Predicate ulicaPredicate = criteriaBuilder.like(root.join("lokacija").get("ulica"), "%"+ulica+"%");
 					predicates.add(ulicaPredicate);
 				}
-				if(tip != null) {
+				if(tip != "") {
 					final Predicate tipPredicate = criteriaBuilder.like(root.join("tipSmestaja").get("naziv"), "%"+tip+"%");
 					predicates.add(tipPredicate);
 				}
-				if(kategorija != null) {
+				if(kategorija != "") {
 					final Predicate katPredicate = criteriaBuilder.like(root.join("kategorijaSmestaja").get("naziv"), "%"+kategorija+"%");
 					predicates.add(katPredicate);
 				}
-				if(kapacitet != null) {
+				if(kapacitet != "") {
 					final Predicate kapPredicate = criteriaBuilder.greaterThanOrEqualTo(root.get("kapacitet"), Integer.parseInt(kapacitet));
 					predicates.add(kapPredicate);
 				}

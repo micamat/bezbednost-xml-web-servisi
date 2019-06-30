@@ -135,10 +135,14 @@ public class SearchService {
 		
 		if(datumi == true && usluge == false)
 			return sviOsimUsluga;
-		else if(datumi == true && usluge == true)
+		else if(datumi == true && usluge == true) {
+			System.out.println("i datumi i usluge: " + overlap(sviOsimUsluga, saUslugama));
 			return overlap(sviOsimUsluga, saUslugama);
-		else if(datumi == false && usluge == true)
+		}
+		else if(datumi == false && usluge == true) {
+			System.out.println("samo usluge: " + overlap(smestaji, saUslugama));
 			return overlap(smestaji, saUslugama);
+		}
 		else return smestaji;
 	}
 }
