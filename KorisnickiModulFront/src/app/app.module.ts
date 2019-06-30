@@ -14,6 +14,7 @@ import { DatePickerModule } from '@syncfusion/ej2-angular-calendars';
 import { Shared } from './services/Token';
 import { ProfilComponent } from './profil/profil.component';
 import { PasswordChangeComponent } from './password-change/password-change.component';
+import { HotelsComponent } from './hotels/hotels.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { PasswordChangeComponent } from './password-change/password-change.compo
     LoginComponent,
     HomeComponent,
     ProfilComponent,
-    PasswordChangeComponent
+    PasswordChangeComponent,
+    HotelsComponent
   ],
   imports: [
     BrowserModule,

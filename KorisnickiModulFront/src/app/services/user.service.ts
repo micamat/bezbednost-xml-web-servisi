@@ -13,14 +13,14 @@ export class UserService {
 
 
   login(user:any){
-    return this.http.post(SERVER_URL + '/prijava',user,{responseType: 'text'});
+    return this.http.post(SERVER_URL + '/auth/prijava',user,{responseType: 'text'});
   }
 
   registration(user:any){
-    return this.http.post(SERVER_URL + '/registerKorisnik',user,{responseType: 'text'});
+    return this.http.post(SERVER_URL + '/auth/registerKorisnik',user,{responseType: 'text'});
   }
 
   changePass(user:any){
-    return this.http.put(SERVER_URL + '/changeKorisnik/'+ this.tandu.token,user,{responseType: 'text'});
+    return this.http.put(SERVER_URL + '/auth/changeKorisnik/'+ this.tandu.token,user,{responseType: 'text'});
   }
 }
