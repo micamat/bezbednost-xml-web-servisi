@@ -1,2 +1,2 @@
-# bezbednost-xml-web-servisi
+# XML web services with security
 BSEP + XML Project
